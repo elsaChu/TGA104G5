@@ -1,41 +1,24 @@
 package com.product.model;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "ORDER_DETAIL")
+
 public class OrderDetailVO implements java.io.Serializable {
-	@Id
-	@Column(name = "itemNo")
+	
 	private Integer itemNo;				// not null auto_increment
-	@Column(name = "prodOrderNo")
 	private Integer prodOrderNo;		// not null
-	@Column(name = "prodNo")
 	private Integer prodNo;				// not null
-	@Column(name = "prodQty")
 	private Integer prodQty;			// not null
-	@Column(name = "subtotal")
 	private Integer subtotal;			// not null
-	@Column(name = "commentRanking")
 	private Float commentRanking;		// not null default 0
-	@Column(name = "commentContent")
 	private String commentContent;
-	@Column(name = "commentDate")
-	private LocalDateTime commentDate;	
-	@Column(name = "returnReason")
+	private Timestamp commentDate;	
 	private String returnReason;
-	@Column(name = "refundStatus")
 	private String refundStatus;		
-	@Column(name = "refundSDate")
-	private LocalDate refundSDate;
-	@Column(name = "refundEDate")
-	private LocalDate refundEDate;
+	private Date refundSDate;
+	private Date refundEDate;
 	
 	@Override
 	public String toString() {
@@ -86,10 +69,10 @@ public class OrderDetailVO implements java.io.Serializable {
 	public void setCommentContent(String commentContent) {
 		this.commentContent = commentContent;
 	}
-	public LocalDateTime getCommentDate() {
+	public Timestamp getCommentDate() {
 		return commentDate;
 	}
-	public void setCommentDate(LocalDateTime commentDate) {
+	public void setCommentDate(Timestamp commentDate) {
 		this.commentDate = commentDate;
 	}
 	public String getReturnReason() {
@@ -104,16 +87,16 @@ public class OrderDetailVO implements java.io.Serializable {
 	public void setRefundStatus(String refundStatus) {
 		this.refundStatus = refundStatus;
 	}
-	public LocalDate getRefundSDate() {
+	public Date getRefundSDate() {
 		return refundSDate;
 	}
-	public void setRefundSDate(LocalDate refundSDate) {
+	public void setRefundSDate(Date refundSDate) {
 		this.refundSDate = refundSDate;
 	}
-	public LocalDate getRefundEDate() {
+	public Date getRefundEDate() {
 		return refundEDate;
 	}
-	public void setRefundEDate(LocalDate refundEDate) {
+	public void setRefundEDate(Date refundEDate) {
 		this.refundEDate = refundEDate;
 	}
 	
