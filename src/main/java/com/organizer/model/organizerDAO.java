@@ -13,15 +13,20 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class organizerDAO implements organizerDAOinterface{
+public class OrganizerDAO implements OrganizerDAOinterface{
 	
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/TICK_IT_TEST?serverTimezone=Asia/Taipei";
 	String userid = "root";
-	String passwd = "P@ssw0rd";
+	String passwd = "password";
+	
+//
+//	public OrganizerDAO() {
+//		super();
+//	}
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO organizer (organizerName,organizerNumber) VALUES (?, ?)";
+		"INSERT INTO organizer (OAccount, Opassword, organizerName, windowName, windowphone, windowEmail) VALUES (?, ?, ? , ? , ? , ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT organizerNumber,organizerName FROM organizer order by organizerNumber";
 	private static final String GET_ONE_STMT = 
@@ -32,7 +37,7 @@ public class organizerDAO implements organizerDAOinterface{
 		"UPDATE organizer set organizerName=? where organizerNumber = ?";
 
 	@Override
-	public void insert(organizerVO organizerVO) {
+	public void insert(OrganizerVO organizerVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -41,10 +46,14 @@ public class organizerDAO implements organizerDAOinterface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setString(1, organizerVO.getOrganizerName());
-			pstmt.setInt(2, organizerVO.getOrganizerNumber());
+			pstmt.setString(1, organizerVO.getOAccount());
+			pstmt.setString(2, organizerVO.getOpassword());
+			pstmt.setString(3, organizerVO.getOrganizerName());
+			pstmt.setString(4, organizerVO.getWindowName());
+			pstmt.setString(5, organizerVO.getWindowPhone());
+			pstmt.setString(6, organizerVO.getWindowEmail());
 			pstmt.executeUpdate();
-			System.out.println("insert ok?");
+			System.out.println("insert done?");
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
 					+ e.getMessage());
@@ -73,7 +82,7 @@ public class organizerDAO implements organizerDAOinterface{
 	
 
 	@Override
-	public void update(organizerVO organizerVO) {
+	public void update(OrganizerVO organizerVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -162,9 +171,9 @@ public class organizerDAO implements organizerDAOinterface{
 	}
 
 	@Override
-	public organizerVO findByPrimaryKey(Integer organizerNumber) {
+	public OrganizerVO findByPrimaryKey(Integer organizerNumber) {
 
-		organizerVO organizerVO = null;
+		OrganizerVO organizerVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -181,7 +190,7 @@ public class organizerDAO implements organizerDAOinterface{
 
 			while (rs.next()) {
 				// organizerVO 也稱為 Domain objects
-				organizerVO = new organizerVO();
+				organizerVO = new OrganizerVO();
 				organizerVO.setOrganizerNumber(rs.getInt("organizerNumber"));
 				organizerVO.setOrganizerName(rs.getString("organizerName"));
 			
@@ -223,9 +232,9 @@ public class organizerDAO implements organizerDAOinterface{
 	}
 
 	@Override
-	public List<organizerVO> getAll() {
-		List<organizerVO> list = new ArrayList<organizerVO>();
-		organizerVO organizerVO = null;
+	public List<OrganizerVO> selectAll() {
+		List<OrganizerVO> list = new ArrayList<OrganizerVO>();
+		OrganizerVO organizerVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -240,7 +249,7 @@ public class organizerDAO implements organizerDAOinterface{
 
 			while (rs.next()) {
 				// organizerVO 也稱為 Domain objects
-				organizerVO = new organizerVO();
+				organizerVO = new OrganizerVO();
 				organizerVO.setOrganizerNumber(rs.getInt("organizerNumber"));
 				organizerVO.setOrganizerName(rs.getString("organizerName"));
 				list.add(organizerVO); // Store the row in the list
@@ -281,15 +290,15 @@ public class organizerDAO implements organizerDAOinterface{
 		return list;
 	}
 
-	public static void main(String[] args) {
-
-		organizerDAO dao = new organizerDAO();
-
-		// 新增
-		organizerVO organizerVO1 = new organizerVO();
-		organizerVO1.setOrganizerNumber(1222);
-		organizerVO1.setOrganizerName("吳永");
-		dao.insert(organizerVO1);
+//	public static void main(String[] args) {
+//
+//		OrganizerDAO dao = new OrganizerDAO();
+//
+//		// 新增
+//		OrganizerVO organizerVO1 = new OrganizerVO();
+//		organizerVO1.setOrganizerNumber(1222);
+//		organizerVO1.setOrganizerName("吳永");
+//		dao.insert(organizerVO1);
 //
 //		// 修改
 //		organizerVO organizerVO2 = new organizerVO();
@@ -307,12 +316,12 @@ public class organizerDAO implements organizerDAOinterface{
 //		System.out.println("---------------------");
 //
 //		// 查詢
-//		List<organizerVO> list = dao.getAll();
+//		List<organizerVO> list = dao.selectAll();
 //		for (organizerVO aEmp : list) {
 //			System.out.print(aEmp.getOrganizerNumber() + ",");
 //			System.out.print(aEmp.getOrganizerName() + ",");
 //			System.out.println();
 //		}
-	}
+//	}
 
 }

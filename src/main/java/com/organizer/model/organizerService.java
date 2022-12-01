@@ -1,34 +1,29 @@
 package com.organizer.model;
 
 import java.util.List;
+import java.util.Vector;
 
-public class organizerService {
-		public static void main(String args[]) {
-			
-			organizerService service1 = new organizerService();
-			service1.addOrganizer("organizer1", 3567);
-		}
-		private organizerDAOinterface dao;
+public class OrganizerService {
+//		public static void main(String args[]) {
+////			
+////			OrganizerService service1 = new OrganizerService();
+////			service1.addOrganizer("organizer1", 3567);
+//		}
+		private OrganizerDAOinterface dao;
 
-		public organizerService() {
-			dao = new organizerDAO();
-		}
-
-		public organizerVO addOrganizer(String organizerName, Integer organizerNumber) {
-
-			organizerVO organizerVO = new organizerVO();
-			organizerVO.setOrganizerNumber(organizerNumber);
-			organizerVO.setOrganizerName(organizerName);
-			dao.insert(organizerVO);
-
-			return organizerVO;
+		public OrganizerService() {
+			 dao = new OrganizerDAO();
 		}
 
-		public organizerVO updateEmp(Integer organizerNumber, String ename, String job,
+		public OrganizerVO addOrganizer(OrganizerVO bean) {
+			dao.insert(bean);
+			return bean;
+		}
+
+		public OrganizerVO updateOrganizer(Integer organizerNumber, String ename, String job,
 				java.sql.Date hiredate, Double sal, Double comm, Integer deptno) {
 
-			organizerVO organizerVO = new organizerVO();
-
+			OrganizerVO organizerVO = new OrganizerVO();
 //			organizerVO.setorganizerNumber(organizerNumber);
 //			organizerVO.setEname(ename);
 //			organizerVO.setJob(job);
@@ -45,12 +40,12 @@ public class organizerService {
 			dao.delete(organizerNumber);
 		}
 
-		public organizerVO getOneEmp(Integer organizerNumber) {
+		public OrganizerVO getOneEmp(Integer organizerNumber) {
 			return dao.findByPrimaryKey(organizerNumber);
 		}
 
-		public List<organizerVO> getAll() {
-			return dao.getAll();
+		public List<OrganizerVO> selectAll() {
+			return dao.selectAll();
 		}
 	
 

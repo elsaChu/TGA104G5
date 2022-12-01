@@ -2,13 +2,13 @@ package com.organizer.model;
 
 import java.util.List;
 
-public interface organizerDAOinterface {
+public interface OrganizerDAOinterface {
 	
-    public void insert(organizerVO organizerVO);
-    public void update(organizerVO organizerVO);
+    public void insert(OrganizerVO organizerVO);
+    public void update(OrganizerVO organizerVO);
     public void delete(Integer empno);
-    public organizerVO findByPrimaryKey(Integer organizerNumber);
-    public List<organizerVO> getAll();
+    public OrganizerVO findByPrimaryKey(Integer organizerNumber);
+    public List<OrganizerVO> selectAll();
 //  public List<organizerVO> getAll(Map<String, String[]> map); 
 	
 }

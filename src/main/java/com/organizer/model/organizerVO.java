@@ -2,7 +2,7 @@ package com.organizer.model;
 
 import java.time.LocalDateTime;
 
-public class organizerVO implements java.io.Serializable{
+public class OrganizerVO {
 	private Integer organizerNumber;
 	private String OAccount;
 	private String Opassword;
@@ -24,10 +24,8 @@ public class organizerVO implements java.io.Serializable{
 	private String ORevokeContent;
 	private Boolean OAmount;
 	private Integer staffNumber;
-
 	
 	
-	@Override
 	public String toString() {
 		return "organizerVO [organizerNumber=" + organizerNumber + ", OAccount=" + OAccount + ", Opassword=" + Opassword
 				+ ", organizerName=" + organizerName + ", windowName=" + windowName + ", windowPhone=" + windowPhone
