@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>Web Application from Archetype for Servlet 3.1</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<resource-ref>
+		<res-ref-name>jdbc/TICKIT</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+		<!-- <res-sharing-scope>Shareable</res-sharing-scope> -->
+	</resource-ref>
+
+	<!-- servlet mapping -->
+	<servlet>
+		<servlet-name>addEventServlet</servlet-name>
+		<servlet-class>com.event.controller.addEventServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>addEventServlet</servlet-name>
+		<url-pattern>/addEventServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddProductServlet</servlet-name>
+		<servlet-class>com.product.controller.AddProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddProductServlet</servlet-name>
+		<url-pattern>/AddProductServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>InsertStaffServlet</servlet-name>
+		<!-- 會去找檔案在哪，所以路徑不能錯 -->
+		<servlet-class>com.staff.controller.InsertStaffServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InsertStaffServlet</servlet-name>
+		<!-- 網址列最後的名稱 -->
+		<url-pattern>/InsertStaffServlet</url-pattern>
+	</servlet-mapping>
+
+</web-app>
