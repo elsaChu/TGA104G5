@@ -19,7 +19,7 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			
+			System.out.println("in jdbc");
 				Class.forName(DRIVER);
 			 
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
