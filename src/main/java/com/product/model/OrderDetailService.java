@@ -25,7 +25,12 @@ public class OrderDetailService {
 		
 	}
 	
-	// 更新商品評論
+	// 會員中心 - 單筆訂單查詢
+		public List<OrderDetailVO> getByProdOrderNo(Integer prodOrderNo) {
+			return dao.getByProdOrderNo(prodOrderNo);
+		}
+	
+	// 會員中心 - 更新商品評論
 	public OrderDetailVO updateComment(Float commentRanking, String commentContent, Timestamp commentDate, String returnReason, String refundStatus, Date refundSDate, Date refundEDate, Integer itemNo) {
 		OrderDetailVO orderDetailVO = new OrderDetailVO();
 		
@@ -47,11 +52,11 @@ public class OrderDetailService {
 		
 	}
 	
-	// 申請退貨
+	// 會員中心 - 申請退貨
 	public OrderDetailVO updateReturn(Float commentRanking, String commentContent, Timestamp commentDate, String returnReason, String refundStatus, Date refundSDate, Date refundEDate, Integer itemNo) {
 		OrderDetailVO orderDetailVO = new OrderDetailVO();
 //		orderDetailVO.setItemNo(itemNo);
-		if(itemNo != null && returnReason.trim().isEmpty() == false) {
+		if(itemNo != null && returnReason.trim().isEmpty() != true) {
 			orderDetailVO.setReturnReason(returnReason);
 
 			
@@ -62,7 +67,7 @@ public class OrderDetailService {
 
 	}
 	
-	// 更新退款狀態
+	// 廠商訂單管理 - 更新退款狀態
 	public OrderDetailVO updateRefundStatus(Float commentRanking, String commentContent, Timestamp commentDate, String returnReason, String refundStatus, Date refundSDate, Date refundEDate, Integer itemNo) {
 		OrderDetailVO orderDetailVO = new OrderDetailVO();
 //		orderDetailVO.setItemNo(itemNo);
@@ -81,6 +86,7 @@ public class OrderDetailService {
 
 	}
 	
+	// 廠商訂單管理 - 更新退款完成時間
 	public OrderDetailVO updateRefundDate(Float commentRanking, String commentContent, Timestamp commentDate, String returnReason, String refundStatus, Date refundSDate, Date refundEDate, Integer itemNo) {
 		OrderDetailVO orderDetailVO = new OrderDetailVO();
 //		orderDetailVO.setItemNo(itemNo);
@@ -94,9 +100,13 @@ public class OrderDetailService {
 
 	}
 	
+	
+	
+	// 廠商
 	public List<OrderDetailVO> getAll() {
 		return dao.getAll();
 	}
+	
 	
 	public OrderDetailVO getOneOrderDetail(Integer itemNo) {
 		return dao.getPrimaryKey(itemNo);

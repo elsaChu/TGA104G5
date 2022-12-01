@@ -93,6 +93,48 @@ public class OrderDetailJdbcDAO implements OrderDetailDAO{
 		return result;
 	}
 
+	private static final String SELECT_BY_PRODODERNO = "select * from ORDER_DETAIL where prodOrderNo = ?";
+	@Override  // 以訂單編號查詢單筆訂單
+	public List<OrderDetailVO> getByProdOrderNo(Integer prodOrderNo) {
+		List<OrderDetailVO> result = new ArrayList<>();
+		try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		try (
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			PreparedStatement ps = connection.prepareStatement(SELECT_BY_PRODODERNO)) {
+			/*
+			 * 當Statement關閉，ResultSet也會自動關閉，可以不需要將ResultSet宣告置入try with
+			 * resources小括號內，參看ResultSet說明
+			 */
+			ps.setInt(1, prodOrderNo);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				OrderDetailVO orderDetailVO = new OrderDetailVO();
+				orderDetailVO.setItemNo(rs.getInt("itemNo"));
+				orderDetailVO.setProdOrderNo(rs.getInt("prodOrderNo"));
+				orderDetailVO.setProdNo(rs.getInt("prodNo"));
+				orderDetailVO.setProdQty(rs.getInt("prodQty"));
+				orderDetailVO.setSubtotal(rs.getInt("subtotal"));
+				orderDetailVO.setCommentRanking(rs.getFloat("commentRanking"));
+				orderDetailVO.setCommentContent(rs.getString("commentContent"));
+				orderDetailVO.setCommentDate(rs.getTimestamp("commentDate"));
+				orderDetailVO.setReturnReason(rs.getString("returnReason"));
+				orderDetailVO.setRefundStatus(rs.getString("refundStatus"));
+				orderDetailVO.setRefundSDate(rs.getDate("refundSDate"));
+				orderDetailVO.setRefundEDate(rs.getDate("refundEDate"));
+				
+				result.add(orderDetailVO);	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	
 	private static final String INSERT = 
 			  "insert into ORDER_DETAIL (prodOrderNo, prodNo, prodQty, subtotal) values (?, ?, ?, ?)";
 	@Override
@@ -169,7 +211,7 @@ public class OrderDetailJdbcDAO implements OrderDetailDAO{
 		}
 		return false;
 	}
-
+	
 	
 
 }
