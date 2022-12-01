@@ -4,19 +4,27 @@ public class StaffService {
 	private StaffDAO_interface dao;
 
 	public StaffService() {
-		;
+		dao = new StaffJDBCDAO();
 	}
 
-//	public staffVO addStaff(String staffName, String staffAccount, String staffPassword) {
+	public staffVO insertStaff(String staffName, String staffAccount, String staffPassword) {
 
-//		staffVO staffVO = new staffVO();
+		staffVO staffVO = new staffVO();
+		staffVO.setStaffName(staffName);
+		staffVO.setStaffAccount(staffAccount);
+		staffVO.setStaffPassword(staffPassword);
+		dao.insert(staffVO);
+
+		return staffVO;
+	}
+
+//	public staffVO updateStaff(String staffName, String staffAccount, String staffPassword) {
 //
+//		staffVO staffVO = new staffVO();
 //		staffVO.setStaffName(staffName);
 //		staffVO.setStaffAccount(staffAccount);
 //		staffVO.setStaffPassword(staffPassword);
 //		dao.insert(staffVO);
 //
-//		return staffVO;
-	}
-
-
+//	}
+}
