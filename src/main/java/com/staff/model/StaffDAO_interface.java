@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 
 //要先實作interface出來給service用
 public interface StaffDAO_interface {
+	
 	public void insert(staffVO staffVO); 
 	public void update(staffVO staffVO);
 	public staffVO findByPrimaryKey(Integer staffNumber);
