@@ -8,7 +8,7 @@ public class StaffService {
 	}
 
 	public staffVO insertStaff(String staffName, String staffAccount, String staffPassword) {
-
+		System.out.println("in service");
 		staffVO staffVO = new staffVO();
 		staffVO.setStaffName(staffName);
 		staffVO.setStaffAccount(staffAccount);
