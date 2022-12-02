@@ -5,9 +5,31 @@ public class ProductService {
 	public ProductService() {
 		dao = new ProductJDBCDAO();
 	}
-	public void addProduct(ProductVO prodvo) {
-	int re = dao.insert(prodvo);
-		
-//		return 0;
+	public ProductVO addProduct(ProductVO prodvo) {
+//		ProductVO prodvo = new ProductVO();
+		dao.insert(prodvo);
+		return prodvo;
 	}
+	
+	public ProductVO updateProduct(Integer prodNo, Integer eventNumber, Integer organizerNumber, 
+			String prodName, String prodSpec, Integer unitPrice, Integer prodStock, String prodDetails, Float prodScore, Boolean isPOn) {
+		ProductVO prodvo = new ProductVO();
+		
+		
+		
+		return prodvo;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
