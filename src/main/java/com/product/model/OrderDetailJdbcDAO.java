@@ -73,6 +73,7 @@ public class OrderDetailJdbcDAO implements OrderDetailDAO{
 				rs = ps.executeQuery();
 				if(rs.next()) {
 					result = new OrderDetailVO();
+					result.setItemNo(rs.getInt("itemNo"));
 					result.setProdOrderNo(rs.getInt("prodOrderNo"));
 					result.setProdNo(rs.getInt("prodNo"));
 					result.setProdQty(rs.getInt("prodQty"));
@@ -93,7 +94,7 @@ public class OrderDetailJdbcDAO implements OrderDetailDAO{
 		return result;
 	}
 
-	private static final String SELECT_BY_PRODODERNO = "select * from ORDER_DETAIL where prodOrderNo = ?";
+	private static final String SELECT_BY_PROD_ODER_NO = "select * from ORDER_DETAIL where prodOrderNo = ?";
 	@Override  // 以訂單編號查詢單筆訂單
 	public List<OrderDetailVO> getByProdOrderNo(Integer prodOrderNo) {
 		List<OrderDetailVO> result = new ArrayList<>();
@@ -104,7 +105,7 @@ public class OrderDetailJdbcDAO implements OrderDetailDAO{
 		}
 		try (
 			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			PreparedStatement ps = connection.prepareStatement(SELECT_BY_PRODODERNO)) {
+			PreparedStatement ps = connection.prepareStatement(SELECT_BY_PROD_ODER_NO)) {
 			/*
 			 * 當Statement關閉，ResultSet也會自動關閉，可以不需要將ResultSet宣告置入try with
 			 * resources小括號內，參看ResultSet說明
@@ -212,6 +213,58 @@ public class OrderDetailJdbcDAO implements OrderDetailDAO{
 		return false;
 	}
 	
-	
+	public static void main(String[] args) {
+
+		// 測試與資料庫的連線
+		try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+			System.out.println("Connecting to MySQL successfully!!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// PK 單一查詢
+//		OrderDetailJdbcDAO dao = new OrderDetailJdbcDAO();
+//		OrderDetailVO orderDetailVO = dao.getPrimaryKey(3);
+//		System.out.println(orderDetailVO.toString());
+
+		// 以訂單編號查詢單筆訂單
+//		OrderDetailJdbcDAO dao = new OrderDetailJdbcDAO();
+//		List<OrderDetailVO> list = dao.getByProdOrderNo(3);
+//		for (OrderDetailVO orderDetailVO : list) {
+//			System.out.println(orderDetailVO.toString());
+//		}
+
+		// 查詢全部
+//		OrderDetailJdbcDAO dao = new OrderDetailJdbcDAO();
+//		List<OrderDetailVO> list = dao.getAll();
+//		for(OrderDetailVO orderDetailVO : list) {
+//			System.out.println(orderDetailVO.toString());
+//		}
+
+		// 新增訂單明細
+//		OrderDetailJdbcDAO dao = new OrderDetailJdbcDAO();
+//		OrderDetailVO orderDetailVO = new OrderDetailVO();
+//		orderDetailVO.setProdOrderNo(3);
+//		orderDetailVO.setProdNo(3);
+//		orderDetailVO.setProdQty(5);
+//		orderDetailVO.setSubtotal(6);
+//		dao.insert(orderDetailVO);
+//		System.out.println(orderDetailVO.toString());
+
+		//測試更新評論退貨退款
+//		OrderDetailJdbcDAO dao = new OrderDetailJdbcDAO();
+//		OrderDetailVO orderDetailVO = new OrderDetailVO();
+//		orderDetailVO.setProdNo(3);
+//		orderDetailVO.setCommentContent("讚讚");
+//		orderDetailVO.setCommentRanking(4.5F);
+//		orderDetailVO.setItemNo(12);
+//		dao.update(orderDetailVO);
+//		System.out.println(orderDetailVO.toString());
+
+		// 測試刪除(好像用不到)
+//		OrderDetailJdbcDAO dao = new OrderDetailJdbcDAO();
+//		System.out.println(dao.delete(9));
+	}
+
 
 }

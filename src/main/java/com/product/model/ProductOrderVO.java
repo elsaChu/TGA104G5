@@ -1,6 +1,6 @@
 package com.product.model;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "PROD_ORDER")
 public class ProductOrderVO implements java.io.Serializable {
-		
+	private static final long serialVersionUID = 1L;
+	
 		@Id
 		@Column(name = "prodOrderNo")
 		private Integer prodOrderNo; 		// not null auto_increment
@@ -21,17 +22,17 @@ public class ProductOrderVO implements java.io.Serializable {
 		@Column(name = "prodTotal")
 		private Integer prodTotal;			// not null
 		@Column(name = "paymentDate")
-		private LocalDateTime paymentDate;	// not null default current_timestamp
-		@Column(name = "receiverNam")
+		private Timestamp paymentDate;		// not null default current_timestamp
+		@Column(name = "receiverName")
 		private String receiverName;  		// not null
 		@Column(name = "receiverTel")
 		private String receiverTel; 		// not null
 		@Column(name = "shippingAdd")
 		private String shippingAdd;			// not null
 		@Column(name = "prodOrderStatus")
-		private String prodOrderStatus; 	// not null
+		private String prodOrderStatus; 	// not null default
 		@Column(name = "deliveryStatus")
-		private String deliveryStatus;		// not null
+		private String deliveryStatus;		// not null default
 		
 		@Override
 		public String toString() {
@@ -65,10 +66,10 @@ public class ProductOrderVO implements java.io.Serializable {
 		public void setProdTotal(Integer prodTotal) {
 			this.prodTotal = prodTotal;
 		}
-		public LocalDateTime getPaymentDate() {
+		public Timestamp getPaymentDate() {
 			return paymentDate;
 		}
-		public void setPaymentDate(LocalDateTime paymentDate) {
+		public void setPaymentDate(Timestamp paymentDate) {
 			this.paymentDate = paymentDate;
 		}
 		public String getReceiverName() {

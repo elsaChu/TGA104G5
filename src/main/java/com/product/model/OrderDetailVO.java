@@ -6,7 +6,8 @@ import java.sql.Timestamp;
 
 
 public class OrderDetailVO implements java.io.Serializable {
-	
+private static final long serialVersionUID = 1L;
+
 	private Integer itemNo;				// not null auto_increment
 	private Integer prodOrderNo;		// not null
 	private Integer prodNo;				// not null
