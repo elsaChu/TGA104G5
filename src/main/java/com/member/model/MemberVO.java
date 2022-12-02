@@ -1,7 +1,7 @@
 package com.member.model;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class MemberVO {
 	private Integer number;            // NOT NULL AUTO_INCREMENT
@@ -12,13 +12,16 @@ public class MemberVO {
 	private String name;               // NOT NULL
 	private String phoneNumber;
 	private Boolean subscription;      // default 0 NOT NULL
-	private LocalDateTime createDate;  // CURRENT_TIMESTAMP
+	private Timestamp createDate;  // CURRENT_TIMESTAMP
 	private Boolean pass;      // default 0 NOT NULL
 	private String IDNumber;
 	private String phone2;
 	private String postalCode;
 	private String address;
 	
+//	public MemberVO(String userName, String userPWD) {
+//		// TODO Auto-generated constructor stub
+//	}
 	@Override
 	public String toString() {
 		return "MemberVO [number=" + number + ", account=" + account + ", password=" + password + ", email=" + email
@@ -74,10 +77,10 @@ public class MemberVO {
 	public void setSubscription(Boolean subscription) {
 		this.subscription = subscription;
 	}
-	public LocalDateTime getCreateDate() {
+	public Timestamp getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(LocalDateTime createDate) {
+	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
 	public Boolean getPass() {
