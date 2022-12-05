@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.organizer.model.OrganizerService1;
-import com.organizer.model.OrganizerVO1;
+import com.organizer.model.OrganizerService;
+import com.organizer.model.OrganizerVO;
 
 
 	//@WebServlet("/OrganizerSelectAll")
@@ -30,8 +30,8 @@ public class OrganizerSelectAll extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		
 //		OrganizerVO ov1 = new OrganizerVO();
-		OrganizerService1 oi1 = new OrganizerService1();
-		List<OrganizerVO1> saList = oi1.selectAll();
+		OrganizerService oi1 = new OrganizerService();
+		List<OrganizerVO> saList = oi1.selectAll();
 //		System.out.println(saList);
 		
 //		使用SESSION來儲存attribute(setAttribute()),只要網頁不關下面會一直跑出SELECTALL的結果，不論刷新幾次

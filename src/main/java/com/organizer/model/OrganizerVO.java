@@ -2,14 +2,7 @@ package com.organizer.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "ORGANIZER")
-public class organizerVOHibernate1 {
-	@Id
+public class OrganizerVO {
 	private Integer organizerNumber;
 	private String OAccount;
 	private String Opassword;
@@ -31,10 +24,8 @@ public class organizerVOHibernate1 {
 	private String ORevokeContent;
 	private Boolean OAmount;
 	private Integer staffNumber;
-
 	
 	
-	@Override
 	public String toString() {
 		return "organizerVO [organizerNumber=" + organizerNumber + ", OAccount=" + OAccount + ", Opassword=" + Opassword
 				+ ", organizerName=" + organizerName + ", windowName=" + windowName + ", windowPhone=" + windowPhone
