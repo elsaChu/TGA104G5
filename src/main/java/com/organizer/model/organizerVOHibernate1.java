@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ORGANIZER")
-public class organizerVOHibernate {
+public class organizerVOHibernate1 {
 	@Id
 	private Integer organizerNumber;
 	private String OAccount;

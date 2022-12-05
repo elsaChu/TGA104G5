@@ -3,27 +3,27 @@ package com.organizer.model;
 import java.util.List;
 import java.util.Vector;
 
-public class OrganizerService {
+public class OrganizerService1 {
 //		public static void main(String args[]) {
 ////			
 ////			OrganizerService service1 = new OrganizerService();
 ////			service1.addOrganizer("organizer1", 3567);
 //		}
-		private OrganizerDAOinterface dao;
+		private OrganizerDAOinterface1 dao;
 
-		public OrganizerService() {
-			 dao = new OrganizerDAO();
+		public OrganizerService1() {
+			 dao = new OrganizerDAO1();
 		}
 
-		public OrganizerVO addOrganizer(OrganizerVO bean) {
+		public OrganizerVO1 addOrganizer(OrganizerVO1 bean) {
 			dao.insert(bean);
 			return bean;
 		}
 
-		public OrganizerVO updateOrganizer(Integer organizerNumber, String ename, String job,
+		public OrganizerVO1 updateOrganizer(Integer organizerNumber, String ename, String job,
 				java.sql.Date hiredate, Double sal, Double comm, Integer deptno) {
 
-			OrganizerVO organizerVO = new OrganizerVO();
+			OrganizerVO1 organizerVO = new OrganizerVO1();
 //			organizerVO.setorganizerNumber(organizerNumber);
 //			organizerVO.setEname(ename);
 //			organizerVO.setJob(job);
@@ -40,11 +40,11 @@ public class OrganizerService {
 			dao.delete(organizerNumber);
 		}
 
-		public OrganizerVO getOneEmp(Integer organizerNumber) {
+		public OrganizerVO1 getOneEmp(Integer organizerNumber) {
 			return dao.findByPrimaryKey(organizerNumber);
 		}
 
-		public List<OrganizerVO> selectAll() {
+		public List<OrganizerVO1> selectAll() {
 			return dao.selectAll();
 		}
 	

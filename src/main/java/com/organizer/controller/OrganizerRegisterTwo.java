@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.organizer.model.OrganizerService;
-import com.organizer.model.OrganizerVO;
+import com.organizer.model.OrganizerService1;
+import com.organizer.model.OrganizerVO1;
 
 
 //@WebServlet("/OrganizerRegisterTwo")
@@ -31,7 +31,7 @@ public class OrganizerRegisterTwo extends HttpServlet {
 		String windowName = req.getParameter("windowName");
 		String windowPhone =  req.getParameter("windowPhone");
 				
-		OrganizerVO ov1 = new OrganizerVO();
+		OrganizerVO1 ov1 = new OrganizerVO1();
 		System.out.println(ov1);
 		ov1.setAccountName(OAccount);
 		ov1.setOpassword(OPassword);
@@ -41,7 +41,7 @@ public class OrganizerRegisterTwo extends HttpServlet {
 		ov1.setWindowEmail(windowEmail);
 		
 		
-		OrganizerService os1 = new OrganizerService();
+		OrganizerService1 os1 = new OrganizerService1();
 		System.out.println(os1);
 		os1.addOrganizer(ov1);
 		

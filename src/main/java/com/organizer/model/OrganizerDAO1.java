@@ -13,7 +13,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class OrganizerDAO implements OrganizerDAOinterface{
+public class OrganizerDAO1 implements OrganizerDAOinterface1{
 	
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/TICK_IT_TEST?serverTimezone=Asia/Taipei";
@@ -37,7 +37,7 @@ public class OrganizerDAO implements OrganizerDAOinterface{
 		"UPDATE organizer set organizerName=? where organizerNumber = ?";
 
 	@Override
-	public void insert(OrganizerVO organizerVO) {
+	public void insert(OrganizerVO1 organizerVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -82,7 +82,7 @@ public class OrganizerDAO implements OrganizerDAOinterface{
 	
 
 	@Override
-	public void update(OrganizerVO organizerVO) {
+	public void update(OrganizerVO1 organizerVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -171,9 +171,9 @@ public class OrganizerDAO implements OrganizerDAOinterface{
 	}
 
 	@Override
-	public OrganizerVO findByPrimaryKey(Integer organizerNumber) {
+	public OrganizerVO1 findByPrimaryKey(Integer organizerNumber) {
 
-		OrganizerVO organizerVO = null;
+		OrganizerVO1 organizerVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -190,7 +190,7 @@ public class OrganizerDAO implements OrganizerDAOinterface{
 
 			while (rs.next()) {
 				// organizerVO 也稱為 Domain objects
-				organizerVO = new OrganizerVO();
+				organizerVO = new OrganizerVO1();
 				organizerVO.setOrganizerNumber(rs.getInt("organizerNumber"));
 				organizerVO.setOrganizerName(rs.getString("organizerName"));
 			
@@ -232,9 +232,9 @@ public class OrganizerDAO implements OrganizerDAOinterface{
 	}
 
 	@Override
-	public List<OrganizerVO> selectAll() {
-		List<OrganizerVO> list = new ArrayList<OrganizerVO>();
-		OrganizerVO organizerVO = null;
+	public List<OrganizerVO1> selectAll() {
+		List<OrganizerVO1> list = new ArrayList<OrganizerVO1>();
+		OrganizerVO1 organizerVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -249,7 +249,7 @@ public class OrganizerDAO implements OrganizerDAOinterface{
 
 			while (rs.next()) {
 				// organizerVO 也稱為 Domain objects
-				organizerVO = new OrganizerVO();
+				organizerVO = new OrganizerVO1();
 				organizerVO.setOrganizerNumber(rs.getInt("organizerNumber"));
 				organizerVO.setOrganizerName(rs.getString("organizerName"));
 				list.add(organizerVO); // Store the row in the list

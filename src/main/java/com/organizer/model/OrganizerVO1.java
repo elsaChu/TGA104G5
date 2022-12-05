@@ -2,7 +2,7 @@ package com.organizer.model;
 
 import java.time.LocalDateTime;
 
-public class OrganizerVO {
+public class OrganizerVO1 {
 	private Integer organizerNumber;
 	private String OAccount;
 	private String Opassword;

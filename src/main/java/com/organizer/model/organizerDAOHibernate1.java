@@ -19,9 +19,9 @@ import conn.HibernateUtil;
 
 import java.sql.*;
 
-public class organizerDAOHibernate implements organizerDAOinterfaceHibernate{
+public class organizerDAOHibernate1 implements organizerDAOinterfaceHibernate1{
 	private SessionFactory sessionFactory;
-	public organizerDAOHibernate(SessionFactory sessionFactory) {
+	public organizerDAOHibernate1(SessionFactory sessionFactory) {
 		super();
 		this.sessionFactory = sessionFactory;
 	}
@@ -55,16 +55,16 @@ public class organizerDAOHibernate implements organizerDAOinterfaceHibernate{
 	}
 	
 	@Override
-	public  organizerVOHibernate select(Integer organizerNumber) {
+	public  organizerVOHibernate1 select(Integer organizerNumber) {
 		if(organizerNumber != null) {
-			return this.getSession().get(organizerVOHibernate.class, organizerNumber);
+			return this.getSession().get(organizerVOHibernate1.class, organizerNumber);
 		}
 		return null;
 	}
 	@Override
-	public  organizerVOHibernate insert(organizerVOHibernate bean) {
+	public  organizerVOHibernate1 insert(organizerVOHibernate1 bean) {
 		if(bean!=null && bean.getOrganizerNumber() !=null) {
-			organizerVOHibernate temp = this.getSession().get(organizerVOHibernate.class, bean.getOrganizerNumber());
+			organizerVOHibernate1 temp = this.getSession().get(organizerVOHibernate1.class, bean.getOrganizerNumber());
 			if(temp==null) {
 				this.getSession().save(bean);
 			}
@@ -75,15 +75,15 @@ public class organizerDAOHibernate implements organizerDAOinterfaceHibernate{
 
 	
 	@Override
-	public List<organizerVOHibernate> getAll(){
+	public List<organizerVOHibernate1> getAll(){
 //		return this.getSession().createQuery("from organizerVOHibernate", organizerVOHibernate.class).list();
 		
 		CriteriaBuilder cb1 = this.getSession().getCriteriaBuilder();
-		CriteriaQuery<organizerVOHibernate> cq1 = cb1.createQuery(organizerVOHibernate.class);
-		Root<organizerVOHibernate> root1 = cq1.from(organizerVOHibernate.class);
+		CriteriaQuery<organizerVOHibernate1> cq1 = cb1.createQuery(organizerVOHibernate1.class);
+		Root<organizerVOHibernate1> root1 = cq1.from(organizerVOHibernate1.class);
 		
-		TypedQuery<organizerVOHibernate> tq1 = this.getSession().createQuery(cq1);
-		 List<organizerVOHibernate> result1 = tq1.getResultList();
+		TypedQuery<organizerVOHibernate1> tq1 = this.getSession().createQuery(cq1);
+		 List<organizerVOHibernate1> result1 = tq1.getResultList();
 		 System.out.println("ok");
 		if(result1 != null && !result1.isEmpty()) {
 		//是否是空的
@@ -98,9 +98,9 @@ public class organizerDAOHibernate implements organizerDAOinterfaceHibernate{
 	}
 	
 	@Override
-	public  organizerVOHibernate update(organizerVOHibernate bean) {
+	public  organizerVOHibernate1 update(organizerVOHibernate1 bean) {
 		if(bean!=null && bean.getOrganizerNumber() !=null) {
-			organizerVOHibernate temp = this.getSession().get(organizerVOHibernate.class, bean.getOrganizerNumber());
+			organizerVOHibernate1 temp = this.getSession().get(organizerVOHibernate1.class, bean.getOrganizerNumber());
 //			if(temp!= null) {
 //				temp.setName(name);
 //				temp.setMake(make);
@@ -115,7 +115,7 @@ public class organizerDAOHibernate implements organizerDAOinterfaceHibernate{
 	@Override
 	public  boolean delete(Integer organizerNumber) {
 		if(organizerNumber!=null) {
-			organizerVOHibernate temp = this.getSession().get(organizerVOHibernate.class, organizerNumber);
+			organizerVOHibernate1 temp = this.getSession().get(organizerVOHibernate1.class, organizerNumber);
 			if(temp!=null) {
 				this.getSession().delete(temp);
 				return true;
