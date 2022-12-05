@@ -1,19 +1,30 @@
 package com.product.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static common.Common.driver;
-import static common.Common.PASSWORD;
-import static common.Common.URL;
-import static common.Common.USER;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-public class ProductOrderJdbcDAO implements ProductOrderDAO {
+import static common.Common.driver;
+
+public class ProductOrderDAOJndi implements ProductOrderDAO {
+	
+	private static DataSource dataSource = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/TICK_IT");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public List<ProductOrderVO> getAll() {
@@ -31,7 +42,7 @@ public class ProductOrderJdbcDAO implements ProductOrderDAO {
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+		try (Connection connection = dataSource.getConnection();
 				PreparedStatement ps = connection.prepareStatement(SELECT_BY_NUMBER)) {
 			/*
 			 * 當Statement關閉，ResultSet也會自動關閉，可以不需要將ResultSet宣告置入try with
@@ -68,7 +79,7 @@ public class ProductOrderJdbcDAO implements ProductOrderDAO {
 		
 		if(prodOrderNo != null) {
 			ResultSet rs = null;
-			try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			try (Connection connection = dataSource.getConnection();
 					PreparedStatement ps = connection.prepareStatement(SELECT_BY_PROD_ORDER_NO)) {
 				
 				ps.setInt(1, prodOrderNo);
@@ -102,7 +113,7 @@ public class ProductOrderJdbcDAO implements ProductOrderDAO {
 	public void insert(ProductOrderVO productOrderVO) {
 		if(productOrderVO != null) {
 			try (
-				Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+				Connection connection = dataSource.getConnection();
 				PreparedStatement ps = connection.prepareStatement(INSERT)) {
 				
 				ps.setInt(1, productOrderVO.getNumber());
@@ -126,7 +137,7 @@ public class ProductOrderJdbcDAO implements ProductOrderDAO {
 	@Override	// 更新收件資訊及狀態
 	public void update(ProductOrderVO productOrderVO) {
 		if (productOrderVO != null && productOrderVO.getProdOrderNo() != null) {
-			try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			try (Connection connection = dataSource.getConnection();
 					PreparedStatement ps = connection.prepareStatement(UPDATE)) {
 				ps.setString(1, productOrderVO.getReceiverName());
 				ps.setString(2, productOrderVO.getReceiverTel());

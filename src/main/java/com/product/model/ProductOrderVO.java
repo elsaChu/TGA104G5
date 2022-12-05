@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,23 +16,33 @@ public class ProductOrderVO implements java.io.Serializable {
 	
 		@Id
 		@Column(name = "prodOrderNo")
+		@GeneratedValue(strategy = GenerationType.IDENTITY)  
 		private Integer prodOrderNo; 		// not null auto_increment
+		
 		@Column(name = "number")
 		private Integer number;				// not null
+		
 		@Column(name = "amountPrice")
 		private Integer amountPrice; 		// not null
+		
 		@Column(name = "prodTotal")
 		private Integer prodTotal;			// not null
+		
 		@Column(name = "paymentDate")
 		private Timestamp paymentDate;		// not null default current_timestamp
+		
 		@Column(name = "receiverName")
 		private String receiverName;  		// not null
+		
 		@Column(name = "receiverTel")
 		private String receiverTel; 		// not null
+		
 		@Column(name = "shippingAdd")
 		private String shippingAdd;			// not null
+		
 		@Column(name = "prodOrderStatus")
 		private String prodOrderStatus; 	// not null default
+		
 		@Column(name = "deliveryStatus")
 		private String deliveryStatus;		// not null default
 		

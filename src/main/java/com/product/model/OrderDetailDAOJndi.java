@@ -13,8 +13,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDetailJdbcDAO implements OrderDetailDAO{
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
+public class OrderDetailDAOJndi implements OrderDetailDAO{
+
+	private static DataSource dataSource = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/TICK_IT");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private static final String SELECT_ALL = 
 			"select itemNo, prodOrderNo, prodNo, prodQty, subtotal, commentRanking, commentContent, commentDate, returnReason, refundStatus, refundSDate, refundEDate from ORDER_DETAIL";
 	@Override
@@ -26,7 +41,7 @@ public class OrderDetailJdbcDAO implements OrderDetailDAO{
 			e1.printStackTrace();
 		}
 		try (
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			Connection connection = dataSource.getConnection();
 			PreparedStatement ps = connection.prepareStatement(SELECT_ALL)) {
 			/*
 			 * 當Statement關閉，ResultSet也會自動關閉，可以不需要將ResultSet宣告置入try with
@@ -66,7 +81,7 @@ public class OrderDetailJdbcDAO implements OrderDetailDAO{
 		if(itemNo != null) {
 			ResultSet rs = null;
 			try (
-				Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+				Connection connection = dataSource.getConnection();
 				PreparedStatement ps = connection.prepareStatement(SELECT_BY_ID)){
 				
 				ps.setInt(1, itemNo);
@@ -104,7 +119,7 @@ public class OrderDetailJdbcDAO implements OrderDetailDAO{
 			e1.printStackTrace();
 		}
 		try (
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			Connection connection = dataSource.getConnection();
 			PreparedStatement ps = connection.prepareStatement(SELECT_BY_PROD_ODER_NO)) {
 			/*
 			 * 當Statement關閉，ResultSet也會自動關閉，可以不需要將ResultSet宣告置入try with
@@ -142,7 +157,7 @@ public class OrderDetailJdbcDAO implements OrderDetailDAO{
 	public void insert(OrderDetailVO orderDetailVO) {
 		if(orderDetailVO != null) {
 			try (
-				Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+				Connection connection = dataSource.getConnection();
 				PreparedStatement ps = connection.prepareStatement(INSERT)) {
 				
 				ps.setInt(1, orderDetailVO.getProdOrderNo());
@@ -165,7 +180,7 @@ public class OrderDetailJdbcDAO implements OrderDetailDAO{
 	public void update(OrderDetailVO orderDetailVO) {
 		if(orderDetailVO != null && orderDetailVO.getProdNo() != null) {
 			try (
-				Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+				Connection connection = dataSource.getConnection();
 				PreparedStatement ps = connection.prepareStatement(UPDATE)) {
 				ps.setFloat(1, orderDetailVO.getCommentRanking());
 				ps.setString(2, orderDetailVO.getCommentContent());
@@ -196,7 +211,7 @@ public class OrderDetailJdbcDAO implements OrderDetailDAO{
 	public boolean delete(Integer itemNo) {
 		if(itemNo != null) {
 			try (
-				Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+				Connection connection = dataSource.getConnection();
 				PreparedStatement ps = connection.prepareStatement(DELETE)) {
 				ps.setInt(1, itemNo);
 				
@@ -216,7 +231,7 @@ public class OrderDetailJdbcDAO implements OrderDetailDAO{
 	public static void main(String[] args) {
 
 		// 測試與資料庫的連線
-		try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+		try(Connection connection = dataSource.getConnection()) {
 			System.out.println("Connecting to MySQL successfully!!");
 		} catch (SQLException e) {
 			e.printStackTrace();

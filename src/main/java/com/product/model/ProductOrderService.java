@@ -6,7 +6,7 @@ public class ProductOrderService {
 	private ProductOrderDAO dao;
 
 	public ProductOrderService() {
-		dao = new ProductOrderJdbcDAO();
+		dao = new ProductOrderDAOJndi();
 	}
 	
 	// 會員中心 - 查詢該會員所有訂單

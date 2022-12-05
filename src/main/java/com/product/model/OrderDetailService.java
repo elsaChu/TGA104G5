@@ -9,7 +9,7 @@ public class OrderDetailService {
 	private OrderDetailDAO dao;
 	
 	public OrderDetailService() {
-		dao = new OrderDetailJdbcDAO();
+		dao = new OrderDetailDAOJndi();
 	}
 	
 	public OrderDetailVO addDetail(Integer prodOrderNo, Integer prodNo, Integer prodQty, Integer subtotal) {
@@ -36,7 +36,7 @@ public class OrderDetailService {
 		
 		if(itemNo != null) {
 			
-			if(commentContent.trim().isEmpty() == false || commentRanking != 0.0F)
+			if(!commentContent.trim().isEmpty() || commentRanking != 0.0F)
 			orderDetailVO.setItemNo(itemNo);
 			orderDetailVO.setCommentRanking(commentRanking);
 			orderDetailVO.setCommentContent(commentContent);
