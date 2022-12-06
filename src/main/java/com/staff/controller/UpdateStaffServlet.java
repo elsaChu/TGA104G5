@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.staff.model.StaffService;
 import com.staff.model.staffVO;
 
-//@WebServlet("/insertStaffServlet")
-public class InsertStaffServlet extends HttpServlet {
+//@WebServlet("/updateStaffServlet")
+public class UpdateStaffServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,8 +29,6 @@ public class InsertStaffServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 
 		String action = request.getParameter("action");
-		System.out.println("====================================================");
-		
 		System.out.println(action);
 		if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			System.out.println("in insert");
@@ -78,18 +75,18 @@ public class InsertStaffServlet extends HttpServlet {
 			}
 
 			/*************************** 2.開始新增資料 *****************************************/
-			StaffService staffService = new StaffService();
-			staffService.insertStaff(staffName, staffAccount, staffPassword);
-			if (staffVO == null) {
-				errorMsgs.add("查無資料");
-			}
+//			StaffService staffService = new StaffService();
+//			staffService.insertStaff(staffName, staffAccount, staffPassword);
+//			if (staffVO == null) {
+//				errorMsgs.add("查無資料");
+//			}
 //			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = request
-						.getRequestDispatcher("/back-staff-end/staff/insertStaff.jsp");
-				failureView.forward(request, response);
-				return;//程式中斷
-			}
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = request
+//						.getRequestDispatcher("/emp/select_page.jsp");
+//				failureView.forward(request, response);
+//				return;//程式中斷
+//			}
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 					String url = "/main_frame/index_Staff.jsp";
