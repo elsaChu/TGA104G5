@@ -37,7 +37,7 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 			pstmt.setString(1, staffVO.getStaffName());
 			pstmt.setString(2, staffVO.getStaffAccount());
 			pstmt.setString(3, staffVO.getStaffPassword());
-			pstmt.setInt(4, staffVO.getStaffNumber());
+//			pstmt.setInt(4, staffVO.getStaffNumber());
 
 			// 打包好用這個語法送出去
 			pstmt.executeUpdate();
