@@ -1,23 +1,54 @@
-package com.product.model;
+package com.order.vo;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
-
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name = "ORDER_DETAIL")
 public class OrderDetailVO implements java.io.Serializable {
-	
+private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name = "itemNo")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	private Integer itemNo;				// not null auto_increment
+	
+	@Column(name = "prodOrderNo")
 	private Integer prodOrderNo;		// not null
+	
+	@Column(name = "prodNo")
 	private Integer prodNo;				// not null
+	
+	@Column(name = "prodQty")
 	private Integer prodQty;			// not null
+	
+	@Column(name = "subtotal")
 	private Integer subtotal;			// not null
+	
+	@Column(name = "commentRanking")
 	private Float commentRanking;		// not null default 0
+	
+	@Column(name = "commentContent")
 	private String commentContent;
-	private Timestamp commentDate;	
+	
+	@Column(name = "commentDate")
+	private Timestamp commentDate;
+	
+	@Column(name = "returnReason")
 	private String returnReason;
+	
+	@Column(name = "refundStatus")
 	private String refundStatus;		
+	
+	@Column(name = "refundSDate")
 	private Date refundSDate;
+	
+	@Column(name = "refundEDate")
 	private Date refundEDate;
 	
 	@Override
