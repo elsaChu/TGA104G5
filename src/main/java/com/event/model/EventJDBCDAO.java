@@ -50,6 +50,12 @@ public class EventJDBCDAO implements EventDAO_interface {
 			ps.setInt(17,eventvo.getSeatY());
 			rowCount = ps.executeUpdate();
 			
+//			if(rowCount != 0) {
+//				EventClassService evClassSvc = new EventClassService();
+//				evClassSvc.insert(eventClassNumber);
+//			}
+			
+			
 			System.out.println(rowCount + " row(s) inserted!!");
 			
 			
@@ -122,4 +128,9 @@ public class EventJDBCDAO implements EventDAO_interface {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+//	public EventVO selectBylast(Integer organizerNumber) {
+//		String sql = 
+//		return EventVO;
+//	}
 }
