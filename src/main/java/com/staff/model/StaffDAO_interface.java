@@ -9,6 +9,7 @@ public interface StaffDAO_interface {
 	
 	public void insert(staffVO staffVO); 
 	public void update(staffVO staffVO);
+	public void delete(Integer staffNumber);
 	public staffVO findByPrimaryKey(Integer staffNumber);
 	public List<staffVO> getAll();
 	//萬用複合查詢(傳入參數型態Map)(回傳 List)
