@@ -1,6 +1,8 @@
-package com.product.model;
+package com.order.dao;
 
 import java.util.List;
+
+import com.order.vo.OrderDetailVO;
 
 public interface OrderDetailDAO {
 	List<OrderDetailVO> getAll();

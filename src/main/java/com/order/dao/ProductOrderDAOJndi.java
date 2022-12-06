@@ -1,4 +1,6 @@
-package com.product.model;
+package com.order.dao;
+
+import static common.Common.driver;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +14,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import static common.Common.driver;
+import com.order.vo.ProductOrderVO;
 
 public class ProductOrderDAOJndi implements ProductOrderDAO {
 	

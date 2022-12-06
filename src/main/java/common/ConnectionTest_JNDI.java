@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.product.model.ProductOrderVO;
+import com.order.vo.ProductOrderVO;
 
 @WebServlet("/ConnectionTest_JNDI")
 public class ConnectionTest_JNDI extends HttpServlet {

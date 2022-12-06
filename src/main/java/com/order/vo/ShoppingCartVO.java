@@ -1,4 +1,4 @@
-package com.product.model;
+package com.order.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +8,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SHOPPING_CART")
 public class ShoppingCartVO implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@Column(name = "shoppingCartNo")
 	private Integer shoppingCartNo;		// not null auto_increment

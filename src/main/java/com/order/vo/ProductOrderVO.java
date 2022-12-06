@@ -1,4 +1,4 @@
-package com.product.model;
+package com.order.vo;
 
 import java.sql.Timestamp;
 

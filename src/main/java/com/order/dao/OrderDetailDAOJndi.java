@@ -1,12 +1,8 @@
-package com.product.model;
+package com.order.dao;
 
 import static common.Common.driver;
-import static common.Common.PASSWORD;
-import static common.Common.URL;
-import static common.Common.USER;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +13,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import com.order.vo.OrderDetailVO;
 
 public class OrderDetailDAOJndi implements OrderDetailDAO{
 
@@ -231,11 +229,11 @@ public class OrderDetailDAOJndi implements OrderDetailDAO{
 	public static void main(String[] args) {
 
 		// 測試與資料庫的連線
-		try(Connection connection = dataSource.getConnection()) {
-			System.out.println("Connecting to MySQL successfully!!");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		try(Connection connection = dataSource.getConnection()) {
+//			System.out.println("Connecting to MySQL successfully!!");
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 
 		// PK 單一查詢
 //		OrderDetailJdbcDAO dao = new OrderDetailJdbcDAO();
@@ -277,7 +275,7 @@ public class OrderDetailDAOJndi implements OrderDetailDAO{
 //		System.out.println(orderDetailVO.toString());
 
 		// 測試刪除(好像用不到)
-//		OrderDetailJdbcDAO dao = new OrderDetailJdbcDAO();
+//		OrderDetailDAOJndi dao = new OrderDetailDAOJndi();
 //		System.out.println(dao.delete(9));
 	}
 
