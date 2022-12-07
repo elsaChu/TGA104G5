@@ -14,7 +14,7 @@ public class StaffService {
 	}
 
 	public staffVO insertStaff(String staffName, String staffAccount, String staffPassword) {
-		System.out.println("insert service");
+
 		staffVO staffVO = new staffVO();
 		staffVO.setStaffName(staffName);
 		staffVO.setStaffAccount(staffAccount);
@@ -25,7 +25,7 @@ public class StaffService {
 	}
 
 	public staffVO updateStaff(String staffName, String staffAccount, String staffPassword) {
-		System.out.println("update service");
+
 		staffVO staffVO = new staffVO();
 		staffVO.setStaffName(staffName);
 		staffVO.setStaffAccount(staffAccount);
@@ -40,8 +40,8 @@ public class StaffService {
 		return dao.findByPrimaryKey(staffNumber);
 	}
 
-	public void staffVO(Integer staffNumber) {
-		System.out.println("delete service");
+	public void deleteStaff(Integer staffNumber) {
+
 		dao.delete(staffNumber);
 
 	}
