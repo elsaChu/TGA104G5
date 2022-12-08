@@ -30,10 +30,10 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 	@Override
 	public ProductOrderVO updateReceiverInfo(Integer prodOrderNo, String receiverName, String receiverTel, String shippingAdd) {
 		ProductOrderVO productOrderVO = new ProductOrderVO();
-		if(prodOrderNo != null) {
+		if(!receiverName.trim().isEmpty() && !receiverTel.trim().isEmpty() && !shippingAdd.trim().isEmpty()) {
 			productOrderVO.setReceiverName(receiverName);
-			productOrderVO.setReceiverTel(receiverTel);
-			productOrderVO.setShippingAdd(shippingAdd);
+			productOrderVO.setReceiverTel(receiverTel);   //需要驗證格式
+			productOrderVO.setShippingAdd(shippingAdd);   //需要驗證格式
 			
 			dao.update(productOrderVO);
 		}

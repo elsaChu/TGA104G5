@@ -30,20 +30,20 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		
 	}
 	
-	// 會員中心 - 單筆訂單查詢
-		@Override
-		public List<OrderDetailVO> getByProdOrderNo(Integer prodOrderNo) {
-			return dao.getByProdOrderNo(prodOrderNo);
-		}
+	// 會員中心 - 以訂單編號查詢明細
+	@Override
+	public List<OrderDetailVO> getByProdOrderNo(Integer prodOrderNo) {
+		return dao.getByProdOrderNo(prodOrderNo);
+	}
 	
 	// 會員中心 - 更新商品評論
 	@Override
 	public OrderDetailVO updateComment(Float commentRanking, String commentContent, Timestamp commentDate, String returnReason, String refundStatus, Date refundSDate, Date refundEDate, Integer itemNo) {
 		OrderDetailVO orderDetailVO = new OrderDetailVO();
 		
-		if(itemNo != null) {
+		if(itemNo != null && itemNo > 0) {
 			
-			if(!commentContent.trim().isEmpty() || commentRanking != 0.0F)
+			if(!commentContent.trim().isEmpty() || commentRanking != 0F)
 			orderDetailVO.setItemNo(itemNo);
 			orderDetailVO.setCommentRanking(commentRanking);
 			orderDetailVO.setCommentContent(commentContent);
@@ -61,7 +61,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	@Override
 	public OrderDetailVO updateReturn(Float commentRanking, String commentContent, Timestamp commentDate, String returnReason, String refundStatus, Date refundSDate, Date refundEDate, Integer itemNo) {
 		OrderDetailVO orderDetailVO = new OrderDetailVO();
-		if(itemNo != null && returnReason.trim().isEmpty() != true) {
+		if(itemNo != null && !returnReason.trim().isEmpty()) {
 			orderDetailVO.setReturnReason(returnReason);
 
 			

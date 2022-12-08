@@ -29,10 +29,8 @@ public class ProductOrderController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-//接收資料
-		
 //		Integer number =  (Integer) request.getSession().getAttribute("number");
-		Integer number = 5;                                         // 先寫死之後要串會員登入!
+		Integer number = 5;  // 先寫死之後要串會員登入!					// 要去看會員功能寫甚麼字串
 		List<ProductOrderVO> list = service.getByNumberOrder(number);
 		request.setAttribute("orderlist", list);
 		request.getRequestDispatcher("/front-end/order/selectByNumber.jsp").forward(request, response);
