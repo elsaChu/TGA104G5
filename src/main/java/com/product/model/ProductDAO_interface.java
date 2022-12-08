@@ -1,11 +1,11 @@
 package com.product.model;
 
-import java.util.List;
+import java.util.*;
 
 public interface ProductDAO_interface {
-	public OrderDetailVO getPrimaryKey(Integer prodNo);
-	public int insert(ProductVO productVO);
-	public void update(ProductVO productVO);
-	public boolean delete(Integer prodNo);
+	public int insert(ProductVO prodVo);
+	public int update(ProductVO prodVo);
+	public int delete(Integer prodNo);
+	public ProductVO findByPrimaryKey(Integer prodNo);
 	public List<ProductVO> getAll();
 }

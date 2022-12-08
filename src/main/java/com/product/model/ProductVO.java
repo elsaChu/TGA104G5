@@ -7,29 +7,33 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PRODUCT")
+
 public class ProductVO implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+
+//	下列變數成員對應Database內的欄位
 	@Id
 	@Column(name = "prodNo")
-	private Integer prodNo;				// not null auto_increment
+	private Integer prodNo; // not null auto_increment
 	@Column(name = "eventNumber")
-	private Integer eventNumber;		// not null
+	private Integer eventNumber; // not null
 	@Column(name = "organizerNumber")
-	private Integer organizerNumber;	// not null
+	private Integer organizerNumber; // not null
 	@Column(name = "prodName")
-	private String prodName;			// not null
+	private String prodName; // not null
 	@Column(name = "prodSpec")
-	private String prodSpec;			// not null
+	private String prodSpec; // not null
 	@Column(name = "unitPrice")
-	private Integer unitPrice;			// not null
+	private Integer unitPrice; // not null
 	@Column(name = "prodStock")
-	private Integer prodStock;			// not null
+	private Integer prodStock; // not null
 	@Column(name = "prodDetails")
 	private String prodDetails;
 	@Column(name = "prodScore")
-	private Float prodScore;			// not null
+	private Float prodScore; // not null
 	@Column(name = "isPOn")
-	private Boolean isPOn;				// not null
-                                                    
+	private Boolean isPOn; // not null
+
 	@Override
 	public String toString() {
 		return "Product [prodNo=" + prodNo + ", eventNumber=" + eventNumber + ", organizerNumber=" + organizerNumber
@@ -37,10 +41,12 @@ public class ProductVO implements java.io.Serializable {
 				+ prodStock + ", prodDetails=" + prodDetails + ", prodScore=" + prodScore + ", isPOn=" + isPOn + "]";
 	}
 
+//	使用get方法將值取出
 	public Integer getProdNo() {
 		return prodNo;
 	}
 
+//	使用set方法將值插入
 	public void setProdNo(Integer prodNo) {
 		this.prodNo = prodNo;
 	}
@@ -116,5 +122,4 @@ public class ProductVO implements java.io.Serializable {
 	public void setIsPOn(Boolean isPOn) {
 		this.isPOn = isPOn;
 	}
-		
 }
