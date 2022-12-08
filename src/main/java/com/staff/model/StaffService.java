@@ -3,6 +3,7 @@ package com.staff.model;
 import java.util.*;
 
 public class StaffService {
+	
 	private StaffDAO_interface dao;
 
 	public StaffService() {
@@ -14,7 +15,7 @@ public class StaffService {
 	}
 
 	public staffVO insertStaff(String staffName, String staffAccount, String staffPassword) {
-		System.out.println("insert service");
+
 		staffVO staffVO = new staffVO();
 		staffVO.setStaffName(staffName);
 		staffVO.setStaffAccount(staffAccount);
@@ -24,9 +25,11 @@ public class StaffService {
 		return staffVO;
 	}
 
-	public staffVO updateStaff(String staffName, String staffAccount, String staffPassword) {
-		System.out.println("update service");
+	public staffVO updateStaff(Integer StaffNumber, String staffName, String staffAccount, String staffPassword) {
+
 		staffVO staffVO = new staffVO();
+		
+//		staffVO.setStaffNumber(StaffNumber);
 		staffVO.setStaffName(staffName);
 		staffVO.setStaffAccount(staffAccount);
 		staffVO.setStaffPassword(staffPassword);
@@ -40,8 +43,8 @@ public class StaffService {
 		return dao.findByPrimaryKey(staffNumber);
 	}
 
-	public void staffVO(Integer staffNumber) {
-		System.out.println("delete service");
+	public void deleteStaff(Integer staffNumber) {
+
 		dao.delete(staffNumber);
 
 	}

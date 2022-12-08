@@ -75,7 +75,6 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 
 		try {
 
-			System.out.println("update jdbc");
 			Class.forName(DRIVER);
 
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
