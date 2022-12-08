@@ -1,6 +1,6 @@
 package com.staff.model;
 
-public class staffVO {
+public class staffVO implements java.io.Serializable{
 
 	private Integer staffNumber;
 	private String staffName;

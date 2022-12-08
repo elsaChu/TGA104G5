@@ -3,6 +3,7 @@ package com.staff.model;
 import java.util.*;
 
 public class StaffService {
+	
 	private StaffDAO_interface dao;
 
 	public StaffService() {
@@ -24,9 +25,11 @@ public class StaffService {
 		return staffVO;
 	}
 
-	public staffVO updateStaff(String staffName, String staffAccount, String staffPassword) {
+	public staffVO updateStaff(Integer StaffNumber, String staffName, String staffAccount, String staffPassword) {
 
 		staffVO staffVO = new staffVO();
+		
+//		staffVO.setStaffNumber(StaffNumber);
 		staffVO.setStaffName(staffName);
 		staffVO.setStaffAccount(staffAccount);
 		staffVO.setStaffPassword(staffPassword);

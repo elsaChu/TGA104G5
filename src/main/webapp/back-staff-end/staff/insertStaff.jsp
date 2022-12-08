@@ -7,11 +7,12 @@ page import="com.staff.model.*"
 <%
 staffVO staffVO = (staffVO) request.getAttribute("staffVO");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>員工資料新增</title>
 </head>
 <body>
 
@@ -26,7 +27,7 @@ staffVO staffVO = (staffVO) request.getAttribute("staffVO");
 	</ul>
 </c:if>
 
-<form method="post" action="<%=request.getContextPath()%>/InsertStaffServlet" name="action" value="insert">
+<form method="post" action="<%=request.getContextPath()%>/StaffServlet" name="action" value="insert">
 
 <input type= "hidden" name="action" value="insert"></input>
 

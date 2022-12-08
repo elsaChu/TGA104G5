@@ -15,7 +15,8 @@ import com.staff.model.staffVO;
 
 //@WebServlet("/insertStaffServlet")
 public class StaffServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	
+//	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -25,12 +26,13 @@ public class StaffServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-
-		String action = request.getParameter("action");
 		
-		if ("getOneStaff".equals(action)) { // 來自select_page.jsp的請求
+		request.setCharacterEncoding("UTF-8");
+		String action = request.getParameter("action");
+//		response.setContentType("text/html; charset=UTF-8");
+
+		
+		if ("getOne_Staff_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -38,51 +40,74 @@ public class StaffServlet extends HttpServlet {
 			request.setAttribute("errorMsgs", errorMsgs);
 
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String str = req.getParameter("empno");
+				String str = request.getParameter("staffNumber");
 				if (str == null || (str.trim()).length() == 0) {
 					errorMsgs.add("請輸入員工編號");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
+					RequestDispatcher failureView = request
 							.getRequestDispatcher("/emp/select_page.jsp");
-					failureView.forward(req, res);
+					failureView.forward(request, response);
 					return;//程式中斷
 				}
 				
-				Integer empno = null;
+				Integer staffNumber = null;
 				try {
-					empno = Integer.valueOf(str);
+					staffNumber = Integer.valueOf(str);
 				} catch (Exception e) {
 					errorMsgs.add("員工編號格式不正確");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
+					RequestDispatcher failureView = request
 							.getRequestDispatcher("/emp/select_page.jsp");
-					failureView.forward(req, res);
+					failureView.forward(request, response);
 					return;//程式中斷
 				}
 				
 				/***************************2.開始查詢資料*****************************************/
-				EmpService empSvc = new EmpService();
-				EmpVO empVO = empSvc.getOneEmp(empno);
-				if (empVO == null) {
+				StaffService staffSvc = new StaffService();
+				staffVO staffVO = staffSvc.getOneStaff(staffNumber);
+				if (staffVO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/emp/select_page.jsp");
-					failureView.forward(req, res);
+					RequestDispatcher failureView = request
+							.getRequestDispatcher("/back-staff-end/staff/selectPage.jsp");
+					failureView.forward(request, response);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("empVO", empVO); // 資料庫取出的empVO物件,存入req
-				String url = "/emp/listOneEmp.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-				successView.forward(req, res);
+				request.setAttribute("empVO", staffVO); // 資料庫取出的staffVO物件,存入request
+				String url = "/back-staff-end/staff/listOneStaff.jsp";
+				RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 listOneStaff.jsp
+				successView.forward(request, response);
+		}
+		
+		if ("getOne_For_Update".equals(action)) { // 來自listAllStaff.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			request.setAttribute("errorMsgs", errorMsgs);
+			
+				/***************************1.接收請求參數****************************************/
+				Integer staffNumber = Integer.valueOf(request.getParameter("staffNumber"));
+				
+				/***************************2.開始查詢資料****************************************/
+				StaffService staffSvc = new StaffService();
+				staffVO staffVO = staffSvc.getOneStaff(staffNumber);
+								
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				request.setAttribute("staffVO", staffVO);
+				// 資料庫取出的staffVO物件,存入request
+				String url = "/back-staff-end/staff/updateStaff.jsp";
+				RequestDispatcher successView = request.getRequestDispatcher(url);
+				// 成功轉交 updateStaff.jsp
+				successView.forward(request, response);
 		}
 		
 		
@@ -205,7 +230,7 @@ if ("update".equals(action)) { // 來自updateStaff.jsp的請求
 				}
 
 				staffVO staffVO = new staffVO();
-				staffVO.setStaffNumber(staffNumber);
+//				staffVO.setStaffNumber(staffNumber);
 				staffVO.setStaffName(staffName);
 				staffVO.setStaffAccount(staffAccount);
 				staffVO.setStaffPassword(staffPassword);
@@ -222,11 +247,11 @@ if ("update".equals(action)) { // 來自updateStaff.jsp的請求
 				
 				/***************************2.開始修改資料*****************************************/
 				StaffService staffSvc = new StaffService();
-				staffVO = staffSvc.updateStaff(staffName, staffAccount, staffPassword);
+				staffVO = staffSvc.updateStaff(staffNumber, staffName, staffAccount, staffPassword);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				request.setAttribute("staffVO", staffVO); // 資料庫update成功後,正確的的staffVO物件,存入request
-				String url = "/back-staff-end/staff/listAllStaff.jsp";
+				String url = "/back-staff-end/staff/listOneStaff.jsp";
 				RequestDispatcher successView = request.getRequestDispatcher(url);
 				// 修改成功後,轉交/back-staff-end/staff/listAllStaff.jsp
 				successView.forward(request, response);
