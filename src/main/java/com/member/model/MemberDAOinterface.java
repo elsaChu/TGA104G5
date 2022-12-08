@@ -8,4 +8,6 @@ public interface MemberDAOinterface {
 	public void delete(Integer number);
 	public MemberVO findByPrimaryKey(Integer number);
 	public List<MemberVO> getAll();
+	public List<MemberVO> findByAccount(String account);
+	public List<MemberVO> findByEmail(String email);
 }
