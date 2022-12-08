@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-size: 17px;
 }
 
 /*==== time ====*/
@@ -37,28 +38,55 @@ ul>li {
 /*=== div formate===*/
 
 @media (min-width:1200px) {
-	.my_size{
- 		width:970px;
-	}
+  .my_size {
+    width: 970px;
+  }
 }
 
-div#my_head{
-	margin-top:50px;
+div#my_head {
+  margin-top: 100px;
 }
 
 div.my_cont {
-  background-color: #c6ccd0;
+/*   background-color: #c6ccd0; */
   border-radius: 10px;
   margin: 0 auto;
 }
 
+div.my_cont div {
+  margin-bottom: 10px;
+}
+
 div.stepTop {
   /* display: inline-block; */
-  vertical-align: top;
+  vertical-align: middle;
   /* border: 1px solid orange; */
   /* height: 50px; */
   margin-bottom: 20px;
 
+}
+
+div.stepTop div {
+  /* display: inline-block; */
+  /* vertical-align: top; */
+  background-color: #d9edf7;
+  border-radius: 10px;
+  padding: 0px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+
+  text-align: center;
+  margin: 5px 0px;
+  margin-left: 20px;
+  /* margin: 0 auto; */
+  width: 300px
+}
+
+@media (max-width:992px) {
+  div.stepTop div {
+    width: 100%;
+    margin-left: 0px;
+  }
 }
 
 div.left {
@@ -101,19 +129,19 @@ body {
   padding: 0;
 }
 
-input[type=text] {
-  background-color: #fff;
-  border: 0;
-  border-radius: 2px;
-  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-  margin: 10px;
-  padding: 0 0.5em;
-  font: 400 18px Roboto, Arial, sans-serif;
-  overflow: hidden;
-  line-height: 40px;
-  margin-right: 0;
-  min-width: 25%;
-}
+/* input[type=text] { */
+/*   background-color: #fff; */
+/*   border: 0; */
+/*   border-radius: 2px; */
+/*   box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3); */
+/*   margin: 10px; */
+/*   padding: 0 0.5em; */
+/*   font: 400 18px Roboto, Arial, sans-serif; */
+/*   overflow: hidden; */
+/*   line-height: 40px; */
+/*   margin-right: 0; */
+/*   min-width: 25%; */
+/* } */
 
 input[type=button] {
   background-color: #fff;
@@ -181,6 +209,11 @@ input[type=button].button-secondary:hover {
 }
 
 /* form elements*/
+div.stepTop .step {
+  background-color: #337ab7;
+  color: white;
+}
+
 #editor-container {
   height: 375px;
 }
@@ -191,27 +224,6 @@ input.textarea {
   margin-left: 0px;
 
 }
-
-div.my_cont div {
-  margin-bottom: 10px;
-}
-
-div.stepTop div {
-  display: inline-block;
-  background-color: greenyellow;
-  border-radius: 10px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  text-align: center;
-  margin: 5px 40px;
-  /* margin: 0 auto; */
-}
-
-div.stepTop .step {
-  background-color: green;
-}
-
-
 
 div.chebox input[type=checkbox] {
   /* -ms-transform: scale(2);

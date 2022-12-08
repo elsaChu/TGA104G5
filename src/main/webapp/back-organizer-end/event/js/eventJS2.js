@@ -2,7 +2,9 @@ $.datetimepicker.setLocale('zh'); // kr ko ja en
 
 //let hdata = document.getElementById("hiddData").value;
 let hidd = document.getElementById("hiddData");
+
 let hdata = hidd.value;
+//console.log(hdata);
 // console.log(typeof hdata);
 let toobj = JSON.parse(hdata);
 console.log(toobj);

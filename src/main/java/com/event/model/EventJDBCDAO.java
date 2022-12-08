@@ -10,26 +10,32 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class EventJDBCDAO implements EventDAO_interface {
-	String insertSQL = "insert into `EVENT`(organizerNumber,eventName,eventStartDate,eventEndDate,"
+	final String insertSQL = "insert into `EVENT`(organizerNumber,eventName,eventStartDate,eventEndDate,"
 			+ "peopleNumber,eventPlace,eventP2,eventSummary,eventDescribe,bigImg,smallImg,"
 			+ "collectType,isON,eventType,needSeat,seatX,seatY) " + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 	@Override
-	public int insert(EventVO eventvo) {
+	public int insert(EventVO eventvo,List<TicketVO> ticketlist,List<EventClassVO> eventclasslist) {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		int rowCount = 0;
+		int recount = 0;
 		try {
 			Class.forName(DRIVER);
 			conn = DriverManager.getConnection(URL,USER,PASSWORD);
-			ps = conn.prepareStatement(insertSQL);
+			
+			conn.setAutoCommit(false);
+			//新增event table
+			String[] cols = {"EVENT"};
+			ps = conn.prepareStatement(insertSQL,cols);
 			
 			ps.setInt(1,eventvo.getOrganizerNumber());
 			ps.setString(2,eventvo.getEventName());
@@ -48,16 +54,46 @@ public class EventJDBCDAO implements EventDAO_interface {
 			ps.setBoolean(15,eventvo.getNeedSeat());
 			ps.setInt(16,eventvo.getSeatX());
 			ps.setInt(17,eventvo.getSeatY());
-			rowCount = ps.executeUpdate();
 			
-//			if(rowCount != 0) {
-//				EventClassService evClassSvc = new EventClassService();
-//				evClassSvc.insert(eventClassNumber);
-//			}
+			Statement stmt=conn.createStatement();
+//			stmt.executeUpdate("set auto_increment_offset=1;");//自增主鍵-初始值
+//			stmt.executeUpdate("set auto_increment_increment=1");//自增主鍵-遞增
+			int rowCount = ps.executeUpdate();
+			String eventNumber_ = null;
+			ResultSet rs = ps.getGeneratedKeys();
+			if(rs.next()) {
+				eventNumber_ = rs.getString(1);
+				System.out.println("自增主鍵值= " + eventNumber_);
+			}else {
+				System.out.println("未取得自增主鍵值");
+			}
+			System.out.println(rowCount + " EVENT inserted!!");
+			rs.close();
 			
+			//新增event class table
+			EventClassJDBCDAO eventclassdao = new EventClassJDBCDAO();
+			int evclasscount = 0;
+			for(EventClassVO aeventclass:eventclasslist) {
+				aeventclass.setEventNumber(Integer.valueOf(eventNumber_));
+				int re =eventclassdao.insert(aeventclass, conn);
+				evclasscount = evclasscount+re;
+			}
 			
-			System.out.println(rowCount + " row(s) inserted!!");
+			//新增Ticket table
+			TicketJDBCDAO ticketdao = new TicketJDBCDAO();
+			int ticketcount = 0;
+			for(TicketVO aticket:ticketlist) {
+				aticket.setEventNumber(Integer.valueOf(eventNumber_));
+				int re =ticketdao.insert(aticket, conn);
+				ticketcount = ticketcount+re;
+			}
 			
+			conn.commit();
+			conn.setAutoCommit(true);
+			
+			if(rowCount > 0 && evclasscount > 0 && ticketcount > 0) {
+				recount =1;
+			}
 			
 		// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -84,7 +120,7 @@ public class EventJDBCDAO implements EventDAO_interface {
 				}
 			}
 		}
-		return rowCount;
+		return recount;
 	}
 
 	@Override

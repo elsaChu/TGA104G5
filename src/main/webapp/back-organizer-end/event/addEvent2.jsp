@@ -16,13 +16,14 @@
     <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/back-organizer-end/event/datetimepicker/jquery.datetimepicker.css" />
     <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/main_frame/css/bootstrap.css" />
     <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/main_frame/css/button.css" />
+    <jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
     <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/back-organizer-end/event/css/eventStyle2.css" />
 </head>
 <body>
     <div id="my_head" class="container my_size">
-        <h2>活動上架</h2>
+<!--         <h2>活動上架</h2> -->
         <div class="row stepTop">
-            <div class="col-md-2">設定活動資料</div><div class="col-md-2 step">設定票種</div><div class="col-md-2">設定座位</div><div class="col-md-2">設定表單</div>
+            <div class="col-md-4">設定活動資料</div><div class="col-md-4 step">設定票種</div><div class="col-md-4">設定座位</div>
         </div>
     </div>
     <div class="container task_list_parent my_size">
@@ -30,7 +31,7 @@
         </ul>
     </div>
     <div class="container my_cont my_size">
-        
+        <label style="color:red">${errorMsg}</label>
             <div>
                 <div class="row row1">
                     <div class="col-md-2">票種名稱:<br><input type="text" name="ticketName" class="ticket_name"></div>

@@ -25,9 +25,9 @@
 <body>
 
 <div id="my_head" class="my_size container">
-     	<h2>活動上架</h2>
+<!--      	<h2>活動上架</h2> -->
         <div class="row stepTop">
-            <div class="col-sm-2 step">設定活動資料</div><div class="col-sm-2">設定票種</div><div class="col-sm-2">設定座位</div><div class="col-sm-2">設定表單</div>
+            <div class="col-sm-4 step">設定活動資料</div><div class="col-sm-4">設定票種</div><div class="col-sm-4">設定座位</div>
         </div>
 </div>
 <div class="my_cont my_size container">
