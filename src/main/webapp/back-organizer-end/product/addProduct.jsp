@@ -13,6 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <title>新增商品</title>
+
 </head>
 <body bgcolor='white'>
 
