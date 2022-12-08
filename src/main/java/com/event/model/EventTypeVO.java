@@ -5,12 +5,13 @@ import java.util.Arrays;
 public class EventTypeVO {
 	private Integer eventClassNumber;
 	private String eventClassName;
-	private byte[] eventClassState;
+	private Boolean eventClassState;
+
 
 	@Override
 	public String toString() {
-		return "EventType [eventClassNumber=" + eventClassNumber + ", eventClassName=" + eventClassName
-				+ ", eventClassState=" + Arrays.toString(eventClassState) + "]";
+		return "EventTypeVO [eventClassNumber=" + eventClassNumber + ", eventClassName=" + eventClassName
+				+ ", eventClassState=" + eventClassState + "]";
 	}
 
 	public Integer getEventClassNumber() {
@@ -29,12 +30,11 @@ public class EventTypeVO {
 		this.eventClassName = eventClassName;
 	}
 
-	public byte[] getEventClassState() {
+	public Boolean getEventClassState() {
 		return eventClassState;
 	}
 
-	public void setEventClassState(byte[] eventClassState) {
+	public void setEventClassState(Boolean eventClassState) {
 		this.eventClassState = eventClassState;
 	}
-
 }

@@ -27,61 +27,165 @@ $(function () {
 	});
 });
 
-//upload file
-// let file_el = document.getElementById("bigImg");
+//====show pic=====
+window.addEventListener("pageshow", function () {
+	// console.log("in load");
+	// document.getElementsByTagName("form").reset();
+	document.getElementById("formNa").reset();
+});
+let getInImg = document.getElementsByClassName("inImg");
+//console.log(getInImg);
+for (let i = 0; i < getInImg.length; i++) {
+	let get_one = getInImg[i];
+	// console.log(get_one);
+	get_one.addEventListener("change", function (e) {
+		//   console.log("change on");
+		//   console.log(e.target);
 
-// file_el.addEventListener("change", function () {
-// 	//後來的東西與原來的不一樣就會觸發change事件
-// 	//觸發change時清空ul裡面的預覽圖
-// 	let the_ul = document.getElementsByClassName("picture_list")[0]; //[ul] 加上[0]直接取得ul
-// 	the_ul.innerHTML = "";
+		//清除預覽圖片
+		let the_ul = document.getElementsByClassName("picture_list")[i];
+		the_ul.innerHTML = "";
 
-// 	// console.log(this);
-// 	// console.log(this.files); //取得file list
-// 	// console.log(this.files[0]); //單獨取得file物件
+		//read file
+		let reader = new FileReader();
+		//   console.log(this.files[0]);
+		if (this.files.length !== 0) {
+			reader.readAsDataURL(this.files[0]);
+		}
 
-// 	// console.log(this.files[0].name); //取得物件內屬性內容方法一
-// 	// console.log(this.files[0]["name"]); //取得物件內屬性內容方法二
+		reader.addEventListener("load", function () {
+			// console.log("load on");
+			// console.log(this.result);
 
-// 	//練習 2：透過 FileReader 將圖片於網頁上預覽(單選)
-// 	let reader = new FileReader(); // 用來讀取檔案的物件
-// 	// console.log(this.files.length);
-// 	if (this.files.length !== 0) {
-// 		reader.readAsDataURL(this.files[0]); // 讀取檔案
-// 		fetch("",{
+			//put img in ul
+			let li_el = `
+				<li>
+					<img src="${this.result}" class="preview">
+				</li>	
+			`;
+			let li_el_def = `
+				<li>
+					<img src="img/defPic4.jpg" class="preview">
+				</li>
+			`
+			let getUL = document.getElementsByClassName("picture_list")[i];
+			// console.log(getUL);
 
-// 		});
-// 	}
+			getUL.insertAdjacentHTML("beforeend", li_el);
 
-// 	// "檔案"讀取完畢時觸發
-// 	// reader.addEventListener("load",() => {
-// 	//     console.log(this);                  //箭頭函式 綁定的是外層的file_el物件
-// 	// });
 
-// 	reader.addEventListener("load", function () {
-// 		// console.log(this); //取得圖片(reader)物件
-// 		console.log(this.result); //取得圖片內容
+		});
+	});
+};
 
-// 		// 可以透過 reader.result 取得圖片讀取完成時的 Base64 編碼格式↓
-// 		/*
-// 			<li>
-// 				<img src="" class="preview">
-// 			</li>
-// 			希望呈現上述註解↓*/
-// 		//寫法一
-// 		// let li_el = "<li>";
-// 		// li_el += '<img src="' + this.result + '" class="preview">';
-// 		// li_el += "</li>";
+/* ===editor===*/
+ClassicEditor
+	.create(document.querySelector('#editor'), {
+		// toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+	})
+	.then(editor => {
+		window.editor = editor;
+	})
+	.catch(err => {
+		console.error(err.stack);
+	});
 
-// 		//寫法二
-// 		let li_el = `
-// 			  <li>
-// 				  <img src="${this.result}" class="preview">
-// 			  </li>
-// 		  `;
-// 		//抓取想要放入的HTML標籤 並將內容放入標籤內
-// 		let ul_el = document.getElementsByClassName("picture_list")[0]; //[ul] 加上[0]直接取得ul
-// 		ul_el.insertAdjacentHTML("beforeend", li_el); //位置,想放的內容
-// 	});
-// });
+//===========google map============
+let map;
+let marker;
+let geocoder;
+let responseDiv;
+let response;
+function initMap(input_) {
+	map = new google.maps.Map(document.getElementById("map"), {
+		zoom: 15,
+		center: { lat: 25.0474428, lng: 121.5170955 },
+		mapTypeControl: false,
+	});
+	geocoder = new google.maps.Geocoder();
+
+	const submitButton = document.getElementById("search");
+
+	marker = new google.maps.Marker({
+		map,
+	});
+	map.addListener("click", (e) => {
+		geocode({ location: e.latLng });
+	});
+	submitButton.addEventListener("click", () => geocode({ address: input_.value }));
+}
+function geocode(request) {
+	geocoder
+		.geocode(request)
+		.then((result) => {
+			const { results } = result;
+			map.setCenter(results[0].geometry.location);
+			marker.setPosition(results[0].geometry.location);
+			marker.setMap(map);
+
+			return results;
+		})
+		.catch((e) => {
+			alert("Geocode was not successful for the following reason: " + e);
+		});
+};
+
+let autocomplete;
+function initAutocomplete() {
+	let input_ = document.getElementById("autocomplete");
+	let options = {
+		types: ['establishment'],
+		componentRestrictions: { country: ['TW'] },
+		fields: ["address_components", "geometry", "icon", "name", "place_id"],
+	};
+	autocomplete = new google.maps.places.Autocomplete(input_, options);
+	initMap(input_);
+	autocomplete.addListener('place_changed', onPlaceChanged);
+};
+
+function onPlaceChanged() {
+	var place = autocomplete.getPlace();
+	if (!place.geometry) {
+		document.getElementById("autocomplete").placeholder = "Enter a place";
+	} else {
+		document.getElementById("autocomplete").innerHTML = place.name;
+	}
+};
+
+window.initMap = initMap;
+
+//check box
+function totalChb(e) {
+	let items = document.querySelectorAll(".chb");
+	// console.log(items);
+	let total = 0;
+	items.forEach(function (element) {
+		element.addEventListener("click", function (e) {
+			if (element.checked) {
+				total++;
+				console.log(total);
+			} else {
+				total--;
+				console.log(total);
+			}
+
+			if (total >= 3) {
+				// console.log(" >=3");
+				items.forEach(function (el) {
+					if (!el.checked) {
+						// console.log(el);
+						// el.disabled = ture;
+						el.setAttribute("disabled", true);
+					}
+				});
+			} else {
+				// console.log("<3");
+				items.forEach(function (el) {
+					el.removeAttribute("disabled");
+				});
+			}
+		});
+	});
+}
+totalChb();
 

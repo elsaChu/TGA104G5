@@ -7,7 +7,7 @@ public class TicketVO {
 	private String ticketName;
 	private Integer eventNumber;
 	private Integer price ;
-	private boolean limitTicket;
+	private Boolean limitTicket;
 	private Integer ticketQuantity;
 	private Timestamp ticketStartTime;
 	private Timestamp ticketEndTime;
@@ -15,6 +15,8 @@ public class TicketVO {
 	private Integer ticketMAX ;
 	private String ticketType;
 	
+	
+
 	@Override
 	public String toString() {
 		return "TicketVO [ticketID=" + ticketID + ", ticketName=" + ticketName + ", eventNumber=" + eventNumber
@@ -55,11 +57,11 @@ public class TicketVO {
 		this.price = price;
 	}
 
-	public boolean isLimitTicket() {
+	public Boolean getLimitTicket() {
 		return limitTicket;
 	}
 
-	public void setLimitTicket(boolean limitTicket) {
+	public void setLimitTicket(Boolean limitTicket) {
 		this.limitTicket = limitTicket;
 	}
 
