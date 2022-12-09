@@ -6,14 +6,14 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import tw.com.tibame.order.dao.OrderDetailDAO;
-import tw.com.tibame.order.dao.OrderDetailDAOJndi;
+import tw.com.tibame.order.dao.OrderDetailDAOHibernate;
 import tw.com.tibame.order.vo.OrderDetailVO;
 
 public class OrderDetailServiceImpl implements OrderDetailService {
 	private OrderDetailDAO dao;
 	
 	public OrderDetailServiceImpl() {
-		dao = new OrderDetailDAOJndi();
+		dao = new OrderDetailDAOHibernate();
 	}
 	
 	@Override
