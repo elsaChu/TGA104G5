@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.product.model.*"%>
+<%@ page import="tw.com.tibame.product.model.*"%>
 
 <%
 	ProductVO prodVo = (ProductVO) request.getAttribute("prodVo");
@@ -42,7 +42,7 @@
 		</li>
 
 		<jsp:useBean id="prodSvc" scope="page"
-			class="com.product.model.ProductService" />
+			class="tw.com.tibame.product.model.ProductService" />
 
 		<li>
 			<form method="post" id="formName"
