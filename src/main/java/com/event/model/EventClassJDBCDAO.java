@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.List;
 
 public class EventClassJDBCDAO implements EventClassDAO_interface{
-	final String insertsql="insert into EVENT_CLASS value(?,?);";
+	private static final String evclassInsertSQL="insert into EVENT_CLASS value(?,?);";
 	@Override
 	public List<EventClassVO> selectByeventNumber() {
 
@@ -27,7 +27,7 @@ public class EventClassJDBCDAO implements EventClassDAO_interface{
 		int rowCount = 0;
 		try {
 
-     		ps = con.prepareStatement(insertsql);
+     		ps = con.prepareStatement(evclassInsertSQL);
      		ps.setInt(1,eventclassvo.getEventNumber());
      		ps.setInt(2,eventclassvo.getEventClassNumber());
      		

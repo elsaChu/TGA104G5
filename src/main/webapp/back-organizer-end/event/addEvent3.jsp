@@ -24,12 +24,14 @@
     </div>
     <div class="container my_size">
         <div class="row">
-            <div class="col-md-3">
+            <div id="xdiv" class="col-md-3">
                 <label for="xVal" class="form-label">X軸</label>
+                <label class="control-label" id="xerrmsg" for="xVal"></label>
                 <input type="number" min="1" class="form-control" id="xVal">
             </div>
-            <div class="col-md-3">
+            <div id="ydiv" class="col-md-3">
                 <label for="yVal" class="form-label">Y軸</label>
+                <label class="control-label" id="yerrmsg" for="yVal"></label>
                 <input type="number" min="1" class="form-control" id="yVal">
             </div>
             <div class="col-md-4">
@@ -53,8 +55,11 @@
         <input type="hidden" id="otherPageData" value='${adddata}'>
         <input type="hidden" id="curX" >
         <input type="hidden" id="curY" >
+        <form action="${context}/main_frame/index_manufacturer.jsp"></form>
    </div>
-
+	<script>
+		var context = '${context}';
+	</script>
 
     <script src="${context}/back-organizer-end/event/datetimepicker/jquery.js"></script>
     <script src="${context}/main_frame/js/bootstrap.js"></script>

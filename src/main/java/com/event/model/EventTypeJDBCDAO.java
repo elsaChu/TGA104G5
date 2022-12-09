@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventTypeJDBCDAO implements EventTypeDAO_interface{
-
+	private static final String eventTypeAllSQL = "select * from `EVENT_TYPE` where `eventClassState` != ?;";
 	@Override
 	public int insert(EventTypeVO eventTypevo) {
 
@@ -24,7 +24,6 @@ public class EventTypeJDBCDAO implements EventTypeDAO_interface{
 		return 0;
 	}
 	
-	String sqlall = "select * from `EVENT_TYPE` where `eventClassState` != ?;";
 	@Override
 	public List<EventTypeVO> selectTypeIsON() {
 		List<EventTypeVO> list = new ArrayList<EventTypeVO>();
@@ -38,7 +37,7 @@ public class EventTypeJDBCDAO implements EventTypeDAO_interface{
 
 			Class.forName(DRIVER);
 			con = DriverManager.getConnection(URL,USER,PASSWORD);
-			pstmt = con.prepareStatement(sqlall);
+			pstmt = con.prepareStatement(eventTypeAllSQL);
 			
 			pstmt.setBoolean(1,false);
 			rs = pstmt.executeQuery();
