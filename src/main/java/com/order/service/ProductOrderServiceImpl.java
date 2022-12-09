@@ -3,16 +3,16 @@ package com.order.service;
 import java.util.List;
 
 import com.order.dao.ProductOrderDAO;
-import com.order.dao.ProductOrderDAOJndi;
 import com.order.vo.ProductOrderVO;
 
 public class ProductOrderServiceImpl implements ProductOrderService {
 	private ProductOrderDAO dao;
-
-	public ProductOrderServiceImpl() {
-		dao = new ProductOrderDAOJndi();
-	}
 	
+	public ProductOrderServiceImpl(ProductOrderDAO dao) {
+		super();
+		this.dao = dao;
+	}
+
 	// 會員中心 - 查詢該會員所有訂單
 	@Override
 	public List<ProductOrderVO> getByNumberOrder(Integer number){

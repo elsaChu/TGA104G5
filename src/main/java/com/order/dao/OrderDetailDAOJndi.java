@@ -152,7 +152,7 @@ public class OrderDetailDAOJndi implements OrderDetailDAO{
 	private static final String INSERT = 
 			  "insert into ORDER_DETAIL (prodOrderNo, prodNo, prodQty, subtotal) values (?, ?, ?, ?)";
 	@Override
-	public void insert(OrderDetailVO orderDetailVO) {
+	public boolean insert(OrderDetailVO orderDetailVO) {
 		if(orderDetailVO != null) {
 			try (
 				Connection connection = dataSource.getConnection();
@@ -165,17 +165,20 @@ public class OrderDetailDAOJndi implements OrderDetailDAO{
 				
 				ps.executeUpdate();
 				
+				return true;
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}	
 		}
+		return false;
 		
 	}
 	
 	private static final String UPDATE = 
 			"update ORDER_DETAIL set commentRanking = ?, commentContent = ?, commentDate = ?, returnReason = ?, refundStatus = ?, refundSDate = ?, refundEDate = ? where itemNo = ?";  
 	@Override
-	public void update(OrderDetailVO orderDetailVO) {
+	public boolean update(OrderDetailVO orderDetailVO) {
 		if(orderDetailVO != null && orderDetailVO.getProdNo() != null) {
 			try (
 				Connection connection = dataSource.getConnection();
@@ -191,10 +194,13 @@ public class OrderDetailDAOJndi implements OrderDetailDAO{
 				
 				ps.executeUpdate();
 				
+				return true;
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}	
 		}
+		return false;
 		
 	}
 
@@ -226,35 +232,35 @@ public class OrderDetailDAOJndi implements OrderDetailDAO{
 		return false;
 	}
 	
-	public static void main(String[] args) {
-
-		// 測試與資料庫的連線
+//	public static void main(String[] args) {
+//
+//		// 測試與資料庫的連線
 //		try(Connection connection = dataSource.getConnection()) {
 //			System.out.println("Connecting to MySQL successfully!!");
 //		} catch (SQLException e) {
 //			e.printStackTrace();
 //		}
 
-		// PK 單一查詢
+//		// PK 單一查詢
 //		OrderDetailJdbcDAO dao = new OrderDetailJdbcDAO();
 //		OrderDetailVO orderDetailVO = dao.getPrimaryKey(3);
 //		System.out.println(orderDetailVO.toString());
 
-		// 以訂單編號查詢單筆訂單
+//		// 以訂單編號查詢單筆訂單
 //		OrderDetailJdbcDAO dao = new OrderDetailJdbcDAO();
 //		List<OrderDetailVO> list = dao.getByProdOrderNo(3);
 //		for (OrderDetailVO orderDetailVO : list) {
 //			System.out.println(orderDetailVO.toString());
 //		}
 
-		// 查詢全部
+//		// 查詢全部
 //		OrderDetailJdbcDAO dao = new OrderDetailJdbcDAO();
 //		List<OrderDetailVO> list = dao.getAll();
 //		for(OrderDetailVO orderDetailVO : list) {
 //			System.out.println(orderDetailVO.toString());
 //		}
 
-		// 新增訂單明細
+//		// 新增訂單明細
 //		OrderDetailJdbcDAO dao = new OrderDetailJdbcDAO();
 //		OrderDetailVO orderDetailVO = new OrderDetailVO();
 //		orderDetailVO.setProdOrderNo(3);
@@ -264,7 +270,7 @@ public class OrderDetailDAOJndi implements OrderDetailDAO{
 //		dao.insert(orderDetailVO);
 //		System.out.println(orderDetailVO.toString());
 
-		//測試更新評論退貨退款
+//		//測試更新評論退貨退款
 //		OrderDetailJdbcDAO dao = new OrderDetailJdbcDAO();
 //		OrderDetailVO orderDetailVO = new OrderDetailVO();
 //		orderDetailVO.setProdNo(3);
@@ -274,10 +280,10 @@ public class OrderDetailDAOJndi implements OrderDetailDAO{
 //		dao.update(orderDetailVO);
 //		System.out.println(orderDetailVO.toString());
 
-		// 測試刪除(好像用不到)
+//		// 測試刪除(好像用不到)
 //		OrderDetailDAOJndi dao = new OrderDetailDAOJndi();
 //		System.out.println(dao.delete(9));
-	}
+//	}
 
 
 }
