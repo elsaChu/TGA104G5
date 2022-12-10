@@ -57,7 +57,10 @@
               ></a>
               <ul class="dropdown-menu sign-out">
                 <li><a href="${context}/back-staff-end/staff/insertStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:user-plus" width="20" height="20"></iconify-icon>員工帳號新增</a></li>
-                <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>員工列表</a></li>
+                <li><a href="${context}/back-staff-end/staff/listAllStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>所有員工列表</a></li>
+              	<li><a href="${context}/back-staff-end/staff/updateStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>更新員工資訊</a></li>
+              	
+              
               </ul>
             </li>
             <li class="dropdown">
