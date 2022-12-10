@@ -104,7 +104,7 @@ public class EventJDBCDAO implements EventDAO_interface {
 			
 			if(rowCount > 0 && evclasscount > 0 && ticketcount > 0 && seatcount > 0) {
 				recount =1;
-			}else if(rowCount > 0 && evclasscount > 0 && ticketcount > 0 && eventvo.getNeedSeat()) {
+			}else if(rowCount > 0 && evclasscount > 0 && ticketcount > 0 && !eventvo.getNeedSeat()) {
 				recount =1;
 			}
 			

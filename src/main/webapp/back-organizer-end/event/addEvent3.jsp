@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
 <c:set var="context" value="${pageContext.request.contextPath}" />
-<%
-	String str = (String)request.getAttribute("adddata");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,7 +49,6 @@
             </div>
         </div>
         <input type="hidden" id="eventNumber" value="${eventNumber}">
-        <input type="hidden" id="otherPageData" value='${adddata}'>
         <input type="hidden" id="curX" >
         <input type="hidden" id="curY" >
         <form action="${context}/main_frame/index_manufacturer.jsp"></form>

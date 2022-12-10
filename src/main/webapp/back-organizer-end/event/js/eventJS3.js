@@ -113,14 +113,12 @@ function saveSeatTemplate(seat) {
 //        console.log(seatId);
         seatIdList.push(seatId);
     });
-    console.log("other data = "+$('#otherPageData').val());
     let data = {
         action: 'save',
         seatIdList: seatIdList.join(),
         xVal: $('#curX').val(),
         yVal: $('#curY').val(),
-        eventNumber: $('#eventNumber').val(),
-        otherPageData: $('#otherPageData').val()
+        eventNumber: $('#eventNumber').val()
     };
     console.log("all data = "+JSON.stringify(data));
 
@@ -130,7 +128,12 @@ function saveSeatTemplate(seat) {
         data: data,
         success: function (data) {
             if (data.success) {
-				confirm('儲存完畢')
+				if(data.insertOK == 1){
+					confirm('儲存完畢');
+				}else{
+					confirm('新增失敗');
+				}
+//				confirm('儲存完畢')
                 window.location.href=context+"/main_frame/index_manufacturer.jsp";
             } else {
                 alert(data.seatIdList);

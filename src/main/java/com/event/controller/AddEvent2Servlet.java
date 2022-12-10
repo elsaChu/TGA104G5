@@ -10,8 +10,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.JSONObject;
 
 import com.event.model.EventService;
+import com.event.model.EventVO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -22,6 +26,8 @@ public class AddEvent2Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        
+        HttpSession session = request.getSession();
         
 		String action = request.getParameter("action");
 		
@@ -52,18 +58,16 @@ public class AddEvent2Servlet extends HttpServlet {
 				result.put("yValmsg","只能是數字");
 				result.put("yVal",yVal);
 			}
-	        
-	        String otherPageData  = request.getParameter("otherPageData");
         	
 	        System.out.println("seatIdList:" + seatIdList);
 	        System.out.println("xVal:" + xval);
 	        System.out.println("yVal:" + yval);
-	        System.out.println("otherPageData:" + otherPageData);
 	        
 	        String[] seatIdListary = seatIdList.split(",");
 	        
 	        
 			if(result.size() > 1) {
+				
 				System.out.println("go error "+result.size());
 			    PrintWriter out = response.getWriter();
 		        out.print(gson.toJson(result));
@@ -75,12 +79,22 @@ public class AddEvent2Servlet extends HttpServlet {
 				result.put("success", true);
 			}
 
-
-	        // call service insert data
+			System.out.println("adddata="+((Map)session.getAttribute("adddata")).toString());
+			System.out.println(session.getAttribute("tickets").toString());
+			//get page1 data
+			Map eventMap =(Map)session.getAttribute("adddata");
+			EventVO eventvo = (EventVO)eventMap.get("page1");
+			String[] event_class=(String[]) eventMap.get("event_class");
+			//get page2 data
+			String tickets=session.getAttribute("tickets").toString();
+			
+			// call service insert data
 			EventService eventSvc = new EventService();
-			int eventInsertOK = eventSvc.addEvent(otherPageData,xval,yval,seatIdListary);
+			int eventInsertOK = eventSvc.addEvent(eventvo,event_class,tickets,xval,yval,seatIdListary);
+			result.put("insertOK",eventInsertOK);
+			session.removeAttribute("adddata");
+			session.removeAttribute("tickets");
         }
-        
         
 	    PrintWriter out = response.getWriter();
         out.print(gson.toJson(result));
