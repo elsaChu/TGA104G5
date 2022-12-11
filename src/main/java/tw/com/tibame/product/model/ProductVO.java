@@ -1,9 +1,6 @@
 package tw.com.tibame.product.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "PRODUCT")
@@ -11,7 +8,7 @@ import javax.persistence.Table;
 public class ProductVO implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
-//	下列變數成員對應Database內的欄位
+//	the variables correspond to the fields in the database, respectively
 	@Id
 	@Column(name = "prodNo")
 	private Integer prodNo; // not null auto_increment
@@ -34,6 +31,7 @@ public class ProductVO implements java.io.Serializable {
 	@Column(name = "isPOn")
 	private Boolean isPOn; // not null
 
+//	override toString() to return strings in human-legible form
 	@Override
 	public String toString() {
 		return "Product [prodNo=" + prodNo + ", eventNumber=" + eventNumber + ", organizerNumber=" + organizerNumber
@@ -41,12 +39,12 @@ public class ProductVO implements java.io.Serializable {
 				+ prodStock + ", prodDetails=" + prodDetails + ", prodScore=" + prodScore + ", isPOn=" + isPOn + "]";
 	}
 
-//	使用get方法將值取出
+//	accessors
 	public Integer getProdNo() {
 		return prodNo;
 	}
 
-//	使用set方法將值插入
+//	mutators
 	public void setProdNo(Integer prodNo) {
 		this.prodNo = prodNo;
 	}

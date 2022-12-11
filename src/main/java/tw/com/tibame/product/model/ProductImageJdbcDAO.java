@@ -1,8 +1,8 @@
 package tw.com.tibame.product.model;
 
-import static tw.com.tibame.util.common.Common.PASSWORD;
-import static tw.com.tibame.util.common.Common.URL;
-import static tw.com.tibame.util.common.Common.USER;
+import static common.Common.PASSWORD;
+import static common.Common.URL;
+import static common.Common.USER;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -32,7 +32,7 @@ public class ProductImageJdbcDAO implements ProductImageDAO{
 				productImageVO.setProdIMGID(rs.getInt("prodIMGID"));
 				productImageVO.setProdNo(rs.getInt("prodNo"));
 				productImageVO.setProdIMGName(rs.getString("prodIMGName"));
-				productImageVO.setProdIMG(rs.getBytes("prodIMG"));  
+				// productImageVO.setprodIMG   // byte[]  
 				
 				result.add(productImageVO);	
 			}
@@ -45,10 +45,10 @@ public class ProductImageJdbcDAO implements ProductImageDAO{
 		
 	
 	private static final String SELECT_BY_ID = 
-			"select prodIMGID, prodNo, prodIMGName, prodIMG from PRODUCT_IMG where prodIMGID=?";
+			"select prodIMGID, prodNo, prodIMGName, prodIMG from PRODUCT_IMG where prodIMGID";
 	@Override
 	public ProductImageVO getPrimaryKey(Integer prodIMGID) {
-
+//		ProductImageVO result = new ProductImageVO();
 		ProductImageVO result = null;
 		
 		if(prodIMGID != null) {
@@ -64,7 +64,7 @@ public class ProductImageJdbcDAO implements ProductImageDAO{
 					result.setProdIMGID(rs.getInt("prodIMGID"));
 					result.setProdNo(rs.getInt("prodNo"));
 					result.setProdIMGName(rs.getString("prodIMGName"));
-					result.setProdIMG(rs.getBytes("prodIMG"));
+					// result.setprodIMG
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -84,7 +84,7 @@ public class ProductImageJdbcDAO implements ProductImageDAO{
 	
 	
 	private static final String INSERT = 
-			  "insert into PRODUCT_IMG (prodNo, prodIMGName, prodIMG) values (?, ?, ?)";
+			  "insert into PRODUCT_IMG (prodNo, prodIMGName, prodIMG) values (?, ?, ?);";
 	@Override
 	public void insert(ProductImageVO productImageVO) {
 		

@@ -4,14 +4,15 @@
 
 
 <%
-ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO"); //prodctServlet.java(Concroller), 存入req的productVO物件
+ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 %>
 
-<c:set var="context" value="${pageContext.request.contextPath}" />
-
+<!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>查詢單筆商品資料</title>
+<jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
 
 <style>
   table#table-1 {
@@ -47,7 +48,7 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO"); //prodctServle
 </style>
 
 </head>
-<body bgcolor='white'>
+<body>
 
 <table id="table-1">
 	<tr><td>
@@ -80,7 +81,6 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO"); //prodctServle
 		<td><%=prodVo.getProdDetails()%></td>
 		<td><%=prodVo.getProdScore()%></td>
 		<td><%=prodVo.getIsPOn()%></td>
-
 	</tr>
 </table>
 

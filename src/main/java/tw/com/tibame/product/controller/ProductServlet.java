@@ -1,22 +1,15 @@
 package tw.com.tibame.product.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
+import javax.servlet.*;
+import javax.servlet.http.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
-import tw.com.tibame.product.model.ProductImageVO;
-import tw.com.tibame.product.model.ProductService;
-import tw.com.tibame.product.model.ProductVO;
+import tw.com.tibame.product.model.*;
+
 
 	@WebServlet("/ProductServlet")
 	@MultipartConfig
@@ -31,14 +24,12 @@ public class ProductServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
-		String action = req.getParameter("action");
 		res.setContentType("text/html; charset=UTF-8");
-
-		if ("insert".equals(action)) { // 來自addProduct.jsp的請求
-
+		String action = req.getParameter("action");
+		
+		if ("insert".equals(action)) { // request from addProduct.jsp
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to send the ErrorPage
-			// view.
+			// Store this set in the request scope, in case we need to send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
@@ -55,12 +46,16 @@ public class ProductServlet extends HttpServlet {
 			} catch (NumberFormatException e) {
 				errorMsgs.add("廠商編號格式不正確");
 			}
-
+			
 			String pn = req.getParameter("prodName");
+			String prodNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			//regular-expression
 			if (pn == null || pn.trim().length() == 0) {
 				errorMsgs.add("請輸入商品名稱");
-			}
-
+			} else if(!pn.trim().matches(prodNameReg)) {
+				errorMsgs.add("商品名稱只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+            }
+			
 			String ps = req.getParameter("prodSpec");
 			if (ps == null || ps.trim().length() == 0) {
 				errorMsgs.add("請輸入商品規格，若無規格請填「無」");
@@ -102,9 +97,10 @@ public class ProductServlet extends HttpServlet {
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("ProductVO", prodVo); // 含有輸入格式錯誤的prodVo物件,也存入req
+				req.setAttribute("ProductVO", prodVo);
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-organizer-end/product/addProduct.jsp");
 				failureView.forward(req, res);
+				System.out.println("error: is empty");
 				return;
 			}
 
@@ -129,11 +125,11 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/back-organizer-end/product/listAllProduct.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllProduct.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url); // forward to listAllProduct.jsp
 			successView.forward(req, res);
 		}
 
-		if ("insert".equals(action)) { // 來自updateProduct.jsp的請求
+		if ("insert".equals(action)) { // request from updateProduct.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -188,7 +184,9 @@ public class ProductServlet extends HttpServlet {
 			
 			String isPOn = req.getParameter("isPOn");
 			Boolean ipo = Boolean.valueOf(isPOn);
-
+			
+			Integer prodno =  Integer.valueOf(req.getParameter("ProdNo"));
+			
 			ProductVO prodVo = new ProductVO();
 			prodVo.setEventNumber(en);
 			prodVo.setOrganizerNumber(on);
@@ -198,10 +196,11 @@ public class ProductServlet extends HttpServlet {
 			prodVo.setProdStock(psk);
 			prodVo.setProdDetails(pdt);
 			prodVo.setIsPOn(ipo);
+			prodVo.setProdNo(prodno);
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("ProductVO", prodVo); // 含有輸入格式錯誤的prodVo物件,也存入req
+				req.setAttribute("ProductVO", prodVo);
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-organizer-end/product/updateProduct.jsp");
 				failureView.forward(req, res);
@@ -210,21 +209,23 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			ProductService prodSvc = new ProductService();
-			prodVo = prodSvc.updateProduct(en, on, pn, ps, up, psk, pdt, ipo);
+			prodVo = prodSvc.updateProduct(en, on, pn, ps, up, psk, pdt, ipo, prodno);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("ProductVO", prodVo); // 資料庫update成功後,正確的的ProductVO物件,存入req
 			String url = "/back-organizer-end/product/listOneProduct.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneProduct.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url); // forward to listOneProduct.jsp
 			successView.forward(req, res);
 		}
 
-		if ("getOne_For_Display".equals(action)) { // 來自selectProduct.jsp的請求
+		if ("getOne_For_Display".equals(action)) { // request from selectProduct.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
+			
+			System.out.println("error.Msgs");
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			String str = req.getParameter("prodNo");
@@ -237,7 +238,7 @@ public class ProductServlet extends HttpServlet {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-organizer-end/product/selectProduct.jsp");
 				failureView.forward(req, res);
-				return;// 程式中斷
+				return;
 			}
 
 			Integer prodNo = null;
@@ -251,9 +252,9 @@ public class ProductServlet extends HttpServlet {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-organizer-end/product/selectProduct.jsp");
 				failureView.forward(req, res);
-				return;// 程式中斷
+				return;
 			}
-
+			
 			/*************************** 2.開始查詢資料 *****************************************/
 			ProductService prodSvc = new ProductService();
 			ProductVO prodVo = prodSvc.getOneProduct(prodNo);
@@ -265,17 +266,18 @@ public class ProductServlet extends HttpServlet {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-organizer-end/product/selectProduct.jsp");
 				failureView.forward(req, res);
-				return;// 程式中斷
+				return;
 			}
-
+			
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("ProductVO", prodVo); // 資料庫取出的ProductVO物件,存入req
 			String url = "/back-organizer-end/product/listOneProduct.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneProduct.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url); // forward to listOneProduct.jsp
 			successView.forward(req, res);
+			
 		}
 
-		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
+		if ("getOne_For_Update".equals(action)) { // request from listAllEmp.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to send the ErrorPage
@@ -292,7 +294,7 @@ public class ProductServlet extends HttpServlet {
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("ProductVO", prodVo); // 資料庫取出的ProductVO物件,存入req
 			String url = "/back-organizer-end/product/updateProduct.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url);// forward to update_emp_input.jsp
 			successView.forward(req, res);
 		}
 	}

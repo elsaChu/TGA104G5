@@ -29,8 +29,9 @@ public class ProductService {
 		return prodVo;
 	}
 
+	
 	public ProductVO updateProduct(Integer eventNumber, Integer organizerNumber, String prodName, String prodSpec,
-			Integer unitPrice, Integer prodStock, String prodDetails, Boolean isPOn) {
+			Integer unitPrice, Integer prodStock, String prodDetails, Boolean isPOn, Integer prodNo) {
 
 		ProductVO prodVo = new ProductVO();
 
@@ -42,6 +43,7 @@ public class ProductService {
 		prodVo.setProdStock(prodStock);
 		prodVo.setProdDetails(prodDetails);
 		prodVo.setIsPOn(isPOn);
+		prodVo.setProdNo(prodNo);
 		dao.update(prodVo);
 
 		return prodVo;
