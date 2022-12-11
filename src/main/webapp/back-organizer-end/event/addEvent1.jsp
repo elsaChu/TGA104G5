@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.event.model.*" %>
+<%@ page import="tw.com.tibame.event.model.*" %>
 <c:set var="context" value="${pageContext.request.contextPath}" />
 <%
 	EventVO eventvo = (EventVO)request.getAttribute("eventvo");
@@ -71,7 +71,7 @@
                             <img src="img/defPic4.jpg" class="preview">
                         </li>
                     </ul>
-                <jsp:useBean id="eventTypeSvc" scope="page" class="com.event.model.EventTypeService" />
+                <jsp:useBean id="eventTypeSvc" scope="page" class="tw.com.tibame.event.model.EventTypeService" />
                 <div class="chebox">
                         活動分類：(可以選擇最多三個分類)<br>
 <!--                         <input type="CheckBox" name="eventClassNumber" class="chb"><label>1</label><br> -->
