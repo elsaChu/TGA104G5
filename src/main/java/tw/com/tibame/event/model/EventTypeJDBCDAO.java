@@ -1,6 +1,6 @@
 package tw.com.tibame.event.model;
 
-import static tw.com.tibame.util.conn.DBConnection.*;
+import tw.com.tibame.util.conn.DBConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -35,8 +35,8 @@ public class EventTypeJDBCDAO implements EventTypeDAO_interface{
 
 		try {
 
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL,USER,PASSWORD);
+			Class.forName(DBConnection.DRIVER);
+			con = DriverManager.getConnection(DBConnection.URL,DBConnection.USER,DBConnection.PASSWORD);
 			pstmt = con.prepareStatement(eventTypeAllSQL);
 			
 			pstmt.setBoolean(1,false);

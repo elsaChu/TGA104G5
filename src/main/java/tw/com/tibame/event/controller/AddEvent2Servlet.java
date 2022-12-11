@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
-import com.event.model.EventService;
-import com.event.model.EventVO;
+import tw.com.tibame.event.model.EventService;
+import tw.com.tibame.event.model.EventVO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

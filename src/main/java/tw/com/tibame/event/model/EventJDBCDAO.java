@@ -1,10 +1,12 @@
 package tw.com.tibame.event.model;
 
-import static tw.com.tibame.util.conn.DBConnection.DRIVER;
-import static tw.com.tibame.util.conn.DBConnection.PASSWORD;
-import static tw.com.tibame.util.conn.DBConnection.URL;
-import static tw.com.tibame.util.conn.DBConnection.USER;
+import tw.com.tibame.util.conn.DBConnection;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class EventJDBCDAO implements EventDAO_interface {
 	private static final String eventInsertSQL = "insert into `EVENT`(organizerNumber,eventName,eventStartDate,eventEndDate,"
@@ -24,8 +29,8 @@ public class EventJDBCDAO implements EventDAO_interface {
 		PreparedStatement ps = null;
 		int recount = 0;
 		try {
-			Class.forName(DRIVER);
-			conn = DriverManager.getConnection(URL,USER,PASSWORD);
+			Class.forName(DBConnection.DRIVER);
+			conn = DriverManager.getConnection(DBConnection.URL,DBConnection.USER,DBConnection.PASSWORD);
 			
 			conn.setAutoCommit(false);
 			//新增event table
