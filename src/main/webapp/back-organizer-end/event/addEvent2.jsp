@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="tw.com.tibame.event.model.*" %>
 <c:set var="context" value="${pageContext.request.contextPath}" />
-<%
-	String str = (String)request.getAttribute("adddata");
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,9 +18,8 @@
 </head>
 <body>
     <div id="my_head" class="my_size col-md-12">
-<!--         <h2>活動上架</h2> -->
         <div class="row stepTop">
-            <div class="col-md-3 ">設定活動資料</div><div class="col-md-3 col-md-offset-1 step">設定票種</div><div class="col-md-3 col-md-offset-1">設定座位</div>
+            <div class="col-md-3">設定活動資料</div><div class="col-md-3 col-md-offset-1 step">設定票種</div><div class="col-md-3 col-md-offset-1">設定座位</div>
         </div>
     </div>
     <div class="task_list_parent my_size col-md-12">
@@ -57,15 +53,13 @@
                 </div>
             </div>
             <div class="myButton">
-<%--             	<form method="post" action="<%=request.getContextPath()%>/addEventServlet" name="eventForm1" enctype="multipart/form-data" id="formNa"> --%>
-<!--             		<input type="hidden" name="action" value="page2"> -->
 	                <input type="button" value="上一步">
 	                <input type="button" value="下一步" id="sub">
-<!--             	</form> -->
             </div>
     </div>
     <script>
 		var context = '${context}';
+		var maxDate = '${maxDate}';
 	</script>
     <script src="<%=request.getContextPath()%>/back-organizer-end/event/datetimepicker/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/back-organizer-end/event/datetimepicker/jquery.datetimepicker.full.js"></script>

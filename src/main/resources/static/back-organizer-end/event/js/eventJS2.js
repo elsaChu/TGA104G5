@@ -5,20 +5,19 @@ $(function () {
         timepicker: true,
         step: 15,
         format: 'Y-m-d H:i:s',
-        //	  value: new Date(),
         onShow: function () {
             this.setOptions({
-                maxDate: $('#end_date').val() ? $('#end_date').val() : false
+                maxDate: $('#end_date').val() ? $('#end_date').val() : maxDate
             })
         }
     });
-
+	console.log("date"+maxDate);
     $('#end_date').datetimepicker({
         theme: '',
         timepicker: true,
         step: 15,
         format: 'Y-m-d H:i:s',
-        //	  value: new Date(),
+        maxDate: maxDate,
         onShow: function () {
             this.setOptions({
                 minDate: $('#start_date').val() ? $('#start_date').val() : false
@@ -226,5 +225,10 @@ $(function () {
         if (typeof data.ticketTotalOut != 'undefined') {
             $('.row5').append('<div style="color:red;margin-left:5px;">' + data.ticketTotalOut + '</div>');
         }
+        if (typeof data.max_dateerr != 'undefined') {
+            $('.row5').append('<div style="color:red;margin-left:5px;">' + data.max_dateerr + '</div>');
+        }
+        
+        
     }; 
 });
