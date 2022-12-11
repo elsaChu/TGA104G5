@@ -3,6 +3,7 @@ package tw.com.tibame.event.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -35,17 +36,15 @@ import com.google.gson.GsonBuilder;
 public class addEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		doPost(req,res);
-	}
+//	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+//		doPost(req,res);
+//	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html; charset=UTF-8");
 		HttpSession session = req.getSession();
 		Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		
-		
 		
 		String action = req.getParameter("action");
 		if("page1".equals(action)) {
@@ -69,14 +68,15 @@ public class addEventServlet extends HttpServlet {
 			java.sql.Timestamp eventStartDate = null;
 			try {
 				eventStartDate = java.sql.Timestamp.valueOf(req.getParameter("start_date").trim());
-				System.out.println("page1 date=" + eventStartDate);
+//				System.out.println("page1 date=" + eventStartDate);
 			} catch (IllegalArgumentException e) {
 				errorMsgs.add("請輸入日期!");
 			}
 			
+			String eventenddatestr=req.getParameter("end_date").trim();
 			java.sql.Timestamp eventEndDate = null;
 			try {
-				eventEndDate = java.sql.Timestamp.valueOf(req.getParameter("end_date").trim());
+				eventEndDate = java.sql.Timestamp.valueOf(eventenddatestr);
 				if(eventStartDate !=null) {
 					if(eventEndDate.compareTo(eventStartDate) == -1) {
 						errorMsgs.add("日期區間不對!");
@@ -131,7 +131,7 @@ public class addEventServlet extends HttpServlet {
 			}
 			
 			String needSeat = req.getParameter("needSeat");
-			System.out.println(needSeat);
+//			System.out.println(needSeat);
 			Boolean needSeat_ = false;
 			if ("on".equals(needSeat)) {
 				needSeat_ = true;
@@ -147,9 +147,27 @@ public class addEventServlet extends HttpServlet {
 			EventVO eventvo= new EventVO();
 			eventvo.setOrganizerNumber(organizerNumber);
 			eventvo.setEventName(eventName);
-			eventvo.setEventStartDate(eventStartDate);
-			eventvo.setEventEndDate(eventEndDate);
-			eventvo.setPeopleNumber(peopleNumber);
+			if(eventStartDate == null) {
+				req.setAttribute("eventStartDate", "");
+			}else {
+				eventvo.setEventStartDate(eventStartDate);
+				req.setAttribute("eventStartDate", eventStartDate);
+			}
+			
+			if(eventEndDate == null) {
+				req.setAttribute("eventEndDate", "");
+			}else {
+				eventvo.setEventEndDate(eventEndDate);
+				req.setAttribute("eventEndDate", eventEndDate);
+			}
+			
+			if(peopleNumber == null) {
+				req.setAttribute("peopleNumber", "");
+			}else {
+				eventvo.setPeopleNumber(peopleNumber);
+				req.setAttribute("peopleNumber", peopleNumber);
+			}
+			
 			eventvo.setEventPlace(eventPlace);
 			eventvo.setEventP2(eventP2);
 			eventvo.setEventSummary(eventSummary);
@@ -206,6 +224,8 @@ public class addEventServlet extends HttpServlet {
 			System.out.println(filename);
 			System.out.println(smallImgfilename);
 			session.setAttribute("adddata", map);
+//			System.out.println(eventenddatestr);
+			session.setAttribute("maxDate", eventenddatestr);
 			RequestDispatcher failureView = req
 					.getRequestDispatcher("/back-organizer-end/event/addEvent2.jsp");
 			failureView.forward(req, res);
@@ -282,6 +302,15 @@ public class addEventServlet extends HttpServlet {
 						if(start_date !=null) {
 							if(end_date.compareTo(start_date) == -1) {
 								result.put("end_datemsgeday","日期區間不對!");
+								haserr =true;
+							}
+							String maxDateStr =(String)session.getAttribute("maxDate");
+//							System.out.println("str="+maxDateStr);
+							Timestamp maxDate =Timestamp.valueOf(maxDateStr);
+//							System.out.println("date="+maxDate);
+//							System.out.println("end cop max ="+end_date.compareTo(maxDate));
+							if(end_date.compareTo(maxDate) == 1) {
+								result.put("max_dateerr","售票結束日期不可超過活動結束日期!");
 								haserr =true;
 							}
 						}
