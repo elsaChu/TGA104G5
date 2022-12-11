@@ -68,13 +68,13 @@ function genSeatTemplate(data) {
                 }
 
                 if (hasNum) {
-                    xTd += '<td><button id="seatId_' + seatIdCount + '" type="button" onclick="triggerSeatStatus(this);" class="btn btn-success seat seatActive"><img class="seatIcon" src="back-organizer-end/event/img/seat-2-128.png" /></button></td>';
+                    xTd += '<td><button id="seatId_' + seatIdCount + '" type="button" onclick="triggerSeatStatus(this);" class="btn btn-success seat seatActive"><img class="seatIcon" src="'+context+'/back-organizer-end/event/img/seat-2-128.png" /></button></td>';
                 } else {
-                    xTd += '<td><button id="seatId_' + seatIdCount + '" type="button" onclick="triggerSeatStatus(this);" class="btn btn-light seat"><img class="seatIcon" src="back-organizer-end/event/img/x.png" /></button></td>';
+                    xTd += '<td><button id="seatId_' + seatIdCount + '" type="button" onclick="triggerSeatStatus(this);" class="btn btn-light seat"><img class="seatIcon" src="'+context+'/back-organizer-end/event/img/x.png" /></button></td>';
                 }
 
             } else {
-                xTd += '<td><button id="seatId_' + seatIdCount + '" type="button" onclick="triggerSeatStatus(this);" class="btn btn-success seat seatActive"><img class="seatIcon" src="back-organizer-end/event/img/seat-2-128.png" /></button></td>';
+                xTd += '<td><button id="seatId_' + seatIdCount + '" type="button" onclick="triggerSeatStatus(this);" class="btn btn-success seat seatActive"><img class="seatIcon" src="'+context+'/back-organizer-end/event/img/seat-2-128.png" /></button></td>';
             }
 
             seatIdCount++;
@@ -93,12 +93,12 @@ function triggerSeatStatus(seat) {
         $(seat).removeClass('seatActive')
             .removeClass('btn-success')
             .addClass('btn-light');
-        $(seat).html('<img class="seatIcon" src="back-organizer-end/event/img/x.png" />');
+        $(seat).html('<img class="seatIcon" src="'+context+'/back-organizer-end/event/img/x.png" />');
     } else {
         $(seat).removeClass('btn-light')
             .addClass('btn-success')
             .addClass('seatActive');
-        $(seat).html('<img class="seatIcon" src="back-organizer-end/event/img/seat-2-128.png" />');
+        $(seat).html('<img class="seatIcon" src="'+context+'/back-organizer-end/event/img/seat-2-128.png" />');
     }
 
 }
@@ -107,12 +107,10 @@ function triggerSeatStatus(seat) {
 function saveSeatTemplate(seat) {
 
     let seatIdList = [];
-    xVal = new Number($('#xVal').val());
-    yVal = new Number($('#yVal').val());
     $.each($('.seat.seatActive'), function () {
-        console.log($(this));
+//        console.log($(this));
         let seatId = $(this).attr('id').replace('seatId_', '');
-        console.log(seatId);
+//        console.log(seatId);
         seatIdList.push(seatId);
     });
     let data = {
@@ -120,21 +118,46 @@ function saveSeatTemplate(seat) {
         seatIdList: seatIdList.join(),
         xVal: $('#curX').val(),
         yVal: $('#curY').val(),
-        eventNumber: $('#eventNumber').val(),
-        otherPageData: $('#otherPageData').val()
+        eventNumber: $('#eventNumber').val()
     };
-    console.log(data);
+    console.log("all data = "+JSON.stringify(data));
 
     $.ajax({
-        url: './AddEvent2Servlet',
+        url: `${context}/AddEvent2Servlet`,
         method: 'POST',
         data: data,
         success: function (data) {
             if (data.success) {
-                alert('儲存完畢');
+				if(data.insertOK == 1){
+					confirm('儲存完畢');
+				}else{
+					confirm('新增失敗');
+				}
+//				confirm('儲存完畢')
+                window.location.href=context+"/main_frame/index_manufacturer.jsp";
             } else {
-                alert('發生異常');
+                alert(data.seatIdList);
+                console.log(data);
+                $('#xerrmsg').text(data.xValmsg);
+                $('#xVal').val(data.xVal);
+                $('#xdiv').addClass('has-error');
+                
+                $('#yerrmsg').text(data.yValmsg);
+                $('#yVal').val(data.yVal);
+                $('#ydiv').addClass('has-error');
             }
         }
     });
 }
+
+//error input change type
+$('#xVal').on("click", function(){
+	$('#xdiv').removeClass('has-error');
+	$('#xerrmsg').text("");
+	
+});
+
+$('#yVal').on("click", function(){
+	$('#ydiv').removeClass('has-error');
+	$('#yerrmsg').text("");
+});
