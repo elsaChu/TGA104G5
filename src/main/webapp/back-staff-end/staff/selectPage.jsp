@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@
-page import="com.staff.model.*"
+page import="tw.com.tibame.staff.model.*"
 %>
 
 <!DOCTYPE html>
@@ -64,7 +64,7 @@ page import="com.staff.model.*"
     </FORM>
   </li>
 
-  <jsp:useBean id="staffSvc" scope="page" class="com.staff.model.StaffService" />
+  <jsp:useBean id="staffSvc" scope="page" class="tw.com.tibame.staff.model.StaffService" />
    
   <li>
      <FORM METHOD="post" ACTION="staff.do" >
