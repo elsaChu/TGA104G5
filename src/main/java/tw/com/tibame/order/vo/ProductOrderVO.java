@@ -17,34 +17,34 @@ public class ProductOrderVO implements java.io.Serializable {
 	@Id
 	@Column(name = "prodOrderNo")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer prodOrderNo; // not null auto_increment
+	private Integer prodOrderNo;	// not null auto_increment
 
 	@Column(name = "number")
-	private Integer number; // not null
+	private Integer number;			// not null
 
 	@Column(name = "amountPrice")
-	private Integer amountPrice; // not null
+	private Integer amountPrice;	// not null
 
 	@Column(name = "prodTotal")
-	private Integer prodTotal; // not null
+	private Integer prodTotal;		// not null
 
 	@Column(name = "paymentDate")
-	private Timestamp paymentDate; // not null default current_timestamp
+	private Timestamp paymentDate;	// not null
 
 	@Column(name = "receiverName")
-	private String receiverName; // not null
+	private String receiverName;	// not null
 
 	@Column(name = "receiverTel")
-	private String receiverTel; // not null
+	private String receiverTel;		// not null
 
 	@Column(name = "shippingAdd")
-	private String shippingAdd; // not null
+	private String shippingAdd;		// not null
 
 	@Column(name = "prodOrderStatus")
-	private String prodOrderStatus; // not null default
+	private String prodOrderStatus; // not null
 
 	@Column(name = "deliveryStatus")
-	private String deliveryStatus; // not null default
+	private String deliveryStatus;	// not null
 
 	@Override
 	public String toString() {

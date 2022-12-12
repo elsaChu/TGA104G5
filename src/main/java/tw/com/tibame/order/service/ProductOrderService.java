@@ -16,7 +16,6 @@ public interface ProductOrderService {
 	ProductOrderVO updateReceiverInfo(Integer prodOrderNo, String receiverName, String receiverTel, String shippingAdd);
 
 	// 新增訂單
-	ProductOrderVO addOrder(Integer number, Integer amountPrice, Integer prodTotal, String receiverName,
-			String receiverTel, String shippingAdd);
+	ProductOrderVO addOrder(ProductOrderVO productOrderVO);
 
 }

@@ -8,9 +8,11 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.tibame.order.vo.ProductOrderVO;
 @Repository
+@Transactional
 public class ProductOrderDAOHibernate implements ProductOrderDAO {
 
 	@PersistenceContext
@@ -47,27 +49,25 @@ public class ProductOrderDAOHibernate implements ProductOrderDAO {
 		return null;
 	}
 
-	@Override // 新增訂單                              //ProdOrderNo是auto_increment需要檢查其他欄位嗎?????
+	@Override // 新增訂單                              
 	public ProductOrderVO insert(ProductOrderVO productOrderVO) { 
-		if (productOrderVO != null && productOrderVO.getProdOrderNo() != null) {
-			ProductOrderVO temp = this.getSession().get(ProductOrderVO.class, productOrderVO.getProdOrderNo());
-			if (temp == null) {
-				this.getSession().persist(productOrderVO);
-				return productOrderVO;
-			}
+		if (productOrderVO != null) {
+			this.getSession().persist(productOrderVO);
+			return productOrderVO;
 		}
 		return null;
 	}
 
 	@Override // 更新收件資訊及狀態
-	public ProductOrderVO update(ProductOrderVO productOrderVO) {
+	public boolean update(ProductOrderVO productOrderVO) {
 		if (productOrderVO != null && productOrderVO.getProdOrderNo() != null) {
 			ProductOrderVO temp = this.getSession().get(ProductOrderVO.class, productOrderVO);
 			if (temp != null) {
-				return (ProductOrderVO) this.getSession().merge(productOrderVO);
+				this.getSession().merge(productOrderVO);
+				return true;
 			}
 		}
-		return null;
+		return false;
 	}
 
 }

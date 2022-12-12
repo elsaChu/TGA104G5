@@ -9,6 +9,6 @@ public interface OrderDetailDAO {
 	
 	public OrderDetailVO getPrimaryKey(Integer itemNo);					
 	public List<OrderDetailVO> getByProdOrderNo(Integer prodOrderNo);	// 會員中心:查詢單筆訂單
-	public boolean insert(OrderDetailVO orderDetailVO);					
+	public OrderDetailVO insert(OrderDetailVO orderDetailVO);					
 	public OrderDetailVO update(OrderDetailVO orderDetailVO);
 }

@@ -7,9 +7,12 @@ import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.tibame.order.vo.OrderDetailVO;
-
+@Repository
+@Transactional
 public class OrderDetailDAOHibernate implements OrderDetailDAO{
 	
 	@PersistenceContext
@@ -46,7 +49,7 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO{
 	public List<OrderDetailVO> getByProdOrderNo(Integer prodOrderNo) {
 		List<OrderDetailVO> result = new ArrayList<>();
 		
-		if(prodOrderNo != null) {
+		if(prodOrderNo != null) {   //不能這樣查資料數多會爆掉
 			Query<OrderDetailVO> query = getSession().createQuery("from OrderDetailVO where prodOrderNo =: prodOrderNo", OrderDetailVO.class); 
 			query.setParameter("prodOrderNo", prodOrderNo);
 			result = query.list();
@@ -56,25 +59,23 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO{
 		}
 
 	@Override
-	public boolean insert(OrderDetailVO orderDetailVO) {
+	public OrderDetailVO insert(OrderDetailVO orderDetailVO) {
 		
 		if(orderDetailVO != null && orderDetailVO.getProdOrderNo() != null) {
-			OrderDetailVO temp = this.getSession().get(OrderDetailVO.class, orderDetailVO.getProdOrderNo());
-			if(temp == null) {
-				this.getSession().persist(orderDetailVO);
-				return true;
-			}
+			this.getSession().persist(orderDetailVO);
+			return orderDetailVO;
 		}
-		return false;	
+		return null;	
 	}
 	
 	@Override
 	public OrderDetailVO update(OrderDetailVO orderDetailVO) {
 		
-		if(orderDetailVO != null && orderDetailVO.getProdNo() != null) {
-			OrderDetailVO temp = this.getSession().get(OrderDetailVO.class, orderDetailVO);
+		if(orderDetailVO != null && orderDetailVO.getItemNo() != null) {
+			OrderDetailVO temp = this.getSession().get(OrderDetailVO.class, orderDetailVO.getItemNo());
 			if(temp != null) {
 				return (OrderDetailVO) this.getSession().merge(orderDetailVO);
+				
 			}
 		}
 		return null;
