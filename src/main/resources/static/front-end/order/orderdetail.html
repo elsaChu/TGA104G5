@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <!-- Title -->
+  <title>TICK IT</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../../main_frame/images/core-img/logo.ico" />
+
+  <!-- Style CSS -->
+  <link rel="stylesheet" href="../../main_frame/css/style_member.css" />
+  <link rel="stylesheet" href="../../main_frame/style.css">
+  <link rel="stylesheet" href="../../main_frame/css/button.css" />
+  <link rel="stylesheet" href="./css/order.css">
+</head>
+
+<body>
+  <header>
+    <!-- 登入開始 -->
+    <br />
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-2">
+        <a class="www" href="#">我的票券</a><a class="www" href="#">商品專區</a><a class="www" href="#">探索活動</a>
+      </div>
+      <div class="col-5">
+        <div class="box">
+          <div class="container-1">
+            <span class="icon"><i class="fa fa-search"></i></span>
+            <input type="search" id="search" placeholder="搜索活動" />
+          </div>
+        </div>
+      </div>
+      <ul class="drop-down-menu">
+        <li>
+          <a href="#"><iconify-icon icon="heroicons:user-circle-solid" width="30" height="30"></iconify-icon></a>
+          <ul>
+            <li>
+              <a href="#"><iconify-icon class="sign-out" icon="heroicons:cog-8-tooth" width="20"
+                  height="20"></iconify-icon>
+                設定</a>
+            </li>
+            <li>
+              <a href="#"><iconify-icon class="sign-out" icon="heroicons:ticket" width="20" height="20"></iconify-icon>
+                票券訂單</a>
+            </li>
+            <li>
+              <a href="#"><iconify-icon class="sign-out" icon="heroicons:gift" width="20" height="20"></iconify-icon>
+                商品訂單</a>
+            </li>
+            <li>
+              <a href="#"><iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20"
+                  height="20"></iconify-icon>
+                登出</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#"><iconify-icon icon="heroicons:bell-20-solid" width="30" height="30"></iconify-icon></a>
+        </li>
+        <li>
+          <a href="#"><iconify-icon icon="heroicons:heart-20-solid" width="30" height="30"></iconify-icon></a>
+        </li>
+        <li>
+          <a href="#"><iconify-icon icon="heroicons:shopping-cart-20-solid" width="30" height="30"></iconify-icon></a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 登入結束 -->
+
+    <!-- 空行 -->
+    <div class="row">
+      <div class="col-12">　</div>
+    </div>
+  </header>
+
+  <span id="tab-1">帳號設定</span>
+  <span id="tab-2">修改密碼</span>
+  <span id="tab-3">票券訂單</span>
+  <span id="tab-4">商品訂單</span>
+  <!-- 頁籤按鈕 -->
+  <div id="tab">
+    <ul>
+      <li><a href="#tab-1">帳號設定</a></li>
+      <li><a href="#tab-2">修改密碼</a></li>
+      <li><a href="#tab-3">票券訂單</a></li>
+      <li><a href="#tab-4">商品訂單</a></li>
+    </ul>
+
+    <!-- 頁籤的內容區塊 -->
+    <div class="tab-content-1">
+      <br />
+      <h3>修改帳號設定</h3>
+      <br />
+      <div class="Data-Content">
+        <div class="Data-Title">
+          <div class="AlignRight">
+            <label for="txt">使用者帳號</label><br />
+            <label for="txt">信箱</label>
+            <br />
+            <label for="txt">生日</label><br />
+            <label for="txt">手機號碼</label><br /><br /><br />
+            <hr style="width: 400%" />
+            <label for="txt" style="font-weight: 600; font-size: 16px">以下資料為報名表單的預填資料：</label><br />
+            <label for="txt">連絡電話</label><br />
+            <label for="txt">身份證字號</label><br />
+            <label for="txt">郵遞區號</label><br />
+            <label for="txt">地址</label><br /><br /><br />
+          </div>
+        </div>
+      </div>
+      <div class="Data-Items">
+        <input type="email" name="email" /><label for="txt">　更改信箱後需要重新驗證，否則部分功能將無法使用。</label><br />
+        <input type="date" name="birthday" /><br />
+        <input type="tel" name="phoneNumber" />
+        <label for="txt">此手機號碼將作為購票緊急聯絡的用途，部分活動可能需要手機認證才能報名購票，請務必輸入正確的手機號碼。</label><br /><br /><br /><br />
+        <hr style="width: 0%" />
+        <input type="tel" name="phone2" /><br />
+        <input type="text" name="IDNumber" /><br />
+        <input type="text" name="postalCode" /><br />
+        <input type="text" name="address" /><br /><br />
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" name="scales" checked />
+        是否訂閱TICK IT最新消息<br />
+      </div>
+      <div class="submit">
+        <input type="submit" value="儲存個人資料" /><br /><br />
+      </div>
+    </div>
+
+    <div class="tab-content-2">
+      <br />
+      <h3>修改密碼</h3>
+      <br />
+      <div class="Data-Content2">
+        <div class="Data-Title2">
+          <div class="AlignRight2">
+            <a>請輸入舊密碼</a><br />
+            <a>請輸入新密碼</a><br />
+            <a>請再次輸入新密碼</a><br />
+          </div>
+        </div>
+      </div>
+      <div class="Data-Items2">
+        <input type="password" /><br />
+        <input type="password" /><br />
+        <input type="password" /><br /><br /><br />
+      </div>
+      <div class="submit">
+        <input type="submit" value="確定修改密碼" /><br /><br />
+      </div>
+    </div>
+    <div class="tab-content-3">
+      <p>頁面2顯示的內容</p>
+    </div>
+    <div class="tab-content-4">
+      <div class="container">
+        <p></p>
+        <h2>訂單明細</h2>
+        <hr>
+        <div class="main" id="table1">
+          <table>
+            <thead>
+              <tr>
+                <th>項目編號</th>
+                <th>商品名稱</th>
+                <th>購買數量</th>
+                <th>小計金額</th>
+                <th>評價</th>
+                <th>評價內容</th>
+                <th>評論日期</th>
+                <th>退貨原因</th>
+                <th>退款狀態</th>
+                <th>退貨申請日期</th>
+                <th>退款完成日期</th>
+                <td> </td>
+                <td> </td>
+              </tr>
+            </thead>
+            <!-- 按下退貨申請按鈕需要出現退貨視窗 -->
+            <tbody>
+              <tr>
+                <th>1</th>
+                <th>aaa</th>
+                <th>1</th>
+                <th>1000</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <td><button>評價</button></td>
+                <td><button>退貨</button></td>
+              </tr>
+              <tr>
+                <th>2</th>
+                <th>bbb</th>
+                <th>1</th>
+                <th>1000</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <td><button>評價</button></td>
+                <td><button>退貨</button></td>
+              </tr>
+              <tr>
+                <th>3</th>
+                <th>ccc</th>
+                <th>1</th>
+                <th>1000</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <td><button>評價</button></td>
+                <td><button>退貨</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <hr>
+        <div class="row">
+          <div class="col-lg-1 col-md-1 col-sm-1"></div>
+          <div class="col-lg-5 col-md-5 col-sm-5">
+            <h5>訂單資訊</h5><br>
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4" id="title">
+                <p>訂單編號</p>
+                <p>會員姓名</p>
+                <p>手機號碼</p>
+                <p>電子信箱</p>
+                <p>購買日期</p>
+                <p>訂單狀態</p>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8" id="content">
+                <p>12345</p>
+                <p>達子</p>
+                <p>0988888888</p>
+                <p>daako@gmail.com</p>
+                <p>20221111</p>
+                <p>處理中</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 col-md-5 col-sm-5">
+            <h5>收件資訊</h5><br>
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4" id="title">
+                <p>收件人姓名</p>
+                <p>收件人手機</p>
+                <p>收件地址</p>
+                <p>配送狀態</p>
+                <p>出貨日期</p>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8" id="content">
+                <p>達子</p>
+                <p>0911222222</p>
+                <p>豪華大飯店</p>
+                <p>已送達</p>
+                <p>20221122</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-1 col-md-1 col-sm-1"></div>
+
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- ##### Footer 開始 ##### -->
+    <footer class="footer-area text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="classy-nav-container breakpoint-off">
+              <nav class="classy-navbar justify-content-center">
+                <div class="classy-navbar-toggler">
+                  <span class="navbarToggler"><span></span><span></span><span></span></span>
+                </div>
+
+                <!-- Menu -->
+                <div class="classy-menu">
+                  <!-- close btn -->
+                  <div class="classycloseIcon">
+                    <div class="cross-wrap">
+                      <span class="top"></span><span class="bottom"></span>
+                    </div>
+                  </div>
+
+                  <!-- Nav Start -->
+                  <div class="classynav">
+                    <ul>
+                      <li><a href="#">常見問題</a></li>
+                      <li><a href="#">聯絡我們</a></li>
+                      <li><a href="#">系統公告</a></li>
+                      <li><a href="#">網站地圖</a></li>
+                      <li><a href="#">隱私權政策</a></li>
+                      <li><a href="#">服務條款</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+            </div>
+
+            <!-- Footer Social Area -->
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- ##### Footer 結束 ##### -->
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script src="../../main_frame/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="../../main_frame/js/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="../../main_frame/js/bootstrap.min.js"></script>
+    <!-- Plugins js -->
+    <script src="../../main_frame/js/plugins.js"></script>
+    <!-- Active js -->
+    <script src="../../main_frame/js/active.js"></script>
+
+    <script src="../../main_frame/js/model.js"></script>
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+</body>
+
+</html>
