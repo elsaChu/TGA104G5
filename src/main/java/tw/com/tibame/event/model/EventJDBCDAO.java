@@ -1,10 +1,12 @@
 package tw.com.tibame.event.model;
 
-import static tw.com.tibame.util.conn.DBConnection.DRIVER;
-import static tw.com.tibame.util.conn.DBConnection.PASSWORD;
-import static tw.com.tibame.util.conn.DBConnection.URL;
-import static tw.com.tibame.util.conn.DBConnection.USER;
+import tw.com.tibame.util.conn.DBConnection;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,24 +15,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class EventJDBCDAO implements EventDAO_interface {
-	final String insertSQL = "insert into `EVENT`(organizerNumber,eventName,eventStartDate,eventEndDate,"
+	private static final String eventInsertSQL = "insert into `EVENT`(organizerNumber,eventName,eventStartDate,eventEndDate,"
 			+ "peopleNumber,eventPlace,eventP2,eventSummary,eventDescribe,bigImg,smallImg,"
 			+ "collectType,isON,eventType,needSeat,seatX,seatY) " + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 	@Override
-	public int insert(EventVO eventvo,List<TicketVO> ticketlist,List<EventClassVO> eventclasslist) {
+	public int insert(EventVO eventvo,List<TicketVO> ticketlist,List<EventClassVO> eventclasslist,List<SeatVO> seatlist) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		int recount = 0;
 		try {
-			Class.forName(DRIVER);
-			conn = DriverManager.getConnection(URL,USER,PASSWORD);
+			Class.forName(DBConnection.DRIVER);
+			conn = DriverManager.getConnection(DBConnection.URL,DBConnection.USER,DBConnection.PASSWORD);
 			
 			conn.setAutoCommit(false);
 			//新增event table
 			String[] cols = {"EVENT"};
-			ps = conn.prepareStatement(insertSQL,cols);
+			ps = conn.prepareStatement(eventInsertSQL,cols);
 			
 			ps.setInt(1,eventvo.getOrganizerNumber());
 			ps.setString(2,eventvo.getEventName());
@@ -83,10 +88,23 @@ public class EventJDBCDAO implements EventDAO_interface {
 				ticketcount = ticketcount+re;
 			}
 			
+			//needSeat is true 新增seat table
+			int seatcount = 0;
+			if(eventvo.getNeedSeat()) {
+				SeatJDBCDAO seatdao = new SeatJDBCDAO();
+				for(SeatVO aseat:seatlist) {
+					aseat.setEventNumber(Integer.valueOf(eventNumber_));
+					int re = seatdao.insert(aseat, conn);
+					seatcount = seatcount+re;
+				}
+			}
+			
 			conn.commit();
 			conn.setAutoCommit(true);
 			
-			if(rowCount > 0 && evclasscount > 0 && ticketcount > 0) {
+			if(rowCount > 0 && evclasscount > 0 && ticketcount > 0 && seatcount > 0) {
+				recount =1;
+			}else if(rowCount > 0 && evclasscount > 0 && ticketcount > 0 && !eventvo.getNeedSeat()) {
 				recount =1;
 			}
 			

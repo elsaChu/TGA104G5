@@ -31,7 +31,7 @@ private static final long serialVersionUID = 1L;
 	private Integer subtotal;			// not null
 	
 	@Column(name = "commentRanking")
-	private Float commentRanking;		// not null default 0
+	private Float commentRanking;		
 	
 	@Column(name = "commentContent")
 	private String commentContent;

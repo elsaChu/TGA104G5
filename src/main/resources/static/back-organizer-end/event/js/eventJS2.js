@@ -1,36 +1,23 @@
 $.datetimepicker.setLocale('zh'); // kr ko ja en
-
-//let hdata = document.getElementById("hiddData").value;
-let hidd = document.getElementById("hiddData");
-
-let hdata = hidd.value;
-//console.log(hdata);
-// console.log(typeof hdata);
-let toobj = JSON.parse(hdata);
-console.log(toobj);
-toobj.ticket = [];
-// console.log(toobj);
-let count = 0;
 $(function () {
     $('#start_date').datetimepicker({
         theme: '',
         timepicker: true,
         step: 15,
         format: 'Y-m-d H:i:s',
-        //	  value: new Date(),
         onShow: function () {
             this.setOptions({
-                maxDate: $('#end_date').val() ? $('#end_date').val() : false
+                maxDate: $('#end_date').val() ? $('#end_date').val() : maxDate
             })
         }
     });
-
+	console.log("date"+maxDate);
     $('#end_date').datetimepicker({
         theme: '',
         timepicker: true,
         step: 15,
         format: 'Y-m-d H:i:s',
-        //	  value: new Date(),
+        maxDate: maxDate,
         onShow: function () {
             this.setOptions({
                 minDate: $('#start_date').val() ? $('#start_date').val() : false
@@ -38,10 +25,13 @@ $(function () {
         }
     });
 
-    //add data
     //add ticket
+    let toobj = {};
+    toobj.ticket = [];
+    // console.log(toobj);
+    let count = 0;
     $("input.task_add").on("click", function () {
-//        console.log("in click");
+        //        console.log("in click");
         let ticket_name = ($("input.ticket_name").val()).trim();
         let ticket_price = ($("input.ticket_price").val()).trim();
         let ticket_quantity = ($("input.ticket_quantity").val()).trim();
@@ -52,8 +42,8 @@ $(function () {
 
         if (ticket_name != "" && ticket_price != "" && ticket_quantity != "" && start_date != ""
             && end_date != "" && ticket_min != "" && ticket_max != "") {
-	
-			let obj = {
+
+            let obj = {
                 ticket_name: ticket_name,
                 ticket_price: ticket_price,
                 ticket_quantity: ticket_quantity,
@@ -65,9 +55,9 @@ $(function () {
             };
             toobj.ticket.push(obj);
             // console.log(toobj);
-            
+
             // console.log(count);
-            
+
             let list_html = "";
             list_html = `
             <li data-id="${count}">
@@ -102,18 +92,12 @@ $(function () {
             </li>`
 
             $("ul.task_list").append(list_html);
-            $("input.ticket_name").val("");
-            $("input.ticket_price").val("");
-            $("input.ticket_quantity").val("");
-            $("input#start_date").val("");
-            $("input#end_date").val("");
-            $("input.ticket_min").val("");
-            $("input.ticket_max").val("");
+            clearAllInput();
             count++;
         }
     });
 
-//delete ticket
+    //delete ticket
     $("ul.task_list").on("click", "button.btn_delete", function () {
         let r = confirm("確認移除?");
 
@@ -138,15 +122,113 @@ $(function () {
             });
         }
     })
-    
-//submit form
+
+    //submit form
     let sub = document.getElementById("sub");
     sub.addEventListener("click", function () {
-        let hid = document.getElementById("hiddData");
-        hidd.value = JSON.stringify(toobj);
-        //        console.log(hid);
-        console.log(hidd.value);
-        let forName = document.getElementById("formNa");
-        forName.submit();
+		$('.row5 div').html("");
+//		console.log(JSON.stringify(toobj));
+		let formData = new FormData();
+		formData.append("action","page2");
+		formData.append("tickets",JSON.stringify(toobj));
+		
+        fetch(context + "/addEventServlet", {
+            method: "POST",
+            body: new URLSearchParams(formData)
+        }).then(function (response) {
+//			console.log(response);
+            return response.json();
+        }).then(function (data) {
+//			let tojson = JSON.parse(data);
+			console.log(data);
+			if(data.success){
+				console.log("success="+data.success);
+				if(data.needSeat){
+					console.log("need seat="+data.needSeat);
+					window.location.href=context+"/back-organizer-end/event/addEvent3.jsp";
+				}else{
+					console.log("need seat="+data.needSeat);
+					console.log("insertOK="+ data.insertOK);
+					if(data.insertOK == 1){
+						confirm('儲存完畢');
+					}else{
+						confirm('新增失敗');
+					}
+                	window.location.href=context+"/main_frame/index_manufacturer.jsp";
+				}
+			}else{
+				console.log("success="+data.success);
+				errorMessage(data);
+				//補售票期間 不可超過活動期間
+			}
+            console.log("data="+JSON.stringify(data));
+        });
     });
+    
+    //clear input
+    $('.del').on("click", function () {
+        clearAllInput();
+    });
+
+    function clearAllInput() {
+        $("input.ticket_name").val("");
+        $("input.ticket_price").val("");
+        $("input.ticket_quantity").val("");
+        $("input#start_date").val("");
+        $("input#end_date").val("");
+        $("input.ticket_min").val("");
+        $("input.ticket_max").val("");
+    };
+    
+    //error message
+    function errorMessage(data) {
+        //		console.log("err msg ="+data.noticket);
+        if (typeof data.noticket != 'undefined') {
+            alert(data.noticket);
+        }
+        // console.log(typeof data);
+        if (typeof data.errRecord != 'undefined') {
+            data.errRecord.myArrayList.forEach(function (element) {
+                // console.log("ele|");
+                // console.log(element);
+                let dataid = $('li[data-id="' + element + '"]').children();
+                dataid.addClass('errbackground');
+            });
+        }
+
+        if (typeof data.ticket_pricemsg != 'undefined') {
+            $('.row5').append('<div style="color:red;margin-left:5px;">' + data.ticket_pricemsg + '</div>');
+        }
+
+        if (typeof data.ticket_quantitymsg != 'undefined') {
+            $('.row5').append('<div style="color:red;margin-left:5px;">' + data.ticket_quantitymsg + '</div>');
+        }
+
+        if (typeof data.end_datemsgeday != 'undefined') {
+            $('.row5').append('<div style="color:red;margin-left:5px;">' + data.end_datemsgeday + '</div>');
+        }
+
+        if (typeof data.ticket_minmsg != 'undefined') {
+            $('.row5').append('<div style="color:red;margin-left:5px;">' + data.ticket_minmsg + '</div>');
+        }
+
+        if (typeof data.ticket_maxmsg != 'undefined') {
+            $('.row5').append('<div style="color:red;margin-left:5px;">' + data.ticket_maxmsg + '</div>');
+        }
+
+        if (typeof data.datemsg != 'undefined') {
+            $('.row5').append('<div style="color:red;margin-left:5px;">' + data.datemsg + '</div>');
+        }
+        if (typeof data.ticket_numerr != 'undefined') {
+            $('.row5').append('<div style="color:red;margin-left:5px;">' + data.ticket_numerr + '</div>');
+        }
+        if (typeof data.ticketTotalOut != 'undefined') {
+            $('.row5').append('<div style="color:red;margin-left:5px;">' + data.ticketTotalOut + '</div>');
+        }
+        if (typeof data.max_dateerr != 'undefined') {
+            $('.row5').append('<div style="color:red;margin-left:5px;">' + data.max_dateerr + '</div>');
+        }
+        
+        
+    }; 
 });

@@ -6,13 +6,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class TicketJDBCDAO implements TicketDAO_interface{
-	final String insertSQL = "insert into TICKET(ticketName,eventNumber,price,limitTicket,ticketQuantity,ticketStartTime,ticketEndTime,ticketMIN,ticketMAX,ticketType) value(?,?,?,?,?,?,?,?,?,?);";
+	private static final String ticketInsertSQL = "insert into TICKET(ticketName,eventNumber,price,limitTicket,ticketQuantity,ticketStartTime,ticketEndTime,ticketMIN,ticketMAX,ticketType) value(?,?,?,?,?,?,?,?,?,?);";
 	@Override
 	public int insert(TicketVO ticketvo, Connection con) {
 		PreparedStatement ps = null;
 		int rowCount = 0;
 		try {
-			ps = con.prepareStatement(insertSQL);
+			ps = con.prepareStatement(ticketInsertSQL);
      		ps.setString(1,ticketvo.getTicketName());
      		ps.setInt(2,ticketvo.getEventNumber());
      		ps.setInt(3,ticketvo.getPrice());

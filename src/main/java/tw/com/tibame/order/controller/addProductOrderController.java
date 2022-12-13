@@ -13,7 +13,7 @@ import tw.com.tibame.order.service.ProductOrderServiceImpl;
 import tw.com.tibame.order.vo.ProductOrderVO;
 
 @WebServlet("/ProductOrder/addOrder")
-public class addProductOrderController extends HttpServlet {
+public class AddProductOrderController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private ProductOrderService service;
@@ -23,10 +23,6 @@ public class addProductOrderController extends HttpServlet {
 		service = new ProductOrderServiceImpl();
 	}
        
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

@@ -6,17 +6,16 @@
 /*==== time ====*/
 .xdsoft_datetimepicker .xdsoft_datepicker {
   width: 300px;
-  /* width:  300px; */
 }
 
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
   height: 151px;
-  /* height:  151px; */
 }
 
 /*==== show img ==== */
 img.preview {
   max-width: 100%;
+  border-radius: 3px;
 }
 
 ul {
@@ -30,12 +29,12 @@ ul>li {
   vertical-align: top;
 }
 
-/* button */
-.myButton {
-  text-align: left;
-}
-
 /*=== div formate===*/
+div.my_size{
+/* 	border:1px solid red; */
+	margin: 0 auto;
+	
+}
 
 @media (min-width:1200px) {
   .my_size {
@@ -50,7 +49,7 @@ div#my_head {
 div.my_cont {
 /*   background-color: #c6ccd0; */
   border-radius: 10px;
-  margin: 0 auto;
+/*   margin: 0 auto; */
 }
 
 div.my_cont div {
@@ -58,41 +57,35 @@ div.my_cont div {
 }
 
 div.stepTop {
-  /* display: inline-block; */
-  vertical-align: middle;
-  /* border: 1px solid orange; */
-  /* height: 50px; */
+/*   vertical-align: middle; */
   margin-bottom: 20px;
+  margin-left:10px;
 
 }
 
+@media (max-width:992px) {
+  div.stepTop{
+    margin-left:-15px;
+  }
+}
+
 div.stepTop div {
-  /* display: inline-block; */
-  /* vertical-align: top; */
   background-color: #d9edf7;
   border-radius: 10px;
   padding: 0px;
   padding-top: 3px;
   padding-bottom: 3px;
-
   text-align: center;
-  margin: 5px 0px;
-  margin-left: 20px;
+/*   margin: 5px 0px; */
+/*   margin-left: 20px; */
   /* margin: 0 auto; */
-  width: 300px
-}
-
-@media (max-width:992px) {
-  div.stepTop div {
-    width: 100%;
-    margin-left: 0px;
-  }
+/*   width: 300px */
 }
 
 div.left {
   display: inline-block;
   vertical-align: top;
-  /* border: 1px solid blue; */
+/*   border: 1px solid blue; */
 }
 
 div.right {
@@ -235,4 +228,41 @@ div.chebox input[type=checkbox] {
   /* -o-transform: scale(2);
   Opera */
   zoom: 200%;
+}
+
+div.titles{
+	margin-left:12px;
+}
+
+input#autocomplete{
+/* 	display: block; */
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555555;
+    vertical-align: middle;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+input#autocomplete:focus{
+	outline: none;
+	outline-width: 0.5px;
+  	box-shadow: 0 0 3px 0.5px #6cb5f9;
+  	border-radius: 4px;
+  	border: none;
+}
+
+div.myButton{
+  text-align: left;
+}
+
+div.myButton input{
+	margin-bottom: 30px !important;
 }
