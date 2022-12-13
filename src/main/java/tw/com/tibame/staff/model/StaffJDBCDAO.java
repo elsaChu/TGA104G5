@@ -1,9 +1,6 @@
 package tw.com.tibame.staff.model;
 
-import static tw.com.tibame.util.conn.DBConnection.DRIVER;
-import static tw.com.tibame.util.conn.DBConnection.PASSWORD;
-import static tw.com.tibame.util.conn.DBConnection.URL;
-import static tw.com.tibame.util.conn.DBConnection.USER;
+import tw.com.tibame.util.common.Common;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,9 +27,9 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 
 		try {
 			System.out.println("insert jdbc");
-			Class.forName(DRIVER);
+			Class.forName(Common.driver);
 
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
 			pstmt = conn.prepareStatement(INSERT_STAFF);
 
 			pstmt.setString(1, staffVO.getStaffName());
@@ -76,9 +73,9 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 
 		try {
 
-			Class.forName(DRIVER);
+			Class.forName(Common.driver);
 
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
 			pstmt = conn.prepareStatement(UPDATE_STAFF);
 
 			pstmt.setString(1, staffVO.getStaffName());
@@ -124,8 +121,8 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 
 		try {
 
-			Class.forName(DRIVER);
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			Class.forName(Common.driver);
+			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
 			pstmt = conn.prepareStatement(GET_ONE_STAFF);
 			System.out.println("staffNumber=" + staffNumber);
 			pstmt.setInt(1, staffNumber);
@@ -186,9 +183,9 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 
 		try {
 			System.out.println("select jdbc");
-			Class.forName(DRIVER);
+			Class.forName(Common.driver);
 
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
 			pstmt = conn.prepareStatement(GET_ALL_STAFF);
 			rs = pstmt.executeQuery();
 
@@ -239,9 +236,9 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 
 		try {
 
-			Class.forName(DRIVER);
+			Class.forName(Common.driver);
 
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
 			pstmt = conn.prepareStatement(DELETE_STAFF);
 			pstmt.setInt(1, staffNumber);
 
@@ -282,8 +279,8 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 
 		try {
 
-			Class.forName(DRIVER);
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			Class.forName(Common.driver);
+			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
 			pstmt = conn.prepareStatement(GET_ONE_ACCOUNT);
 
 			pstmt.setString(1, staffAccount);
@@ -344,9 +341,9 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 
 		try {
 			System.out.println("findByStaffNumber jdbc");
-			Class.forName(DRIVER);
+			Class.forName(Common.driver);
 
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
 			pstmt = conn.prepareStatement(GET_ONE_STAFF);
 			pstmt.setInt(1, staffNumber);
 
