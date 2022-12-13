@@ -75,7 +75,6 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO{
 			OrderDetailVO temp = this.getSession().get(OrderDetailVO.class, orderDetailVO.getItemNo());
 			if(temp != null) {
 				return (OrderDetailVO) this.getSession().merge(orderDetailVO);
-				
 			}
 		}
 		return null;

@@ -43,8 +43,8 @@ public class ProductOrderDAOHibernate implements ProductOrderDAO {
 	@Override // 會員中心 - 查詢單筆訂單
 	public ProductOrderVO getPrimaryKey(Integer prodOrderNo) {
 		if (prodOrderNo != null) {
-			ProductOrderVO obj = this.getSession().get(ProductOrderVO.class, prodOrderNo);
-			return obj;
+			ProductOrderVO productOrderVO = this.getSession().get(ProductOrderVO.class, prodOrderNo);
+			return productOrderVO;
 		}
 		return null;
 	}
@@ -61,7 +61,7 @@ public class ProductOrderDAOHibernate implements ProductOrderDAO {
 	@Override // 更新收件資訊及狀態
 	public boolean update(ProductOrderVO productOrderVO) {
 		if (productOrderVO != null && productOrderVO.getProdOrderNo() != null) {
-			ProductOrderVO temp = this.getSession().get(ProductOrderVO.class, productOrderVO);
+			ProductOrderVO temp = this.getSession().get(ProductOrderVO.class, productOrderVO.getProdOrderNo());
 			if (temp != null) {
 				this.getSession().merge(productOrderVO);
 				return true;

@@ -39,20 +39,17 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 	// 會員中心 - 修改收件資訊
 	@Override
 	public ProductOrderVO updateReceiverInfo(Integer prodOrderNo, String receiverName, String receiverTel, String shippingAdd) {
-		ProductOrderVO productOrderVO = new ProductOrderVO();
-		productOrderVO.setProdOrderNo(prodOrderNo);
+		ProductOrderVO  productOrderVO = productOrderDAO.getPrimaryKey(prodOrderNo);
 		productOrderVO.setReceiverName(receiverName);
 		productOrderVO.setReceiverTel(receiverTel);
 		productOrderVO.setShippingAdd(shippingAdd);
 		
 		productOrderDAO.update(productOrderVO);
 		return productOrderVO;
-		
 	}
 	
 	// 新增訂單
 	@Override
-	@Transactional
 	public ProductOrderVO addOrder(ProductOrderVO productOrderVO) {
 		if(productOrderVO != null) {
 			productOrderVO.setPaymentDate(new java.sql.Timestamp(new GregorianCalendar().getTimeInMillis()));

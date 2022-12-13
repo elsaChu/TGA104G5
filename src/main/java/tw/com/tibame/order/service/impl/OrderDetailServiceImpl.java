@@ -1,7 +1,6 @@
 package tw.com.tibame.order.service.impl;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -12,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tw.com.tibame.order.dao.OrderDetailDAO;
 import tw.com.tibame.order.service.OrderDetailService;
 import tw.com.tibame.order.vo.OrderDetailVO;
+
 @Service
 @Transactional
 public class OrderDetailServiceImpl implements OrderDetailService {
@@ -31,7 +31,6 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 			return orderDetailDAO.insert(orderDetailVO);
 		}
 		return null;
-		
 	}
 	
 	// 會員中心 - 以訂單編號查詢明細
@@ -40,7 +39,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		return orderDetailDAO.getByProdOrderNo(prodOrderNo);
 	}
 	
-	// 會員中心 - 訂單內單一明細查詢
+	// 會員中心 - 訂單內單一明細查詢 
 		@Override
 		public OrderDetailVO getOneOrderDetail(Integer itemNo) {
 			return orderDetailDAO.getPrimaryKey(itemNo);
@@ -49,12 +48,11 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	// 會員中心 - 更新商品評論
 	@Override
 	public OrderDetailVO updateComment(Integer itemNo, Float commentRanking, String commentContent) {
-		OrderDetailVO orderDetailVO = new OrderDetailVO();
+		OrderDetailVO orderDetailVO = orderDetailDAO.getPrimaryKey(itemNo);
 		
-		if(orderDetailDAO.getPrimaryKey(itemNo) != null) {
+		if(orderDetailVO != null) {
 			
-			if(!commentContent.trim().isEmpty() || commentRanking != 0F)
-//			orderDetailVO.setItemNo(itemNo);
+			if(!commentContent.trim().isEmpty() || commentRanking != null)
 			orderDetailVO.setCommentRanking(commentRanking);
 			orderDetailVO.setCommentContent(commentContent);
 			orderDetailVO.setCommentDate(new java.sql.Timestamp(new GregorianCalendar().getTimeInMillis()));
@@ -68,10 +66,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	// 會員中心 - 申請退貨
 	@Override
 	public OrderDetailVO updateReturn(Integer itemNo, String returnReason) {
-		OrderDetailVO orderDetailVO = new OrderDetailVO();
-		
-		if(orderDetailDAO.getPrimaryKey(itemNo) != null && !returnReason.trim().isEmpty()) {
+		OrderDetailVO orderDetailVO = orderDetailDAO.getPrimaryKey(itemNo);
+		if(orderDetailVO != null && !returnReason.trim().isEmpty()) {
 			orderDetailVO.setReturnReason(returnReason);
+			orderDetailVO.setRefundSDate(new java.sql.Date(new GregorianCalendar().getTimeInMillis()));
 			
 			orderDetailDAO.update(orderDetailVO);
 			return orderDetailVO;
