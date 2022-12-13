@@ -10,13 +10,17 @@ public class StaffService {
 		dao = new StaffJDBCDAO();
 	}
 
-	public List<staffVO> getAll() {
+	public List<StaffVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<StaffVO> findByStaffNumber(Integer staffNumber) {
+		return dao.findByStaffNumber(staffNumber);
+	}
 
-	public staffVO insertStaff(String staffName, String staffAccount, String staffPassword) {
+	public StaffVO insertStaff(String staffName, String staffAccount, String staffPassword) {
 
-		staffVO staffVO = new staffVO();
+		StaffVO staffVO = new StaffVO();
 		staffVO.setStaffName(staffName);
 		staffVO.setStaffAccount(staffAccount);
 		staffVO.setStaffPassword(staffPassword);
@@ -25,11 +29,11 @@ public class StaffService {
 		return staffVO;
 	}
 
-	public staffVO updateStaff(Integer StaffNumber, String staffName, String staffAccount, String staffPassword) {
+	public StaffVO updateStaff(Integer staffNumber, String staffName, String staffAccount, String staffPassword) {
 
-		staffVO staffVO = new staffVO();
+		StaffVO staffVO = new StaffVO();
 		
-//		staffVO.setStaffNumber(StaffNumber);
+		staffVO.setStaffNumber(staffNumber);
 		staffVO.setStaffName(staffName);
 		staffVO.setStaffAccount(staffAccount);
 		staffVO.setStaffPassword(staffPassword);
@@ -38,14 +42,19 @@ public class StaffService {
 		return staffVO;
 	}
 
-	public staffVO getOneStaff(Integer staffNumber) {
+	public StaffVO getOneStaff(Integer staffNumber) {
 		System.out.println("get one service");
 		return dao.findByPrimaryKey(staffNumber);
 	}
 
 	public void deleteStaff(Integer staffNumber) {
-
 		dao.delete(staffNumber);
 
+	}
+	
+	public StaffVO getOneByAccount(String staffAccount) {
+		System.out.println("getOneByAccount");
+		
+		return dao.findByStaffAccount(staffAccount);
 	}
 }
