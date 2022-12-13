@@ -60,7 +60,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 			orderDetailDAO.update(orderDetailVO);
 			return orderDetailVO;
 		}
-		return orderDetailVO;
+		return null;
 	}
 	
 	// 會員中心 - 申請退貨
@@ -74,7 +74,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 			orderDetailDAO.update(orderDetailVO);
 			return orderDetailVO;
 		}
-		return orderDetailVO;
+		return null;
 	}
 	
 	// 廠商訂單管理 - 更新退款狀態
@@ -91,7 +91,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 			orderDetailDAO.update(orderDetailVO);
 			return orderDetailVO;
 		}
-		return orderDetailVO;
+		return null;
 	}
 	
 	// 廠商訂單管理 - 更新退款完成時間
@@ -104,7 +104,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 			orderDetailDAO.update(orderDetailVO);
 			return orderDetailVO;
 		}
-		return orderDetailVO;
+		return null;
 	}
 	
 	
