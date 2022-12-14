@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/back-organizer-end/event/datetimepicker/jquery.datetimepicker.css" />
-    <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/main_frame/css/bootstrap.css" />
+<%--     <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/main_frame/css/bootstrap.css" /> --%>
     <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/main_frame/css/button.css" />
     <jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
     <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/back-organizer-end/event/css/eventStyle2.css" />
@@ -63,7 +63,7 @@
 	</script>
     <script src="<%=request.getContextPath()%>/back-organizer-end/event/datetimepicker/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/back-organizer-end/event/datetimepicker/jquery.datetimepicker.full.js"></script>
-    <script src="<%=request.getContextPath()%>/main_frame/js/bootstrap.js"></script>
+<%--     <script src="<%=request.getContextPath()%>/main_frame/js/bootstrap.js"></script> --%>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
     <script src="<%=request.getContextPath()%>/back-organizer-end/event/js/eventJS2.js"></script>
 </body>

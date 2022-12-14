@@ -228,7 +228,5 @@ $(function () {
         if (typeof data.max_dateerr != 'undefined') {
             $('.row5').append('<div style="color:red;margin-left:5px;">' + data.max_dateerr + '</div>');
         }
-        
-        
     }; 
 });
