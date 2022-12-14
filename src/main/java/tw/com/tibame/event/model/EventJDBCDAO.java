@@ -1,6 +1,6 @@
 package tw.com.tibame.event.model;
 
-import tw.com.tibame.util.conn.DBConnection;
+import tw.com.tibame.util.common.Common;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,8 +29,8 @@ public class EventJDBCDAO implements EventDAO_interface {
 		PreparedStatement ps = null;
 		int recount = 0;
 		try {
-			Class.forName(DBConnection.DRIVER);
-			conn = DriverManager.getConnection(DBConnection.URL,DBConnection.USER,DBConnection.PASSWORD);
+			Class.forName(Common.driver);
+			conn = DriverManager.getConnection(Common.URL,Common.USER,Common.PASSWORD);
 			
 			conn.setAutoCommit(false);
 			//新增event table

@@ -22,7 +22,6 @@ public class EventService {
 	}
 	public int addEvent(EventVO eventvo,String[] event_classArr,String tickets,Integer xVal,Integer yVal,String[] seatIdListary) {
 		//event table
-		eventvo.setEventDescribe("now no value"); //need debug
 		eventvo.setCollectType(false);
 		eventvo.setSeatX(xVal);
 		eventvo.setSeatY(yVal);
