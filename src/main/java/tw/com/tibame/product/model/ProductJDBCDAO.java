@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 public class ProductJDBCDAO implements ProductDAO_interface {
-
+	
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/TICK_IT?serverTimezone=Asia/Taipei";
 	String userid = "root";
@@ -15,23 +15,27 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 //	SQL syntax: update
 	private static final String UPDATE_STMT = "UPDATE `PRODUCT` SET eventNumber=?, organizerNumber=?, prodName=?, prodSpec=?, unitPrice=?, prodStock=?, prodDetails=?, isPOn=? WHERE prodNo=?";
 //	SQL syntax: delete
-	private static final String DELETE_STMT = "DELETE FROM `PRODUCT` WHERE prodNo = ?";
+//	private static final String DELETE_STMT = "DELETE FROM `PRODUCT` WHERE prodNo = ?";
 //	SQL syntax: select
-	private static final String GET_ONE_STMT = "SELECT prodNo, eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` WHERE prodNo = ?";
+	private static final String SELECT_BY_PRODUCTNO = "SELECT prodNo, eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` WHERE prodNo=?";
 //	SQL syntax: select
-	private static final String GET_ALL_STMT = "SELECT prodNo,eventNumber ,organizerNumber,prodName,prodSpec,unitPrice,prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` ORDER BY prodNo";
+	private static final String SELECT_BY_PRODUCTNAME = "SELECT prodNo, eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` WHERE prodName=?";
+	//	SQL syntax: select
+	private static final String LIST_ALL_STMT = "SELECT prodNo,eventNumber ,organizerNumber,prodName,prodSpec,unitPrice,prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` ORDER BY prodNo DESC";
 
 	@Override
-	public int insert(ProductVO prodVo) {
-
+	public int insert(ProductVO prodVo, ProductImageVO prodimgvo) {
+//		System.out.println(prodVo.toString());
 		int rowCount = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
+			con.setAutoCommit(false);
+			String cols[] = {"PRODUCT"};
+			pstmt = con.prepareStatement(INSERT_STMT, cols);
 			pstmt.setInt(1, prodVo.getEventNumber());
 			pstmt.setInt(2, prodVo.getOrganizerNumber());
 			pstmt.setString(3, prodVo.getProdName());
@@ -41,7 +45,22 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			pstmt.setString(7, prodVo.getProdDetails());
 			pstmt.setBoolean(8, prodVo.getIsPOn());
 			rowCount = pstmt.executeUpdate();
+			String next_prodno = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				next_prodno = rs.getString(1);
+				System.out.println("自增主鍵值=" + next_prodno);
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
 			System.out.println(rowCount + " row(s) inserted!");
+			ProductImageJdbcDAO dao = new ProductImageJdbcDAO();
+			prodimgvo.setProdNo(Integer.valueOf(next_prodno));
+			dao.insert(prodimgvo, con);
+			
+			con.commit();
+			con.setAutoCommit(true);
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -117,19 +136,74 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		return rowCount;
 	}
 	
-	@Override
-	public int delete(Integer prodNo) {
+//	@Override
+//	public int delete(Integer prodNo) {
+//
+//		int rowCount = 0;
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//
+//		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			pstmt = con.prepareStatement(DELETE_STMT);
+//			pstmt.setInt(1, prodNo);
+//			pstmt.executeUpdate();
+//
+//			// Handle any driver errors
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+//			// Handle any SQL errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. " + se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		return rowCount;
+//	}
 
-		int rowCount = 0;
+	@Override
+	public ProductVO findByPrimaryKey(Integer prodNo) {
+
+		ProductVO productVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(DELETE_STMT);
+			pstmt = con.prepareStatement(SELECT_BY_PRODUCTNO);
 			pstmt.setInt(1, prodNo);
-			pstmt.executeUpdate();
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				productVO = new ProductVO();
+				productVO.setProdNo(rs.getInt("prodNo"));
+				productVO.setEventNumber(rs.getInt("eventNumber"));
+				productVO.setOrganizerNumber(rs.getInt("organizerNumber"));
+				productVO.setProdName(rs.getString("prodName"));
+				productVO.setProdSpec(rs.getString("prodSpec"));
+				productVO.setUnitPrice(rs.getInt("unitPrice"));
+				productVO.setProdStock(rs.getInt("prodStock"));
+				productVO.setProdDetails(rs.getString("prodDetails"));
+				productVO.setProdScore(rs.getFloat("prodScore"));
+				productVO.setIsPOn(rs.getBoolean("isPOn"));
+			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -139,6 +213,13 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -154,11 +235,11 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 				}
 			}
 		}
-		return rowCount;
+		return productVO;
 	}
-
+	
 	@Override
-	public ProductVO findByPrimaryKey(Integer prodNo) {
+	public ProductVO findByProductName(String prodName) {
 
 		ProductVO productVO = null;
 		Connection con = null;
@@ -168,8 +249,8 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setInt(1, prodNo);
+			pstmt = con.prepareStatement(SELECT_BY_PRODUCTNAME);
+			pstmt.setString(1, prodName);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -229,10 +310,9 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		ResultSet rs = null;
 
 		try {
-
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ALL_STMT);
+			pstmt = con.prepareStatement(LIST_ALL_STMT);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

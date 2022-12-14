@@ -1,9 +1,3 @@
-window.addEventListener("pageshow", function () {
-         console.log("in load");
-        // document.getElementsByTagName("form").reset();
-        document.getElementById("formName").reset();
-      });
-
       let getInImg = document.getElementsByClassName("prodIMG");
        console.log(getInImg);
        console.log(getInImg.length);
