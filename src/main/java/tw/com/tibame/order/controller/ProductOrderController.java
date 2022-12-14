@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,7 @@ import tw.com.tibame.order.vo.OrderDetailVO;
 import tw.com.tibame.order.vo.ProductOrderVO;
 
 @RestController
-@RequestMapping("member/product")
+@RequestMapping("order")
 public class ProductOrderController {
 	@Autowired
 	private ProductOrderService productOrderService;
@@ -37,11 +38,18 @@ public class ProductOrderController {
     	return list;
 	}
     
-//    @PostMapping("order")
-//    public ProductOrderVO addProdOrder() {
-//    	ProductOrderVO productOrderVO = 
-//    	return productOrderService.addOrder(productOrderVO);
-//	}
+    @PostMapping("addProdOrder")
+    public ProductOrderVO addProdOrder() {
+    	ProductOrderVO productOrderVO = new ProductOrderVO();
+    	productOrderVO.setNumber(5);			// 這些是先寫死的唷要從表單得到資料唷!
+		productOrderVO.setAmountPrice(1000);
+		productOrderVO.setProdTotal(1);
+		productOrderVO.setReceiverName("達子1");
+		productOrderVO.setReceiverTel("8888888888");
+		productOrderVO.setShippingAdd("ppp");
+		
+    	return productOrderService.addOrder(productOrderVO);
+	}
     
     @PutMapping("updateReceiverInfo")
     public ProductOrderVO updateReceiverInfo() {

@@ -32,14 +32,14 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 	// 會員中心 - 查詢單筆訂單
 	@Override
 	public ProductOrderVO getOneOrder(Integer prodOrderNo) {
-		return productOrderDAO.getPrimaryKey(prodOrderNo);
+		return productOrderDAO.getByPrimaryKey(prodOrderNo);
 		
 	}
 
 	// 會員中心 - 修改收件資訊
 	@Override
 	public ProductOrderVO updateReceiverInfo(Integer prodOrderNo, String receiverName, String receiverTel, String shippingAdd) {
-		ProductOrderVO  productOrderVO = productOrderDAO.getPrimaryKey(prodOrderNo);
+		ProductOrderVO  productOrderVO = productOrderDAO.getByPrimaryKey(prodOrderNo);
 		productOrderVO.setReceiverName(receiverName);
 		productOrderVO.setReceiverTel(receiverTel);
 		productOrderVO.setShippingAdd(shippingAdd);
