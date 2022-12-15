@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="tw.com.tibame.member.model.*"%>
+<% MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,6 +39,7 @@
   <body>
     <div class="login">
       <h2>註冊成功 !</h2>
+      <a href="memberLogin.jsp">返回登入</a>
     </div>
   </body>
 </html>

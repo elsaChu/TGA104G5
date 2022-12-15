@@ -106,9 +106,9 @@
 
       </div>
       <div class="login-bottom"> 
-        <a class="img" href="index.html"> 
+        <a class="img" href="index.jsp"> 
           <img src="images\logo80.png" /> </a>
-        <h3>我已經有帳號了&nbsp;<a href="login.html">登入</h3></a>
+        <h3>我已經有帳號了&nbsp;<a href="memberLogin.jsp">登入</h3></a>
     </div>
   </body>
 </html>
