@@ -6,15 +6,18 @@
 /*==== time ====*/
 .xdsoft_datetimepicker .xdsoft_datepicker {
     width: 300px;
-    /* width:  300px; */
 }
 
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
     height: 151px;
-    /* height:  151px; */
 }
 
 /*===div===*/
+div.my_size{
+/* 	border:1px solid red; */
+	margin: 0 auto;
+	
+}
 @media (min-width:1200px) {
     .my_size {
         width: 970px;
@@ -28,61 +31,41 @@ div#my_head {
 div.my_cont {
 /*     background-color: #c6ccd0; */
     border-radius: 10px;
-    margin: 0 auto;
 }
 
 div.stepTop {
-    /* display: inline-block; */
-    /* vertical-align: top; */
-    /* border: 1px solid orange; */
-    /* height: 50px; */
+/*     border: 1px solid orange; */
     margin-bottom: 20px;
-    /* width: 100%; */
-    vertical-align: middle;
-
+	margin-left:30px;
 }
 
 div.stepTop div {
-    /* display: inline-block; */
-    /* vertical-align: top; */
     background-color: #d9edf7;
     border-radius: 10px;
     padding: 0px;
     padding-top: 3px;
     padding-bottom: 3px;
-
     text-align: center;
-    margin: 5px 0px;
-    margin-left: 20px;
-    /* margin: 0 auto; */
-    width: 300px
 }
 
 @media (max-width:992px) {
-    div.stepTop div {
-        width: 100%;
-        margin-left: 0px;
-    }
+	div.stepTop {
+		margin-left:-15px;
+	}
 }
 
 .row1 div {
-    margin-left: 10px;
+/*     margin-left: 10px; */
     margin-top: 10px;
     margin-right: 60px;
     margin-bottom: 10px;
 }
 
 .row2 div {
-    display: inline-block;
-    vertical-align: top;
-    margin-left: 25px;
     margin-bottom: 10px;
 }
 
 .row3 div {
-    display: inline-block;
-    vertical-align: top;
-    margin-left: 25px;
     margin-bottom: 10px;
 }
 
@@ -105,7 +88,7 @@ div.task_list_parent ul.task_list>li {
 }
 
 div.task_list_parent ul.task_list>li>div.item_flex {
-    border: 1px solid black;
+/*     border: 1px solid black; */
     background-color: #F5F3ED;
     vertical-align: middle;
     border-radius: 3px;
@@ -120,6 +103,7 @@ div.task_list_parent ul.task_list>li>div.item_flex>div.left_block {
 div.left_block {
     /* padding: 0px; */
     width: 100px;
+/*     border:1px solid green; */
 }
 
 div.task_list_parent ul.task_list>li>div.item_flex>div.middle_block {
@@ -131,35 +115,44 @@ div.task_list_parent ul.task_list>li>div.item_flex>div.middle_block {
 }
 
 div.middle_block {
-    /* border: 1px solid palevioletred; */
-    width: 740px;
+/*     border: 1px solid palevioletred; */
+    width: 720px;
     margin-left: 10px;
+}
+
+@media (max-width:1154px){
+	div.middle_block {
+		width:auto;
+	}
 }
 
 div.middle_block div {
     display: inline-block;
     margin-right: 10px;
+/*     border: 1px solid blue; */
 }
 
 @media (max-width:700px) {
     div.middle_block div {
         display: block;
-        /* border: 1px solid blue; */
+/*         border: 1px solid blue; */
         width: auto;
     }
 
     div.middle_block {
+/*     	border:1px solid #8000ff; */
         display: block;
         width: auto;
     }
 }
 
 div.right_block {
+/* 	border:1px solid green; */
     float: right;
     width: 110px;
 }
 
-@media (max-width:992px) {
+@media (max-width:1182px) {
     div.right_block {
         float: left;
         margin-left: 10px;
@@ -293,4 +286,25 @@ div.row4 input:hover {
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
     -o-transition: 0.5s all;
+}
+
+.errbackground {
+    background-color: #FBDBD6 !important;
+}
+
+div.bu {
+    padding: 0px;
+    width: 10px;
+    margin-top: 3px;
+    
+}
+
+@media (max-width:992px){
+	div.bu {
+		line-height:5px;
+		margin-left:20px;
+	}
+	div.getbr br{
+		display:none;
+	}
 }
