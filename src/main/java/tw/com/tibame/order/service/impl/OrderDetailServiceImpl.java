@@ -11,12 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 import tw.com.tibame.order.dao.OrderDetailDAO;
 import tw.com.tibame.order.service.OrderDetailService;
 import tw.com.tibame.order.vo.OrderDetailVO;
+import tw.com.tibame.order.vo.ViewOrderDetailVO;
 
 @Service
 @Transactional
 public class OrderDetailServiceImpl implements OrderDetailService {
 	@Autowired
 	private OrderDetailDAO orderDetailDAO;
+	
 	
 	public OrderDetailServiceImpl(OrderDetailDAO orderDetailDAO) {
 		super();
@@ -105,6 +107,12 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 			return orderDetailVO;
 		}
 		return null;
+	}
+
+	// 會員中心 - 以訂單編號查詢明細
+	@Override
+	public List<ViewOrderDetailVO> findByProdOrderNo(Integer prodOrderNo) {
+		return orderDetailDAO.findByProdOrderNo(prodOrderNo);
 	}
 	
 	

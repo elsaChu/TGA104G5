@@ -3,9 +3,10 @@ CREATE DATABASE IF NOT EXISTS TICK_IT;
 
 use TICK_IT;
 #------------------- note --------------------
-#活動6 bigImg, eventSummary, eventDescribe 暫時取消not null(for建假資料)
-#22 商品訂單 paymentDate 取消預設值
-#23 商品訂單明細 commentRanking 取消default 0
+#6  [暫時] 活動 bigImg, eventSummary, eventDescribe 暫時取消not null(for建假資料)
+#22 [修改] 商品訂單 paymentDate 取消預設值
+#23 [修改] 商品訂單明細 commentRanking 取消default 0
+#25 [新建] View訂單明細 (V_ORDER_DETAIL)
 #--------------- create table ----------------
 #1 隱私權政策
 create table PRIVACY(
@@ -409,6 +410,15 @@ values	(1, 4, 1),
 		(3, 7, 2), (3, 11, 1),
         (4, 8, 1), (4, 2, 1), (4, 12, 2)
         ;
+    
+#------------- create view --------------
+
+#25 View訂單明細
+create view V_ORDER_DETAIL as 
+select od.*, prod.prodName, prod.prodSpec
+from ORDER_DETAIL od
+	join PRODUCT prod
+    on od.prodNo = prod.prodNo;
 
 
 -- drop database TICK_IT;

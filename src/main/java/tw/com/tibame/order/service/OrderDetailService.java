@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import tw.com.tibame.order.vo.OrderDetailVO;
+import tw.com.tibame.order.vo.ViewOrderDetailVO;
 
 public interface OrderDetailService {
 
@@ -12,6 +13,9 @@ public interface OrderDetailService {
 
 	// 會員中心 - 單筆訂單查詢
 	List<OrderDetailVO> getByProdOrderNo(Integer prodOrderNo);
+	
+	// 會員中心 - 單筆訂單查詢
+	List<ViewOrderDetailVO> findByProdOrderNo(Integer prodOrderNo);
 
 	// 會員中心 - 更新商品評論
 	OrderDetailVO updateComment(Integer itemNo, Float commentRanking, String commentContent);

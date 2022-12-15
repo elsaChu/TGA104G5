@@ -10,12 +10,12 @@
 -------------------------------------------------- */
 /* :: Import Fonts */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
-@import url(css/bootstrap.min.css);
-@import url(css/classy-nav.css);
-@import url(css/animate.css);
-@import url(css/model.css);
-@import url(css/owl.carousel.css);
-@import url(css/font-awesome.min.css);
+@import url(./bootstrap.min.css);
+@import url(./classy-nav.css);
+@import url(./animate.css);
+@import url(./model.css);
+@import url(./owl.carousel.css);
+@import url(./font-awesome.min.css);
 
 .Data-Content {
   height: 43px;

@@ -2,6 +2,8 @@ package tw.com.tibame.order.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +16,7 @@ import tw.com.tibame.order.service.OrderDetailService;
 import tw.com.tibame.order.service.ProductOrderService;
 import tw.com.tibame.order.vo.OrderDetailVO;
 import tw.com.tibame.order.vo.ProductOrderVO;
+import tw.com.tibame.order.vo.ViewOrderDetailVO;
 
 @RestController
 @RequestMapping("order")
@@ -23,19 +26,22 @@ public class ProductOrderController {
 	@Autowired
 	private OrderDetailService orderDetailService;
 	
-    @GetMapping("orderlist")
-	public List<ProductOrderVO> memberOrder(@RequestParam Integer number) {
-//    	Integer number =  (Integer) request.getSession().getAttribute("number");
-//		Integer number = 5;  // 先寫死之後要串會員登入唷!!					// 要去看會員功能寫甚麼字串唷!!
-		List<ProductOrderVO> list = productOrderService.getByNumberOrder(number);
+//    @GetMapping("orderlist") // 這是對的唷可以從session拿資料!
+//	public List<ProductOrderVO> memberOrder(HttpSession session) {
+//    	Integer number =  (Integer) session.getAttribute("number");
+//		List<ProductOrderVO> list = productOrderService.getByNumberOrder(number);
+//    	return list;
+//	}
+    
+    @GetMapping("orderlist") 
+	public List<ProductOrderVO> memberOrder(HttpSession session) {
+		List<ProductOrderVO> list = productOrderService.getByNumberOrder(2); // 這是先寫死測試用的唷!
     	return list;
 	}
     
-    @GetMapping("orderdetail")
-    public List<OrderDetailVO> memberOrderDetail(@RequestParam Integer prodOrderNo) {
-//    	Integer prodOrderNo =  (Integer) request.getSession().getAttribute("prodOrderNo");
-//    	Integer prodOrderNo = 2; // 2是先寫死的唷!!
-    	List<OrderDetailVO> list = orderDetailService.getByProdOrderNo(prodOrderNo);
+    @GetMapping("orderdetail") // 跳轉訂單時需要檢查會員編號
+    public List<ViewOrderDetailVO> memberOrderDetail(@RequestParam Integer prodOrderNo) {
+    	List<ViewOrderDetailVO> list = orderDetailService.findByProdOrderNo(prodOrderNo);
     	return list;
 	}
     

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.tibame.order.vo.OrderDetailVO;
+import tw.com.tibame.order.vo.ViewOrderDetailVO;
 @Repository
 @Transactional
 public class OrderDetailDAOHibernate implements OrderDetailDAO{
@@ -79,6 +80,19 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO{
 		}
 		return null;
 		}
+
+	@Override
+	public List<ViewOrderDetailVO> findByProdOrderNo(Integer prodOrderNo) {
+		List<ViewOrderDetailVO> result = new ArrayList<>();
+		
+		if(prodOrderNo != null) {
+			Query<ViewOrderDetailVO> query = getSession().createQuery("from ViewOrderDetailVO where prodOrderNo =: prodOrderNo", ViewOrderDetailVO.class); 
+			query.setParameter("prodOrderNo", prodOrderNo);
+			result = query.list();
+			return result;
+		}
+		return null;
+	}
 
 
 	
