@@ -35,6 +35,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	}
 	
 	@Override
+	public List<ShoppingCartVO> getByMemberNumber(Integer number) {
+		if(number != null) {
+			return shoppingCartDAO.getByMemberNumber(number);
+		}
+		return null;
+	}
+	
+	@Override
 	public ShoppingCartVO insert(ShoppingCartVO shoppingCartVO) {
 		if(shoppingCartVO != null 
 				&& shoppingCartVO.getNumber() != null
@@ -83,4 +91,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		}
 		return false;
 	}
+
+	
 }

@@ -9,6 +9,8 @@ public interface ShoppingCartService {
 	List<ShoppingCartVO> getAll();
 
 	ShoppingCartVO getByPrimaryKey(Integer shoppingCartNo);
+	
+	List<ShoppingCartVO> getByMemberNumber(Integer number);
 
 	ShoppingCartVO insert(ShoppingCartVO shoppingCartVO);
 

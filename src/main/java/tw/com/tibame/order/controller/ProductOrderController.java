@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tw.com.tibame.order.service.OrderDetailService;
@@ -23,17 +24,17 @@ public class ProductOrderController {
 	private OrderDetailService orderDetailService;
 	
     @GetMapping("orderlist")
-	public List<ProductOrderVO> memberOrder() {
+	public List<ProductOrderVO> memberOrder(@RequestParam Integer number) {
 //    	Integer number =  (Integer) request.getSession().getAttribute("number");
-		Integer number = 5;  // 先寫死之後要串會員登入唷!!					// 要去看會員功能寫甚麼字串唷!!
+//		Integer number = 5;  // 先寫死之後要串會員登入唷!!					// 要去看會員功能寫甚麼字串唷!!
 		List<ProductOrderVO> list = productOrderService.getByNumberOrder(number);
     	return list;
 	}
     
     @GetMapping("orderdetail")
-    public List<OrderDetailVO> memberOrderDetail() {
+    public List<OrderDetailVO> memberOrderDetail(@RequestParam Integer prodOrderNo) {
 //    	Integer prodOrderNo =  (Integer) request.getSession().getAttribute("prodOrderNo");
-    	Integer prodOrderNo = 2; // 2是先寫死的唷!!
+//    	Integer prodOrderNo = 2; // 2是先寫死的唷!!
     	List<OrderDetailVO> list = orderDetailService.getByProdOrderNo(prodOrderNo);
     	return list;
 	}
