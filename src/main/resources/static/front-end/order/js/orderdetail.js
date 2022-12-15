@@ -1,17 +1,40 @@
-const orderdetail = document.querySelector("#orderdetail");
-orderdetail.innerHTML = `
-<tr>
-    <th>1</th>
-        <th>aaa</th>
-        <th>1</th>
-        <th>1000</th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
+
+function init(){
+    const prodOrderNo = sessionStorage.getItem('prodOrderNo');
+    sessionStorage.removeItem('prodOrderNo');
+    const orderdetail = document.querySelector("#orderdetail");
+    $.ajax({
+        url: "http://localhost:8080/TGA104G5/order/orderdetail",           // 資料請求的網址
+        type: "GET",                                                     // GET | POST | PUT | DELETE | PATCH
+        data: { "prodOrderNo": prodOrderNo },                                      // 將物件資料(不用雙引號) 傳送到指定的 url
+        dataType: "json",                                                // 預期會接收到回傳資料的格式： json | xml | html
+        success: function(data){                                         // request 成功取得回應後執行
+          console.log(data);
+          orderdetail.innerHTML = 
+          data.map((e) => Template(e.prodName, e.prodSpec, e.prodQty, e.subtotal, e.commentRanking, e.commentDate, e.returnReason, e.refundSDate, e.refundStatus, e.refundEDate)).join('')
+        },
+   
+      });
+
+
+    
+}
+
+window.onload = init;
+
+function Template(prodName, prodSpec, prodQty, subtotal, commentRanking, commentDate, returnReason, refundSDate, refundStatus, refundEDate){
+    return `
+    <tr>
+        <th>${prodName}</th>
+        <th>${prodSpec}</th>
+        <th>${prodQty}</th>
+        <th>${subtotal}</th>
+        <th>${commentRanking ?? ''}</th>
+        <th>${commentDate ?? ''}</th>
+        <th>${returnReason ?? ''}</th>
+        <th>${refundSDate ?? ''}</th>
+        <th>${refundStatus ?? ''}</th>
+        <th>${refundEDate ?? ''}</th>
         <th>
             <div class="">
             <input type="submit" value="評價" />
@@ -23,4 +46,6 @@ orderdetail.innerHTML = `
             </div>
         </th>
     </tr>
-`;
+    `;
+}
+

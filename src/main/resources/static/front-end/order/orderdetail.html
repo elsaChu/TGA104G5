@@ -16,7 +16,7 @@
 
   <!-- Style CSS -->
   <link rel="stylesheet" href="../../main_frame/css/animate.css" />
-  <link rel="stylesheet" href="../../main_frame/css/modelr.css" />
+  <link rel="stylesheet" href="../../main_frame/css/model.css" />
   <link rel="stylesheet" href="../../main_frame/css/bootstrap.min.css" />
   <link rel="stylesheet" href="../../main_frame/css/classy-nav.css" />
   <link rel="stylesheet" href="../../main_frame/css/font-awesome.min.css" />
@@ -179,92 +179,22 @@
           <table>
             <thead>
               <tr id="thead">
-                <th>項目編號</th>
                 <th>商品名稱</th>
+                <th>商品規格</th>
                 <th>購買數量</th>
                 <th>小計金額</th>
                 <th>評價</th>
-                <th>評價內容</th>
                 <th>評價日期</th>
                 <th>退貨原因</th>
                 <th>退貨申請日期</th>
                 <th>退款狀態</th>
-                <th>退款完成日期</th>
+                <th>退款日期</th>
                 <td> </td>
                 <td> </td>
               </tr>
             </thead>
             <!-- 按下退貨申請按鈕需要出現退貨視窗 -->
             <tbody id="orderdetail">
-              <tr>
-                <th>1</th>
-                <th>aaa</th>
-                <th>1</th>
-                <th>1000</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>
-                  <div class="">
-                    <input type="submit" value="評價" />
-                  </div>
-                </th>
-                <th>
-                  <div class="">
-                    <input type="submit" value="退貨" />
-                  </div>
-                </th>
-              </tr>
-              <tr>
-                <th>2</th>
-                <th>bbb</th>
-                <th>1</th>
-                <th>1000</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>
-                  <div class="">
-                    <input type="submit" value="評價" />
-                  </div>
-                </th>
-                <th>
-                  <div class="">
-                    <input type="submit" value="退貨" />
-                  </div>
-                </th>
-              </tr>
-              <tr>
-                <th>3</th>
-                <th>ccc</th>
-                <th>1</th>
-                <th>1000</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>
-                  <!-- <div class=""> -->
-                    <input type="submit" value="評價" />
-                  <!-- </div> -->
-                </th>
-                <th>
-                  <!-- <div class=""> -->
-                    <input type="submit" value="退貨" />
-                  <!-- </div> -->
-                </th>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -284,12 +214,12 @@
                 <p>訂單狀態</p>
               </div>
               <div class="col-lg-8 col-md-8 col-sm-8" id="content">
-                <p>12345</p>
-                <p>達子</p>
-                <p>0988888888</p>
-                <p>daako@gmail.com</p>
-                <p>20221111</p>
-                <p>處理中</p>
+                <p id="prodOrderNo">12345</p>
+                <p id="name">達子</p>
+                <p id="phoneNumber">0988888888</p>
+                <p id="email">daako@gmail.com</p>
+                <p id="paymentDate">20221111</p>
+                <p id="prodOrderStatus">處理中</p>
               </div>
             </div>
           </div>
@@ -301,14 +231,14 @@
                 <p>收件人手機</p>
                 <p>收件地址</p>
                 <p>配送狀態</p>
-                <p>出貨日期</p>
+              
               </div>
               <div class="col-lg-8 col-md-8 col-sm-8" id="content">
-                <p>達子</p>
-                <p>0911222222</p>
-                <p>豪華大飯店</p>
-                <p>已送達</p>
-                <p>20221122</p>
+                <p id="receiverName">達子</p>
+                <p id="receiverTel">0911222222</p>
+                <p id="shippingAdd">豪華大飯店</p>
+                <p id="deliveryStatus">已送達</p>
+               
               </div>
             </div>
           </div>
