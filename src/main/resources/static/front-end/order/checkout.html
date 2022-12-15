@@ -15,11 +15,12 @@
   <link rel="icon" href="../../main_frame/images/core-img/logo.ico" />
 
   <!-- Style CSS -->
-  <link rel="stylesheet" href="../../main_frame/css/style_member.css" />
+  <!-- <link rel="stylesheet" href="../../main_frame/css/style_member.css" /> -->
   <link rel="stylesheet" href="../../main_frame/style.css">
   <link rel="stylesheet" href="../../main_frame/css/button.css" />
   <link rel="stylesheet" href="./css/order.css">
   <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/checkout.css">
 </head>
 
 <body>
@@ -28,7 +29,7 @@
     <br />
     <div class="row">
       <div class="col-2"></div>
-      <div class="col-2">
+      <div class="col-2" id="header1">
         <a class="www" href="#" id="w">我的票券</a>
         <a class="www" href="#" id="w">商品專區</a>
         <a class="www" href="#" id="w">探索活動</a>
@@ -92,20 +93,19 @@
 
 
     <div class="row">
+
       <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="row">
           <h5>會員資訊</h5>
           <div class="col-lg-1 col-md-1 col-sm-1"></div>
           <div class="col-lg-3 col-md-3 col-sm-3" id="title">
-            <p>訂單編號</p>
-            <p>會員姓名</p>
-            <p>手機號碼</p>
-            <p>電子信箱</p>
-            <p>購買日期</p>
-            <p>訂單狀態</p>
+            <div><lable>會員姓名</lable></div>
+            <div><lable>手機號碼</lable></div>
+            <div><lable>電子信箱</lable></div>
+            <div><lable>購買日期</lable></div>
+            <div><lable>訂單狀態</lable></div>
           </div>
           <div class="col-lg-8 col-md-8 col-sm-8" id="content">
-            <p>12345</p>
             <p>達子</p>
             <p>0988888888</p>
             <p>daako@gmail.com</p>
@@ -114,37 +114,52 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-6">
-        <div class="row">
-          <h5>收件資訊</h5>
-          <div class="col-lg-1 col-md-1 col-sm-1"></div>
-          <div class="col-lg-3 col-md-3 col-sm-3" id="title">
-            <p>收件人姓名</p>
-            <p>收件人手機</p>
-            <p>收件地址</p>
-          </div>
-          <div class="col-lg-8 col-md-8 col-sm-8" id="content">
-            <p><input class="receiverInf" type="text" name="receiverName" placeholder="請填寫真實姓名，以確保順利收件"></p>
-            <p><input class="receiverInf" type="text" name="receiverTel" placeholder="09xxxxxxxx"></p>
-            <p><input class="receiverInf" type="text" name="shippingAdd"></p>
 
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <form enctype="multipart/form-data">
+          <div class="row">
+            <h5>收件資訊</h5>
+            <div class="col-lg-12 col-md-12 col-sm-12" id="">
+              <label>收件人姓名</label>
+              <input id="receiverName" class="receiverInf" type="text" placeholder="請填寫真實姓名，以確保順利收件">
+              <label>收件人手機</label>
+              <input id="receiverTel" class="receiverInf" type="text" placeholder="">
+              <label>收件地址</label>
+              <input id="shippingAdd" class="receiverInf" type="text" placeholder="">
+            </div>
           </div>
-        </div>
+        </form>
       </div>
+
+
+      <div class="row">
+        <div class="col-12">　</div>
+      </div>
+      <hr>
+      
 
       <div class=" row">
         <h5>付款資訊</h5>
         <div class="col-lg-6 col-md-6 col-sm-6">
-          <p><input class="payInf" type="text" placeholder="信用卡卡號"></p>
-          <p><input class="payInf" type="text" placeholder="持卡人姓名"></p>
+          <div><input id="creditCardNo" class="payInf" type="text" placeholder="信用卡卡號"></div>
+          <div class="row"><div class="col-12">　</div></div>
+          <div><input id="nameOnCard" class="payInf" type="text" placeholder="持卡人姓名"></div>
         </div>
 
 
         <div class="col-lg-6 col-md-6 col-sm-6">
-          <p><input class="payInf" type="text" placeholder="有效期"></p>
-          <p><input class="payInf" type="text" placeholder="安全碼"></p>
+          <div><input id="expiration" class="payInf" type="text" placeholder="有效期"></div>
+          <div class="row"><div class="col-12">　</div>
+          <div><input id="cvv" class="payInf" type="text" placeholder="安全碼"></div>
         </div>
-        <button id="btn_checkout" type="submit">送出訂單</button>
+        </div>
+        <div class="row">
+          <div class="col-12">　</div>
+          <div class="">
+            <input id="btn_checkout" type="submit" value="送出訂單" />
+          </div>
+        </div>
+        
       </div>
 
     </div>
@@ -197,7 +212,8 @@
   <!-- ##### Footer 結束 ##### -->
 
   <!-- jQuery (Necessary for All JavaScript Plugins) -->
-  <script src="../../main_frame/js/jquery/jquery-2.2.4.min.js"></script>
+  <!-- <script src="../../main_frame/js/jquery/jquery-2.2.4.min.js"></script> -->
+  <script src="./jquery/jquery-3.6.1.min.js"></script>
   <!-- Popper js -->
   <script src="../../main_frame/js/popper.min.js"></script>
   <!-- Bootstrap js -->
@@ -211,6 +227,7 @@
 
   <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
   <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./js/checkout.js"></script>
 </body>
 
 </html>

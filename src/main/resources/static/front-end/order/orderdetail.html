@@ -15,10 +15,18 @@
   <link rel="icon" href="../../main_frame/images/core-img/logo.ico" />
 
   <!-- Style CSS -->
+  <link rel="stylesheet" href="../../main_frame/css/animate.css" />
+  <link rel="stylesheet" href="../../main_frame/css/modelr.css" />
+  <link rel="stylesheet" href="../../main_frame/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../main_frame/css/classy-nav.css" />
+  <link rel="stylesheet" href="../../main_frame/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="../../main_frame/css/owl.carousel.css" />
+  <link rel="stylesheet" href="../../main_frame/css/memberCenter.css" />
+
   <link rel="stylesheet" href="../../main_frame/css/style_member.css" />
   <link rel="stylesheet" href="../../main_frame/style.css">
   <link rel="stylesheet" href="../../main_frame/css/button.css" />
-  <link rel="stylesheet" href="./css/order.css">
+  <link rel="stylesheet" href="./css/orderdetail.css">
 </head>
 
 <body>
@@ -27,7 +35,7 @@
     <br />
     <div class="row">
       <div class="col-2"></div>
-      <div class="col-2">
+      <div class="col-2" id="header1">
         <a class="www" href="#">我的票券</a><a class="www" href="#">商品專區</a><a class="www" href="#">探索活動</a>
       </div>
       <div class="col-5">
@@ -170,24 +178,24 @@
         <div class="main" id="table1">
           <table>
             <thead>
-              <tr>
+              <tr id="thead">
                 <th>項目編號</th>
                 <th>商品名稱</th>
                 <th>購買數量</th>
                 <th>小計金額</th>
                 <th>評價</th>
                 <th>評價內容</th>
-                <th>評論日期</th>
+                <th>評價日期</th>
                 <th>退貨原因</th>
-                <th>退款狀態</th>
                 <th>退貨申請日期</th>
+                <th>退款狀態</th>
                 <th>退款完成日期</th>
                 <td> </td>
                 <td> </td>
               </tr>
             </thead>
             <!-- 按下退貨申請按鈕需要出現退貨視窗 -->
-            <tbody>
+            <tbody id="orderdetail">
               <tr>
                 <th>1</th>
                 <th>aaa</th>
@@ -200,8 +208,16 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <td><button>評價</button></td>
-                <td><button>退貨</button></td>
+                <th>
+                  <div class="">
+                    <input type="submit" value="評價" />
+                  </div>
+                </th>
+                <th>
+                  <div class="">
+                    <input type="submit" value="退貨" />
+                  </div>
+                </th>
               </tr>
               <tr>
                 <th>2</th>
@@ -215,8 +231,16 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <td><button>評價</button></td>
-                <td><button>退貨</button></td>
+                <th>
+                  <div class="">
+                    <input type="submit" value="評價" />
+                  </div>
+                </th>
+                <th>
+                  <div class="">
+                    <input type="submit" value="退貨" />
+                  </div>
+                </th>
               </tr>
               <tr>
                 <th>3</th>
@@ -230,8 +254,16 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <td><button>評價</button></td>
-                <td><button>退貨</button></td>
+                <th>
+                  <!-- <div class=""> -->
+                    <input type="submit" value="評價" />
+                  <!-- </div> -->
+                </th>
+                <th>
+                  <!-- <div class=""> -->
+                    <input type="submit" value="退貨" />
+                  <!-- </div> -->
+                </th>
               </tr>
             </tbody>
           </table>
@@ -283,7 +315,7 @@
           <div class="col-lg-1 col-md-1 col-sm-1"></div>
 
         </div>
-
+      </div>
 
       </div>
     </div>
@@ -331,7 +363,7 @@
     <!-- ##### Footer 結束 ##### -->
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <script src="../../main_frame/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="./jquery/jquery-3.6.1.min.js"></script>
     <!-- Popper js -->
     <script src="../../main_frame/js/popper.min.js"></script>
     <!-- Bootstrap js -->
@@ -344,6 +376,8 @@
     <script src="../../main_frame/js/model.js"></script>
 
     <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+
+    <script src="./js/orderdetail.js"></script>
 </body>
 
 </html>
