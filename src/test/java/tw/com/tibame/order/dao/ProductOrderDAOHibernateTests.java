@@ -24,7 +24,7 @@ public class ProductOrderDAOHibernateTests {
 	public void testGetPrimaryKey() {
 		// 會員中心 - 查詢單筆訂單
 		ProductOrderVO productOrderVO = new ProductOrderVO();
-		productOrderVO = productOrderDAO.getPrimaryKey(3);
+		productOrderVO = productOrderDAO.getByPrimaryKey(3);
 		System.out.println(productOrderVO);
 	}	
 	
@@ -48,7 +48,7 @@ public class ProductOrderDAOHibernateTests {
 	@Test
 	public void testUpdate() {
 		ProductOrderVO productOrderVO = new ProductOrderVO();
-		productOrderVO = productOrderDAO.getPrimaryKey(4);
+		productOrderVO = productOrderDAO.getByPrimaryKey(4);
 		productOrderVO.setReceiverName("更改收件人姓名");
 		
 		System.out.println(productOrderDAO.update(productOrderVO));

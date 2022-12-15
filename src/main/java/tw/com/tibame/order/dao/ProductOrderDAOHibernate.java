@@ -41,7 +41,7 @@ public class ProductOrderDAOHibernate implements ProductOrderDAO {
 	}
 
 	@Override // 會員中心 - 查詢單筆訂單
-	public ProductOrderVO getPrimaryKey(Integer prodOrderNo) {
+	public ProductOrderVO getByPrimaryKey(Integer prodOrderNo) {
 		if (prodOrderNo != null) {
 			ProductOrderVO productOrderVO = this.getSession().get(ProductOrderVO.class, prodOrderNo);
 			return productOrderVO;

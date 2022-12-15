@@ -36,7 +36,7 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO{
 	}
 	
 	@Override
-	public OrderDetailVO getPrimaryKey(Integer itemNo) {
+	public OrderDetailVO getByPrimaryKey(Integer itemNo) {
 		OrderDetailVO result = null;
 		if(itemNo != null) {
 			result = this.getSession().get(OrderDetailVO.class, itemNo);
@@ -49,7 +49,7 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO{
 	public List<OrderDetailVO> getByProdOrderNo(Integer prodOrderNo) {
 		List<OrderDetailVO> result = new ArrayList<>();
 		
-		if(prodOrderNo != null) {   //不能這樣查資料數多會爆掉
+		if(prodOrderNo != null) {
 			Query<OrderDetailVO> query = getSession().createQuery("from OrderDetailVO where prodOrderNo =: prodOrderNo", OrderDetailVO.class); 
 			query.setParameter("prodOrderNo", prodOrderNo);
 			result = query.list();

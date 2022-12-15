@@ -86,8 +86,9 @@ table tbody tr:nth-child(odd) {
 }
 
 table thead {
-    background-color: rgb(106, 129, 157);
-    color: white;
+    background-color: #acb7c3;
+    color: black;
+    font-size: 13px;
 }
 
 table thead th:first-child {
@@ -128,4 +129,12 @@ h5{
 
 #drop-down-menu{
     width:auto;
+}
+
+th{
+    font-style: normal;
+}
+
+#header1{
+    padding-right: 0;
 }

@@ -48,6 +48,7 @@
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
 }
+
 /* 我加的 */
 #logo {
     /* float: left; */
@@ -63,13 +64,11 @@
 .main {
     /* width: 80%; */
     /* margin: 20px auto; */
-    border-radius: 30px
 }
 
 table {
     border-spacing: 0;
     width: 100%;
-    border-radius: 30px
 }
 
 tr {
@@ -85,19 +84,18 @@ table tbody tr:nth-child(odd) {
 }
 
 table thead {
-    /* background-color: rgb(106, 129, 157); */
-    background-color: #acb7c3;
-    color: black;
+    background-color: rgb(106, 129, 157);
+    color: white;
 }
 
 table thead th:first-child {
     border-radius: 5px 0 0 0;
-    /* border: 1px solid rgb(106, 129, 157); */
+    /* border: 1px solid rgb(106,129,157); */
 }
 
 table thead th:last-child {
     border-radius: 0 5px 0 0;
-    /* border-right: 1px solid rgb(106, 129, 157); */
+    border-right: 1px solid rgb(106, 129, 157);
 }
 
 table tbody tr:last-child td:first-child {
@@ -108,78 +106,97 @@ table tbody tr:last-child td:last-child {
     border-radius: 0 0 5px 0;
 }
 
-#table1{
-    font-size: 14px;
-    /* border-radius: 30px !important; */
+aside {
+    float: right;
+    position: relative;
+    width: 30%;
 }
 
-#button1{
-    padding: 0px;
-    width: 70%;
+.summary {
+    /* background-color: #eee; */
+    /* border: 1px solid #aaa; */
+    padding: 1rem;
+    position: fixed;
+    width: 250px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.summary-total-items {
+    color: #666;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.summary-subtotal,
+.summary-total {
+    /* border-top: 1px solid #ccc; */
+    /* border-bottom: 1px solid #ccc; */
+    clear: both;
+    /* margin: 1rem 0; */
+    overflow: hidden;
+    padding: 0.5rem 0;
+}
+
+.subtotal-title,
+.subtotal-value,
+.total-title,
+.total-value,
+.promo-title,
+.promo-value {
+    color: #111;
+    float: left;
+    width: 50%;
+}
+
+#table1 {
+    font-size: 14px;
+    border-radius: 30px !important;
+}
+
+#table1{
+    font-size: 14px;
+    border-radius: 30px !important;
+}
+
+#title{
+    font-weight:bold;
+    font-size: 14px;
+}
+
+#content{
+    font-size: 14px;
+}
+
+h5{
+    font-weight:bolder;
 }
 
 #drop-down-menu{
     width:auto;
 }
 
-#w{
-    color: #4f4d4d;
-    text-decoration:none;
-}
-
-input{
-    width:100%;
-}
-
-#btn_checkout_{
-    background: #415A77;
-    color: #FFF;
-    font-size: 17px;
-    font-weight: 400;
-    padding: 8px 7px;
-    width: 100%;
-    /* display: inline-block; */
-    /* cursor: pointer; */
-    border-radius: 6px;
-    -webkit-border-radius: 19px;
-    -moz-border-radius: 6px;
-    -o-border-radius: 6px;
-    margin: 0px 7px 0px 3px;
-    outline: none;
-    border: none;
-}
-
-.payInf_{
-    outline: none;
-    font-size: 14px;
-    color: #030301; /*文字輸入字體顏色*/
-    padding: 5px 10px;
-    background: #b2c7d5;
-    border: 1px solid #b2c7d5;
-    border-radius:10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -o-border-radius: 10px;
-    margin: 0px 0px 10px 0px;
-    width: 100%;
-}
-
-.receiverInf_{
-    outline: none;
-    font-size: 14px;
-    color: #030301; /*文字輸入字體顏色*/
-    padding: 5px 10px;
-    background: #b2c7d5;
-    border: 1px solid #b2c7d5;
-    border-radius:10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -o-border-radius: 10px;
-    margin: 0px 0px 10px 0px;
-    width: 70%;
-}
 
 #header1{
     padding-right: 0;
 }
 
+td{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#lprice p{
+    margin-bottom: 8px;
+    line-height: 2;
+    text-align: left;
+    font-weight: bolder;
+}
+
+#rprice{
+    margin-bottom: 8px;
+    line-height: 2;
+    text-align: right;
+    font-weight: bold;
+}

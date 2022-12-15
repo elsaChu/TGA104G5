@@ -21,9 +21,9 @@ public class OrderDetailDAOHibernateTests {
 	}
 	
 	@Test 
-	public void testGetPrimaryKey() {
+	public void testGetByPrimaryKey() {
 		OrderDetailVO oderDetailVO = new OrderDetailVO();
-		oderDetailVO = oderDetailDAO.getPrimaryKey(3);
+		oderDetailVO = oderDetailDAO.getByPrimaryKey(3);
 		System.out.println(oderDetailVO);
 	}
 	
@@ -46,7 +46,7 @@ public class OrderDetailDAOHibernateTests {
 	
 	@Test 
 	public void testUpdate() {
-		OrderDetailVO orderDetailVO = oderDetailDAO.getPrimaryKey(10);
+		OrderDetailVO orderDetailVO = oderDetailDAO.getByPrimaryKey(10);
 		orderDetailVO.setCommentRanking(4.5F);
 		orderDetailVO.setCommentContent("讚讚^__^");
 		orderDetailVO.setCommentDate(new java.sql.Timestamp(new GregorianCalendar().getTimeInMillis()));

@@ -86,8 +86,8 @@ table tbody tr:nth-child(odd) {
 }
 
 table thead {
-    background-color: rgb(106, 129, 157);
-    color: white;
+    background-color: #acb7c3;
+    color: black;
 }
 
 table thead th:first-child {
@@ -109,7 +109,7 @@ table tbody tr:last-child td:last-child {
 }
 
 #table1{
-    font-size: 14px;
+    font-size: 13px;
     border-radius: 30px !important;
 }
 
@@ -124,4 +124,8 @@ table tbody tr:last-child td:last-child {
 
 h5{
     font-weight:bolder;
+}
+
+#header1{
+    padding-right: 0;
 }

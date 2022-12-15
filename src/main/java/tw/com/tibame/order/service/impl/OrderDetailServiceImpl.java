@@ -42,13 +42,13 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	// 會員中心 - 訂單內單一明細查詢 
 		@Override
 		public OrderDetailVO getOneOrderDetail(Integer itemNo) {
-			return orderDetailDAO.getPrimaryKey(itemNo);
+			return orderDetailDAO.getByPrimaryKey(itemNo);
 		}
 	
 	// 會員中心 - 更新商品評論
 	@Override
 	public OrderDetailVO updateComment(Integer itemNo, Float commentRanking, String commentContent) {
-		OrderDetailVO orderDetailVO = orderDetailDAO.getPrimaryKey(itemNo);
+		OrderDetailVO orderDetailVO = orderDetailDAO.getByPrimaryKey(itemNo);
 		
 		if(orderDetailVO != null) {
 			
@@ -66,7 +66,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	// 會員中心 - 申請退貨
 	@Override
 	public OrderDetailVO updateReturn(Integer itemNo, String returnReason) {
-		OrderDetailVO orderDetailVO = orderDetailDAO.getPrimaryKey(itemNo);
+		OrderDetailVO orderDetailVO = orderDetailDAO.getByPrimaryKey(itemNo);
 		if(orderDetailVO != null && !returnReason.trim().isEmpty()) {
 			orderDetailVO.setReturnReason(returnReason);
 			orderDetailVO.setRefundSDate(new java.sql.Date(new GregorianCalendar().getTimeInMillis()));
