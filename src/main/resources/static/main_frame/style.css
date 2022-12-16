@@ -17,6 +17,14 @@
 @import url(css/owl.carousel.css);
 @import url(css/font-awesome.min.css);
 
+.buttonOUT input[type="submit"] {
+	font-size: 14px;
+	width: 40px;
+	background: #FFF;
+	border-color:#FFF;
+	border-style:none;
+}
+
 @font-face {
   font-family: 'helveticaneuebold';
   src: url("fonts/helvetica_neu_bold-webfont.woff2") format("woff2"), url("fonts/helvetica_neu_bold-webfont.woff") format("woff");
