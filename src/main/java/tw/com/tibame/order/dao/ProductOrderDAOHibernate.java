@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.tibame.order.vo.ProductOrderVO;
+import tw.com.tibame.order.vo.ViewProductOrderVO;
 @Repository
 @Transactional
 public class ProductOrderDAOHibernate implements ProductOrderDAO {
@@ -68,6 +69,27 @@ public class ProductOrderDAOHibernate implements ProductOrderDAO {
 			}
 		}
 		return false;
+	}
+
+	@Override // 會員中心 - 查詢所有訂單(view)
+	public List<ViewProductOrderVO> findByNumber(Integer number) {
+		List<ViewProductOrderVO> result = new ArrayList<>();
+		if (number != null) {
+			Query<ViewProductOrderVO> query = getSession().createQuery("from ViewProductOrderVO where number =: number", ViewProductOrderVO.class); 
+			query.setParameter("number", number);
+			result = query.list();
+			return result;
+		}
+		return null;
+	}
+
+	@Override // 會員中心 - 查詢單筆訂單(view)
+	public ViewProductOrderVO findByPrimaryKey(Integer prodOrderNo) {
+		if (prodOrderNo != null) {
+			ViewProductOrderVO productOrderVO = this.getSession().get(ViewProductOrderVO.class, prodOrderNo);
+			return productOrderVO;
+		}
+		return null;
 	}
 
 }

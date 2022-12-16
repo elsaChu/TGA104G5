@@ -12,8 +12,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "PROD_ORDER")
-public class ProductOrderVO implements java.io.Serializable {
+@Table(name = "V_PROD_ORDER")
+public class ViewProductOrderVO implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -31,6 +31,7 @@ public class ProductOrderVO implements java.io.Serializable {
 	private Integer prodTotal;		// not null
 
 	@Column(name = "paymentDate")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Timestamp paymentDate;	// not null
 
 	@Column(name = "receiverName")
@@ -47,13 +48,26 @@ public class ProductOrderVO implements java.io.Serializable {
 
 	@Column(name = "deliveryStatus")
 	private String deliveryStatus;	// not null
+	
+	@Column(name = "account")
+	private String account;			// not null
+	
+	@Column(name = "name")
+	private String name;			// not null
+	
+	@Column(name = "phoneNumber")
+	private String phoneNumber;
+	
+	@Column(name = "email")
+	private String email;			// not null
 
 	@Override
 	public String toString() {
-		return "ProductOrderVO [prodOrderNo=" + prodOrderNo + ", number=" + number + ", amountPrice=" + amountPrice
+		return "ViewProductOrderVO [prodOrderNo=" + prodOrderNo + ", number=" + number + ", amountPrice=" + amountPrice
 				+ ", prodTotal=" + prodTotal + ", paymentDate=" + paymentDate + ", receiverName=" + receiverName
 				+ ", receiverTel=" + receiverTel + ", shippingAdd=" + shippingAdd + ", prodOrderStatus="
-				+ prodOrderStatus + ", deliveryStatus=" + deliveryStatus + "]";
+				+ prodOrderStatus + ", deliveryStatus=" + deliveryStatus + ", account=" + account + ", name=" + name
+				+ ", phoneNumber=" + phoneNumber + ", email=" + email + "]";
 	}
 
 	public Integer getProdOrderNo() {
@@ -135,5 +149,40 @@ public class ProductOrderVO implements java.io.Serializable {
 	public void setDeliveryStatus(String deliveryStatus) {
 		this.deliveryStatus = deliveryStatus;
 	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
+	
 
 }

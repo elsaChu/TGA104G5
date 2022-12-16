@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tw.com.tibame.order.dao.ProductOrderDAO;
 import tw.com.tibame.order.service.ProductOrderService;
 import tw.com.tibame.order.vo.ProductOrderVO;
+import tw.com.tibame.order.vo.ViewProductOrderVO;
 
 @Service
 @Transactional
@@ -59,6 +60,18 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 			return productOrderDAO.insert(productOrderVO);
 		}
 		return null;		
+	}
+
+	// 會員中心 - 查詢該會員所有訂單
+	@Override
+	public List<ViewProductOrderVO> findByNumberOrder(Integer number) {
+		return productOrderDAO.findByNumber(number);
+	}
+
+	// 會員中心 - 查詢單筆訂單
+	@Override
+	public ViewProductOrderVO findOneOrder(Integer prodOrderNo) {
+		return productOrderDAO.findByPrimaryKey(prodOrderNo);
 	}
 	
 	

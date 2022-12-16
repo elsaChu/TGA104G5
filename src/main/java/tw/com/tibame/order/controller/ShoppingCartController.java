@@ -65,7 +65,7 @@ public class ShoppingCartController {
 		return shoppingCartVO;
 	}
 	
-	@DeleteMapping("removeFromCart")
+	@GetMapping("removeFromCart")
 	public boolean removeFromCart(Integer shoppingCartNo) {
 		if(shoppingCartNo != null) {
 			shoppingCartService.delete(shoppingCartNo);
