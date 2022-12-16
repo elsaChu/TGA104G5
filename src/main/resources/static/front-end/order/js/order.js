@@ -36,6 +36,7 @@ function Template(prodOrderNo, amountPrice, paymentDate, prodOrderStatus, delive
 
 function showDetail(prodOrderNo) {
     sessionStorage.setItem('prodOrderNo', prodOrderNo);
-    location = 'orderdetail.html#tab-4';
+    // location = 'orderdetail.html#tab-4';
+    location = 'orderdetail1.html#tab-4';
 }
 
