@@ -51,7 +51,7 @@
 		</ul>
 	</c:if>
         <form  method="post" ACTION="MemberServlet" >
-          <input
+          <input	
             type="text"
             placeholder="email"
             name="email"
@@ -59,7 +59,7 @@
           />
         
         <div class="forgot">
-        <input type="hidden" name="forgotPassword" value="forgotPasswordForTickit">
+        <input type="hidden" name="action" value="forgotPasswordForTickit">
           <input type="submit" value="重設密碼" />
           </form>
         </div>

@@ -3,8 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="tw.com.tibame.member.model.*"%>
 <% MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>TICK IT</title>
     <!-- Custom Theme files -->
@@ -37,46 +38,8 @@
   </head>
   <body>
     <div class="login">
-      <h2>會員登入</h2>
-      <div class="login-top">
-        <h1>LOGIN</h1> 
-        	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-        <form  method="post" ACTION="MemberServlet" >
-          <input
-            type="text"
-            placeholder="User Id"
-            name="account"
- 			autocomplete="off"
-          />
-          <input
-          type="password"
-          placeholder="password"
-          name="password"
-          autocomplete="off"
- 
-        />  
-       
-        <div class="forgot">
-          <a href="memberForgotPassword.jsp">forgot Password</a>
-
-          <input type="hidden" name="action" value="loginForTickit">
-          <input type="submit" value="Login" />
- </form>
-        </div>
-      </div>
-      <div class="login-bottom">
-        <a class="img" href="index.jsp"> 
-          <img src="images\logo80.png" /> </a>
-        <h3>還沒有帳號嗎?&nbsp;<a href="memberRegister.jsp">註冊</h3></a>
-    </div>
+      <h2>請至信箱查看您的新密碼，點擊下方連接重新登入!</h2>
+      <a href="memberLogin.jsp">返回登入</a>
     </div>
   </body>
 </html>

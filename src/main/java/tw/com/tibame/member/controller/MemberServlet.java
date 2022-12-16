@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+
 import tw.com.tibame.member.model.MailService;
 import tw.com.tibame.member.model.MemberService;
 import tw.com.tibame.member.model.MemberVO;
@@ -36,8 +38,6 @@ public class MemberServlet extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		PrintWriter out = res.getWriter();
 		String action = req.getParameter("action");
-		String login =req.getParameter("login");
-		String forgotPassword =req.getParameter("forgotPassword");		
 		HttpSession session = req.getSession();
 
 				// =============================會員註冊=============================//
@@ -146,7 +146,7 @@ public class MemberServlet extends HttpServlet {
 
 				}
 				// =============================會員登入=============================//
-				if ("loginForTickit".equals(login)) {
+				if ("loginForTickit".equals(action)) {
 					List<String> errorMsgs = new LinkedList<>();
 					req.setAttribute("errorMsgs", errorMsgs);
 
@@ -223,7 +223,7 @@ public class MemberServlet extends HttpServlet {
 				}
 				// ===================================================忘記密碼=========================================================//
 
-				if ("forgotPasswordForTickit".equals(forgotPassword)) {
+				if ("forgotPasswordForTickit".equals(action)) {
 					System.out.println("into memberForgotPassword");
 					List<String> errorMsgs = new LinkedList<String>();
 					req.setAttribute("errorMsgs", errorMsgs);
@@ -269,8 +269,12 @@ public class MemberServlet extends HttpServlet {
 						System.out.println("forgotPasswordSuccess");
 
 						// 設定成功，轉交回登入畫面
-
-
+						String url = "memberForgotPasswordPass.jsp";
+						RequestDispatcher successView = req.getRequestDispatcher(url);
+						successView.forward(req, res);
+						
+//						out.println("<meta http-equiv='refresh' content='0;URL=http://localhost:8080/TGA104G5/front-end/member/memberLogin.jsp>");
+//						out.println("<script> alert('請至信箱查看您的新密碼!');</script>");
 
 					} catch (Exception e) {
 						session.setAttribute("memberVO", "");
@@ -280,7 +284,7 @@ public class MemberServlet extends HttpServlet {
 
 				}
 				
-				// ===================================================旅客修改資料=========================================================//
+				// ===================================================修改資料=========================================================//
 				
 				if ("update".equals(action)) { // 來自memberCenter的請求
 
@@ -367,6 +371,63 @@ public class MemberServlet extends HttpServlet {
 						failureView.forward(req, res);
 					}
 				}
+				// ===================================================會員登出=========================================================//
+				
+				if("logout".equals(action)) {
+					   try {
+					    System.out.println("into logout");
+					    session.removeAttribute("memberVO");
+					   // session.removeAttribute("hotelVO");
+					    
+//					    HashMap<String, String> userInfoMap = new HashMap<String, String>();
+//					    userInfoMap.put("check", "2"); // 表登出，回到首頁，右上方顯示「註冊」及「登入
+
+					    session.invalidate(); // 清除用戶端與伺服器之間的會話資料
+					    
+//					    JSONObject obj = new JSONObject(userInfoMap);
+//					    PrintWriter out = res.getWriter(); 已經宣告在doPost執行時
+//					    out.println(obj);
+//					    System.out.println(obj + "logout");
+//					    return;
+					 // 新增完成，準備轉交
+						String url = "memberCentre.jsp";
+						RequestDispatcher successView = req.getRequestDispatcher(url);
+						successView.forward(req, res);
+
+					    
+					   }catch(Exception e) {
+					    e.getStackTrace();
+					    RequestDispatcher failureView = req.getRequestDispatcher("index.jsp");
+					    failureView.forward(req, res);
+					   }
+					   
+					  }
+				
+				// ===================================================確認狀態=========================================================//	
+				if ("checkLogin".equals(action)) {
+					   try {
+					    MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+					  //  HotelVO hotelVO = (HotelVO) session.getAttribute("hotelVO");
+					    
+					    HashMap<String, String> userInfoMap = new HashMap<String, String>();
+					    userInfoMap.put("check", "2");
+					    
+					    if(memberVO != null) {
+					     userInfoMap.put("check", "1");
+					     userInfoMap.put("url", "MemberCenter.jsp");
+					    } 
+					    
+					    JSONObject obj = new JSONObject(userInfoMap);
+					    out.println(obj);
+					    System.out.println(obj);
+					    
+					   }catch(Exception e) {
+					    e.printStackTrace();
+					    RequestDispatcher failureView = req.getRequestDispatcher("index.html");
+					    failureView.forward(req, res);
+					   }
+					  }
+				
 }
 	
 }

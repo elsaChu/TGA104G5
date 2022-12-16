@@ -24,6 +24,15 @@
 
     <!-- Style CSS -->
     <link rel="stylesheet" href="css/memberCentre.css" />
+    <style>
+    .buttonOUT input[type="submit"] {
+	font-size: 14px;
+	width: 40px;
+	background: #FFF;
+	border-color:#FFF;
+	border-style:none;
+}
+    </style>
   </head>
 
   <body>
@@ -88,19 +97,25 @@
                   禮品訂單</a
                 >
               </li>
-              <li>
-                <a href="#"
-                  ><iconify-icon
+              <div class="buttonOUT">
+              <form action="MemberServlet" method="POST" >
+              <li id="Signout" >
+              <a href="#">
+              <iconify-icon
                     class="sign-out"
                     icon="heroicons:arrow-right-on-rectangle-20-solid"
                     width="20"
                     height="20"
+                    style="margin: 0px -7px 0px 2px;"
                   ></iconify-icon>
-                  登出</a
-                >
+              <input type="submit" value="登出">
+              <input type="hidden" name="action" value="logout"></a>
               </li>
+				
+              </form>
             </ul>
           </li>
+          
           <li>
             <a href="#"
               ><iconify-icon
@@ -129,6 +144,7 @@
             ></a>
           </li>
         </ul>
+      </div>
       </div>
 
       <!-- 登入結束 -->
@@ -160,8 +176,8 @@
           <div class="Data-Title">
             <div class="AlignRight">
               <label for="txt">使用者帳號</label><br />
-              <label for="txt">信箱</label>
-              <br />
+              <label for="txt">姓名</label><br />
+              <label for="txt">信箱</label><br />
               <label for="txt">生日</label><br />
               <label for="txt">手機號碼</label><br /><br /><br />
               <hr style="width: 400%" />
@@ -174,25 +190,27 @@
         </div>
         <form action="MemberServlet" method="POST" >
         <div class="Data-Items">
-        <input type="text" name="account" readonly="readonly" value="<%=(memberVO == null) ? "" : memberVO.getAccount()%>"/><br />
-          <input type="email" name="email" value="<%=(memberVO == null) ? "" : memberVO.getEmail()%>"/><br />
-          <input type="date" name="birthday" value="<%=(memberVO == null) ? "" : memberVO.getBirthday()%>"/>
-          <span class="error" style="color: red">${errors.birthday}</span><br />
-          <input type="tel" name="phoneNumber" value="<%=(memberVO == null) ? "" : memberVO.getPhoneNumber()%>"/>
-          <span class="error" style="color: red">${errors.phoneNumber}</span><br />
-          <label for="txt"
+      		<input type="text" name="account" readonly="readonly" value="<%=(memberVO == null) ? "" : memberVO.getAccount()%>"/><br />
+          	<input type="text" name="name" value="<%=(memberVO == null) ? "" : memberVO.getName()%>"/><br />
+          	<input type="email" name="email" value="<%=(memberVO == null) ? "" : memberVO.getEmail()%>"/><br />
+          	<input type="date" name="birthday" value="<%=(memberVO == null) ? "" : memberVO.getBirthday()%>"/>
+         	 <span class="error" style="color: red">${errors.birthday}</span><br />
+          	<input type="tel" name="phoneNumber" value="<%=(memberVO == null) ? "" : memberVO.getPhoneNumber()%>"/>
+          	<span class="error" style="color: red">${errors.phoneNumber}</span><br />
+          	<label for="txt"
             >此手機號碼將作為購票緊急聯絡的用途，部分活動可能需要手機認證才能報名購票，請務必輸入正確的手機號碼。</label
           ><br /><br /><br /><br />
           <hr style="width: 0%" />
-          <input type="text" name="IDNumber" value="<%=(memberVO == null) ? "" : memberVO.getIDNumber()%>"/>
-          <span class="error" style="color: red">${errors.IDNumber}</span><br /><br />
+          	<input type="text" name="IDNumber" value="<%=(memberVO == null) ? "" : memberVO.getIDNumber()%>"/>
+          	<span class="error" style="color: red">${errors.IDNumber}</span><br /><br />
         </div>
         <div class="checkbox">
-          <input type="checkbox" name="scales" id="subscription" checked />
+          <input type="checkbox" name="subscription" id="subscription"  value="<%=(memberVO == null) ? "" : memberVO.getSubscription()%>"
+          />
           是否訂閱TICK IT最新消息<br />
         </div>
         <div class="submit">
-        	<input type="hidden" name="memberservlet" value="memberupdate">
+        	<input type="hidden" name="memberServlet" value="memberUpdate">
           <input type="submit" value="儲存個人資料" /><br /><br />
           </form>
         </div>
@@ -207,6 +225,13 @@
         		subscription.value = 0;
         	}
         })
+        if(subscription == null){
+        	subscription.setAttribute("checked", "checked");
+        }
+        
+        
+        
+        
         </script>
 
       <div class="tab-content-2">
@@ -282,6 +307,8 @@
       </div>
     </footer>
     <!-- ##### Footer 結束 ##### -->
+    
+   
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
@@ -297,5 +324,17 @@
     <script src="js/model.js"></script>
 
     <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+    
+     <script>
+   $('body').on('click', '#Signout', function() {
+   var yes = confirm('確定登出嗎？');
+   if (yes) {
+       onsole.log('yes');	
+       do_deletion();
+             } 
+     });
+      </script>
+    
+    
   </body>
 </html>

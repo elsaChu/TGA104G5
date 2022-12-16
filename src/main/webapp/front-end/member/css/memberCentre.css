@@ -62,6 +62,7 @@
 .submit{
   float: right;
 }
+
 .submit input[type="submit"] {
   background: #415A77;
   color: #FFF;
@@ -94,6 +95,7 @@
   margin: 0px 0px 10px 0px;
   width: 7%;
 }
+
 .tab-content-2 input[type="password"]{ 
   outline: none;
   font-size: 14px;
@@ -119,7 +121,7 @@
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -o-border-radius: 10px;
-  margin: 3px 0px 10px 0px;
+  margin: 2px 0px 5px 0px;
   width: 30%;
 }
 .tab-content-1 input[type="email"]{
@@ -134,7 +136,7 @@
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -o-border-radius: 10px;
-  margin: 0px 0px 10px 0px;
+  margin: 5px 0px 10px 0px;
   width: 30%;
 }
 .tab-content-1 input[type="tel"]{
@@ -149,7 +151,7 @@
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -o-border-radius: 10px;
-  margin: 3px 0px 10px 0px;
+  margin: 3px 0px 20px 0px;
   width: 30%;
 }
 .tab-content-1 input[type="date"]{

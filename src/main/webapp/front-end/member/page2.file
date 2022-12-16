@@ -17,8 +17,14 @@ input[type="submit"] {
   outline: none;
   border: none;
  }
-</style>
+ 
+ .aaa{
+  margin:0px 0px 0px 50px;
+ }
 
+</style>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="aaa">
   <%if (rowsPerPage<rowNumber) {%>
     <%if(pageIndex>=rowsPerPage){%>
         <A href="<%=request.getRequestURI()%>?whichPage=1">至第一頁</A>&nbsp;
@@ -30,16 +36,5 @@ input[type="submit"] {
         
     <%}%>
   <%}%>  
+  </div>
 
-<br><br>
-
-  <%if (pageNumber>1) {%>
-    <FORM METHOD="post" ACTION="<%=request.getRequestURI()%>">   
-       <select size="1" name="whichPage">
-         <%for (int i=1; i<=pageNumber; i++){%>
-            <option value="<%=i%>">跳至第<%=i%>頁
-         <%}%> 
-       </select>
-       <input type="submit" value="確定" >  
-    </FORM>
-  <%}%>

@@ -146,14 +146,10 @@ pageContext.setAttribute("list", list);
           <td>是否訂閱TICK</td>
           <td>查詢訂單</td>
         </tr>
-        <%  int rowsPerPage = 3;  //每頁的筆數    
-    int rowNumber=0;      //總筆數
-    int pageNumber=0;     //總頁數      
-    int whichPage=1;      //第幾頁
-    int pageIndexArray[]=null;
-    int pageIndex=0; 
-%>
 
+
+      
+	<%@ include file="page1.file" %>
        <c:forEach var="memberVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
         <tr>
           <td>${memberVO.number}</td>
@@ -162,16 +158,41 @@ pageContext.setAttribute("list", list);
           <td>${memberVO.birthday}</td>
           <td>${memberVO.email}</td>
           <td>${memberVO.phoneNumber}</td>
-          <td>${memberVO.subscription}</td>
+          <td class="myTd">${memberVO.subscription}</td>
           <td>查詢</td>
-			 </tr>
-         </c:forEach>
-      </table>     
-      
+		</tr>
+       </c:forEach>		
+
+      </table>      
+      <%@ include file="page2.file" %>
 
   </div>
-      <%@ include file="page1.file" %>
-  <%@ include file="page2.file" %>
+
+ 
+
+	<script>
+// 	  var value = document.getElementById("myTd").innerHTML;
+// 	  console.log(value);
+// 	  if (value == false) {
+// 	    document.getElementById("myTd").innerHTML = '<i class="fa fa-times"></i>';
+// 	  } else {
+// 	    document.getElementById("myTd").innerHTML = '<i class="fa fa-check"></i>';
+// 	  }
+
+  var tds = document.getElementsByClassName("myTd");
+  console.log(tds);
+  for (var i = 0; i < tds.length; i++) {
+    var value = tds[i].innerHTML;
+    console.log(value);
+    if(value == "true"){
+    	tds[i].innerHTML = '<i class="fa fa-check"></i>';
+    } else {
+    	tds[i].innerHTML = '<i class="fa fa-times"></i>';
+    }
+   }
+	</script>
+  
+  	
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>
