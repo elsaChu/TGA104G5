@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import tw.com.tibame.order.service.ProductOrderService;
 import tw.com.tibame.order.vo.OrderDetailVO;
 import tw.com.tibame.order.vo.ProductOrderVO;
 import tw.com.tibame.order.vo.ViewOrderDetailVO;
+import tw.com.tibame.order.vo.ViewProductOrderVO;
 
 @RestController
 @RequestMapping("order")
@@ -39,15 +41,22 @@ public class ProductOrderController {
     	return list;
 	}
     
-    @GetMapping("orderdetail") // 跳轉訂單時需要檢查會員編號
+    @GetMapping("orderdetail") // 跳轉訂單時需要檢查會員編號，避免看到別的會員訂單
     public List<ViewOrderDetailVO> memberOrderDetail(@RequestParam Integer prodOrderNo) {
     	List<ViewOrderDetailVO> list = orderDetailService.findByProdOrderNo(prodOrderNo);
     	return list;
 	}
     
+    @GetMapping("info") //不知道是不是這樣寫
+    public ViewProductOrderVO findOneOrder(@RequestParam Integer prodOrderNo) {
+    	ViewProductOrderVO viewProductOrderVO = productOrderService.findOneOrder(prodOrderNo);
+		return viewProductOrderVO;
+    }
+    
     @PostMapping("addProdOrder")
-    public ProductOrderVO addProdOrder() {
-    	ProductOrderVO productOrderVO = new ProductOrderVO();
+    public ProductOrderVO addProdOrder(HttpSession httpSession, @RequestBody ProductOrderVO productOrderVO) {
+//    	ProductOrderVO productOrderVO = new ProductOrderVO();
+    	Integer number = (Integer) httpSession.getAttribute("number");
     	productOrderVO.setNumber(5);			// 這些是先寫死的唷要從表單得到資料唷!
 		productOrderVO.setAmountPrice(1000);
 		productOrderVO.setProdTotal(1);

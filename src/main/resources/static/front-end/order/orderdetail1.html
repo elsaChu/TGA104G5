@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <!-- Title -->
+  <title>TICK IT</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../../main_frame/images/core-img/logo.ico" />
+
+  <!-- Style CSS -->
+  <link rel="stylesheet" href="../../main_frame/css/animate.css" />
+  <link rel="stylesheet" href="../../main_frame/css/model.css" />
+  <link rel="stylesheet" href="../../main_frame/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../main_frame/css/classy-nav.css" />
+  <link rel="stylesheet" href="../../main_frame/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="../../main_frame/css/owl.carousel.css" />
+  <link rel="stylesheet" href="../../main_frame/css/memberCenter.css" />
+
+  <link rel="stylesheet" href="../../main_frame/css/style_member.css" />
+  <link rel="stylesheet" href="../../main_frame/style.css">
+  <link rel="stylesheet" href="../../main_frame/css/button.css" />
+  <link rel="stylesheet" href="./css/orderdetail.css">
+</head>
+
+<body>
+  <header>
+    <!-- 登入開始 -->
+    <br />
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-2" id="header1">
+        <a class="www" href="#">我的票券</a><a class="www" href="#">商品專區</a><a class="www" href="#">探索活動</a>
+      </div>
+      <div class="col-5">
+        <div class="box">
+          <div class="container-1">
+            <span class="icon"><i class="fa fa-search"></i></span>
+            <input type="search" id="search" placeholder="搜索活動" />
+          </div>
+        </div>
+      </div>
+      <ul class="drop-down-menu">
+        <li>
+          <a href="#"><iconify-icon icon="heroicons:user-circle-solid" width="30" height="30"></iconify-icon></a>
+          <ul>
+            <li>
+              <a href="#"><iconify-icon class="sign-out" icon="heroicons:cog-8-tooth" width="20"
+                  height="20"></iconify-icon>
+                設定</a>
+            </li>
+            <li>
+              <a href="#"><iconify-icon class="sign-out" icon="heroicons:ticket" width="20" height="20"></iconify-icon>
+                票券訂單</a>
+            </li>
+            <li>
+              <a href="#"><iconify-icon class="sign-out" icon="heroicons:gift" width="20" height="20"></iconify-icon>
+                商品訂單</a>
+            </li>
+            <li>
+              <a href="#"><iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20"
+                  height="20"></iconify-icon>
+                登出</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#"><iconify-icon icon="heroicons:bell-20-solid" width="30" height="30"></iconify-icon></a>
+        </li>
+        <li>
+          <a href="#"><iconify-icon icon="heroicons:heart-20-solid" width="30" height="30"></iconify-icon></a>
+        </li>
+        <li>
+          <a href="#"><iconify-icon icon="heroicons:shopping-cart-20-solid" width="30" height="30"></iconify-icon></a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 登入結束 -->
+
+    <!-- 空行 -->
+    <div class="row">
+      <div class="col-12">　</div>
+    </div>
+  </header>
+
+    <!-- 頁籤的內容區塊 -->
+    
+    <div class="tab-content-4">
+      <div class="container">
+        <p></p>
+        <h2>訂單明細</h2>
+        <hr>
+        <div class="main" id="table1">
+          <table>
+            <thead>
+              <tr id="thead">
+                <th>商品名稱</th>
+                <th>商品規格</th>
+                <th>購買數量</th>
+                <th>小計金額</th>
+                <th>評價</th>
+                <th>評價日期</th>
+                <th>退貨原因</th>
+                <th>退貨申請日期</th>
+                <th>退款狀態</th>
+                <th>退款日期</th>
+                <th> </th>
+                <th> </th>
+              </tr>
+            </thead>
+            <!-- 按下退貨申請按鈕需要出現退貨視窗 -->
+            <tbody id="orderdetail">
+            </tbody>
+          </table>
+        </div>
+        
+        <hr>
+        <div class="row">
+          <div class="col-lg-1 col-md-1 col-sm-1"></div>
+          <div class="col-lg-5 col-md-5 col-sm-5">
+            <h5>訂單資訊</h5><br>
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4" id="title">
+                <p>訂單編號</p>
+                <p>會員姓名</p>
+                <p>手機號碼</p>
+                <p>電子信箱</p>
+                <p>購買日期</p>
+                <p>訂單狀態</p>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8" id="content">
+                <div id="prodinfo1">
+                  <!-- <p id="prodOrderNo">12345</p>
+                  <p id="name">達子</p>
+                  <p id="phoneNumber">0988888888</p>
+                  <p id="email">daako@gmail.com</p>
+                  <p id="paymentDate">20221111</p>
+                  <p id="prodOrderStatus">處理中</p> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 col-md-5 col-sm-5">
+            <h5>收件資訊</h5><br>
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4" id="title">
+                <p>收件人姓名</p>
+                <p>收件人手機</p>
+                <p>收件地址</p>
+                <p>配送狀態</p>
+              
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8" id="content">
+                <div id="prodinfo2">
+                  <!-- <p id="receiverName">達子</p>
+                  <p id="receiverTel">0911222222</p>
+                  <p id="shippingAdd">豪華大飯店</p>
+                  <p id="deliveryStatus">已送達</p> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-1 col-md-1 col-sm-1"></div>
+
+        </div>
+      </div>
+
+     
+    </div>
+
+    <!-- ##### Footer 開始 ##### -->
+    <footer class="footer-area text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="classy-nav-container breakpoint-off">
+              <nav class="classy-navbar justify-content-center">
+                <div class="classy-navbar-toggler">
+                  <span class="navbarToggler"><span></span><span></span><span></span></span>
+                </div>
+
+                <!-- Menu -->
+                <div class="classy-menu">
+                  <!-- close btn -->
+                  <div class="classycloseIcon">
+                    <div class="cross-wrap">
+                      <span class="top"></span><span class="bottom"></span>
+                    </div>
+                  </div>
+
+                  <!-- Nav Start -->
+                  <div class="classynav">
+                    <ul>
+                      <li><a href="#">常見問題</a></li>
+                      <li><a href="#">聯絡我們</a></li>
+                      <li><a href="#">系統公告</a></li>
+                      <li><a href="#">網站地圖</a></li>
+                      <li><a href="#">隱私權政策</a></li>
+                      <li><a href="#">服務條款</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+            </div>
+
+            <!-- Footer Social Area -->
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- ##### Footer 結束 ##### -->
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script src="./jquery/jquery-3.6.1.min.js"></script>
+    <!-- Popper js -->
+    <script src="../../main_frame/js/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="../../main_frame/js/bootstrap.min.js"></script>
+    <!-- Plugins js -->
+    <script src="../../main_frame/js/plugins.js"></script>
+    <!-- Active js -->
+    <script src="../../main_frame/js/active.js"></script>
+
+    <script src="../../main_frame/js/model.js"></script>
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+
+    <script src="./js/orderdetail.js"></script>
+</body>
+
+</html>

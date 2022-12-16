@@ -7,6 +7,7 @@ use TICK_IT;
 #22 [修改] 商品訂單 paymentDate 取消預設值
 #23 [修改] 商品訂單明細 commentRanking 取消default 0
 #25 [新建] View訂單明細 (V_ORDER_DETAIL)
+#26 [新建] View商品訂單 (V_PROD_ORDER)
 #--------------- create table ----------------
 #1 隱私權政策
 create table PRIVACY(
@@ -419,6 +420,14 @@ select od.*, prod.prodName, prod.prodSpec
 from ORDER_DETAIL od
 	join PRODUCT prod
     on od.prodNo = prod.prodNo;
+
+
+#26 View商品訂單
+create view V_PROD_ORDER as 
+select po.*, m.account, m.name, m.phoneNumber, m.email
+from PROD_ORDER po
+join MEMBER m
+on po.number = m.number;
 
 
 -- drop database TICK_IT;
