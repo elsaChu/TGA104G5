@@ -48,8 +48,8 @@ public class ProductOrderController {
 	}
     
     @GetMapping("info") //不知道是不是這樣寫
-    public ViewProductOrderVO findOneOrder(@RequestParam Integer prodOrderNo) {
-    	ViewProductOrderVO viewProductOrderVO = productOrderService.findOneOrder(prodOrderNo);
+    public ViewProductOrderVO findAnOrder(@RequestParam Integer prodOrderNo) {
+    	ViewProductOrderVO viewProductOrderVO = productOrderService.findAnOrder(prodOrderNo);
 		return viewProductOrderVO;
     }
     

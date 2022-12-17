@@ -70,7 +70,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 
 	// 會員中心 - 查詢單筆訂單
 	@Override
-	public ViewProductOrderVO findOneOrder(Integer prodOrderNo) {
+	public ViewProductOrderVO findAnOrder(Integer prodOrderNo) {
 		return productOrderDAO.findByPrimaryKey(prodOrderNo);
 	}
 	

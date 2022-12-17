@@ -8,6 +8,7 @@ use TICK_IT;
 #23 [修改] 商品訂單明細 commentRanking 取消default 0
 #25 [新建] View訂單明細 (V_ORDER_DETAIL)
 #26 [新建] View商品訂單 (V_PROD_ORDER)
+#27 [新建] View商品 (V_PRODUCT)
 #--------------- create table ----------------
 #1 隱私權政策
 create table PRIVACY(
@@ -428,6 +429,13 @@ select po.*, m.account, m.name, m.phoneNumber, m.email
 from PROD_ORDER po
 join MEMBER m
 on po.number = m.number;
+
+#27 View商品
+create view V_PRODUCT as 
+select p.*, e.eventName, e.eventType
+from PRODUCT p
+join EVENT e
+on p.eventNumber = e.eventNumber;
 
 
 -- drop database TICK_IT;
