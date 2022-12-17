@@ -23,7 +23,7 @@ public interface ProductOrderService {
 	List<ViewProductOrderVO> findByNumberOrder(Integer number);
 
 	// 會員中心 - 查詢單筆訂單(view)
-	ViewProductOrderVO findOneOrder(Integer prodOrderNo);
+	ViewProductOrderVO findAnOrder(Integer prodOrderNo);
 
 
 }
