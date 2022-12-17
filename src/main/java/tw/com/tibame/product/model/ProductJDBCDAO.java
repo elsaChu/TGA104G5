@@ -238,33 +238,97 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		return productVO;
 	}
 	
-	@Override
-	public ProductVO findByProductName(String prodName) {
+//	@Override
+//	public ProductVO findByProductName(String prodName) {
+//
+//		ProductVO productVO = null;
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//
+//		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			pstmt = con.prepareStatement(SELECT_BY_PRODUCTNAME);
+//			pstmt.setString(1, prodName);
+//			rs = pstmt.executeQuery();
+//
+//			while (rs.next()) {
+//				productVO = new ProductVO();
+//				productVO.setProdNo(rs.getInt("prodNo"));
+//				productVO.setEventNumber(rs.getInt("eventNumber"));
+//				productVO.setOrganizerNumber(rs.getInt("organizerNumber"));
+//				productVO.setProdName(rs.getString("prodName"));
+//				productVO.setProdSpec(rs.getString("prodSpec"));
+//				productVO.setUnitPrice(rs.getInt("unitPrice"));
+//				productVO.setProdStock(rs.getInt("prodStock"));
+//				productVO.setProdDetails(rs.getString("prodDetails"));
+//				productVO.setProdScore(rs.getFloat("prodScore"));
+//				productVO.setIsPOn(rs.getBoolean("isPOn"));
+//			}
+//
+//			// Handle any driver errors
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+//			// Handle any SQL errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. " + se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (rs != null) {
+//				try {
+//					rs.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		return productVO;
+//	}
 
-		ProductVO productVO = null;
+	@Override
+	public List<ProductVO> findByProductName(String pdname) {
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO prodvo = null;
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+		
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(SELECT_BY_PRODUCTNAME);
-			pstmt.setString(1, prodName);
+			pstmt.setString(1, pdname);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				productVO = new ProductVO();
-				productVO.setProdNo(rs.getInt("prodNo"));
-				productVO.setEventNumber(rs.getInt("eventNumber"));
-				productVO.setOrganizerNumber(rs.getInt("organizerNumber"));
-				productVO.setProdName(rs.getString("prodName"));
-				productVO.setProdSpec(rs.getString("prodSpec"));
-				productVO.setUnitPrice(rs.getInt("unitPrice"));
-				productVO.setProdStock(rs.getInt("prodStock"));
-				productVO.setProdDetails(rs.getString("prodDetails"));
-				productVO.setProdScore(rs.getFloat("prodScore"));
-				productVO.setIsPOn(rs.getBoolean("isPOn"));
+				prodvo = new ProductVO();
+				prodvo.setProdNo(rs.getInt("prodNo"));
+				prodvo.setEventNumber(rs.getInt("eventNumber"));
+				prodvo.setOrganizerNumber(rs.getInt("organizerNumber"));
+				prodvo.setProdName(rs.getString("prodName"));
+				prodvo.setProdSpec(rs.getString("prodSpec"));
+				prodvo.setUnitPrice(rs.getInt("unitPrice"));
+				prodvo.setProdStock(rs.getInt("prodStock"));
+				prodvo.setProdDetails(rs.getString("prodDetails"));
+				prodvo.setProdScore(rs.getFloat("prodScore"));
+				prodvo.setIsPOn(rs.getBoolean("isPOn"));
+				list.add(prodvo); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -297,9 +361,9 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 				}
 			}
 		}
-		return productVO;
+		return list;
 	}
-
+	
 	@Override
 	public List<ProductVO> getAll() {
 		List<ProductVO> list = new ArrayList<ProductVO>();

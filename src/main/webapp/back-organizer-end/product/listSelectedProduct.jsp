@@ -4,11 +4,9 @@
 <%@ page import="java.util.*"%>
 <%@ page import="tw.com.tibame.product.model.*"%>
 
-<%
-ProductService prodSvc = new ProductService();
-List<ProductVO> list = prodSvc.getAll();
-pageContext.setAttribute("list", list);
-%>
+<%-- <% ProductService prodSvc = new ProductService(); --%>
+// List<ProductVO> list = prodSvc.findByProductName(String pdname);
+<%-- List<ProductVO> list = (List<ProductVO>)request.getAttribute("ProductVO"); %> --%>
 
 <c:set var="context" value="${pageContext.request.contextPath}" />
 <jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
@@ -20,18 +18,23 @@ pageContext.setAttribute("list", list);
 <title>TICK IT</title>
 
 <style>
-.table-1 {
+h3 {
+        font-weight: bold;
+      }
+
+table#table-1 {
 	width: 100%;
 	background-color: #C3DFD4;
 	border: 1.5px solid #8E8E8E;
 	text-align: center;
 }
 
-.table-2 {
+table#table-2 {
 	width: 100%;
 	background-color: white;
 	margin-bottom: 20px;
 }
+
 
 th, td {
 	padding: 5px;
@@ -41,33 +44,35 @@ th, td {
 
 td.prodDetails {
 	text-align: left;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	white-space: normal;
+	
 }
 
-th, td.group1 {
+th, td.group1{
 	white-space: nowrap;
 }
 
-td.prodName {
+td.prodName{
 	white-space: normal;
 }
+
 </style>
 
 </head>
 <body>
-	<table class="table-1">
+	<table id="table-1">
 		<tr>
 			<td>
-				<h2>全部商品資料</h2>
+				<h2>查詢商品</h2>
 				<h4>
-					<a href="${context}/back-organizer-end/product/selectProduct.jsp">回首頁</a>
+					<a
+						href="${context}/back-organizer-end/product/selectProduct.jsp">回首頁</a>
 				</h4>
 			</td>
 		</tr>
 	</table>
 
-	<table class="table-2">
+	<table id="table-2">
 		<tr>
 			<th>商品編號</th>
 			<th>活動編號</th>
@@ -81,7 +86,7 @@ td.prodName {
 			<th>商品是否上架</th>
 			<th>修改</th>
 		</tr>
-		<c:forEach var="productVO" items="${list}">
+		<c:forEach var="productVO" items="${ProductVO}">
 			<tr>
 				<td class=group1>${productVO.prodNo}</td>
 				<td class=group1>${productVO.eventNumber}</td>
@@ -96,9 +101,9 @@ td.prodName {
 
 				<td>
 					<form method="post" action="${context}/ProductServlet">
-						<input type="hidden" name="prodNo" value="${productVO.prodNo}">
-						<input type="hidden" name="action" value="getOne_For_Update">
 						<input type="submit" value="修改">
+						<input type="hidden" name="prodName" value="${productVO.prodName}">
+						<input type="hidden" name="action" value="getOneProductName_For_Display">
 					</form>
 				</td>
 			</tr>

@@ -8,12 +8,14 @@
 ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 %>
 
+<c:set var="context" value="${pageContext.request.contextPath}" />
+<jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>查詢單筆商品資料</title>
-<jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
+<title>TICK IT</title>
 
 <style>
 table#table-1 {
@@ -57,10 +59,10 @@ th, td {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>查詢單筆商品資料</h3>
+				<h2>查詢商品</h2>
 				<h4>
 					<a
-						href="<%=request.getContextPath()%>/back-organizer-end/product/selectProduct.jsp">回首頁</a>
+						href="${context}/back-organizer-end/product/selectProduct.jsp">回首頁</a>
 				</h4>
 			</td>
 		</tr>
