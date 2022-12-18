@@ -2,15 +2,16 @@ package tw.com.tibame.management.model;
 
 import java.time.LocalDateTime;
 
-public class CommonQAVO {
-	private Integer commonID;           // NOT NULL AUTO_INCREMENT
-	private String commonName;          // NOT NULL
-	private String commonContent;       // NOT NULL
-	private LocalDateTime commonCreateDate; // default CURRENT_TIMESTAMP
-	private Integer sort;               // NOT NULL
+public class QuestionVO {
+	private Integer commonID; // int AI PK 
+	private String commonName; // varchar(255) 
+	private String commonContent; // text 
+	private LocalDateTime commonCreateDate; // timestamp 
+	private Integer sort; // int
+	
 	@Override
 	public String toString() {
-		return "CommonQAVO [commonID=" + commonID + ", commonName=" + commonName + ", commonContent=" + commonContent
+		return "questionVO [commonID=" + commonID + ", commonName=" + commonName + ", commonContent=" + commonContent
 				+ ", commonCreateDate=" + commonCreateDate + ", sort=" + sort + "]";
 	}
 	public Integer getCommonID() {

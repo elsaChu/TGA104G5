@@ -1,19 +1,19 @@
 package tw.com.tibame.management.model;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
-public class SystemBulletinVO {
-	private Integer bulletinID;            // NOT NULL AUTO_INCREMENT
-	private String bulletinName;           // NOT NULL
-	private String bulletinContent;        // TEXT NOT NULL
-	private LocalDateTime bulletinDate;        // default CURRENT_TIMESTAMP
-	private Boolean isTop;                 // NOT NULL default 0
-	private Boolean isOpen;                // NOT NULL default 0
-	private LocalDateTime bulletinCreateDate;  // default CURRENT_TIMESTAMP
-	
+public class BulletinVO {
+
+	private Integer bulletinID; // int AI PK         ;
+	private String bulletinName; // varchar(255)    ;
+	private String bulletinContent; // text         ;
+	private Timestamp bulletinDate; //       ;
+	private Boolean isTop; // bit(1)                 ;
+	private Boolean isOpen; // bit(1)                ;
+	private Timestamp bulletinCreateDate; // timestamp ;
 	@Override
 	public String toString() {
-		return "SystemBulletinVO [bulletinID=" + bulletinID + ", bulletinName=" + bulletinName + ", bulletinContent="
+		return "bulletinVO [bulletinID=" + bulletinID + ", bulletinName=" + bulletinName + ", bulletinContent="
 				+ bulletinContent + ", bulletinDate=" + bulletinDate + ", isTop=" + isTop + ", isOpen=" + isOpen
 				+ ", bulletinCreateDate=" + bulletinCreateDate + "]";
 	}
@@ -35,10 +35,10 @@ public class SystemBulletinVO {
 	public void setBulletinContent(String bulletinContent) {
 		this.bulletinContent = bulletinContent;
 	}
-	public LocalDateTime getBulletinDate() {
+	public Timestamp getBulletinDate() {
 		return bulletinDate;
 	}
-	public void setBulletinDate(LocalDateTime bulletinDate) {
+	public void setBulletinDate(Timestamp bulletinDate) {
 		this.bulletinDate = bulletinDate;
 	}
 	public Boolean getIsTop() {
@@ -53,13 +53,13 @@ public class SystemBulletinVO {
 	public void setIsOpen(Boolean isOpen) {
 		this.isOpen = isOpen;
 	}
-	public LocalDateTime getBulletinCreateDate() {
+	public Timestamp getBulletinCreateDate() {
 		return bulletinCreateDate;
 	}
-	public void setBulletinCreateDate(LocalDateTime bulletinCreateDate) {
+	public void setBulletinCreateDate(Timestamp bulletinCreateDate) {
 		this.bulletinCreateDate = bulletinCreateDate;
 	}
+
 	
-	
-	
+
 }
