@@ -10,29 +10,254 @@
 -------------------------------------------------- */
 /* :: Import Fonts */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
-@import url(./css/bootstrap.css);
-@import url(./css/classy-nav.css);
-@import url(./css/animate.css);
-@import url(./css/model.css);
-@import url(./css/owl.carousel.css);
-@import url(./css/font-awesome.min.css);
+@import url(bootstrap.min.css);
+@import url(classy-nav.css);
+@import url(animate.css);
+@import url(model.css);
+@import url(owl.carousel.css);
+@import url(font-awesome.min.css);
 
-.buttonOUT input[type="submit"] {
-	font-size: 14px;
-	width: 40px;
-	background: #FFF;
-	border-color:#FFF;
-	border-style:none;
+.Data-Content {
+  height: 0px;
+  width: 100%; /* 表單寬度 */
+  line-height: 35px;
+}
+.Data-Content2 {
+  height: 10px;
+  width: 100%; /* 表單寬度 */
+  line-height: 45px;
 }
 
+.Data-Title {
+  font-size: 14px;
+  float: left;
+  width: 25%; /* Label寬度，視情況調整 */
+  margin-right: 15px;
+}
+.Data-Title2 {
+  font-size: 14px;
+  float: left;
+  width: 25%; /* Label寬度，視情況調整 */
+  margin-right: 15px;
+}
+
+.Data-Items {
+  float: left;
+  width: 70%;
+}
+.Data-Items2 {
+  float: left;
+  width: 70%;
+}
+.AlignRight {
+  text-align: right;
+}
+.AlignRight2 {
+  text-align: right;
+}
+.checkbox{
+  font-size: 14px;
+  float: left;
+}
+.submit{
+  float: right;
+}
+
+.submit input[type="submit"] {
+  background: #415A77;
+  color: #FFF;
+  font-size: 17px;
+  font-weight: 400;
+  padding: 8px 7px;
+  width: 100%;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 6px;
+  -webkit-border-radius: 19px;
+  -moz-border-radius: 6px;
+  -o-border-radius: 6px;
+  margin: 0px 7px 0px 3px;
+  outline: none;
+  border: none;
+ }
+.checkbox input[type="checkbox"]{
+
+  outline: none;
+  font-size: 14px;
+  color: #030301; /*文字輸入字體顏色*/
+  padding: 5px 10px;
+  background: #b2c7d5;
+  border: 1px solid #b2c7d5;
+  border-radius:10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  margin: 0px 0px 10px 0px;
+  width: 7%;
+}
+
+.tab-content-2 input[type="password"]{ 
+  outline: none;
+  font-size: 14px;
+  color: #030301; /*文字輸入字體顏色*/
+  padding: 5px 10px;
+  background: #b2c7d5;
+  border: 1px solid #b2c7d5;
+  border-radius:10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  margin: 0px 0px 10px 0px;
+  width: 30%;
+}
+.tab-content-1 input[type="text"]{ 
+  outline: none;
+  font-size: 14px;
+  color: #030301; /*文字輸入字體顏色*/
+  padding: 5px 10px;
+  background: #b2c7d5;
+  border: 1px solid #b2c7d5;
+  border-radius:10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  margin: 2px 0px 5px 0px;
+  width: 30%;
+}
+.tab-content-1 input[type="email"]{
+ 
+  outline: none;
+  font-size: 14px;
+  color: #030301; /*文字輸入字體顏色*/
+  padding: 5px 10px;
+  background: #b2c7d5;
+  border: 1px solid #b2c7d5;
+  border-radius:10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  margin: 5px 0px 10px 0px;
+  width: 30%;
+}
+.tab-content-1 input[type="tel"]{
+  
+  outline: none;
+  font-size: 14px;
+  color: #030301; /*文字輸入字體顏色*/
+  padding: 5px 10px;
+  background: #b2c7d5;
+  border: 1px solid #b2c7d5;
+  border-radius:10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  margin: 3px 0px 20px 0px;
+  width: 30%;
+}
+.tab-content-1 input[type="date"]{
+ 
+  outline: none;
+  font-size: 14px;
+  color: #030301; /*文字輸入字體顏色*/
+  padding: 5px 10px;
+  background: #b2c7d5;
+  border: 1px solid #b2c7d5;
+  border-radius:10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  margin: 0px 0px 5px 0px;
+  width: 30%;
+}
+#tab {
+  margin:0 auto;
+  width: 1000px;
+  background: #415A77;
+  border: solid 1px #415A77;
+}
+
+/* 頁籤ul */
+#tab > ul {
+  /* overflow: hidden; */
+  margin: 0;
+  padding: 10px 20px 0 20px;
+}
+
+#tab > ul > li {
+  list-style-type: none;
+}
+
+/* 頁籤上的文字 */
+#tab > ul > li > a { 
+  text-decoration: none;
+  font-size: 15px;
+  color: #333;
+  float: left;
+  padding: 10px;
+  margin-left: 5px;
+}
+
+/*頁籤div內容*/
+#tab > div {
+  clear: both;
+  padding: 0 15px;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+/*第一筆的底色*/
+span:target ~ #tab > ul li:first-child a {
+  background: #415A77;
+}
+
+span:target ~ #tab > div:first-of-type {
+  visibility: hidden;
+  height: 0;
+  padding: 0 15px;
+}
+
+/*頁籤變換&第一筆*/
+span ~ #tab > ul li:first-child a,
+#tab-1:target ~ #tab > ul li a[href$="#tab-1"],
+#tab-2:target ~ #tab > ul li a[href$="#tab-2"],
+#tab-3:target ~ #tab > ul li a[href$="#tab-3"],
+#tab-4:target ~ #tab > ul li a[href$="#tab-4"] {
+  background: #fff;
+  border-radius: 5px 5px 0 0;
+}
+
+span ~ #tab > ul li:first-child a::before,
+#tab-1:target ~ #tab > ul li a[href$="#tab-1"]::before,
+#tab-2:target ~ #tab > ul li a[href$="#tab-2"]::before,
+#tab-3:target ~ #tab > ul li a[href$="#tab-3"]::before,
+#tab-4:target ~ #tab > ul li a[href$="#tab-4"]::before {
+  background-color: white;
+  height: 100%;
+}
+
+/*頁籤內容顯示&第一筆*/
+span ~ #tab > div:first-of-type,
+#tab-1:target ~ #tab > div.tab-content-1,
+#tab-2:target ~ #tab > div.tab-content-2,
+#tab-3:target ~ #tab > div.tab-content-3,
+#tab-4:target ~ #tab > div.tab-content-4 {
+  visibility: visible;
+  height: 100%;
+  background: #fff;
+}
+
+span {
+  display: none;
+}
 @font-face {
   font-family: 'helveticaneuebold';
-  src: url("./fonts/helvetica_neu_bold-webfont.woff2") format("woff2"), url("./fonts/helvetica_neu_bold-webfont.woff") format("woff");
+  src: url("fonts/helvetica_neu_bold-webfont.woff2") format("woff2"), url("fonts/helvetica_neu_bold-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal; }
 @font-face {
   font-family: 'helveticaneuemedium';
-  src: url("./fonts/helveticaneue_medium-webfont.woff2") format("woff2"), url("./fonts/helveticaneue_medium-webfont.woff") format("woff");
+  src: url("fonts/helveticaneue_medium-webfont.woff2") format("woff2"), url("fonts/helveticaneue_medium-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal; }
 /* :: Import All CSS */
@@ -43,7 +268,7 @@
 
 body {
   font-family: "helveticaneuemedium";
-  background-color: #ffffff; }
+  background-color: #ffffff;}
 
 h1,
 h2,
@@ -1420,6 +1645,56 @@ textarea:focus ~ .highlight {
     -webkit-transform: scale(1.7);
     transform: scale(1.7);
     opacity: 0; } }
+    ul.drop-down-menu > li:last-child {
+   border-right: none;
+}
+
+ul.drop-down-menu a {
+   background-color: #fff;
+   color: #333;
+   display: block;
+   padding: 5px;
+   text-decoration: none;
+   line-height: 30px;
+
+}
+ul.drop-down-menu > li {
+   float: left; /* 只有第一層是靠左對齊*/
+}
+
+
+ul.drop-down-menu a:hover { /* 滑鼠滑入按鈕變色*/
+   color: #6A819D;
+   color: #6A819D;
+}
+ul.drop-down-menu li:hover > a { /* 滑鼠移入次選單上層按鈕保持變色*/
+   color: #6A819D;
+   color: #6A819D;
+}
+
+
+
+ul.drop-down-menu ul li {
+   border-bottom: #ccc 1px solid;
+}
+
+ul.drop-down-menu ul li:last-child {
+   border-bottom: none;
+}
+
+ul.drop-down-menu ul { /*隱藏次選單*/
+   display: none;
+}
+
+ul.drop-down-menu li:hover > ul { /* 滑鼠滑入展開次選單*/
+   display: block;
+}
+
+/* 讓icon與文字對齊 */
+.sign-out{
+   position: relative;
+    top: 5px;
+  }
 /* The End */
 
 /*# sourceMappingURL=style.css.map */
