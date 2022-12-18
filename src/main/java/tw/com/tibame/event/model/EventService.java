@@ -117,6 +117,7 @@ public class EventService {
 			eventvo.setEventType("已結束");
 		}
 		System.out.println("service eventvo = "+eventvo.toString());
+		
 		//ticket table
 		JSONObject ticketsJSON = new JSONObject(tickets);
 		List<TicketVO> ticketlist = new ArrayList<TicketVO>();
@@ -143,19 +144,25 @@ public class EventService {
 			ticketvo.setTicketMIN(Integer.valueOf(oneticket.get("ticket_min").toString()));
 			ticketvo.setTicketMAX(Integer.valueOf(oneticket.get("ticket_max").toString()));
 			ticketvo.setLimitTicket(true);
-			//未開賣 販售中 已售罊 已結束
+			//未開賣 販售中 已售罊 已結束 已下架
 			Timestamp startticket=ticketvo.getTicketStartTime();
 			Timestamp endticket=ticketvo.getTicketEndTime();
-			
-			if(startticket.compareTo(toDay) > 0) {
-				ticketvo.setTicketType("未開賣");
-			}else if(startticket.compareTo(toDay) <=0 && endticket.compareTo(toDay) > 0) {
-				ticketvo.setTicketType("販售中");
+//			System.out.println(oneticket.getInt("record"));
+			if(oneticket.getInt("record") == -1) {
+				ticketvo.setTicketType("已下架");
 			}else {
-				ticketvo.setTicketType("已結束");
+				if(startticket.compareTo(toDay) > 0) {
+					ticketvo.setTicketType("未開賣");
+				}else if(startticket.compareTo(toDay) <=0 && endticket.compareTo(toDay) > 0) {
+					ticketvo.setTicketType("販售中");
+				}else {
+					ticketvo.setTicketType("已結束");
+				}
 			}
+			
 			ticketlist.add(ticketvo);
 		}
+		System.out.println("ticketlist="+ticketlist.toString());
 		
 		//event class table
 		List<EventClassVO> eventclasslist = new ArrayList<EventClassVO>();

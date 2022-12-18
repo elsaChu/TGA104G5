@@ -48,7 +48,7 @@
              <button type="button" class="btn btn-primary row3btn" onclick="saveSeatTemplate();" >儲存座位表</button>
             </div>
         </div>
-        <input type="hidden" id="eventNumber" value="${eventNumber}">
+        <input type="hidden" id="eventNumber" value="${up_adddata.page1.eventNumber}">
         <input type="hidden" id="curX" >
         <input type="hidden" id="curY" >
         <form action="${context}/main_frame/index_manufacturer.jsp"></form>

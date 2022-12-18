@@ -98,8 +98,6 @@
 	</form>
 </div>
 	<script>
-		console.log('${up_eventvo.bigImg}');
-		console.log(document.getElementById("bigImg").value);
 		var eventNumber = '${up_eventvo.eventNumber}';
 		var eventStartDate = '${up_eventvo.eventStartDate}';
 		var eventEndDate = '${up_eventvo.eventEndDate}';

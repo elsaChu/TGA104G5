@@ -13,7 +13,7 @@ import tw.com.tibame.util.common.Common;
 public class TicketJDBCDAO implements TicketDAO_interface{
 	private static final String ticketInsertSQL = "insert into TICKET(ticketName,eventNumber,price,limitTicket,ticketQuantity,ticketStartTime,ticketEndTime,ticketMIN,ticketMAX,ticketType) value(?,?,?,?,?,?,?,?,?,?);";
 	private static final String selectByPKSQL="select * from TICKET where eventNumber=?;";
-	private static final String ticketUpdateSQL="update TICKET set ticketName =?, price=?, limitTicket=?, ticketQuantity=?, ticketStartTime=?, ticketEndTime=?, ticketMIN=?, ticketMAX=?, ticketType=? where eventNumber=?;";
+	private static final String ticketUpdateSQL="update TICKET set ticketName =?, price=?, limitTicket=?, ticketQuantity=?, ticketStartTime=?, ticketEndTime=?, ticketMIN=?, ticketMAX=?, ticketType=? where ticketID=?;";
 	@Override
 	public int insert(TicketVO ticketvo, Connection con) {
 		PreparedStatement ps = null;
@@ -76,7 +76,7 @@ public class TicketJDBCDAO implements TicketDAO_interface{
      		ps.setInt(7,ticketvo.getTicketMIN());
      		ps.setInt(8,ticketvo.getTicketMAX());
      		ps.setString(9,ticketvo.getTicketType());
-     		ps.setInt(10,ticketvo.getEventNumber());
+     		ps.setInt(10,ticketvo.getTicketID());
 
      		rowCount=ps.executeUpdate();
      		System.out.println(rowCount + " Ticket updated!!");

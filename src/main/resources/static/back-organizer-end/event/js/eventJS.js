@@ -30,7 +30,6 @@ window.addEventListener("pageshow", function () {
 //	 console.log("in load");
 //	 console.log("smallimg=" + smallimgPIC);
 //	 console.log("bigimg=" + bigimgPIC);
-	if(eventNumber != ""){
 		 if(bigimgPIC != ""){
 			document.getElementById("bigImg_img").src = bigimgPIC;
 		 }else{
@@ -41,9 +40,6 @@ window.addEventListener("pageshow", function () {
 		 }else{
 			document.getElementById("smallImg_img").src = context +"/back-organizer-end/event/img/defPic4.jpg";
 		 }
-	}
-//	 document.getElementsByTagName("form").reset();
-//	document.getElementById("formNa").reset();
 });
 let getInImg = document.getElementsByClassName("inImg");
 //console.log(getInImg);
@@ -75,17 +71,10 @@ for (let i = 0; i < getInImg.length; i++) {
 					<img src="${this.result}" class="preview">
 				</li>	
 			`;
-			let li_el_def = `
-				<li>
-					<img src="img/defPic4.jpg" class="preview">
-				</li>
-			`
 			let getUL = document.getElementsByClassName("picture_list")[i];
 			// console.log(getUL);
 
 			getUL.insertAdjacentHTML("beforeend", li_el);
-
-
 		});
 	});
 };
@@ -102,10 +91,6 @@ ClassicEditor
 		console.error(err.stack);
 	});
 
-
-
-
-
 //check box
 function totalChb(loadClass,fromwhere) {
 //	console.log(fromwhere);
@@ -115,6 +100,16 @@ function totalChb(loadClass,fromwhere) {
 //	 console.log("load class ="+loadClass);
 	if(loadClass != undefined){
 		total = loadClass;
+		if (total >= 3) {
+				// console.log(" >=3");
+				items.forEach(function (el) {
+					if (!el.checked) {
+						// console.log(el);
+						// el.disabled = ture;
+						el.setAttribute("disabled", true);
+					}
+				});
+		}
 	}
 	
 	items.forEach(function (element) {
@@ -148,8 +143,8 @@ function totalChb(loadClass,fromwhere) {
 
 //window load
 window.addEventListener("load",function(){
-	 console.log("isON=" +isON + typeof(isON));
-	 console.log("needSeat=" + needSeat+ typeof(needSeat));
+//	 console.log("isON=" +isON + typeof(isON));
+//	 console.log("needSeat=" + needSeat+ typeof(needSeat));
 	if(isON == "true"){
 		document.getElementById("isON").checked = true;
 	}

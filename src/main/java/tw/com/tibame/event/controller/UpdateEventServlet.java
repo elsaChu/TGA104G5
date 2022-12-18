@@ -30,6 +30,8 @@ import tw.com.tibame.event.model.EventClassService;
 import tw.com.tibame.event.model.EventClassVO;
 import tw.com.tibame.event.model.EventService;
 import tw.com.tibame.event.model.EventVO;
+import tw.com.tibame.event.model.SeatService;
+import tw.com.tibame.event.model.SeatVO;
 import tw.com.tibame.event.model.TicketService;
 import tw.com.tibame.event.model.TicketVO;
 
@@ -87,8 +89,6 @@ public class UpdateEventServlet extends HttpServlet {
 			req.setAttribute("bigImg64", bigImg64);
 			req.setAttribute("smallImg64", smallImg64);
 			session.setAttribute("up_eventvo", eventvo);// 資料庫取出的eventvo物件,存入req
-//			session.setAttribute("eventvoOLD", eventvo);
-//			session.setAttribute("getOnePIC", map);
 			String url = "/back-organizer-end/event/updateEvent1.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
@@ -488,6 +488,30 @@ public class UpdateEventServlet extends HttpServlet {
 					session.removeAttribute("up_adddata");
 					session.removeAttribute("up_tickets");
 				}
+			}
+		    PrintWriter out = res.getWriter();
+	        out.print(gson.toJson(result));
+	        out.flush();
+	        return;
+		}
+		
+		if("selectSeat".equals(action)) {
+			Map<String,Object> result = new HashMap<>();
+	        result.put("success", false);
+	        
+			String eventNumberstr = req.getParameter("eventNumber");
+			Integer eventNumber = Integer.parseInt(eventNumberstr);
+			SeatService seatSvc = new SeatService();
+			List<SeatVO> seatlist = seatSvc.selectSeatByEventNumber(eventNumber);
+			if(seatlist.size() > 0) {
+				Map page1=(Map)session.getAttribute("up_adddata");
+				EventVO eventvo =(EventVO)page1.get("page1");
+				result.put("x",eventvo.getSeatX());
+				result.put("y",eventvo.getSeatY());
+				result.put("seatlist", seatlist);
+				result.put("success", true);
+			}else {
+				result.put("msg", "error");
 			}
 		    PrintWriter out = res.getWriter();
 	        out.print(gson.toJson(result));

@@ -321,9 +321,10 @@ public class EventJDBCDAO implements EventDAO_interface {
 			int seatcount = 0;
 			if(eventvo.getNeedSeat()) {
 				SeatJDBCDAO seatdao = new SeatJDBCDAO();
+				seatdao.deleteByEventNumber(eventvo.getEventNumber(), con);
 				for(SeatVO aseat:seatlist) {
 					aseat.setEventNumber(eventvo.getEventNumber());
-					int re = seatdao.update(aseat, con);
+					int re = seatdao.insert(aseat, con);
 					seatcount = seatcount+re;
 				}
 			}

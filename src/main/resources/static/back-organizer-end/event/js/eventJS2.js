@@ -198,8 +198,12 @@ $(function () {
                 for (let i = 0; i < toobj.ticket.length; i++) {
                     let re = toobj.ticket[i].record;
                     if (re == getrecord) {
-                        console.log(toobj.ticket[i]);
-                        toobj.ticket.splice(i, 1);
+//						console.log(toobj.ticket[i]);
+						if(toobj.ticket[i].ticket_ID > 0){
+							toobj.ticket[i]['record'] = -1;
+						}else{
+							toobj.ticket.splice(i, 1);
+						}   
                     }
                 };
                 console.log(toobj.ticket);
@@ -277,7 +281,7 @@ $(function () {
 						console.log("success="+data.success);
 						if(data.needSeat){
 							console.log("need seat="+data.needSeat);
-		//					window.location.href=context+"/back-organizer-end/event/addEvent3.jsp";
+							window.location.href=context+"/back-organizer-end/event/addEvent3.jsp";
 						}else{
 							console.log("need seat="+data.needSeat);
 							console.log("insertOK="+ data.insertOK);
