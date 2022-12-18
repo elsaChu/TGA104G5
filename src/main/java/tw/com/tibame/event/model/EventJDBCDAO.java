@@ -22,7 +22,11 @@ public class EventJDBCDAO implements EventDAO_interface {
 	private static final String eventInsertSQL = "insert into `EVENT`(organizerNumber,eventName,eventStartDate,eventEndDate,"
 			+ "peopleNumber,eventPlace,eventP2,eventSummary,eventDescribe,bigImg,smallImg,"
 			+ "collectType,isON,eventType,needSeat,seatX,seatY) " + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-
+	private static final String eventUpdateSQL = "update `EVENT` set eventName=?, eventStartDate=?, eventEndDate=?, "
+			+ "peopleNumber=?, eventPlace=?, eventP2=?, eventSummary=?, eventDescribe=?, "
+			+ "bigImg=?, smallImg=?, collectType=?, isON=?, eventType=?, needSeat=?, seatX=?, seatY=? "
+			+ "where eventNumber=?;";
+	private static final String selectByPKSQL="select * from `EVENT` where eventNumber=?;";
 	@Override
 	public int insert(EventVO eventvo,List<TicketVO> ticketlist,List<EventClassVO> eventclasslist,List<SeatVO> seatlist) {
 		Connection conn = null;
@@ -114,6 +118,17 @@ public class EventJDBCDAO implements EventDAO_interface {
 					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
+			if (conn != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-EventJDBCDAO");
+					conn.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -143,9 +158,79 @@ public class EventJDBCDAO implements EventDAO_interface {
 	}
 
 	@Override
-	public EventVO selectByeventNumber() {
-		// TODO Auto-generated method stub
-		return null;
+	public EventVO selectByeventNumber(Integer eventNumber) {
+		EventVO eventvo = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			Class.forName(Common.driver);
+			con = DriverManager.getConnection(Common.URL,Common.USER,Common.PASSWORD);
+			pstmt = con.prepareStatement(selectByPKSQL);
+
+			pstmt.setInt(1, eventNumber);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				eventvo = new EventVO();
+				eventvo.setEventNumber(rs.getInt("eventNumber"));
+				eventvo.setOrganizerNumber(rs.getInt("organizerNumber"));
+				eventvo.setEventName(rs.getString("eventName"));
+				eventvo.setEventStartDate(rs.getTimestamp("eventStartDate"));
+				eventvo.setEventEndDate(rs.getTimestamp("eventEndDate"));
+				eventvo.setPeopleNumber(rs.getInt("peopleNumber"));
+				eventvo.setEventPlace(rs.getString("eventPlace"));
+				eventvo.setEventP2(rs.getString("eventP2"));
+				eventvo.setEventSummary(rs.getString("eventSummary"));
+				eventvo.setEventDescribe(rs.getString("eventDescribe"));
+				eventvo.setBigImg(rs.getBytes("bigImg"));
+				eventvo.setSmallImg(rs.getBytes("smallImg"));
+				eventvo.setCollectType(rs.getBoolean("collectType"));
+				eventvo.setBanner(rs.getInt("banner"));
+				eventvo.setFocus(rs.getInt("focus"));
+				eventvo.setIsON(rs.getBoolean("isON"));
+				eventvo.setEventType(rs.getString("eventType"));
+				eventvo.setNeedSeat(rs.getBoolean("needSeat"));
+				eventvo.setSeatX(rs.getInt("seatX"));
+				eventvo.setSeatY(rs.getInt("seatY"));
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return eventvo;
 	}
 
 	@Override
@@ -173,13 +258,122 @@ public class EventJDBCDAO implements EventDAO_interface {
 	}
 
 	@Override
-	public int update() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(EventVO eventvo,List<TicketVO> ticketlist,List<EventClassVO> eventclasslist,List<SeatVO> seatlist) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int recount = 0;
+		try {
+
+			Class.forName(Common.driver);
+			con = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
+
+			con.setAutoCommit(false);
+			//修改event table
+			ps = con.prepareStatement(eventUpdateSQL);
+
+			ps.setString(1,eventvo.getEventName());
+			ps.setTimestamp(2,eventvo.getEventStartDate());
+			ps.setTimestamp(3,eventvo.getEventEndDate());
+			ps.setInt(4,eventvo.getPeopleNumber());
+			ps.setString(5,eventvo.getEventPlace());
+			ps.setString(6,eventvo.getEventP2());
+			ps.setString(7,eventvo.getEventSummary());
+			ps.setString(8,eventvo.getEventDescribe());
+			ps.setBytes(9,eventvo.getBigImg());
+			ps.setBytes(10,eventvo.getSmallImg());
+			ps.setBoolean(11,eventvo.getCollectType());
+			ps.setBoolean(12,eventvo.getIsON());
+			ps.setString(13,eventvo.getEventType());
+			ps.setBoolean(14,eventvo.getNeedSeat());
+			ps.setInt(15,eventvo.getSeatX());
+			ps.setInt(16,eventvo.getSeatY());
+			ps.setInt(17,eventvo.getEventNumber());
+
+			int rowCount = ps.executeUpdate();
+
+			System.out.println(rowCount + " EVENT updated!!");
+			
+			//修改event class table(先刪後新增)
+			EventClassJDBCDAO eventclassdao = new EventClassJDBCDAO();
+			int evclasscount = 0;
+			eventclassdao.deleteByEventNumber(eventvo.getEventNumber(), con);
+			for(EventClassVO aeventclass:eventclasslist) {
+				aeventclass.setEventNumber(eventvo.getEventNumber());
+				int re =eventclassdao.insert(aeventclass, con);
+				evclasscount = evclasscount+re;
+			}
+			
+			//修改Ticket table
+			TicketJDBCDAO ticketdao = new TicketJDBCDAO();
+			int ticketcount = 0;
+			for(TicketVO aticket:ticketlist) {
+				int re = 0;
+				if(aticket.getTicketID() !=null) {
+					re =ticketdao.update(aticket, con);
+				}else {
+					aticket.setEventNumber(eventvo.getEventNumber());
+					re =ticketdao.insert(aticket, con);
+				}
+				ticketcount = ticketcount+re;
+			}
+			
+			//needSeat is true 修改seat table
+			int seatcount = 0;
+			if(eventvo.getNeedSeat()) {
+				SeatJDBCDAO seatdao = new SeatJDBCDAO();
+				for(SeatVO aseat:seatlist) {
+					aseat.setEventNumber(eventvo.getEventNumber());
+					int re = seatdao.update(aseat, con);
+					seatcount = seatcount+re;
+				}
+			}
+			
+			con.commit();
+			con.setAutoCommit(true);
+			
+			if(rowCount > 0 && evclasscount > 0 && ticketcount > 0 && seatcount > 0) {
+				recount =1;
+			}else if(rowCount > 0 && evclasscount > 0 && ticketcount > 0 && !eventvo.getNeedSeat()) {
+				recount =1;
+			}
+
+			
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-EventJDBCDAO_update");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return recount;
 	}
-	
-//	public EventVO selectBylast(Integer organizerNumber) {
-//		String sql = 
-//		return EventVO;
-//	}
 }

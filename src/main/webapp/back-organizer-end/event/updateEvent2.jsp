@@ -54,13 +54,13 @@
             </div>
             <div class="myButton">
 	                <input type="button" value="上一步">
-	                <input type="button" value="下一步" id="sub">
+	                <input type="button" value="下一步" id="up_sub">
             </div>
     </div>
     <script>
 		var context = '${context}';
-		var maxDate = '${maxDate}';
-		var eventNumber = '';
+		var maxDate = '${up_maxDate}';
+		var eventNumber = '${up_adddata.page1.eventNumber}';
 	</script>
     <script src="<%=request.getContextPath()%>/back-organizer-end/event/datetimepicker/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/back-organizer-end/event/datetimepicker/jquery.datetimepicker.full.js"></script>

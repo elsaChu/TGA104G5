@@ -30,13 +30,16 @@ import tw.com.tibame.event.model.EventClassService;
 import tw.com.tibame.event.model.EventClassVO;
 import tw.com.tibame.event.model.EventService;
 import tw.com.tibame.event.model.EventVO;
+import tw.com.tibame.event.model.TicketService;
+import tw.com.tibame.event.model.TicketVO;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 
-@WebServlet("/addEventServlet")
+@WebServlet("/UpdateEventServlet")
 @MultipartConfig
-public class addEventServlet extends HttpServlet {
+public class UpdateEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 //	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -46,18 +49,66 @@ public class addEventServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html; charset=UTF-8");
+		res.setCharacterEncoding("UTF-8");
+		
 		HttpSession session = req.getSession();
 		Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		
 		String action = req.getParameter("action");
 		System.out.println("action="+action);
+		if("getOne_updateEvent".equals(action)) { //要看連結過來的頁面寫什麼action
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			/***************************1.接收請求參數****************************************/
+			Integer eventNumber = Integer.valueOf(req.getParameter("eventNumber"));
+			/***************************2.開始查詢資料****************************************/
+			EventService eventSvc = new EventService();
+			EventVO eventvo = eventSvc.getOneEvent(eventNumber);
+			System.out.println("select"+eventvo.toString());
+			Base64.Encoder encoder = Base64.getEncoder();
+			String bigImg64 = "data:image/jpeg;base64,"+encoder.encodeToString(eventvo.getBigImg());
+//			System.out.println(bigImg64);
+			String smallImg64 = "";
+			if(eventvo.getSmallImg() != null) {
+				smallImg64 = "data:image/jpeg;base64,"+encoder.encodeToString(eventvo.getSmallImg());
+			}
+//			Map map = new HashMap();
+//			map.put("bigImg", eventvo.getBigImg());
+//			map.put("smallImg", eventvo.getSmallImg());
+			
+			//event class table
+			EventClassService eventclassSvc = new EventClassService();
+			List<EventClassVO> evclassList = eventclassSvc.selectByeventNumber(eventNumber);
+//			String[] evclassValue = new String[evclassList.size()];
+			System.out.println("CLASS LIST="+evclassList.toString());
+			
+			/***************************3.查詢完成,準備轉交(Send the Success view)************/
+			req.setAttribute("evclassJSON", gson.toJson(evclassList));
+			req.setAttribute("bigImg64", bigImg64);
+			req.setAttribute("smallImg64", smallImg64);
+			session.setAttribute("up_eventvo", eventvo);// 資料庫取出的eventvo物件,存入req
+//			session.setAttribute("eventvoOLD", eventvo);
+//			session.setAttribute("getOnePIC", map);
+			String url = "/back-organizer-end/event/updateEvent1.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+			successView.forward(req, res);
+		}
 		
-		if("page1".equals(action)) {
-			System.out.println("in page1");
+		if("update_page1".equals(action)) {
+			System.out.println("in update_page1");
 			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-				
+			EventVO eventvo = (EventVO)session.getAttribute("up_eventvo");
+			byte[] bigImgOld = eventvo.getBigImg();
+			byte[] smallImgOld = eventvo.getSmallImg();
+//			EventVO eventvoOLD = (EventVO)session.getAttribute("eventvoOLD");
+//			byte[] bigImgOld = eventvoOLD.getBigImg();
+//			byte[] smallImgOld = eventvoOLD.getSmallImg();
+//			Map pic_session = (Map)session.getAttribute("getOnePIC");
+//			byte[] bigImgOld = (byte[])pic_session.get("bigImg");
+//			byte[] smallImgOld = (byte[])pic_session.get("smallImg");
+//			
 			Integer organizerNumber = null;
 			try {
 				organizerNumber = Integer.valueOf("1"); //等串起來要改
@@ -121,13 +172,10 @@ public class addEventServlet extends HttpServlet {
 			Part bigImg = req.getPart("bigImg");
 			String filename = bigImg.getSubmittedFileName();
 			if(filename == null || filename.length() ==0 || bigImg.getContentType() == null) {
-				errorMsgs.add("請選擇封面圖片");
+				if(bigImgOld.length < 0) {
+					errorMsgs.add("請選擇封面圖片");
+				}
 			}
-			
-//			Boolean collectType = Boolean.valueOf(req.getParameter("collectType"));
-//			if (collectType == null) {
-//				errorMsgs.add("請選擇收集資料類型");
-//			}
 			
 			String isON = req.getParameter("isON");
 			Boolean isON_ = false;
@@ -147,10 +195,9 @@ public class addEventServlet extends HttpServlet {
 				errorMsgs.add("活動分類至少選擇一項");
 			}
 
-			
 			//要回傳到新增頁面的資料內容
-			EventVO eventvo= new EventVO();
-			eventvo.setOrganizerNumber(organizerNumber);
+//			EventVO eventvo= new EventVO();
+//			eventvo.setOrganizerNumber(organizerNumber);
 			eventvo.setEventName(eventName);
 			if(eventStartDate == null) {
 				req.setAttribute("eventStartDate", "");
@@ -177,21 +224,24 @@ public class addEventServlet extends HttpServlet {
 			eventvo.setEventP2(eventP2);
 			eventvo.setEventSummary(eventSummary);
 			eventvo.setEventDescribe(eventDescribe);
-//			eventvo.setCollectType(collectType);
 
 			// Send the use back to the form, if there were errors
 			if(!errorMsgs.isEmpty()) {
 				req.setAttribute("eventvo", eventvo);
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-organizer-end/event/addEvent1.jsp");
+						.getRequestDispatcher("/back-organizer-end/event/updateEvent1.jsp");
 				failureView.forward(req, res);
 				return;
 			}
 			
 			/***************************2.第一頁資料帶至下一頁***************************************/
 			//set other eventvo data
+//			eventvo.setEventNumber(Integer.valueOf(eventvoOLD.getEventNumber()));
 			eventvo.setIsON(isON_);
 			eventvo.setNeedSeat(needSeat_);
+//			eventvo.setCollectType(eventvoOLD.getCollectType());
+//			eventvo.setBanner(eventvoOLD.getBanner());
+//			eventvo.setFocus(eventvoOLD.getFocus());
 
 			Part smallImg = req.getPart("smallImg");
 			String smallImgfilename = smallImg.getSubmittedFileName();
@@ -204,8 +254,10 @@ public class addEventServlet extends HttpServlet {
 				in.close();
 				
 			}
+//			if(smallimg == null) {
+//				smallimg =smallImgOld;
+//			}
 			eventvo.setSmallImg(smallimg);
-			
 			
 			//bigImg
 			byte[] bigimg = null;
@@ -217,38 +269,64 @@ public class addEventServlet extends HttpServlet {
 				in.read(bigimg);
 				in.close();
 			}
-			eventvo.setBigImg(bigimg);
+			if(bigimg != null) {
+				eventvo.setBigImg(bigimg);
+			}
 			
-			//set data go to page1
+			
+			//set data go to page2
 //			JSONArray eventCN = new JSONArray(Arrays.asList(eventClassNumber));
+//			session.removeAttribute("getOnePIC");
 			Map<String,Object> map=new HashMap<>();
 			map.put("page1",eventvo);
 			map.put("event_class", eventClassNumber);
 			map.put("peopleNumber",eventvo.getPeopleNumber());
 	
-			
 			System.out.println(filename);
 			System.out.println(smallImgfilename);
-			session.setAttribute("adddata", map);
+			session.setAttribute("up_adddata", map);
 //			System.out.println(eventenddatestr);
-			session.setAttribute("maxDate", eventenddatestr);
+			session.setAttribute("up_maxDate", eventenddatestr);
 			System.out.println(eventvo.toString());
 			RequestDispatcher failureView = req
-					.getRequestDispatcher("/back-organizer-end/event/addEvent2.jsp");
+					.getRequestDispatcher("/back-organizer-end/event/updateEvent2.jsp");
 			failureView.forward(req, res);
 			return;
 		}
 		
-		//page2
-		if("page2".equals(action)) {
-			System.out.println("in page2");
-			Map map = (Map)session.getAttribute("adddata");
+		//select page2 tickets
+		if("selectTickets".equals(action)) {
+			/***************************1.接收請求參數****************************************/
+			Integer eventNumber = Integer.valueOf(req.getParameter("eventNumber"));
+			/***************************2.開始查詢資料****************************************/
+			TicketService ticketSvc = new TicketService();
+			List<TicketVO> ticketList= ticketSvc.selectTicketByEventNumber(eventNumber);
+			System.out.println("select="+ticketList.toString());
+			/***************************3.查詢完成,準備轉交(Send the Success view)************/
+	        Map<String,Object> result = new HashMap<>();
+	        result.put("success", false);
+	        if(ticketList.size() > 0) {
+	        	result.put("success", true);
+	        	result.put("tickets",gson.toJson(ticketList));
+	        }else {
+	        	result.put("noticket", "沒有票種資料");
+	        }
+	        PrintWriter out = res.getWriter();
+	        out.print(gson.toJson(result));
+	        out.flush();
+	        return;
+		}
+		
+		//update_page2
+		if("update_page2".equals(action)) {
+			System.out.println("in update_page2");
+			Map map = (Map)session.getAttribute("up_adddata");
 			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 			String tickets = req.getParameter("tickets");
 			System.out.println(tickets);
 			
 			res.setContentType("application/json");
-	        res.setCharacterEncoding("UTF-8");
+	        
 	        Map<String,Object> result = new HashMap<>();
 	        result.put("success", false);
 	        
@@ -296,8 +374,9 @@ public class addEventServlet extends HttpServlet {
 					java.sql.Timestamp start_date= null;
 					try {
 						start_date = java.sql.Timestamp.valueOf(jsonO.get("start_date").toString());
-//						System.out.println("page2 date=" + start_date);
+						System.out.println("up_page2 date=" + start_date);
 					} catch (IllegalArgumentException e) {
+						System.out.println("go start exception");
 						result.put("datemsg","請輸入日期!");
 						haserr =true;
 					}
@@ -306,12 +385,13 @@ public class addEventServlet extends HttpServlet {
 					java.sql.Timestamp end_date= null;
 					try {
 						end_date = java.sql.Timestamp.valueOf(jsonO.get("end_date").toString());
+						System.out.println("up_page2 enddate=" + end_date);
 						if(start_date !=null) {
 							if(end_date.compareTo(start_date) == -1) {
 								result.put("end_datemsgeday","日期區間不對!");
 								haserr =true;
 							}
-							String maxDateStr =(String)session.getAttribute("maxDate");
+							String maxDateStr =(String)session.getAttribute("up_maxDate");
 //							System.out.println("str="+maxDateStr);
 							Timestamp maxDate =Timestamp.valueOf(maxDateStr);
 //							System.out.println("date="+maxDate);
@@ -322,6 +402,7 @@ public class addEventServlet extends HttpServlet {
 							}
 						}
 					} catch (IllegalArgumentException e) {
+						System.out.println("go end exception");
 						result.put("datemsg","請輸入日期!");
 						haserr =true;
 					}
@@ -353,15 +434,6 @@ public class addEventServlet extends HttpServlet {
 						errticket.put(jsonO.getInt("record"));
 					}
 					haserr =false;
-//					result.put("ticket_max",ticket_min);
-					
-//					System.out.println("ticket_name="+ticket_name);
-//					System.out.println("ticket_price="+ticket_price);
-//					System.out.println("ticket_quantit="+ticket_quantity);
-//					System.out.println("start_date="+start_date);
-//					System.out.println("end_date="+end_date);
-//					System.out.println("ticket_min="+ticket_min);
-//					System.out.println("ticket_max="+ticket_max);
 				}
 				if(errticket.length() > 0) {
 					result.put("errRecord",errticket);
@@ -383,10 +455,10 @@ public class addEventServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if(result.size() > 1) {
 				System.out.println(result.toString());
-				System.out.println("page2 go error "+result.size());
+				System.out.println("up_page2 go error "+result.size());
 			}else {
 		        result.put("success", true);
-		        session.setAttribute("tickets", tickets);
+		        session.setAttribute("up_tickets", tickets);
 		        
 		        EventVO eventvo =(EventVO)map.get("page1");
 		        boolean needSeat =eventvo.getNeedSeat();
@@ -395,26 +467,26 @@ public class addEventServlet extends HttpServlet {
 					System.out.println("need seat="+needSeat);
 					result.put("needSeat", needSeat);
 					
-					System.out.println("adddata="+((Map)session.getAttribute("adddata")).toString());
-					System.out.println(session.getAttribute("tickets").toString());
+					System.out.println("up_adddata="+((Map)session.getAttribute("up_adddata")).toString());
+					System.out.println(session.getAttribute("up_tickets").toString());
 				}else {
 					System.out.println("not need="+needSeat);
 					
-					System.out.println("adddata="+((Map)session.getAttribute("adddata")).toString());
-					System.out.println(session.getAttribute("tickets").toString());
+					System.out.println("up_adddata="+((Map)session.getAttribute("up_adddata")).toString());
+					System.out.println(session.getAttribute("up_tickets").toString());
 					//get page1 data
-					Map eventMap =(Map)session.getAttribute("adddata");
-					//line 360 get session eventvo
+					Map eventMap =(Map)session.getAttribute("up_adddata");
+			
 					String[] event_class=(String[]) eventMap.get("event_class");
 					//get page2 data
 //					String tickets=session.getAttribute("tickets").toString();
 					
 					// call service insert data
 					EventService eventSvc = new EventService();
-					int eventInsertOK = eventSvc.addEvent(eventvo,event_class,tickets);	
+					int eventInsertOK = eventSvc.updateEvent(eventvo,event_class,tickets);	
 					result.put("insertOK",eventInsertOK);
-					session.removeAttribute("adddata");
-					session.removeAttribute("tickets");
+					session.removeAttribute("up_adddata");
+					session.removeAttribute("up_tickets");
 				}
 			}
 		    PrintWriter out = res.getWriter();

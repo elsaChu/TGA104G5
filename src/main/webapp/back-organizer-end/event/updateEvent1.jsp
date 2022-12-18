@@ -4,7 +4,7 @@
 <%@ page import="tw.com.tibame.event.model.*" %>
 <c:set var="context" value="${pageContext.request.contextPath}" />
 <%
-	EventVO eventvo = (EventVO)request.getAttribute("eventvo");
+	EventVO eventvo = (EventVO)session.getAttribute("up_eventvo");
 %>
 
 <!DOCTYPE html>
@@ -38,7 +38,7 @@
 		</c:forEach>
 	</ul>
 </c:if>
-	<form method="post" action="<%=request.getContextPath()%>/addEventServlet" name="eventForm1" enctype="multipart/form-data" id="formNa">
+	<form method="post" action="<%=request.getContextPath()%>/UpdateEventServlet" name="eventForm1" enctype="multipart/form-data" id="formNa">
 		<div class="row">
 			<div class="col-md-6 left">
 				<div>活動名稱：<input type="text" name="eventName" value="<%= (eventvo==null)? "" : eventvo.getEventName()%>" class="form-control"><br></div>
@@ -46,7 +46,7 @@
                 </div>
 				<div>結束日期：<input name="end_date"   id="end_date"   type="text" class="form-control"><br></div>
 		
-				<div>活動人數：<input type="text" name="peopleNumber" value="${eventvo.peopleNumber}" class="form-control"><br></div>
+				<div>活動人數：<input type="text" name="peopleNumber" value="${up_eventvo.peopleNumber}" class="form-control"><br></div>
 		
 				<div>活動地點：<input type="text" name="eventPlace" value="<%= (eventvo==null)? "" : eventvo.getEventPlace()%>" class="form-control"><br></div>
 		
@@ -55,7 +55,7 @@
                 </div>
 			</div>
         	<div class="col-md-6 right">
-				<div>上傳封面：<input type="file" id="bigImg" name="bigImg" class="inImg" accept="image/*"></div>
+				<div>上傳封面：<input type="file" id="bigImg" name="bigImg" class="inImg" accept="image/*" value='${up_eventvo.bigImg}'></div>
                     <ul class="picture_list">
                         <li>
                             <img src="" class="preview" id="bigImg_img">
@@ -81,33 +81,35 @@
         </div>
         <div class="lower">
                 <div>活動簡介(限100字以內描述)：<br>
-                	<textarea class="textarea" name="eventSummary">${eventvo.eventSummary}</textarea>
+                	<textarea class="textarea" name="eventSummary">${up_eventvo.eventSummary}</textarea>
 <%--                     <input type="text" class="textarea" name="eventSummary" value="<%= (eventvo==null)? "" : eventvo.getEventSummary()%>"><br> --%>
                 </div>
                 
             
                 <div>描述：
-                    <textarea id="editor" name="eventDescribe">${eventvo.eventDescribe}</textarea>
+                    <textarea id="editor" name="eventDescribe">${up_eventvo.eventDescribe}</textarea>
                 </div>
         </div>
 		<div class="myButton">
-				<input type="hidden" name="action" value="page1">
-				<input type="hidden" name="eventNumber" value='${eventvo.eventNumber}'>
+				<input type="hidden" name="action" value="update_page1">
+<%-- 				<input type="hidden" name="eventNumber" value='${eventvo.eventNumber}'> --%>
                 <input type="submit" value="下一步">	
         </div>
 	</form>
 </div>
 	<script>
-		var eventNumber = '';
-		var eventStartDate = '${eventvo.eventStartDate}';
-		var eventEndDate = '${eventvo.eventEndDate}';
-// 		var peopleNumber = '${eventvo.peopleNumber}';
-		var bigimgPIC = '';
-		var smallimgPIC = '';
-// 		var isON = '${eventvo.isON}';
-// 		var needSeat = '${eventvo.needSeat}';
+		console.log('${up_eventvo.bigImg}');
+		console.log(document.getElementById("bigImg").value);
+		var eventNumber = '${up_eventvo.eventNumber}';
+		var eventStartDate = '${up_eventvo.eventStartDate}';
+		var eventEndDate = '${up_eventvo.eventEndDate}';
+		var peopleNumber = '${up_eventvo.peopleNumber}';
+		var bigimgPIC = '${bigImg64}';
+		var smallimgPIC = '${smallImg64}';
+		var isON = '${up_eventvo.isON}';
+		var needSeat = '${up_eventvo.needSeat}';
 		var context = '${context}';
-		var evclassJSON = '';
+		var evclassJSON = '${evclassJSON}';
 	</script>
 	<script src="<%=request.getContextPath()%>/back-organizer-end/event/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/back-organizer-end/event/datetimepicker/jquery.datetimepicker.full.js"></script>

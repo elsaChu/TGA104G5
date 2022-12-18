@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface TicketDAO_interface {
 	public int insert(TicketVO ticketvo, Connection con);
-	public int update();
-	public List<TicketVO> selectByeventNumber();
+	public int update(TicketVO ticketvo, Connection con);
+	public List<TicketVO> selectByeventNumber(Integer eventNumber);
 }

@@ -1,5 +1,7 @@
 package tw.com.tibame.event.model;
 
+import java.util.List;
+
 public class EventClassService {
 	private EventClassDAO_interface dao;
 	public EventClassService() {
@@ -14,4 +16,8 @@ public class EventClassService {
 //		dao.insert(eventClassNumberToINT);
 //		return 0;
 //	}
+	
+	public List<EventClassVO>  selectByeventNumber(Integer eventNumber) {
+		return dao.selectByeventNumber(eventNumber);
+	}
 }

@@ -1,5 +1,6 @@
 $.datetimepicker.setLocale('zh'); // kr ko ja en
 $(function () {
+	//date
     $('#start_date').datetimepicker({
         theme: '',
         timepicker: true,
@@ -24,12 +25,95 @@ $(function () {
             })
         }
     });
-
-    //add ticket
+    
+//tickets control
     let toobj = {};
     toobj.ticket = [];
     // console.log(toobj);
     let count = 0;
+	//select ticket
+	function init(){
+		console.log("eventNumber=",eventNumber);
+		if(eventNumber != ""){
+			let formData = new FormData();
+			formData.append("action","selectTickets");
+			formData.append("eventNumber",eventNumber);
+			
+			fetch(context + "/UpdateEventServlet", {
+	            method: "POST",
+	            body: new URLSearchParams(formData)
+	        }).then(function (response) {
+	//			console.log(response);
+	            return response.json();
+	        }).then(function (data) {
+	//			let tojson = JSON.parse(data);
+				console.log(data);
+				if(data.success){
+					console.log("success="+data.success);
+					console.log("data="+JSON.stringify(data));
+					console.log(typeof(data.tickets));
+					let tickets =JSON.parse(data.tickets);
+					let list_html = '';
+					$.each(tickets, function(index,item){
+	//					console.log(index,", ",item,", ",item.eventNumber);
+						list_html = list_html+`
+				            <li data-id="${count}">
+				                <div class="item_flex">
+				                    <div class="row">
+				                        <div class="left_block col-md-2">
+				                            <span class="star"><i class="fa-solid fa-ticket-simple fa-5x"></i></span>
+				                        </div>
+				                        <div class="middle_block col-md-8">
+				                            <div class="line1">
+				                                <div><p class="ticketname">${item.ticketName}</p></div>
+				                                <div>
+				                                    <p class="ticketStartTime">${item.ticketStartTime}</p>
+				                                    <p>~</p>
+				                                    <p class="ticketEndTime">${item.ticketEndTime}</p>
+				                                </div>
+				                                <div><p class="price">TWD$${item.price}</p></div>
+				                                <div><p class="ticketQuantity">票數:${item.ticketQuantity}</p></div>
+				                            </div>
+				                            <div class="line2">
+				                                <div><p>販售數量${item.ticketMIN}~${item.ticketMAX}張</p></div>
+				                                <div><p>販售單位${item.ticketMIN}張</p></div>
+				                            </div>
+				                        </div>
+				                        <div class="right_block col-md-2">
+				                            <div class="btn_flex">
+				                                <button type="button" class="btn_delete">移除</button>
+				                            </div>
+				                        </div>
+				                    </div>          
+				                </div>
+				            </li>`;
+				            
+					    let obj = {
+							ticket_ID: item.ticketID,
+			                ticket_name: item.ticketName,
+			                eventNumber: item.eventNumber,
+			                ticket_price: item.price,
+			                ticket_quantity: item.ticketQuantity,
+			                start_date: item.ticketStartTime,
+			                end_date: item.ticketEndTime,
+			                ticket_min: item.ticketMIN,
+			                ticket_max: item.ticketMAX,
+			                record: count
+		            	};
+		            	toobj.ticket.push(obj);
+		            	count++; 
+					});
+					$("ul.task_list").html(list_html);
+				}else{
+					console.log("success="+data.success);
+					errorMessage(data);
+				}
+	        });
+		}
+	}
+	init();
+	
+    //add ticket
     $("input.task_add").on("click", function () {
         //        console.log("in click");
         let ticket_name = ($("input.ticket_name").val()).trim();
@@ -44,7 +128,9 @@ $(function () {
             && end_date != "" && ticket_min != "" && ticket_max != "") {
 
             let obj = {
+				ticket_ID: -100,
                 ticket_name: ticket_name,
+                eventNumber: -100,
                 ticket_price: ticket_price,
                 ticket_quantity: ticket_quantity,
                 start_date: start_date,
@@ -123,47 +209,94 @@ $(function () {
         }
     })
 
-    //submit form
+    //insert
     let sub = document.getElementById("sub");
-    sub.addEventListener("click", function () {
-		$('.row5 div').html("");
-//		console.log(JSON.stringify(toobj));
-		let formData = new FormData();
-		formData.append("action","page2");
-		formData.append("tickets",JSON.stringify(toobj));
-		
-        fetch(context + "/addEventServlet", {
-            method: "POST",
-            body: new URLSearchParams(formData)
-        }).then(function (response) {
-//			console.log(response);
-            return response.json();
-        }).then(function (data) {
-//			let tojson = JSON.parse(data);
-			console.log(data);
-			if(data.success){
-				console.log("success="+data.success);
-				if(data.needSeat){
-					console.log("need seat="+data.needSeat);
-					window.location.href=context+"/back-organizer-end/event/addEvent3.jsp";
-				}else{
-					console.log("need seat="+data.needSeat);
-					console.log("insertOK="+ data.insertOK);
-					if(data.insertOK == 1){
-						confirm('儲存完畢');
+    console.log("sub=",sub);
+    if(sub != null){
+		sub.addEventListener("click", function () {
+			$('.row5 div').html("");
+	//		console.log(JSON.stringify(toobj));
+			let formData = new FormData();
+			formData.append("action","page2");
+			formData.append("tickets",JSON.stringify(toobj));
+			
+	        fetch(context + "/addEventServlet", {
+	            method: "POST",
+	            body: new URLSearchParams(formData)
+	        }).then(function (response) {
+	//			console.log(response);
+	            return response.json();
+	        }).then(function (data) {
+	//			let tojson = JSON.parse(data);
+				console.log(data);
+				if(data.success){
+					console.log("success="+data.success);
+					if(data.needSeat){
+						console.log("need seat="+data.needSeat);
+						window.location.href=context+"/back-organizer-end/event/addEvent3.jsp";
 					}else{
-						confirm('新增失敗');
+						console.log("need seat="+data.needSeat);
+						console.log("insertOK="+ data.insertOK);
+						if(data.insertOK == 1){
+							confirm('儲存完畢');
+						}else{
+							confirm('新增失敗');
+						}
+	                	window.location.href=context+"/main_frame/index_manufacturer.jsp";
 					}
-                	window.location.href=context+"/main_frame/index_manufacturer.jsp";
+				}else{
+					console.log("success="+data.success);
+					errorMessage(data);
 				}
-			}else{
-				console.log("success="+data.success);
-				errorMessage(data);
-				//補售票期間 不可超過活動期間
-			}
-            console.log("data="+JSON.stringify(data));
-        });
-    });
+	            console.log("data="+JSON.stringify(data));
+	        });
+    	});
+	}
+
+    
+    //update
+    let up_sub = document.getElementById("up_sub");
+    if(up_sub != null){
+		up_sub.addEventListener("click", function () {
+			$('.row5 div').html("");
+		//	console.log(JSON.stringify(toobj));
+			let formData = new FormData();
+			formData.append("action","update_page2");
+			formData.append("tickets",JSON.stringify(toobj));
+				
+		    fetch(context + "/UpdateEventServlet", {
+		            method: "POST",
+		            body: new URLSearchParams(formData)
+		        }).then(function (response) {
+		//			console.log(response);
+		            return response.json();
+		        }).then(function (data) {
+		//			let tojson = JSON.parse(data);
+					console.log(data);
+					if(data.success){
+						console.log("success="+data.success);
+						if(data.needSeat){
+							console.log("need seat="+data.needSeat);
+		//					window.location.href=context+"/back-organizer-end/event/addEvent3.jsp";
+						}else{
+							console.log("need seat="+data.needSeat);
+							console.log("insertOK="+ data.insertOK);
+							if(data.insertOK == 1){
+								confirm('更新完畢');
+							}else{
+								confirm('更新失敗');
+							}
+		                	window.location.href=context+"/main_frame/index_manufacturer.jsp";
+						}
+					}else{
+						console.log("success="+data.success);
+						errorMessage(data);
+					}
+		    	console.log("data="+JSON.stringify(data));
+			});
+		});
+	}
+    
     
     //clear input
     $('.del').on("click", function () {
