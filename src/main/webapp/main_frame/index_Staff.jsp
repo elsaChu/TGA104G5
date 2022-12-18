@@ -44,7 +44,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">員工姓名</a>
+          <a class="navbar-brand" href="index.html">員工管理後台</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -58,9 +58,8 @@
               <ul class="dropdown-menu sign-out">
                 <li><a href="${context}/back-staff-end/staff/insertStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:user-plus" width="20" height="20"></iconify-icon>員工帳號新增</a></li>
                 <li><a href="${context}/back-staff-end/staff/listAllStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>所有員工列表</a></li>
-              	<li><a href="${context}/back-staff-end/staff/updateStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>更新員工資訊</a></li>
-              	
-              
+<%--               	<li><a href="${context}/back-staff-end/staff/updateStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:clipboard-document-list" width="20" height="20"></iconify-icon>更新員工資訊</a></li> --%>
+<%--               	<%=request.getContextPath()%>/InsertStaffServlet --%>
               </ul>
             </li>
             <li class="dropdown">
@@ -143,3 +142,4 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
   </body>
 </html>
+

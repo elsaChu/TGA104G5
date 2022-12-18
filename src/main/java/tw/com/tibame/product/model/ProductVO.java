@@ -1,39 +1,37 @@
 package tw.com.tibame.product.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+//import javax.persistence.*;
 
-@Entity
-@Table(name = "PRODUCT")
+//@Entity
+//@Table(name = "PRODUCT")
 
 public class ProductVO implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
-//	下列變數成員對應Database內的欄位
-	@Id
-	@Column(name = "prodNo")
+//	the variables correspond to the fields in the database, respectively
+//	@Id
+//	@Column(name = "prodNo")
 	private Integer prodNo; // not null auto_increment
-	@Column(name = "eventNumber")
+//	@Column(name = "eventNumber")
 	private Integer eventNumber; // not null
-	@Column(name = "organizerNumber")
+//	@Column(name = "organizerNumber")
 	private Integer organizerNumber; // not null
-	@Column(name = "prodName")
+//	@Column(name = "prodName")
 	private String prodName; // not null
-	@Column(name = "prodSpec")
+//	@Column(name = "prodSpec")
 	private String prodSpec; // not null
-	@Column(name = "unitPrice")
+//	@Column(name = "unitPrice")
 	private Integer unitPrice; // not null
-	@Column(name = "prodStock")
+//	@Column(name = "prodStock")
 	private Integer prodStock; // not null
-	@Column(name = "prodDetails")
+//	@Column(name = "prodDetails")
 	private String prodDetails;
-	@Column(name = "prodScore")
+//	@Column(name = "prodScore")
 	private Float prodScore; // not null
-	@Column(name = "isPOn")
+//	@Column(name = "isPOn")
 	private Boolean isPOn; // not null
 
+//	override toString() to return strings in human-legible form
 	@Override
 	public String toString() {
 		return "Product [prodNo=" + prodNo + ", eventNumber=" + eventNumber + ", organizerNumber=" + organizerNumber
@@ -41,12 +39,12 @@ public class ProductVO implements java.io.Serializable {
 				+ prodStock + ", prodDetails=" + prodDetails + ", prodScore=" + prodScore + ", isPOn=" + isPOn + "]";
 	}
 
-//	使用get方法將值取出
+//	accessors
 	public Integer getProdNo() {
 		return prodNo;
 	}
 
-//	使用set方法將值插入
+//	mutators
 	public void setProdNo(Integer prodNo) {
 		this.prodNo = prodNo;
 	}

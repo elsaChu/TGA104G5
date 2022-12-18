@@ -5,34 +5,32 @@ $(function () {
 		timepicker: true,
 		step: 15,
 		format: 'Y-m-d H:i:s',
-		//	  value: new Date(),
+		value: eventStartDate,
 		onShow: function () {
 			this.setOptions({
 				maxDate: $('#end_date').val() ? $('#end_date').val() : false
 			})
 		}
 	});
-
 	$('#end_date').datetimepicker({
 		theme: '',
 		timepicker: true,
 		step: 15,
 		format: 'Y-m-d H:i:s',
-		//	  value: new Date(),
+        value: eventEndDate,
 		onShow: function () {
 			this.setOptions({
 				minDate: $('#start_date').val() ? $('#start_date').val() : false
 			})
 		}
 	});
-});
-
+	
 //====show pic=====
-window.addEventListener("pageshow", function () {
+//window.addEventListener("pageshow", function () {
 	// console.log("in load");
 	// document.getElementsByTagName("form").reset();
-	document.getElementById("formNa").reset();
-});
+//	document.getElementById("formNa").reset();
+//});
 let getInImg = document.getElementsByClassName("inImg");
 //console.log(getInImg);
 for (let i = 0; i < getInImg.length; i++) {
@@ -90,6 +88,46 @@ ClassicEditor
 		console.error(err.stack);
 	});
 
+
+
+
+
+//check box
+function totalChb(e) {
+	let items = document.querySelectorAll(".chb");
+	// console.log(items);
+	let total = 0;
+	items.forEach(function (element) {
+		element.addEventListener("click", function (e) {
+			if (element.checked) {
+				total++;
+				console.log(total);
+			} else {
+				total--;
+				console.log(total);
+			}
+
+			if (total >= 3) {
+				// console.log(" >=3");
+				items.forEach(function (el) {
+					if (!el.checked) {
+						// console.log(el);
+						// el.disabled = ture;
+						el.setAttribute("disabled", true);
+					}
+				});
+			} else {
+				// console.log("<3");
+				items.forEach(function (el) {
+					el.removeAttribute("disabled");
+				});
+			}
+		});
+	});
+}
+totalChb();
+
+});
 //===========google map============
 let map;
 let marker;
@@ -151,41 +189,4 @@ function onPlaceChanged() {
 		document.getElementById("autocomplete").innerHTML = place.name;
 	}
 };
-
 window.initMap = initMap;
-
-//check box
-function totalChb(e) {
-	let items = document.querySelectorAll(".chb");
-	// console.log(items);
-	let total = 0;
-	items.forEach(function (element) {
-		element.addEventListener("click", function (e) {
-			if (element.checked) {
-				total++;
-				console.log(total);
-			} else {
-				total--;
-				console.log(total);
-			}
-
-			if (total >= 3) {
-				// console.log(" >=3");
-				items.forEach(function (el) {
-					if (!el.checked) {
-						// console.log(el);
-						// el.disabled = ture;
-						el.setAttribute("disabled", true);
-					}
-				});
-			} else {
-				// console.log("<3");
-				items.forEach(function (el) {
-					el.removeAttribute("disabled");
-				});
-			}
-		});
-	});
-}
-totalChb();
-
