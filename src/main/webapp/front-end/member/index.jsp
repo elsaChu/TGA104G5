@@ -1,13 +1,12 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="tw.com.tibame.member.model.*"%>
+<% MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
     
     <title>My JSP 'Feilong_index.jsp' starting page</title>
 	<meta http-equiv="pragma" content="no-cache">
@@ -24,9 +23,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <font size = "6" color = "#000">歡迎登入</font><hr>
     <table width = "200" border ="1" bordercolor = "#00F">
         <tr>
-        <a href="<%=path%>/user/register.jsp">註冊</a>
+        <a href="memberRegister.jsp">註冊</a>
 		<br>
-		<a href="<%=path%>/user/login.jsp">登入</a>
+		<a href="memberLogin.jsp">登入</a>
         </tr> 
     </table>
   </center>

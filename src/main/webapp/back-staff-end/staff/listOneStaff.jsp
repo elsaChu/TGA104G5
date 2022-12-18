@@ -6,7 +6,7 @@ page import="tw.com.tibame.staff.model.*"
 %>
 
 <%
-staffVO staffVO = (staffVO) request.getAttribute("staffVO");
+StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
 %>
 
 <html>

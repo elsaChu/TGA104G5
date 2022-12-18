@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "ORDER_DETAIL")
 public class OrderDetailVO implements java.io.Serializable {
@@ -31,12 +33,13 @@ private static final long serialVersionUID = 1L;
 	private Integer subtotal;			// not null
 	
 	@Column(name = "commentRanking")
-	private Float commentRanking;		// not null default 0
+	private Float commentRanking;		
 	
 	@Column(name = "commentContent")
 	private String commentContent;
 	
 	@Column(name = "commentDate")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Timestamp commentDate;
 	
 	@Column(name = "returnReason")

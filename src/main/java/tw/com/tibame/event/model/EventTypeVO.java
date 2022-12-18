@@ -1,5 +1,7 @@
 package tw.com.tibame.event.model;
 
+import java.util.Arrays;
+
 public class EventTypeVO {
 	private Integer eventClassNumber;
 	private String eventClassName;

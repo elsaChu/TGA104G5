@@ -1,0 +1,44 @@
+h3 {
+        font-weight: bold;
+        color: #8E8E8E;
+        margin: 20px 10px 10px 10px;
+        display: inline-block;
+        text-align: center;
+      }
+
+.my_size {
+        margin: 0 auto;
+        width: 970px;
+}
+
+div.div_text{
+  display: inline-block;
+  vertical-align:top;
+}
+
+div.div_img{
+  display: inline-block;
+  margin-left: 30px;
+}
+
+div.myButton{
+  text-align: left;
+  margin-top: 20px;
+}
+
+img.preview{
+  max-width: 250px;
+  border-radius: 3px;
+}
+
+ul.picture_list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.picture_list>li{
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px 10px 10px 0px;
+}

@@ -7,8 +7,10 @@ import tw.com.tibame.order.vo.ShoppingCartVO;
 public interface ShoppingCartDAO {
 	List<ShoppingCartVO> getAll();
 	
-	public ShoppingCartVO getPrimaryKey(Integer shoppingCartNo);
-	public void insert(ShoppingCartVO shoppingCartVO);
-	public void update(ShoppingCartVO shoppingCartVO);
+	public ShoppingCartVO getByPrimaryKey(Integer shoppingCartNo);
+	public List<ShoppingCartVO> getByMemberNumber(Integer number);
+	public ShoppingCartVO insert(ShoppingCartVO shoppingCartVO);
+	public ShoppingCartVO update(ShoppingCartVO shoppingCartVO);
 	public boolean delete(Integer shoppingCartNo);
+	
 }

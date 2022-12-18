@@ -3,6 +3,7 @@ package tw.com.tibame.order.service;
 import java.util.List;
 
 import tw.com.tibame.order.vo.ProductOrderVO;
+import tw.com.tibame.order.vo.ViewProductOrderVO;
 
 public interface ProductOrderService {
 
@@ -16,7 +17,13 @@ public interface ProductOrderService {
 	ProductOrderVO updateReceiverInfo(Integer prodOrderNo, String receiverName, String receiverTel, String shippingAdd);
 
 	// 新增訂單
-	ProductOrderVO addOrder(Integer number, Integer amountPrice, Integer prodTotal, String receiverName,
-			String receiverTel, String shippingAdd);
+	ProductOrderVO addOrder(ProductOrderVO productOrderVO);
+	
+	// 會員中心 - 查詢該會員所有訂單(view)
+	List<ViewProductOrderVO> findByNumberOrder(Integer number);
+
+	// 會員中心 - 查詢單筆訂單(view)
+	ViewProductOrderVO findAnOrder(Integer prodOrderNo);
+
 
 }

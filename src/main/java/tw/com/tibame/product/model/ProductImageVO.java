@@ -2,12 +2,22 @@ package tw.com.tibame.product.model;
 
 import java.util.Arrays;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "PRODUCT_IMG")
 public class ProductImageVO implements java.io.Serializable {
-	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name = "prodIMGID")
 	private Integer prodIMGID;		// not null auto_increment
+	@Column(name = "prodNo")
 	private Integer prodNo;			// not null
+	@Column(name = "prodIMGName")
 	private String prodIMGName;		
+	@Column(name = "prodIMG")
 	private byte[] prodIMG;			// not null
 	
 	@Override
