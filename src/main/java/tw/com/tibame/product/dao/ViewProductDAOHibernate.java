@@ -44,7 +44,7 @@ public class ViewProductDAOHibernate implements ViewProductDAO {
 			Query<ViewProductVO> query = getSession().createQuery(
 					"from ViewProductVO where eventType = :eventType and isPOn = :isPOn", ViewProductVO.class); 
 			query.setParameter("eventType", eventType);
-			query.setParameter("isPOn", true);
+			query.setParameter("isPOn", isPOn);
 			result = query.list();
 			return result;
 		}
