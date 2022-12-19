@@ -3,7 +3,7 @@ package tw.com.tibame.staff.model;
 import java.util.*;
 
 public class StaffService {
-	
+
 	private StaffDAO_interface dao;
 
 	public StaffService() {
@@ -13,18 +13,34 @@ public class StaffService {
 	public List<StaffVO> getAll() {
 		return dao.getAll();
 	}
-	
-	public List<StaffVO> findByStaffNumber(Integer staffNumber) {
+
+	public StaffVO findByStaffNumber(Integer staffNumber) {
 		return dao.findByStaffNumber(staffNumber);
 	}
 
-	public StaffVO insertStaff(String staffName, String staffAccount, String staffPassword) {
+	public StaffVO insertStaff(String staffName, String staffAccount, String staffPassword, String[] permissionNumber) {
 
 		StaffVO staffVO = new StaffVO();
 		staffVO.setStaffName(staffName);
 		staffVO.setStaffAccount(staffAccount);
 		staffVO.setStaffPassword(staffPassword);
-		dao.insert(staffVO);
+
+		// 判斷是否null，如果是null不進去做以下這事情
+		List<S_permissionVO> s_permissionVOList = new ArrayList<S_permissionVO>();
+		if (permissionNumber != null) {
+			// set s_permissionVO table value
+			for (int i = 0; i < permissionNumber.length; i++) {
+				S_permissionVO s_permissionVO = new S_permissionVO();
+				// 轉型
+				Integer I_permission = Integer.valueOf(permissionNumber[i]);
+				s_permissionVO.setPermissionNumber(I_permission);
+				s_permissionVOList.add(s_permissionVO);
+			}
+			System.out.println(s_permissionVOList.toString());
+		}
+
+		
+		dao.insert(staffVO, s_permissionVOList);
 
 		return staffVO;
 	}
@@ -32,7 +48,7 @@ public class StaffService {
 	public StaffVO updateStaff(Integer staffNumber, String staffName, String staffAccount, String staffPassword) {
 
 		StaffVO staffVO = new StaffVO();
-		
+
 		staffVO.setStaffNumber(staffNumber);
 		staffVO.setStaffName(staffName);
 		staffVO.setStaffAccount(staffAccount);
@@ -51,10 +67,10 @@ public class StaffService {
 		dao.delete(staffNumber);
 
 	}
-	
+
 	public StaffVO getOneByAccount(String staffAccount) {
 		System.out.println("getOneByAccount");
-		
+
 		return dao.findByStaffAccount(staffAccount);
 	}
 }
