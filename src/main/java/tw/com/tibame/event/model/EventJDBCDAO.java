@@ -2,6 +2,7 @@ package tw.com.tibame.event.model;
 
 import tw.com.tibame.util.common.Common;
 
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +14,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,6 +31,19 @@ public class EventJDBCDAO implements EventDAO_interface {
 			+ "bigImg=?, smallImg=?, collectType=?, isON=?, eventType=?, needSeat=?, seatX=?, seatY=? "
 			+ "where eventNumber=?;";
 	private static final String selectByPKSQL="select * from `EVENT` where eventNumber=?;";
+	private static final String findAllForDebugSQL = 
+	          " SELECT                                              "
+	        + " e.eventnumber,                                      "
+	        + " e.eventName,                                        "
+	        + " e.seatX,e.seatY,                                    "
+	        + " COUNT(t.ticketID) AS ticketCount                    "
+	        + "  FROM EVENT e                                       "
+	        + "  INNER JOIN TICKET t                                "
+	        + "    ON t.eventNumber = e.eventNumber                 "
+	        + "  GROUP BY e.eventNumber,e.eventName,e.seatX,e.seatY ";
+	
+	private static final String organizerNumberSQL = " select organizerName from organizer where organizerNumber = ? ";
+	
 	@Override
 	public int insert(EventVO eventvo,List<TicketVO> ticketlist,List<EventClassVO> eventclasslist,List<SeatVO> seatlist) {
 		Connection conn = null;
@@ -376,5 +393,87 @@ public class EventJDBCDAO implements EventDAO_interface {
 			}
 		}
 		return recount;
+	}
+	
+	@Override
+    public String getOrganizerName(int organizerNumber) {
+
+        
+        String name = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            Class.forName(Common.driver);
+            conn = DriverManager.getConnection(Common.URL,Common.USER,Common.PASSWORD);
+            ps = conn.prepareStatement(organizerNumberSQL);
+            ps.setInt(1, organizerNumber);
+            rs = ps.executeQuery();
+            if(rs.next()) {
+                name = rs.getString("organizerName");
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                rs.close();
+            } catch (Exception e) {}
+            try {
+                ps.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            } catch (Exception e) {}
+        }
+        
+        return name;
+        
+    
+    }
+
+
+    @Override
+	public List<Map<String,Object>> findAllForDebug(){
+	    
+	    List<Map<String,Object>> res = new ArrayList<>();
+        
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            Class.forName(Common.driver);
+            conn = DriverManager.getConnection(Common.URL,Common.USER,Common.PASSWORD);
+            ps = conn.prepareStatement(findAllForDebugSQL);
+            rs = ps.executeQuery();
+            while(rs.next()) {
+                
+                Map<String,Object> m = new HashMap<>();
+                
+                m.put("eventNumber", rs.getInt("eventNumber"));
+                m.put("eventName", rs.getString("eventName"));
+                m.put("seatX", rs.getInt("seatX"));
+                m.put("seatY", rs.getInt("seatY"));
+                m.put("ticketCount", rs.getInt("ticketCount"));
+                
+                res.add(m);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                rs.close();
+            } catch (Exception e) {}
+            try {
+                ps.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            } catch (Exception e) {}
+        }
+        
+        return res;
+	    
 	}
 }

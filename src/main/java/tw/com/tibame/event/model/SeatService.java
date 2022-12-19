@@ -12,4 +12,5 @@ public class SeatService {
 		List<SeatVO> re = dao.selectByEventNumber(eventNumber);
 		return re;
 	}
+	
 }

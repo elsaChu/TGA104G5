@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -186,6 +187,10 @@ public class EventService {
 		int re =dao.update(eventvo,ticketlist,eventclasslist,seatlist);
 		
 		return re;
+	}
+	
+	public List<Map<String,Object>> findAllForDebug(){
+	    return dao.findAllForDebug();
 	}
 	
 }

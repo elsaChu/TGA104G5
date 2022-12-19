@@ -11,4 +11,8 @@ public class TicketService {
 	public List<TicketVO> selectTicketByEventNumber(Integer eventNumber){
 		return dao.selectByeventNumber(eventNumber);
 	}
+	
+	public TicketVO queryTicketByTicketID(int ticketID){
+        return dao.queryById(ticketID);
+    }
 }
