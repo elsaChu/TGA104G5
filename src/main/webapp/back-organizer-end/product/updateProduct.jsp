@@ -103,6 +103,7 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 					<input type="submit" value="確認修改">
 				</div>
 				<input type="hidden" name="action" value="update" />
+			</div>
 		</form>
 	</div>
 

@@ -280,7 +280,7 @@ public class ProductServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-organizer-end/product/selectProduct.jsp");
+						.getRequestDispatcher("/back-organizer-end/product/listOneProduct.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -295,7 +295,7 @@ public class ProductServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-organizer-end/product/selectProduct.jsp");
+						.getRequestDispatcher("/back-organizer-end/product/listOneProduct.jsp");
 				failureView.forward(req, res);
 				return;
 			}

@@ -18,10 +18,6 @@
 <title>TICK IT</title>
 
 <style>
-h3 {
-        font-weight: bold;
-      }
-
 table#table-1 {
 	width: 100%;
 	background-color: #C3DFD4;
@@ -101,9 +97,9 @@ td.prodName{
 
 				<td>
 					<form method="post" action="${context}/ProductServlet">
+						<input type="hidden" name="prodNo" value="${productVO.prodNo}">
+						<input type="hidden" name="action" value="getOne_For_Update">
 						<input type="submit" value="修改">
-						<input type="hidden" name="prodName" value="${productVO.prodName}">
-						<input type="hidden" name="action" value="getOneProductName_For_Display">
 					</form>
 				</td>
 			</tr>
