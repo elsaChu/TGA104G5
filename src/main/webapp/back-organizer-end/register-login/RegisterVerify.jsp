@@ -20,32 +20,32 @@
 	</form>
 </body>
 <script>
-	const veriCode = document.querySelector('#veriCode');
+// 	const veriCode = document.querySelector('#veriCode');
 	
- 	document.querySelector('#submit').addEventListener('click', function () {
- 		console.log("clicked");
-		fetch('./OrganizerVerification', {
-		    method: 'POST',
-		    headers: {
-		        'Content-Type': 'application/json'
-		    },
-			//cant have a body if ur using get method
-		    body: JSON.stringify({
-		         veriCode: veriCode.value
-		    })
-		})
-		    .then(function (resp) { return resp.json(); })
-		    .then(function (body) {
-				if(body.successful){
+//  	document.querySelector('#submit').addEventListener('click', function () {
+//  		console.log("clicked");
+// 		fetch('./OrganizerVerification', {
+// 		    method: 'POST',
+// 		    headers: {
+// 		        'Content-Type': 'application/json'
+// 		    },
+// 			//cant have a body if ur using get method
+// 		    body: JSON.stringify({
+// 		         veriCode: veriCode.value
+// 		    })
+// 		})
+// 		    .then(function (resp) { return resp.json(); })
+// 		    .then(function (body) {
+// 				if(body.successful){
 
-				}
-		        alert(body.successful);
-		    });
-	 });
+// 				}
+// 		        alert(body.successful);
+// 		    });
+// 	 });
 
-	$("#submit").click(function(e){
-		e.preventDefault();
-		console.log(veriCode.value);
-	});
+// 	$("#submit").click(function(e){
+// 		e.preventDefault();
+// 		console.log(veriCode.value);
+// 	});
 </script>
 </html>

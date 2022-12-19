@@ -32,8 +32,8 @@
         </div>
     </div>
     <div class="login-bottom">
-      <form action="<%=request.getContextPath()%>/back-organizer-end/OrganizerRegister.jsp">
-        <a class="img" href="index.html"> <img src="<%=request.getContextPath()%>/back-organizer-end/images/logo80.png" /> </a>
+      <form action="<%=request.getContextPath()%>/back-organizer-end/register-login/OrganizerRegister.jsp">
+        <a class="img" href="index.html"> <img src="<%=request.getContextPath()%>/back-organizer-end/register-login/images/logo80.png" /> </a>
         <h3> &nbsp; <a href="#" id="backRegister"> 返回註冊 </a> </h3>
       </form>
     </div>

@@ -51,7 +51,7 @@ public class OrganizerRegisterTwo extends HttpServlet {
 		isNameTaken = os1.addOrganizer(ov1);
 		req.setAttribute("isNameTaken", isNameTaken);
 		
-		String url = "/back-organizer-end/OrganizerRegisterDone.jsp";
+		String url = "/back-organizer-end/register-login/OrganizerRegisterDone.jsp";
 		//若SESSION內已註冊過且寄出驗證碼的請求處理 要導到哪裡??
 //		if(session1.getAttribute("authCode")!= null) {
 //			System.out.println("already sent an authCode");
@@ -73,9 +73,9 @@ public class OrganizerRegisterTwo extends HttpServlet {
 								"  您的帳號啟用碼為: " + authCode + "\n" ;
 			mailService.sendMail(to, subject, messageText);
 			//also forward req to verifying page
-			System.out.print("authCode from OrganierRegisterTwo:" + authCode);
+			System.out.println("authCode from OrganierRegisterTwo:" + authCode);
 			session1.setAttribute("authCode", authCode);
-			url = "/back-organizer-end/RegisterVerify.jsp";
+			url = "/back-organizer-end/register-login/RegisterVerify.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 			return;

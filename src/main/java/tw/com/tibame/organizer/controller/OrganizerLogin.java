@@ -41,13 +41,13 @@ public class OrganizerLogin extends HttpServlet {
 		loginStatus = os1.login(ov1);
 		System.out.println(loginStatus);
 		session.setAttribute("loginStatus", loginStatus);
-		url = "/back-organizer-end/OrganizerLogin1.jsp";
+		url = "/back-organizer-end/register-login/OrganizerLogin1.jsp";
 		if(loginStatus != null) {
 			if(loginStatus.equals("Success")) {
 				//之後改成進入廠商設定葉面 不會再進到LOGINDONEJSP
-				url = "/back-organizer-end/OrganizerSelectAll.jsp";			
+				url = "/back-organizer-end/register-login/OrganizerSelectAll.jsp";			
 			}else {
-				url = "/back-organizer-end/OrganizerLoginDone.jsp";
+				url = "/back-organizer-end/register-login/OrganizerLoginDone.jsp";
 			}
 		}
 		RequestDispatcher rd = req.getRequestDispatcher(url);

@@ -36,9 +36,9 @@
     </div>
 
     <div class="login-bottom">
-    <form id="goToLogin" action="<%=request.getContextPath()%>/back-organizer-end/OrganizerLogin1.jsp">
+    <form id="goToLogin" action="<%=request.getContextPath()%>/back-organizer-end/register-login/OrganizerLogin1.jsp">
       <a class="img" href="index.html">
-        <img src="<%=request.getContextPath()%>/back-organizer-end/images/logo80.png" /></a>
+        <img src="<%=request.getContextPath()%>/back-organizer-end/register-login/images/logo80.png" /></a>
       <h3> &nbsp;<a href="#" id="goLogin"> 返回登入 </a></h3>
     </form>
     </div>
