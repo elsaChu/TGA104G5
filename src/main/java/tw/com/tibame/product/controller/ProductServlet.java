@@ -48,12 +48,12 @@ public class ProductServlet extends HttpServlet {
 			}
 
 			String pn = req.getParameter("prodName");
-			String prodNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			String prodNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9 )]{2,100}$";
 			// regular-expression
 			if (pn == null || pn.trim().length() == 0) {
 				errorMsgs.add("請輸入商品名稱");
 			} else if (!pn.trim().matches(prodNameReg)) {
-				errorMsgs.add("商品名稱只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+				errorMsgs.add("商品名稱只能是中、英文字母、數字和空格, 且長度必需在2到100之間");
 			}
 
 			String ps = req.getParameter("prodSpec");

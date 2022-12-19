@@ -92,13 +92,13 @@ th, td {
 			<td class=prodDetails><%=prodVo.getProdDetails()%></td>
 			<td class=group1><%=prodVo.getProdScore()%></td>
 			<td class=group1><%=prodVo.getIsPOn()%></td>
-			<!-- 			<td> -->
-			<%-- 				<form method="post" action="${context}/ProductServlet"> --%>
-			<%-- 					<input type="hidden" name="prodNo" value="${productVO.prodNo}"> --%>
-			<!-- 					<input type="hidden" name="action" value="getOne_For_Update"> -->
-			<!-- 					<input type="submit" value="修改"> -->
-			<!-- 				</form> -->
-			<!-- 			</td> -->
+						<td>
+							<form method="post" action="${context}/ProductServlet">
+								<input type="hidden" name="prodNo" value="<%=prodVo.getProdNo()%>">
+								<input type="hidden" name="action" value="getOne_For_Update">
+								<input type="submit" value="修改">
+							</form>
+						</td>
 		</tr>
 	</table>
 </body>
