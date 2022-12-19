@@ -11,7 +11,8 @@ public interface ProductDAO_interface {
 
 	public ProductVO findByPrimaryKey(Integer prodNo);
 	
-	public ProductVO findByProductName(String prodName);
+//	public ProductVO findByProductName(String prodName);
+	public List<ProductVO> findByProductName(String pdname);
 
 	public List<ProductVO> getAll();
 }
