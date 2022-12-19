@@ -57,8 +57,12 @@ public class ProductService {
 		return dao.findByPrimaryKey(prodNo);
 	}
 	
-	public ProductVO getOneProductByProductName(String prodName) {
-		return dao.findByProductName(prodName);
+//	public ProductVO getOneProductByProductName(String prodName) {
+//		return dao.findByProductName(prodName);
+//	}
+	
+	public List<ProductVO> findByProductName(String pdname) {
+		return dao.findByProductName(pdname);
 	}
 	
 	public List<ProductVO> getAll() {
