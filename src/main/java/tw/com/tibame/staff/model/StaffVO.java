@@ -8,9 +8,13 @@ public class StaffVO implements java.io.Serializable{
 	private String staffAccount;
 	private String staffPassword;
 
+
+
+	
+
 	@Override
 	public String toString() {
-		return "staffVO [staffNumber=" + staffNumber + ", staffName=" + staffName + ", staffAccount=" + staffAccount
+		return "StaffVO [staffNumber=" + staffNumber + ", staffName=" + staffName + ", staffAccount=" + staffAccount
 				+ ", staffPassword=" + staffPassword + "]";
 	}
 
@@ -45,4 +49,5 @@ public class StaffVO implements java.io.Serializable{
 	public void setStaffPassword(String staffPassword) {
 		this.staffPassword = staffPassword;
 	}
+
 }

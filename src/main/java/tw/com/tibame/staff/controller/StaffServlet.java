@@ -87,45 +87,49 @@ public class StaffServlet extends HttpServlet {
 //			RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 listOneStaff.jsp
 //			successView.forward(request, response);
 //		}
-	
+
 		if ("search".equals(action)) { // 來自listAllStaff.jsp的請求
-			System.out.println("in search"+ action);
+			System.out.println("in search" + action);
 			List<String> errorMsgs = new LinkedList<String>();
 //			先把errorMsgs new出來，再裝進去request
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			request.setAttribute("errorMsgs", errorMsgs);
-			
+
 			String searchStaffNumber = request.getParameter("searchStaffNumber");
 			StaffService staffSvc = new StaffService();
-			int int_ssn = Integer.parseInt(searchStaffNumber);
-			// 轉型 STR轉INT，用PARSEINT()
-			List<StaffVO> staffVO = staffSvc.findByStaffNumber(int_ssn);
 			
-			if (staffVO.isEmpty()) {
-				errorMsgs.add("搜索員工編號請勿空白");
+			Integer int_ssn = null;
+			StaffVO staffVO = null;
+			try {
+				// 轉型 STR轉INT，用PARSEINT()
+				int_ssn = Integer.valueOf(searchStaffNumber);
+				staffVO = staffSvc.findByStaffNumber(int_ssn);
+				if(staffVO.getStaffNumber() == null) {
+					staffVO = null;
+				}
+			} catch (NumberFormatException e) {
+				errorMsgs.add("未輸入員工編號");
 			}
 			
+//			System.out.println("staffVO servlet="+staffVO.toString());
+			if (staffVO == null && int_ssn != null) {
+//				System.out.println("in null");
+				errorMsgs.add("此員工編號不存在，請再確認一次");
+			}
+
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = request.getRequestDispatcher("/back-staff-end/staff/listAllStaff.jsp");
 				failureView.forward(request, response);
 				return;// 程式中斷
 			}
-			
-			// todo !!!!!!!!!!!!!!!!!!!!!! 如果有抓到值得部分
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			request.setAttribute("staffVO", staffVO); // 資料庫取出的staffVO物件,存入request
+			String url = "/back-staff-end/staff/listOneStaff.jsp";
+			RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 listOneStaff.jsp
+			successView.forward(request, response);
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
 		if ("getOne_For_Update".equals(action)) { // 來自listAllStaff.jsp的請求
 
@@ -184,16 +188,22 @@ public class StaffServlet extends HttpServlet {
 				errorMsgs.add("員工密碼: 請勿空白");
 			}
 
+			String[] permissionNumber = request.getParameterValues("permissionNumber");
+//			for(String a:permissionNumber) {
+//				System.out.println(a);
+//			}
+			
 			StaffVO staffVO = new StaffVO();
 			staffVO.setStaffName(staffName);
 			staffVO.setStaffAccount(staffAccount);
 			staffVO.setStaffPassword(staffPassword);
-			
+
+
 			StaffService staffSvc = new StaffService();
 			staffVO = staffSvc.getOneByAccount(staffAccount);
-			if(staffVO != null) {
+			if (staffVO != null) {
 				errorMsgs.add("帳號或密碼重複，請再檢查一次帳號或密碼");
-				
+
 			}
 
 			// Send the use back to the form, if there were errors
@@ -203,11 +213,10 @@ public class StaffServlet extends HttpServlet {
 				failureView.forward(request, response);
 				return;// 程式中斷
 			}
-			
-			
+
 			/*************************** 2.開始新增資料 *****************************************/
-			StaffService staffService = new StaffService();
-			staffService.insertStaff(staffName, staffAccount, staffPassword);
+//			StaffService staffService = new StaffService();
+			staffSvc.insertStaff(staffName, staffAccount, staffPassword,permissionNumber);
 //			if (staffVO == null) {
 //				errorMsgs.add("查無資料");
 //			}
@@ -217,7 +226,6 @@ public class StaffServlet extends HttpServlet {
 				failureView.forward(request, response);
 				return;// 程式中斷
 			}
-
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/back-staff-end/staff/insertStaff.jsp";
@@ -293,15 +301,14 @@ public class StaffServlet extends HttpServlet {
 			staffVO.setStaffAccount(staffAccount);
 			staffVO.setStaffPassword(staffPassword);
 			System.out.println("2" + staffVO);
-			
+
 			StaffService staffSvc = new StaffService();
 			StaffVO staffVO2 = staffSvc.getOneByAccount(staffAccount);
-			if(staffVO2 != null) {
+			if (staffVO2 != null) {
 				errorMsgs.add("帳號或密碼重複，請再檢查一次帳號或密碼");
-				
+
 			}
-			
-			
+
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				request.setAttribute("staffVO", staffVO); // 含有輸入格式錯誤的staffVO物件,也存入request

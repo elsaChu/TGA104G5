@@ -1,6 +1,6 @@
 package tw.com.tibame.staff.model;
 
-public class permissionVO {
+public class PermissionVO {
 
 	private Integer permissionNumber;
 	private String permissionName;

@@ -20,30 +20,65 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 	private static final String GET_ONE_ACCOUNT = "SELECT staffAccount FROM STAFF where staffAccount = ?";
 
 	@Override
-	public void insert(StaffVO staffVO) {
+	public void insert(StaffVO staffVO, List<S_permissionVO> list) {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
-			System.out.println("insert jdbc");
+//			System.out.println("insert jdbc");
 			Class.forName(Common.driver);
 
 			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
-			pstmt = conn.prepareStatement(INSERT_STAFF);
-
+			conn.setAutoCommit(false);
+			String[] cols= {"STAFF"};
+			pstmt = conn.prepareStatement(INSERT_STAFF,cols);
+			System.out.println("staffVO="+staffVO.toString());
 			pstmt.setString(1, staffVO.getStaffName());
 			pstmt.setString(2, staffVO.getStaffAccount());
 			pstmt.setString(3, staffVO.getStaffPassword());
-//			pstmt.setInt(4, staffVO.getStaffNumber());
 
 			// 打包好用這個語法送出去
 			pstmt.executeUpdate();
 
+			String staffNumber = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				staffNumber = rs.getString(1);
+				System.out.println("自增主鍵值" + staffNumber);
+			} else {
+				System.out.println("未取得自增主鍵");
+			}
+			rs.close();
+
+			// 在同時新增權限
+			if(list.size() != 0) {
+				s_permissionJDBCDAO dao = new s_permissionJDBCDAO();
+				for (S_permissionVO addpermision : list) {
+					Integer I_p = Integer.valueOf(staffNumber);
+					addpermision.setStaffNumber(I_p);
+					dao.insert(addpermision, conn);
+				}
+			}
+			
+
+			conn.commit();
+			conn.setAutoCommit(true);
+
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
 		} catch (SQLException se) {
+			if (conn != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-Staff");
+					conn.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -62,7 +97,6 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 				}
 			}
 		}
-
 	}
 
 	@Override
@@ -182,7 +216,7 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 		ResultSet rs = null;
 
 		try {
-			System.out.println("select jdbc");
+//			System.out.println("select jdbc");
 			Class.forName(Common.driver);
 
 			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
@@ -190,12 +224,13 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				
 				staffVO = new StaffVO();
 				staffVO.setStaffNumber(rs.getInt("staffNumber"));
-//				System.out.println(staffVO.getStaffNumber());
 				staffVO.setStaffName(rs.getString("staffName"));
 				staffVO.setStaffAccount(rs.getString("staffAccount"));
 				staffVO.setStaffPassword(rs.getString("staffPassword"));
+				
 				list.add(staffVO);
 				// 將上述SET完成的vo，塞進去這個集合。Store the row in the list
 			}
@@ -224,7 +259,7 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 
 		}
 		StaffVO s = list.get(0);
-		System.out.println(s.getStaffName());
+//		System.out.println(s.getStaffName());
 		return list;
 	}
 
@@ -329,7 +364,7 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 	}
 
 	@Override
-	public List<StaffVO> findByStaffNumber(Integer staffNumber) {
+	public StaffVO findByStaffNumber(Integer staffNumber) {
 
 		List<StaffVO> list = new ArrayList<StaffVO>();
 		// 初值
@@ -348,7 +383,7 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 			pstmt.setInt(1, staffNumber);
 
 			rs = pstmt.executeQuery();
-
+			staffVO = new StaffVO();
 			while (rs.next()) {
 				staffVO = new StaffVO();
 				staffVO.setStaffNumber(rs.getInt("staffNumber"));
@@ -356,7 +391,7 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 				staffVO.setStaffName(rs.getString("staffName"));
 				staffVO.setStaffAccount(rs.getString("staffAccount"));
 				staffVO.setStaffPassword(rs.getString("staffPassword"));
-				list.add(staffVO);
+				
 				// 將上述SET完成的vo，塞進去這個集合。Store the row in the list
 			}
 			// Handle any driver errors
@@ -386,7 +421,7 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 //		StaffVO s = list.get(0);
 //		System.out.println(s.getStaffName());
 
-		return list;
+		return staffVO;
 
 	}
 }
