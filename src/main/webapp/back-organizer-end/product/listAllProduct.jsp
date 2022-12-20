@@ -21,31 +21,46 @@ pageContext.setAttribute("list", list);
 
 <style>
 .table-1 {
-	width: 100%;
-	background-color: #C3DFD4;
-	border: 1.5px solid #8E8E8E;
+	width: 95%;
+	background-color: #415A77;
+	color: white;
 	text-align: center;
+	margin: 10px auto 0px auto;
+}
+
+a {
+	display: block;
+	text-align: right;
+	color: white;
+	margin: 0px 10px 0px 0px;
 }
 
 .table-2 {
-	width: 100%;
+	width: 95%;
 	background-color: white;
 	margin-bottom: 20px;
+	margin: 0px auto 10px auto;
 }
 
 th, td {
 	padding: 5px;
-	text-align: center;
-	border: 1px solid #8E8E8E;
 }
 
-td.prodDetails {
-	text-align: left;
+.table-2 tr:nth-child(odd){
+background-color: #F0F0F0};
+
+.prodDetails {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
-th, td.group1 {
+th {
+	text-align: center;
+white-space: nowrap;
+}
+
+td.group1 {
+	text-align: center;
 	white-space: nowrap;
 }
 
@@ -61,7 +76,7 @@ td.prodName {
 			<td>
 				<h2>全部商品資料</h2>
 				<h4>
-					<a href="${context}/back-organizer-end/product/selectProduct.jsp">回首頁</a>
+					<a href="${context}/back-organizer-end/product/selectProduct.jsp">回到查詢商品首頁</a>
 				</h4>
 			</td>
 		</tr>
@@ -82,7 +97,7 @@ td.prodName {
 			<th>修改</th>
 		</tr>
 		<c:forEach var="productVO" items="${list}">
-			<tr>
+			<tr class="productlist">
 				<td class=group1>${productVO.prodNo}</td>
 				<td class=group1>${productVO.eventNumber}</td>
 				<td class=group1>${productVO.organizerNumber}</td>
