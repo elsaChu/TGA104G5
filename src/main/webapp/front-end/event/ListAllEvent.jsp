@@ -87,6 +87,7 @@ th, td {
 			<th>活動狀態</th>
 			<th>開始時間</th>
 			<th>結束時間</th>
+			<th>查看</th>
 		</tr>
 
 		<%@ include file="page1.file"%>
@@ -101,15 +102,24 @@ th, td {
 								<td>${eventVO.eventType}</td>
 								<td>${eventVO.eventStartDate}</td>
 								<td>${eventVO.eventEndDate}</td>
-				<td>
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/StaffServlet"
-						style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="staffNumber" value="${eventVO.Number}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
+<!-- 				<td> -->
+<!-- 					<FORM METHOD="post" -->
+<%-- 						ACTION="<%=request.getContextPath()%>/StaffServlet" --%>
+<!-- 						style="margin-bottom: 0px;"> -->
+<!-- 						<input type="submit" value="修改"> -->
+<%-- 						<input type="hidden" name="staffNumber" value="${eventVO.Number}">  --%>
+<!-- 						<input type="hidden" name="action" value="getOne_For_Update"> -->
+<!-- 					</FORM> -->
+<!-- 				</td> -->
+					<td>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/OrderServlet" style ="margin-bottom: 0px;">
+					<input type ="submit" value="查看詳情">
+					<input type ="hidden" name="eventNumber" value="${eventVO.eventNumber}">
+					<input type ="hidden" name="action" value="show_all_event_order">
+					
+											
 					</FORM>
-				</td>
+					</td>
 			</tr>
 		</c:forEach>
 	</table>
