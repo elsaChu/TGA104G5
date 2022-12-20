@@ -1,20 +1,18 @@
 function init() {
 
     const prodNo = sessionStorage.getItem('prodNo');
-    sessionStorage.removeItem('prodNo');
+    // sessionStorage.removeItem('prodNo');
     const prodarea = document.querySelector("#prodarea");
 
 
-    // 載入頁面時先從後端取得資料
     $.ajax({
-        url: "http://localhost:8080/TGA104G5/product/detail",
+        url: "../../product/detail",
         type: "GET",
         data: { "prodNo": prodNo },
         dataType: "json",
         success: function (data) {
 
-            prodarea.innerHTML =
-                data.map((e) => Template(e.prodNo, e.prodName, e.unitPrice, e.eventName, e.eventType, e.prodDetails, e.commentQty, e.totalComment)).join('');
+            prodarea.innerHTML = Template1(data);
             console.log(data);
             console.log(data.length);
             
@@ -27,28 +25,34 @@ function init() {
 
 }
 
-window.onload = init;
 
-function Template(prodName, totalComment, eventName, unitPrice, prodDetails) {
+function Template1({prodName, totalcomment, eventName, unitPrice, prodDetails, commentQty}) {
+	console.log(totalcomment);
+	let avgComment = (totalcomment / commentQty) * 20;
+	// console.log(avgComment);
     return `
-      
 		<div class="product__details__text">
 			<h3>${prodName}</h3>
 			<div class="product__details__rating">
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star-half-o"></i>
-				<span>(${totalComment}則評論)</span>
+				<div class="product__rating">
+					<div class="fill-ratings" style="width: ${avgComment}%">
+					<span>★★★★★</span>
+					</div>
+					<div class="empty-ratings">
+					<span>★★★★★</span>
+					</div>
+				</div>
+				<span style="display:block" class="commit">(${totalcomment}則評論)</span>
 			</div>
 			<div class="product__details__price">$ ${unitPrice}</h5>
-            </div></div>
+            </div>
 			<p>${eventName}</p>
-			<div class="product__details__quantity">-
+			<div class="product__details__quantity">
 				<div class="quantity">
 					<div class="pro-qty">
-						<input type="text" value="1">
+						<span class="dec qtybtn" id="dec">-</span>
+						<input id="qtyVal" type="text" value="1">
+						<span class="inc qtybtn" id="inc">+</span>
 					</div>
 				</div>
 			</div>
@@ -57,24 +61,10 @@ function Template(prodName, totalComment, eventName, unitPrice, prodDetails) {
 			<div>
 				<span>${prodDetails}</span>
 			</div>
-		</div>      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-//      
+		</div>
+      `;
+
+	  //      
 //        <div class="product__item">
 //            <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg"> <!-- 商品圖片 -->
 //
@@ -94,6 +84,20 @@ function Template(prodName, totalComment, eventName, unitPrice, prodDetails) {
 //		      <span>${prodDetails}</span>                  
 //	      </div>
 //	    </div>
-	      
-      `;
 }
+
+setTimeout(() => {
+	let aaa = document.getElementById('dec')
+	let qtyVal = document.getElementById('qtyVal')
+	aaa.addEventListener('click', () => {
+		qtyVal.value--
+	})
+
+	let bbb = document.getElementById('inc')
+	bbb.addEventListener('click', () => {
+		qtyVal.value++
+	})
+	
+}, 1000)
+
+window.onload = init;

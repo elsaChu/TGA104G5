@@ -1701,6 +1701,7 @@ ol {
 }
 
 .product__details__text .product__details__price {
+	margin-top: 57px;
 	font-size: 30px;
 	color: #dd2222;
 	font-weight: 600;
