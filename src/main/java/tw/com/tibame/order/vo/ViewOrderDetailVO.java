@@ -17,7 +17,6 @@ public class ViewOrderDetailVO implements java.io.Serializable {
 private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "itemNo")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	private Integer itemNo;				// not null auto_increment
 	
 	@Column(name = "prodOrderNo")

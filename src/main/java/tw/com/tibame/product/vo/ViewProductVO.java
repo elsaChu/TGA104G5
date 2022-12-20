@@ -47,12 +47,19 @@ public class ViewProductVO implements java.io.Serializable {
 	@Column(name = "eventType")
 	private String eventType;
 	
+	@Column(name = "commentQty")
+	private Integer commentQty;			
+	
+	@Column(name = "Totalcomment")
+	private Integer Totalcomment;
+
 	@Override
 	public String toString() {
 		return "ViewProductVO [prodNo=" + prodNo + ", eventNumber=" + eventNumber + ", organizerNumber="
 				+ organizerNumber + ", prodName=" + prodName + ", prodSpec=" + prodSpec + ", unitPrice=" + unitPrice
 				+ ", prodStock=" + prodStock + ", prodDetails=" + prodDetails + ", prodScore=" + prodScore + ", isPOn="
-				+ isPOn + ", eventName=" + eventName + ", eventType=" + eventType + "]";
+				+ isPOn + ", eventName=" + eventName + ", eventType=" + eventType + ", commentQty=" + commentQty
+				+ ", Totalcomment=" + Totalcomment + "]";
 	}
 
 	public Integer getProdNo() {
@@ -150,7 +157,22 @@ public class ViewProductVO implements java.io.Serializable {
 	public void setEventType(String eventType) {
 		this.eventType = eventType;
 	}
-	
+
+	public Integer getCommentQty() {
+		return commentQty;
+	}
+
+	public void setCommentQty(Integer commentQty) {
+		this.commentQty = commentQty;
+	}
+
+	public Integer getTotalcomment() {
+		return Totalcomment;
+	}
+
+	public void setTotalcomment(Integer totalcomment) {
+		Totalcomment = totalcomment;
+	}			
 	
 	
 }

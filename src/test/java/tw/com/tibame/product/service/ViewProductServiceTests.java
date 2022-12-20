@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import tw.com.tibame.product.vo.ViewProductVO;
+
 @SpringBootTest
 public class ViewProductServiceTests {
 	@Autowired
@@ -21,7 +23,10 @@ public class ViewProductServiceTests {
 	
 	@Test
 	public void testFindProductByEventType() {
-		System.out.println(service.findProductByEventType("展覽", true));
+		ViewProductVO vo = new ViewProductVO();
+		vo.setEventType("展覽");
+		vo.setIsPOn(true);
+		System.out.println(service.findProductByEventType(vo));
 	}
 	
 	

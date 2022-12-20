@@ -18,8 +18,7 @@ public class ViewProductOrderVO implements java.io.Serializable {
 
 	@Id
 	@Column(name = "prodOrderNo")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer prodOrderNo;	// not null auto_increment
+	private Integer prodOrderNo;	// not null
 
 	@Column(name = "number")
 	private Integer number;			// not null
