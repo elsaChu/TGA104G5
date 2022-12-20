@@ -14,18 +14,17 @@ import tw.com.tibame.util.common.Common;
 
 public class OrderJDBCDAO implements OrderDAO_interface {
 
-	private static final String INSERT = 
-			"INSERT INTO `ORDER` (eventNumber, `number`, orderDate, orderType, total, totalTicket, pData, reason, reasonMoney, eventScore, eventSContent, eventSDate) value(?,?,?,?,?,?,?,?,?,?)";
-	private static final String UPDATE = 
-			"UPDATE ORDER set eventNumber=?,`number`=?, orderDate=?, orderType=?, total=?, totalTicket=?, pData=?, reason=?, reasonMoney=?, eventScore=?, eventSContent=?, eventSDate=? where orderID=?\"";
-	private static final String GET_ORDER_BY_EVENT_NUMBER =
-			"SELECT eventNumber, `number`, orderDate, orderType, total, totalTicket, pData, reason, reasonMoney, eventScore, eventSContent, eventSDate FROM `ORDER` where eventNumber = ?";
-	private static final String GET_ORDER_BY_ORDER_DATE =
-			"SELECT eventNumber, `number`, orderDate, orderType, total, totalTicket, pData, reason, reasonMoney, eventScore, eventSContent, eventSDate FROM `ORDER` where orderDate = ?";
-	private static final String GET_ORDER_BY_ORDER_TYPE =
-			"SELECT eventNumber, `number`, orderDate, orderType, total, totalTicket, pData, reason, reasonMoney, eventScore, eventSContent, eventSDate FROM `ORDER` where orderType = ?";
-	private static final String GET_ORDER_BY_NUMBER =
-			"SELECT eventNumber, `number`, orderDate, orderType, total, totalTicket, pData, reason, reasonMoney, eventScore, eventSContent, eventSDate FROM `ORDER` where number = ?";
+	private static final String INSERT = "";
+			
+	private static final String UPDATE = "";
+			
+	private static final String GET_ORDER_BY_EVENT_NUMBER = 
+			"SELECT orderID , number , orderDate, orderType, total , totalTicket , pData ,reason \r\n"
+			+ "FROM `ORDER` o , `EVENT` e\r\n"
+			+ "WHERE e.eventNumber = 2;";
+	private static final String GET_ORDER_BY_ORDER_DATE = "";
+	private static final String GET_ORDER_BY_ORDER_TYPE = "";
+	private static final String GET_ORDER_BY_NUMBER = "";
 	private static final String GET_BY_ORDERID =
 			"select o.orderID,o.orderType,o.totalTicket,o.total,\r\n"
 			+ "			e.eventName,e.eventPlace,e.bigImg,e.eventStartDate,\r\n"
@@ -73,15 +72,14 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 
 			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
 			pstmt = conn.prepareStatement(GET_ORDER_BY_EVENT_NUMBER);
-			pstmt.setInt(1, eventNumber);
+//			pstmt.setInt(1, eventNumber);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				OrderVO = new OrderVO();
 
-//				eventNumber, `number`, orderDate, orderType, total, totalTicket, pData, reason, reasonMoney, eventScore, eventSContent, eventSDate
-				OrderVO.setEventNumber(rs.getInt("eventNumber"));
+				OrderVO.setOrderID(rs.getInt("orderID"));
 				OrderVO.setNumber(rs.getInt("number"));
 				OrderVO.setOrderDate(rs.getTimestamp("orderdate"));
 				OrderVO.setOrderType(rs.getString("orderType"));
@@ -89,10 +87,6 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 				OrderVO.setTotalTicket(rs.getInt("totalTicket"));
 				OrderVO.setpData(rs.getString("pData"));
 				OrderVO.setReason(rs.getString("reason"));
-				OrderVO.setReasonMoney(rs.getInt("reasonMoney"));
-				OrderVO.setEventScore(rs.getDouble("eventScore"));
-				OrderVO.setEventSContent(rs.getString("eventSContent"));
-				OrderVO.setEventSDate(rs.getTimestamp("eventSDate"));
 
 				list.add(OrderVO);
 				// 將上述SET完成的vo，塞進去這個集合。Store the row in the list
