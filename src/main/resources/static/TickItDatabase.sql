@@ -443,8 +443,9 @@ select p.*, e.eventName, e.eventType, vp.commentQty, vp.totalComment
 from PRODUCT p
 join EVENT e
 on p.eventNumber = e.eventNumber
-join V_PROD_RANKING vp
-on p.prodNo = vp.prodNo;
+left join V_PROD_RANKING vp
+on p.prodNo = vp.prodNo
+order by prodNo;
 
 
 -- drop database TICK_IT;

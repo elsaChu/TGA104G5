@@ -8,7 +8,7 @@ public interface ViewProductService {
 
 	List<ViewProductVO> findAll();
 
-	List<ViewProductVO> findProductByEventType(String eventType, boolean isPOn);
+	List<ViewProductVO> findProductByEventType(ViewProductVO vo);
 	
 	List<ViewProductVO> findProductLaunch(boolean isPOn);
 

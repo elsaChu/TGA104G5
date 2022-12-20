@@ -21,7 +21,10 @@ public class ViewProductDAOHibernateTests {
 
 	@Test 
 	public void testFindByEventType() {
-		List<ViewProductVO> result = viewProductDAO.findByEventType("展覽", true);
+		ViewProductVO vo = new ViewProductVO();
+		vo.setEventType("展覽");
+		vo.setIsPOn(true);
+		List<ViewProductVO> result = viewProductDAO.findByEventType(vo);
 		System.out.println(result);
 	}	
 	

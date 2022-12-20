@@ -25,9 +25,9 @@ public class ViewProductController {
     	return list;
 	}
 	
-	@PostMapping("eventType")  // 失敗!!
-	public List<ViewProductVO> findProductByEventType(@RequestBody String eventType, boolean isPOn) {
-		List<ViewProductVO> list = viewProductService.findProductByEventType(eventType, isPOn);
+	@PostMapping("eventType")
+	public List<ViewProductVO> findProductByEventType(@RequestBody ViewProductVO vo) {
+		List<ViewProductVO> list = viewProductService.findProductByEventType(vo);
     	return list;
 	}
 	

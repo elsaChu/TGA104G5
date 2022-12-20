@@ -38,13 +38,14 @@ public class ViewProductDAOHibernate implements ViewProductDAO {
 	}
 
 	@Override	// 依活動分類篩選已上架商品
-	public List<ViewProductVO> findByEventType(String eventType, boolean isPOn) {
+	public List<ViewProductVO> findByEventType(ViewProductVO vo) {
 		List<ViewProductVO> result = new ArrayList<>();
+		String eventType = vo.getEventType();
 		if (eventType != null) {
 			Query<ViewProductVO> query = getSession().createQuery(
 					"from ViewProductVO where eventType = :eventType and isPOn = :isPOn", ViewProductVO.class); 
 			query.setParameter("eventType", eventType);
-			query.setParameter("isPOn", isPOn);
+			query.setParameter("isPOn", vo.getIsPOn());
 			result = query.list();
 			return result;
 		}
