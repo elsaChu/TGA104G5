@@ -10,69 +10,79 @@ List<ProductVO> list = prodSvc.getAll();
 pageContext.setAttribute("list", list);
 %>
 
+<c:set var="context" value="${pageContext.request.contextPath}" />
+<jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>全部商品資料</title>
-<jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
+<title>TICK IT</title>
 
 <style>
-h3 {
-        font-weight: bold;
-      }
-
-table#table-1 {
-	width: 100%;
-	background-color: #C3DFD4;
-	border: 1.5px solid #8E8E8E;
+.table-1 {
+	width: 95%;
+	background-color: #415A77;
+	color: white;
 	text-align: center;
+	margin: 10px auto 0px auto;
 }
 
-table#table-2 {
-	width: 100%;
+a {
+	display: block;
+	text-align: right;
+	color: white;
+	margin: 0px 10px 0px 0px;
+}
+
+.table-2 {
+	width: 95%;
 	background-color: white;
 	margin-bottom: 20px;
+	margin: 0px auto 10px auto;
 }
-
 
 th, td {
 	padding: 5px;
+}
+
+.table-2 tr:nth-child(odd){
+background-color: #F0F0F0};
+
+.prodDetails {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+th {
 	text-align: center;
-	border: 1px solid #8E8E8E;
+white-space: nowrap;
 }
 
-td.prodDetails {
-	text-align: left;
-	white-space: normal;
-	
-}
-
-th, td.group1{
+td.group1 {
+	text-align: center;
 	white-space: nowrap;
 }
 
-td.prodName{
+td.prodName {
 	white-space: normal;
 }
-
 </style>
 
 </head>
 <body>
-	<table id="table-1">
+	<table class="table-1">
 		<tr>
 			<td>
-				<h3>全部商品資料</h3>
+				<h2>全部商品資料</h2>
 				<h4>
-					<a
-						href="<%=request.getContextPath()%>/back-organizer-end/product/selectProduct.jsp">回首頁</a>
+					<a href="${context}/back-organizer-end/product/selectProduct.jsp">回到查詢商品首頁</a>
 				</h4>
 			</td>
 		</tr>
 	</table>
 
-	<table id="table-2">
+	<table class="table-2">
 		<tr>
 			<th>商品編號</th>
 			<th>活動編號</th>
@@ -87,7 +97,7 @@ td.prodName{
 			<th>修改</th>
 		</tr>
 		<c:forEach var="productVO" items="${list}">
-			<tr>
+			<tr class="productlist">
 				<td class=group1>${productVO.prodNo}</td>
 				<td class=group1>${productVO.eventNumber}</td>
 				<td class=group1>${productVO.organizerNumber}</td>
@@ -100,22 +110,12 @@ td.prodName{
 				<td class=group1>${productVO.isPOn}</td>
 
 				<td>
-					<form method="post"
-						action="<%=request.getContextPath()%>/ProductServlet">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="prodNo" value="${productVO.prodNo}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
+					<form method="post" action="${context}/ProductServlet">
+						<input type="hidden" name="prodNo" value="${productVO.prodNo}">
+						<input type="hidden" name="action" value="getOne_For_Update">
+						<input type="submit" value="修改">
 					</form>
 				</td>
-				<!-- 				<td> -->
-				<!-- 					<form method="post" -->
-				<%-- 						action="<%=request.getContextPath()%>/ProductServlet" --%>
-				<!-- 						style="margin-bottom: 0px;"> -->
-				<!-- 						<input type="submit" value="刪除"> -->
-				<%-- 						<input type="hidden" name="prodNo" value="${productVO.prodNo}"> --%>
-				<!-- 						<input type="hidden" name="action" value="delete"> -->
-				<!-- 					</form> -->
-				<!-- 				</td> -->
 			</tr>
 		</c:forEach>
 	</table>

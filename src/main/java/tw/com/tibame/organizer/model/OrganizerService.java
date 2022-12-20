@@ -24,15 +24,22 @@ public class OrganizerService {
 			for (Iterator<OrganizerVO> iter = list2.iterator(); iter.hasNext(); ) {
 				OrganizerVO ov = new OrganizerVO();
 				ov = iter.next();
-				if(ov.getOrganizerName() != null) {
-						if(ov.getOrganizerName().equalsIgnoreCase(beanName)) {
-							noMatch = false;
-							returnString = "  Insert Failed.\n Name already exists";
-							System.out.println("Match Found");
-							//break;
-							//用break不能跳出FOR EACH迴圈 要跳出的話要利用EXCPETION，不然就改用FOR LOOP
-						}else {
+				if(ov.getOrganizerName()!=null && ov.getOAccount()!=null && ov.getWindowEmail()!=null) {
+					if(ov.getOrganizerName().equals(beanName)) {
+						noMatch = false;
+						returnString = "註冊失敗 廠商名稱已被註冊";
+						System.out.println("Match Found");
+						//break;
+						//用break不能跳出FOR EACH迴圈 要跳出的話要利用EXCPETION，不然就改用FOR LOOP
+					}else if(ov.getOAccount().equals(bean.getOAccount())){
+						noMatch = false;
+						returnString = "註冊失敗 \n 帳號名稱已被註冊";
+					}else if(ov.getWindowEmail().equals(bean.getWindowEmail())) {
+						noMatch = false;
+						returnString = "註冊失敗 \n 信箱已被註冊";
 					}
+				}else {
+					System.out.println("something from databse is null");
 				}
 			}
 			if(noMatch == true) {
@@ -40,7 +47,38 @@ public class OrganizerService {
 			}
 			return returnString;
 		}
-
+		public String login(OrganizerVO bean) {
+			boolean noMatch = true;
+			String returnString ="wwhat";
+			List<OrganizerVO> list2 = dao.selectAll();
+			String beanName = bean.getOAccount();
+			String beanPassword = bean.getOpassword();
+			if( !(beanName.trim().equals("")) && !(beanPassword.trim().equals(""))) {
+				for (Iterator<OrganizerVO> iter = list2.iterator(); iter.hasNext();) {
+					OrganizerVO ov = new OrganizerVO();
+					ov = iter.next();
+					if(beanName.trim() != null && beanPassword.trim() != null && ov.getOAccount() != null && ov.getOpassword() !=null) {
+							if(ov.getOAccount().equalsIgnoreCase(beanName) && ov.getOpassword().equals(beanPassword) ) {
+								noMatch = false;
+								returnString = "Success";
+								System.out.println("account and password match.");
+								//break;
+								//用break不能跳出FOR EACH迴圈 要跳出的話要利用EXCPETION，不然就改用FOR LOOP
+							}
+					}
+				}
+				if(noMatch == true) {
+					System.out.println("No Matches found for the same set of account & password");	
+					String failed = "帳號密碼錯誤";
+					return failed;
+				}
+			}else {
+				returnString = "請輸入帳密" ;
+				System.out.println("ov.get name or get password == null");
+			}
+			return returnString;	
+		}
+		
 		public OrganizerVO updateOrganizer(OrganizerVO bean) {
 			
 			boolean noMatch = true;

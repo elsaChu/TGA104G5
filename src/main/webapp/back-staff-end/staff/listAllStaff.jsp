@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ page import="java.util.*"%>
-<%@ page import="tw.com.tibame.staff.model.*"%>  
+<%@ page import="tw.com.tibame.staff.model.*"%>
 <!DOCTYPE html>
 
 <%
@@ -85,7 +85,7 @@ th, td {
 			</td>
 		</tr>
 	</table>
-	
+
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
 		<ul>
@@ -94,20 +94,32 @@ th, td {
 			</c:forEach>
 		</ul>
 	</c:if>
-	
-	<div style="float: right; margin-right: 23%;">
-		<form METHOD="post" id="search"
-			ACTION="<%=request.getContextPath()%>/StaffServlet"
-			name="action">
-			<input type="text" name="searchStaffNumber" style=""
-				placeholder="員工編號" />
-			<!-- 	../ 上一層 -->
-			<!-- 	../ ../ 上一層再上一層 -->
-			<input type= "hidden" name="action" value="search"></input>
-		</form>
-			<img alt="" src="../../main_frame/images/bigpic.png"
-				style="width: 20px; cursor: pointer;" onclick="searchStaffNumber()">
-	</div>
+<%@ include file="page1.file"%>
+
+<div style="float: right; margin-right: 23%;">
+	<li>
+		<FORM METHOD="post" id="search" ACTION="<%=request.getContextPath()%>/StaffServlet" name="action">
+			<b>搜尋員工編號:</b>
+			<input type="text" name="searchStaffNumber" value="" style="" placeholder="員工編號">
+			<input type="submit" name="action" value="search" onclick="searchStaffNumber()">
+		</FORM>
+	</li>
+</div>
+	<!-- 	<div style="float: right; margin-right: 23%;"> -->
+	<!-- 		<form METHOD="post" id="search" -->
+	<%-- 			ACTION="<%=request.getContextPath()%>/StaffServlet" --%>
+	<!-- 			name="action"> -->
+	<!-- 			<input type="text" name="searchStaffNumber" style="" -->
+	<!-- 				placeholder="員工編號" /> -->
+	<!-- 			<!-- 	../ 上一層 -->
+
+	<!-- 			<!-- 	../ ../ 上一層再上一層 -->
+
+	<!-- 			<input type= "hidden" name="action" value="search"></input> -->
+	<!-- 		</form> -->
+	<!-- 			<img alt="" src="../../main_frame/images/bigpic.png" -->
+	<!-- 				style="width: 20px; cursor: pointer;" onclick="searchStaffNumber()"> -->
+	<!-- 	</div> -->
 
 	<table>
 		<tr>
@@ -116,9 +128,9 @@ th, td {
 			<th>員工帳號</th>
 			<th>員工密碼</th>
 			<th>修改員工</th>
-<!-- 			<th>刪除員工</th> -->
+			<!-- 			<th>刪除員工</th> -->
 		</tr>
-		<%@ include file="page1.file"%>
+
 		<c:forEach var="staffVO" items="${list}" begin="<%=pageIndex%>"
 			end="<%=pageIndex+rowsPerPage-1%>">
 
@@ -136,19 +148,19 @@ th, td {
 							type="hidden" name="action" value="getOne_For_Update">
 					</FORM>
 				</td>
-<!-- 				<td> -->
-<!-- 					<FORM METHOD="post" id="delForm" -->
-<%-- 						ACTION="<%=request.getContextPath()%>/StaffServlet" --%>
-<!-- 						style="margin-bottom: 0px;"> -->
-<!-- 						<input type="button" value="刪除" onclick="showAlert()"> <input -->
-<%-- 							type="hidden" name="staffNumber" value="${staffVO.staffNumber}"> --%>
-<!-- 						<input type="hidden" name="action" value="delete"> -->
-<!-- 					</FORM> -->
-<!-- 				</td> -->
+				<!-- 				<td> -->
+				<!-- 					<FORM METHOD="post" id="delForm" -->
+				<%-- 						ACTION="<%=request.getContextPath()%>/StaffServlet" --%>
+				<!-- 						style="margin-bottom: 0px;"> -->
+				<!-- 						<input type="button" value="刪除" onclick="showAlert()"> <input -->
+				<%-- 							type="hidden" name="staffNumber" value="${staffVO.staffNumber}"> --%>
+				<!-- 						<input type="hidden" name="action" value="delete"> -->
+				<!-- 					</FORM> -->
+				<!-- 				</td> -->
 			</tr>
 		</c:forEach>
 	</table>
-	
+
 	<%@ include file="page2.file"%>
 
 </body>
