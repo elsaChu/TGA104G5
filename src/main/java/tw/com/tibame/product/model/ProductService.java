@@ -11,7 +11,7 @@ public class ProductService {
 	}
 
 	public ProductVO addProduct(Integer eventNumber, Integer organizerNumber, String prodName, String prodSpec,
-			Integer unitPrice, Integer prodStock, String prodDetails, Boolean isPOn) {
+			Integer unitPrice, Integer prodStock, String prodDetails, Boolean isPOn, ProductImageVO prodimgvo) {
 
 		ProductVO prodVo = new ProductVO();
 
@@ -24,13 +24,14 @@ public class ProductService {
 		prodVo.setProdDetails(prodDetails);
 		prodVo.setIsPOn(isPOn);
 
-		dao.insert(prodVo);
+		dao.insert(prodVo, prodimgvo);
 
 		return prodVo;
 	}
 
+	
 	public ProductVO updateProduct(Integer eventNumber, Integer organizerNumber, String prodName, String prodSpec,
-			Integer unitPrice, Integer prodStock, String prodDetails, Boolean isPOn) {
+			Integer unitPrice, Integer prodStock, String prodDetails, Boolean isPOn, Integer prodNo) {
 
 		ProductVO prodVo = new ProductVO();
 
@@ -42,17 +43,26 @@ public class ProductService {
 		prodVo.setProdStock(prodStock);
 		prodVo.setProdDetails(prodDetails);
 		prodVo.setIsPOn(isPOn);
+		prodVo.setProdNo(prodNo);
 		dao.update(prodVo);
 
 		return prodVo;
 	}
 
-	public void deleteProduct(Integer prodNo) {
-		dao.delete(prodNo);
-	}
+//	public void deleteProduct(Integer prodNo) {
+//		dao.delete(prodNo);
+//	}
 
 	public ProductVO getOneProduct(Integer prodNo) {
 		return dao.findByPrimaryKey(prodNo);
+	}
+	
+//	public ProductVO getOneProductByProductName(String prodName) {
+//		return dao.findByProductName(prodName);
+//	}
+	
+	public List<ProductVO> findByProductName(String pdname) {
+		return dao.findByProductName(pdname);
 	}
 	
 	public List<ProductVO> getAll() {

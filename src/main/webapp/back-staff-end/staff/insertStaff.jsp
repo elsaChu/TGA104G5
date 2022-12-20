@@ -5,8 +5,10 @@
 page import="tw.com.tibame.staff.model.*"
 %>
 <%
-staffVO staffVO = (staffVO) request.getAttribute("staffVO");
+StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
+System.out.println(request.getAttribute("staffVO"));
 %>
+
 
 <!DOCTYPE html>
 <html>
@@ -35,12 +37,12 @@ staffVO staffVO = (staffVO) request.getAttribute("staffVO");
 		<span>員工帳號：</span><input type="text" name="staffAccount"></input><br>
 		<span>員工密碼：</span><input type="text" name="staffPassword"></input><br>
 		<span>管理權限：</span><br>
-		<span>會員管理</span><input type="checkbox" name="permissionNumber"></input><br>
-		<span>員工管理</span><input type="checkbox" name="permissionNumber"></input><br>
-		<span>活動管理</span><input type="checkbox" name="permissionNumber"></input><br>
-		<span>網站管理</span><input type="checkbox" name="permissionNumber"></input><br>
-		<span>廠商管理</span><input type="checkbox" name="permissionNumber"></input><br>
-		<span>商品管理</span><input type="checkbox" name="permissionNumber"></input><br>
+		<span>會員管理</span><input type="checkbox" name="permissionNumber" value="1"></input><br>
+		<span>員工管理</span><input type="checkbox" name="permissionNumber" value="2"></input><br>
+		<span>活動管理</span><input type="checkbox" name="permissionNumber" value="3"></input><br>
+		<span>網站管理</span><input type="checkbox" name="permissionNumber" value="4"></input><br>
+		<span>廠商管理</span><input type="checkbox" name="permissionNumber" value="5"></input><br>
+		<span>商品管理</span><input type="checkbox" name="permissionNumber" value="6"></input><br>
 		<button type="submit">送出！！！</button><br>
 		
 		</form>

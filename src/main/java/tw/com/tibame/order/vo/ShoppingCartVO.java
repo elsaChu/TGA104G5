@@ -2,6 +2,8 @@ package tw.com.tibame.order.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,13 +14,14 @@ public class ShoppingCartVO implements java.io.Serializable {
 	
 	@Id
 	@Column(name = "shoppingCartNo")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer shoppingCartNo;		// not null auto_increment
 	@Column(name = "number")
 	private Integer number;				// not null
 	@Column(name = "prodNo")
-	private Integer shoppingQty;		// not null
-	@Column(name = "shoppingQty")
 	private Integer prodNo;				// not null
+	@Column(name = "shoppingQty")
+	private Integer shoppingQty;		// not null
 
 	@Override
 	public String toString() {

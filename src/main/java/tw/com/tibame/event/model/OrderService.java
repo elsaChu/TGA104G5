@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.crypto.SecretKey;
 
 import org.json.JSONArray;
@@ -423,10 +422,16 @@ public class OrderService {
 	    return voList;
 	}
 	
+	public List<OrderEventVO> findByNumber() {
+		return dao.findByNumber();
+	}
+	
+	public List<EventVO> organizerNumber(){
+		return dao.findByOrganizerNumber();
+	}
+	
+	public List<OrderVO> selectByEventNumber(Integer eventNumber){
+		return dao.selectByEventNumber(eventNumber);
 
-	
-	
-
-	
-	
+	}
 }

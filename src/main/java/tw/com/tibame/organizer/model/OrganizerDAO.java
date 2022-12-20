@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 public class OrganizerDAO implements OrganizerDAOinterface {
 
 	String driver = "com.mysql.cj.jdbc.Driver";
@@ -15,11 +20,10 @@ public class OrganizerDAO implements OrganizerDAOinterface {
 	String userid = "root";
 	String passwd = "password";
 
-//
 //	public OrganizerDAO() {
 //		super();
 //	}
-
+	
 	private static final String INSERT_STMT = "INSERT INTO organizer (OAccount, Opassword, organizerName, windowName, windowPhone, windowEmail) VALUES (?, ?, ? , ? , ? , ?)";
 	private static final String GET_ALL_STMT = "SELECT organizerNumber, OAccount, Opassword, organizerName, windowName, windowPhone, windowEmail FROM organizer order by organizerNumber";
 	private static final String DELETE = "DELETE FROM organizer where organizerNumber = ?";
@@ -288,12 +292,11 @@ private static final String GET_ONE_STMT = "SELECT * FROM organizer where organi
 			"SELECT organizerNumber, OAccount, Opassword, organizerName, windowName, windowPhone, windowEmail " 
 			+"FROM organizer "
 			//? 放在""與%%旁邊會無法識別，使用|| 來escape這樣的語法問題 (escape syntax)	
-//			+"where organizerName like   ? '%'";
-			+"where organizerName like  CONCAT('%', ? , '%') ";
+			+ "where organizerName like  CONCAT('%', ? , '%') " 
 //			+"where organizerNumber like  '%'||?||'%' ";
-//			+"	or OAccount like '%'||?||'%' "
-//			 +"   or windowName like '%'||?||'%' "
-//			 +"   or windowEmail like '%'||?||'%' "
+			 +"   or windowName like CONCAT('%', ? , '%') "
+			 +"   or windowEmail like CONCAT('%', ? , '%') "
+			+ "	or OAccount like CONCAT('%', ? , '%') ";
 //			 +"   or windowPhone like '%'||?||'%' ";
 	public List<OrganizerVO> searchOrganizerByAll(String searchString) {
 		List<OrganizerVO> list1 = new ArrayList<OrganizerVO>();
@@ -307,17 +310,13 @@ private static final String GET_ONE_STMT = "SELECT * FROM organizer where organi
 			pstmt = con.prepareStatement(SEARCH_ALL);
 			//set String into "like" in sql 
 			pstmt.setString(1, searchString);
-			System.out.println(pstmt);
-//			pstmt.setString(2, searchString);
-//			pstmt.setString(3, searchString);
-//			pstmt.setString(4, searchString);
+			pstmt.setString(2, searchString);
+			pstmt.setString(3, searchString);
+			pstmt.setString(4, searchString);
 //			pstmt.setString(5, searchString);
 //			pstmt.setString(6, searchString);
 			System.out.println("Keyword: " + searchString + " executeQuery()");
 			rs = pstmt.executeQuery();
-//			OrganizerVO ov2 = new OrganizerVO();
-//			list1.add(ov2);
-//			System.out.println(list1);
 			System.out.println("Matched Results: ");
 			while (rs.next()) {
 				System.out.println("runnin in rs.next");
