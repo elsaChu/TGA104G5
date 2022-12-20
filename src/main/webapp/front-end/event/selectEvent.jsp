@@ -18,57 +18,7 @@
 <link rel="icon" href="${context}/main_frame/images/a0svr-jih0d-001.ico" />
 <!-- Style CSS -->
 <link rel="stylesheet" href="${context}/main_frame/style.css">
-
-<style type="text/css">
-.midType {
-	margin-top: 15px;
-}
-
-.container {
-	margin-bottom: 100px;
-}
-
-.ticketInput {
-	width: 50px;
-}
-
-.card-text {
-	font-size: 18px;
-}
-
-.agrrement {
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-
-.stepMenu {
-	font-size: 24px;
-	font-weight: bold;
-}
-
-#seatSet {
-	display: none;
-}
-
-.stepDiv {
-	display: none;
-}
-
-.seatIcon {
-	width: 20px;
-}
-
-.seat {
-	margin: 1px;
-}
-.redDot{
-	color:red;
-	font-weight: bold;
-}
-.tickMenuSpan{
-	font-size: 18px;
-}
-</style>
+<link rel="stylesheet" href="${context}/front-end/event/css/selectEvent.css">
 </head>
 
 <body>
@@ -80,8 +30,8 @@
 
 		<c:if test="${not empty event }">
 			<div class="card" style="width: 100%;">
-				<img height="100px"
-					src="https://d3vhc53cl8e8km.cloudfront.net/hello-staging/wp-content/uploads/2017/12/22223742/Events-1200x630.jpg"
+			<img id="eventImg"
+					src="${bigImg64}"
 					class="card-img-top eventDesc" alt="${event.eventName}">
 				<div class="card-body">
 					<h3 class="card-title">${event.eventName}</h3>
@@ -124,7 +74,7 @@
 			<div class="row">
 				<div class="col-sm">
 					<div class="d-flex justify-content-center">
-						<button type="button" class="btn btn-primary btn-lg"
+						<button type="button" class="myButton_selEvn"
 							onclick="confirmTicket();">下一步</button>
 					</div>
 				</div>
@@ -140,13 +90,13 @@
 			<div class="row">
 				<div class="col-sm">
 					<div class="d-flex justify-content-center">
-						<button type="button" class="btn btn-primary btn-lg"
+						<button type="button" class="myButton_selEvn"
 							onclick="switchStep(1,2);">上一步</button>
 					</div>
 				</div>
 				<div class="col-sm">
 					<div class="d-flex justify-content-center">
-						<button type="button" class="btn btn-primary btn-lg"
+						<button type="button" class="myButton_selEvn"
 							onclick="confirmSeat();">下一步</button>
 					</div>
 				</div>
@@ -199,13 +149,13 @@
 			<div class="row" style="margin-top: 15px;">
 				<div class="col-sm">
 					<div class="d-flex justify-content-center">
-						<button type="button" class="btn btn-primary btn-lg"
+						<button type="button" class="myButton_selEvn"
 							onclick="switchStep(2,3);">上一步</button>
 					</div>
 				</div>
 				<div class="col-sm">
 					<div class="d-flex justify-content-center">
-						<button type="button" class="btn btn-primary btn-lg"
+						<button type="button" class="myButton_selEvn"
 							onclick="confirmUserData();">準備付款</button>
 					</div>
 				</div>

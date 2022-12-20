@@ -1,6 +1,7 @@
 package tw.com.tibame.event.controller;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -29,7 +30,11 @@ public class FrontendEventServlet extends HttpServlet {
 	    String eventNumber = request.getParameter("eventNumber");
 	    if(eventNumber != null) {
 	    	OrderService orderService = new OrderService();
-	        request.setAttribute("event", orderService.queryEventByEventNumber(Integer.parseInt(eventNumber)));
+	    	EventVO event = orderService.queryEventByEventNumber(Integer.parseInt(eventNumber));
+	    	Base64.Encoder encoder = Base64.getEncoder();
+	    	String bigImg64 = "data:image/jpeg;base64,"+encoder.encodeToString(event.getBigImg());
+	    	request.setAttribute("bigImg64", bigImg64);
+	    	request.setAttribute("event", event);
 	        //跳轉頁面進入，清空session
 	        HttpSession session = request.getSession();
 	        session.removeAttribute("selectEventInfo");

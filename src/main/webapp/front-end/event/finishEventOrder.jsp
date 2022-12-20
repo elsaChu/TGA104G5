@@ -18,9 +18,7 @@
 <link rel="icon" href="${context}/main_frame/images/a0svr-jih0d-001.ico" />
 <!-- Style CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-
-<style type="text/css">
-</style>
+<link rel="stylesheet" href="${context}/front-end/event/css/finishEventOrder.css">
 </head>
 
 <body>
@@ -61,11 +59,11 @@
 		</div>
 		<div class="row">
 		<div class="middle_block col-md-6">
-			<button type="button" class="btn btn-primary btn-lg"
+			<button type="button" class="btn myButton_finEvnOrder btn-lg"
 							onclick="editUserData();">修改基本資料</button>
 		</div>
 		<div class="middle_block col-md-6">
-			<button type="button" class="btn btn-primary btn-lg"
+			<button type="button" class="btn myButton_finEvnOrder btn-lg"
 							onclick="cancelOrder('${orderId}');">取消訂單</button>
 		</div>
 
