@@ -1,6 +1,7 @@
 package tw.com.tibame.main;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,15 +26,17 @@ public class OrganizerVerification extends HttpServlet{
 	}
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Object obj1 = gson1.fromJson(req.getReader(), Object.class);
-		
-		int value1 = (int) obj1 ;
+		Map<String,String> obj1 = gson1.fromJson(req.getReader(), Map.class);
+		System.out.println(obj1);
+		System.out.println(obj1.get("veriCode"));
+		String value1 = obj1.get("veriCode") ;
 		HttpSession s1 = req.getSession();
+		System.out.println("session");
 		String authCode = (String) s1.getAttribute("authCode");
-		System.out.println("authCode" + authCode);
+		System.out.println("authCode from OrganizerVerification: " + authCode);
 		
 		JsonObject resBody = new JsonObject();
-		if (value1 == Integer.parseInt(authCode)) {
+		if (!value1.equals(authCode)) {
 			resBody.addProperty("successful", false);
 		} else {
 			resBody.addProperty("successful", true);

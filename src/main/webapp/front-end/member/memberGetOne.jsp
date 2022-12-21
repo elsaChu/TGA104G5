@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
-    <c:set var="context" value="${pageContext.request.contextPath}" />
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="tw.com.tibame.member.model.*"%>
+<% MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,15 +15,15 @@
     <title>TICK IT 員工後台</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="${context}/main_frame/css/bootstrap.css" rel="stylesheet" />
+    <link href="css/staffBootstrap.css" rel="stylesheet" />
 
     <!-- Favicon -->
-    <link rel="icon" href="${context}/main_frame/images/a0svr-jih0d-001.ico" />
+    <link rel="icon" href="images/logo.ico"   />
     <!-- Add custom CSS here -->
-    <link href="${context}/main_frame/css/sb-admin.css" rel="stylesheet" />
-    <link rel="stylesheet" href="${context}/main_frame/font-awesome/css/font-awesome.min.css" />
+    <link href="css/sb-admin.css" rel="stylesheet" />
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
     <!-- Page Specific CSS -->
-    <link rel="stylesheet" href="${context}/main_frame/css/morris-0.4.3.min.css" />
+    <link rel="stylesheet" href="css/morris-0.4.3.min.css" />
 
   </head>
 
@@ -44,7 +44,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">員工管理後台</a>
+          <a class="navbar-brand" href="index.html">員工姓名</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -56,10 +56,8 @@
                 <b class="caret"></b
               ></a>
               <ul class="dropdown-menu sign-out">
-                <li><a href="${context}/back-staff-end/staff/insertStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:user-plus" width="20" height="20"></iconify-icon>員工帳號新增</a></li>
-                <li><a href="${context}/back-staff-end/staff/listAllStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>所有員工列表</a></li>
-<%--               	<li><a href="${context}/back-staff-end/staff/updateStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:clipboard-document-list" width="20" height="20"></iconify-icon>更新員工資訊</a></li> --%>
-<%--               	<%=request.getContextPath()%>/InsertStaffServlet --%>
+                <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:user-plus" width="20" height="20"></iconify-icon>員工帳號新增</a></li>
+                <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>員工列表</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -68,8 +66,8 @@
                 <b class="caret"></b
               ></a>
               <ul class="dropdown-menu sign-out">
-                <li><a href="../front-end/member/memberList.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>會員列表</a></li>
-                <li><a href="../front-end/member/memberNewSletter.jsp"><iconify-icon class="sign-out"icon="heroicons:envelope" width="20" height="20"></iconify-icon>發送電子報</a></li>
+                <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>會員列表</a></li>
+                <li><a href="#"><iconify-icon class="sign-out"icon="heroicons:envelope" width="20" height="20"></iconify-icon>發送電子報</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -122,24 +120,103 @@
 
           <ul class="nav navbar-nav navbar-right navbar-user">
             <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20"></iconify-icon>登出</a></li>
-        
+       
           </div>
         <!-- /.navbar-collapse -->
       </nav>
   
     <!-- /#wrapper -->
+    <br/> 
+    <h3 style="font-weight: 600;">會員列表</h3>
+    <br/> 
+    <div >
+    <%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
+	<form action="MemberServlet" method="POST" >
+    <input  
+    style="font-size: 14px;width: 10%;  
+    border-radius: 6px;margin: 50px 0px -100px 500px;" 
+    placeholder="搜尋會員編號" name="number"/>
+    <input type="hidden" name="action" value="search">
+    <input style="color: white; font-size: 14px;width: 10%;  background: #000000;padding: 5px 5px; margin: 50px 0px 0px 0px;" type="submit" value="搜尋" />
+     </form>
+    </div>
+    <div>
+    
+      <table class="box">
+        <tr>
+          <td>會員編號</td>
+          <td>帳號</td>
+          <td>姓名</td>
+          <td>生日</td>
+          <td>EMAIL</td>
+          <td>手機號碼</td>
+          <td>是否訂閱TICK</td>
+          <td>查詢訂單</td>
+        </tr>
 
+
+      
+	
+        <tr>
+          <td>${memberVO.number}</td>
+          <td>${memberVO.account}</td>
+          <td>${memberVO.name}</td>
+          <td>${memberVO.birthday}</td>
+          <td>${memberVO.email}</td>
+          <td>${memberVO.phoneNumber}</td>
+          <td class="myTd">${memberVO.subscription}</td>
+          <td>查詢</td>
+		</tr>
+	
+       
+      </table>      
+
+
+  </div>
+
+ 
+
+	<script>
+// 	  var value = document.getElementById("myTd").innerHTML;
+// 	  console.log(value);
+// 	  if (value == false) {
+// 	    document.getElementById("myTd").innerHTML = '<i class="fa fa-times"></i>';
+// 	  } else {
+// 	    document.getElementById("myTd").innerHTML = '<i class="fa fa-check"></i>';
+// 	  }
+
+  var tds = document.getElementsByClassName("myTd");
+  console.log(tds);
+  for (var i = 0; i < tds.length; i++) {
+    var value = tds[i].innerHTML;
+    console.log(value);
+    if(value == "true"){
+    	tds[i].innerHTML = '<i class="fa fa-check"></i>';
+    } else {
+    	tds[i].innerHTML = '<i class="fa fa-times"></i>';
+    }
+   }
+	</script>
+  
+  	
     <!-- JavaScript -->
-    <script src="${context}/main_frame/js/jquery-1.10.2.js"></script>
-    <script src="${context}/main_frame/js/bootstrap.js"></script>
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.js"></script>
 
     <!-- Page Specific Plugins -->
-    <script src="${context}/main_frame/js/raphael-min.js"></script>
-<!--     <script src="js/morris-0.4.3.min.js"></script> -->
-<!--     <script src="js/morris/chart-data-morris.js"></script> -->
-<!--     <script src="js/tablesorter/jquery.tablesorter.js"></script> -->
-<!--     <script src="js/tablesorter/tables.js"></script> -->
+    <script src="js/raphael-min.js"></script>
+    <script src="js/morris/morris-0.4.3.min.js"></script>
+    <script src="js/morris/chart-data-morris.js"></script>
+    <script src="js/tablesorter/jquery.tablesorter.js"></script>
+    <script src="js/tablesorter/tables.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
   </body>
 </html>
-
