@@ -26,9 +26,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">我的票劵 <span class="sr-only">(current)</span></a>
-          </li>
+<!--           <li class="nav-item"> -->
+<!--             <a class="nav-link" href="#">我的票劵 <span class="sr-only">(current)</span></a> -->
+<!--           </li> -->
           <li class="nav-item">
             <a class="nav-link" href="#">禮品專區</a>
           </li>
@@ -45,57 +45,75 @@
             <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
           </form>
         </ul>
-        <ul class="navbar-nav mr-right ul_right">
-          <li class="nav-item dropdown">
-            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <iconify-icon icon="heroicons:user-circle-solid" width="30" height="30"></iconify-icon>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">
-                <iconify-icon class="sign-out" icon="heroicons:cog-8-tooth" width="20" height="20"></iconify-icon>
-                設定
+        <!-- unlogin -->
+        <div id="login_menuB"  class="hidden_login">
+          <ul class="navbar-nav mr-right">
+            <li class="nav-item">
+              <a class="nav-link" href="${context}/front-end/member/memberRegister.jsp">註冊</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">|</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="${context}/front-end/member/memberLogin.jsp">登入</a>
+            </li>
+          </ul>
+        </div>
+        <!-- login -->
+        <div id="login_menuA"  class="hidden_login">
+          <ul class="navbar-nav mr-right">
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <iconify-icon icon="heroicons:user-circle-solid" width="30" height="30"></iconify-icon>
               </a>
-              <!-- <div class="dropdown-divider"></div> -->
-              <a class="dropdown-item" href="#">
-                <iconify-icon class="sign-out" icon="heroicons:ticket" width="20" height="20"></iconify-icon>
-                票券訂單
-              </a>
-              <!-- <div class="dropdown-divider"></div> -->
-              <a class="dropdown-item" href="#">
-                <iconify-icon class="sign-out" icon="heroicons:gift" width="20" height="20"></iconify-icon>
-                  禮品訂單
-              </a>
-              <!-- <div class="dropdown-divider"></div> -->
-              <a class="dropdown-item" href="#">
-                <form action="${context}/front-end/member/MemberServlet" method="POST" >
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">
+                  <iconify-icon class="sign-out" icon="heroicons:cog-8-tooth" width="20" height="20"></iconify-icon>
+                  設定
+                </a>
+                <!-- <div class="dropdown-divider"></div> -->
+                <a class="dropdown-item" href="#">
+                  <iconify-icon class="sign-out" icon="heroicons:ticket" width="20" height="20"></iconify-icon>
+                  票券訂單
+                </a>
+                <!-- <div class="dropdown-divider"></div> -->
+                <a class="dropdown-item" href="#">
+                  <iconify-icon class="sign-out" icon="heroicons:gift" width="20" height="20"></iconify-icon>
+                    禮品訂單
+                </a>
+                <!-- <div class="dropdown-divider"></div> -->
+                <a class="dropdown-item" href="#">
+                  <form action="${context}/front-end/member/MemberServlet" method="POST" >
                   <iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20" style="margin: 0px -7px 0px 2px;"></iconify-icon>
-                  <input class="signOut_btn" type="submit" value="登出">
-                  <input type="hidden" name="action" value="logout">
-                </form>
+                    <input class="signOut_btn" type="submit" value="登出">
+                    <input type="hidden" name="action" value="logout">
+                  </form>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <iconify-icon icon="heroicons:bell-20-solid" width="30" height="30" ></iconify-icon>
               </a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">
-              <iconify-icon icon="heroicons:bell-20-solid" width="30" height="30" ></iconify-icon>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">
-              <iconify-icon icon="heroicons:heart-20-solid" width="30" height="30" ></iconify-icon>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">
-              <iconify-icon icon="heroicons:shopping-cart-20-solid" width="30" height="30"></iconify-icon>
-            </a>
-          </li>
-        </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <iconify-icon icon="heroicons:heart-20-solid" width="30" height="30" ></iconify-icon>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <iconify-icon icon="heroicons:shopping-cart-20-solid" width="30" height="30"></iconify-icon>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   </div>
   <script>
-  	var membervo = ${memberVO};
+    var context_header = '${context}';
+//   	var membervo = ${memberVO};
   </script>
   <script src="${context}/main_frame/js/jquery/jquery-2.2.4.min.js"></script>
   <script src="${context}/main_frame/js/bootstrap.min.js"></script>

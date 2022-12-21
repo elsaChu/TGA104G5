@@ -102,13 +102,7 @@ public class UpdateEventServlet extends HttpServlet {
 			EventVO eventvo = (EventVO)session.getAttribute("up_eventvo");
 			byte[] bigImgOld = eventvo.getBigImg();
 			byte[] smallImgOld = eventvo.getSmallImg();
-//			EventVO eventvoOLD = (EventVO)session.getAttribute("eventvoOLD");
-//			byte[] bigImgOld = eventvoOLD.getBigImg();
-//			byte[] smallImgOld = eventvoOLD.getSmallImg();
-//			Map pic_session = (Map)session.getAttribute("getOnePIC");
-//			byte[] bigImgOld = (byte[])pic_session.get("bigImg");
-//			byte[] smallImgOld = (byte[])pic_session.get("smallImg");
-//			
+		
 			Integer organizerNumber = null;
 			try {
 				organizerNumber = Integer.valueOf("1"); //等串起來要改

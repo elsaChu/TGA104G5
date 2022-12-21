@@ -50,3 +50,7 @@
     /* 滑鼠滑入按鈕變色*/
     color: #6A819D;
 }
+
+.hidden_login {
+    display: none;
+}
