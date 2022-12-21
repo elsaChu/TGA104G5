@@ -17,6 +17,13 @@
 @import url(owl.carousel.css);
 @import url(font-awesome.min.css);
 
+    .buttonOUT input[type="submit"] {
+	font-size: 14px;
+	width: 40px;
+	background: #FFF;
+	border-color:#FFF;
+	border-style:none;
+}
 .Data-Content {
   height: 0px;
   width: 100%; /* 表單寬度 */

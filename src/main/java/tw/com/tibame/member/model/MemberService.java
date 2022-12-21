@@ -31,21 +31,11 @@ public class MemberService {
 		return memberVO;
 	}
 	
-//	public MemberVO updateMember(String account,String password,String email,Date birthday,String name,String phoneNumber,String IDNumber) {
-//		
-//		MemberVO memberVO = new MemberVO();
-//		
-//		memberVO.setAccount(account);
-//		memberVO.setPassword(password);
-//		memberVO.setEmail(email);
-//		memberVO.setBirthday(birthday);
-//		memberVO.setName(name);
-//		memberVO.setPhoneNumber(phoneNumber);
-//		memberVO.setIDNumber(IDNumber);
-//	
-//		dao.update(memberVO);
-//		return memberVO;
-//}
+	public MemberVO update(MemberVO memberVO) {
+		System.out.println("### updateMember service");
+		dao.update(memberVO);
+		return memberVO;
+}
 	// 預留給 Struts 2 用的
 	
 	public void deleteMember(Integer number) {
@@ -65,6 +55,10 @@ public class MemberService {
 		return dao.getAll().stream()
 				.filter(e -> e.getAccount().equals(account))
 				.collect(Collectors.toList());
+	}
+	public MemberVO findByPrimaryKey(Integer number) {
+		// TODO Auto-generated method stub
+		return dao.findByPrimaryKey(number);
 	}
 	public List<MemberVO> getEmail(String email) {
 		// TODO Auto-generated method stub
@@ -101,6 +95,8 @@ public class MemberService {
 		dao.updatePassword(memberVO);
 		return memberVO;
 	}
+
+	
 	
 
 
