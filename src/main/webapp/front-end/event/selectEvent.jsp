@@ -13,12 +13,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>TICK IT</title>
+<!-- <title>TICK IT</title> -->
+<jsp:include page="/main_frame/index_header.jsp"></jsp:include>
 <!-- Favicon -->
-<link rel="icon" href="${context}/main_frame/images/a0svr-jih0d-001.ico" />
+<%-- <link rel="icon" href="${context}/main_frame/images/a0svr-jih0d-001.ico" /> --%>
 <!-- Style CSS -->
-<link rel="stylesheet" href="${context}/main_frame/style.css">
+<%-- <link rel="stylesheet" href="${context}/main_frame/style.css"> --%>
 <link rel="stylesheet" href="${context}/front-end/event/css/selectEvent.css">
+
+
 </head>
 
 <body>
@@ -247,11 +250,11 @@
 	</div>
 
 	<!-- jQuery (Necessary for All JavaScript Plugins) -->
-	<script src="${context}/main_frame/js/jquery/jquery-2.2.4.min.js"></script>
+<%-- 	<script src="${context}/main_frame/js/jquery/jquery-2.2.4.min.js"></script> --%>
 	<!-- Popper js -->
-	<script src="${context}/main_frame/js/popper.min.js"></script>
+<%-- 	<script src="${context}/main_frame/js/popper.min.js"></script> --%>
 	<!-- Bootstrap js -->
-	<script src="${context}/main_frame/js/bootstrap.min.js"></script>
+<%-- 	<script src="${context}/main_frame/js/bootstrap.min.js"></script> --%>
 
 	<script>
 	var context = '${context}';
@@ -260,16 +263,16 @@
     <script src="${context}/front-end/event/js/selectEvent.js"></script>
 
 	<!-- Active js -->
-	<script src="${context}/main_frame/js/active.js"></script>
+<%-- 	<script src="${context}/main_frame/js/active.js"></script> --%>
 
-	<script src="${context}/main_frame/js/model.js"></script>
+<%-- 	<script src="${context}/main_frame/js/model.js"></script> --%>
 
 	<script
 		src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
 	<!-- Plugins js -->
-	<script src="${context}/main_frame/js/plugins.js"></script>
+<%-- 	<script src="${context}/main_frame/js/plugins.js"></script> --%>
 
 
 </body>
-
 </html>
+<jsp:include page="/main_frame/index_footer.jsp"></jsp:include>
