@@ -68,8 +68,8 @@
                 <b class="caret"></b
               ></a>
               <ul class="dropdown-menu sign-out">
-                <li><a href="../front-end/member/memberList.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>會員列表</a></li>
-                <li><a href="../front-end/member/memberNewSletter.jsp"><iconify-icon class="sign-out"icon="heroicons:envelope" width="20" height="20"></iconify-icon>發送電子報</a></li>
+                <li><a href="${context}/front-end/member/memberList.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>會員列表</a></li>
+                <li><a href="${context}/front-end/member/memberNewSletter.jsp"><iconify-icon class="sign-out"icon="heroicons:envelope" width="20" height="20"></iconify-icon>發送電子報</a></li>
               </ul>
             </li>
             <li class="dropdown">
