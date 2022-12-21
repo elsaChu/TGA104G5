@@ -19,7 +19,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 //	SQL syntax: select
 	private static final String SELECT_BY_PRODUCTNO = "SELECT prodNo, eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` WHERE prodNo=?";
 //	SQL syntax: select
-	private static final String SELECT_BY_PRODUCTNAME = "SELECT prodNo, eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` WHERE prodName=?";
+	private static final String SELECT_BY_PRODUCTNAME = "SELECT prodNo, eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` WHERE INSTR(prodName, ?)";
 	//	SQL syntax: select
 	private static final String LIST_ALL_STMT = "SELECT prodNo,eventNumber ,organizerNumber,prodName,prodSpec,unitPrice,prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` ORDER BY prodNo DESC";
 

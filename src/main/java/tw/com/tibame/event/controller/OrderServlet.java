@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import tw.com.tibame.event.model.EventVO;
 import tw.com.tibame.event.model.OrderService;
+import tw.com.tibame.event.model.OrderVO;
 import tw.com.tibame.staff.model.StaffService;
 import tw.com.tibame.staff.model.StaffVO;
 
@@ -116,6 +117,17 @@ public class OrderServlet extends HttpServlet {
 				RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 ticketOrder.jsp
 				successView.forward(request, response);
 			}
+		
+		if ("show_all_event_order".equals(action)) { // 來自listAllEvent.jsp的請求
+			String eventNumber = request.getParameter("eventNumber");
+
+			EventVO eventVO = new EventVO();
+			Integer int_eventnumber = Integer.valueOf(eventNumber);
+			eventVO.setEventNumber(int_eventnumber);
+
+			OrderService orderSvc = new OrderService();
+			List<OrderVO> orderVO = orderSvc.selectByEventNumber(int_eventnumber);
+		}
 
 	}
 }

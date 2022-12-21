@@ -19,6 +19,21 @@ pageContext.setAttribute("list", list);
 <meta charset="UTF-8">
 <title>TICK IT</title>
 <style>
+.my_size {
+        margin: 0 auto;
+        width: 970px;
+}
+
+h2 {
+        margin: 20px 10px 10px 0px;
+        display: inline-block;
+        text-align: center;
+      }
+
+.searchitems{
+  list-style: none;
+}
+
 .error {
 	color: red;
 }
@@ -35,6 +50,7 @@ select {
 </style>
 </head>
 <body>
+<div class="my_size">
 	<c:if test="${not empty errorMsgs}">
 		<font class="error">請修正以下錯誤:</font>
 		<ul>
@@ -45,8 +61,8 @@ select {
 	</c:if>
 
 	<h2>查詢商品</h2>
-	<ul>
-		<li><a href="listAllProduct.jsp">顯示所有商品</a></li>
+	<ul class="searchitems">
+		<li><a href="listAllProduct.jsp">查看所有商品</a></li>
 		<li>
 			<form method="post" action="${context}/ProductServlet">
 				輸入商品編號： <input type="text" name="prodNo" value="" class="inputbox">
@@ -89,5 +105,7 @@ select {
 			</form>
 		</li>
 	</ul>
+	</div>
+
 </body>
 </html>

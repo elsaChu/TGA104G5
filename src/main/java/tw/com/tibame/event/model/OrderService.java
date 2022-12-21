@@ -2,7 +2,7 @@ package tw.com.tibame.event.model;
 
 import java.util.List;
 
-import tw.com.tibame.staff.model.StaffVO;
+
 
 public class OrderService {
 	private OrderDAO_interface dao;
@@ -16,5 +16,10 @@ public class OrderService {
 	
 	public List<EventVO> organizerNumber(){
 		return dao.findByOrganizerNumber();
-	};
+	}
+	
+	public List<OrderVO> selectByEventNumber(Integer eventNumber){
+		return dao.selectByEventNumber(eventNumber);
+
+}
 }
