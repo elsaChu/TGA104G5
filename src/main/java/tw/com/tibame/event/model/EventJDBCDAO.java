@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -136,10 +137,88 @@ public class EventJDBCDAO implements EventDAO_interface {
 		return recount;
 	}
 
+//	
+//	private static final String GET_ALL_STMT = "SELECT organizerNumber, OAccount, Opassword, organizerName, windowName, windowPhone, windowEmail " 
+//			+ "FROM organizer order by organizerNumber";
+	private static final String GET_ALL_STMT = "SELECT * FROM EVENT order by eventNumber" ;
+			
+
+
 	@Override
 	public List<EventVO> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<EventVO> list = new ArrayList<EventVO>();
+		EventVO eventvo = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(Common.driver);
+			con = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+ 
+			while (rs.next()) {
+				eventvo = new EventVO();
+				eventvo.setEventNumber(rs.getInt("eventNumber"));
+				eventvo.setOrganizerNumber(rs.getInt("organizerNumber"));
+				eventvo.setEventName(rs.getString("eventName"));
+				eventvo.setEventStartDate(rs.getTimestamp("eventStartDate"));
+				eventvo.setEventEndDate(rs.getTimestamp("eventEndDate"));
+				eventvo.setPeopleNumber(rs.getInt("peopleNumber"));
+				eventvo.setEventPlace(rs.getString("eventPlace"));
+				eventvo.setEventP2(rs.getString("eventP2"));
+				eventvo.setEventSummary(rs.getString("eventSummary"));
+				eventvo.setEventDescribe(rs.getString("eventDescribe"));
+				eventvo.setBigImg(rs.getBytes("bigImg"));
+				eventvo.setSmallImg(rs.getBytes("smallImg"));
+				eventvo.setVideo(rs.getBytes("video"));
+				eventvo.setOtherImg1(rs.getBytes("otherImg1"));
+				eventvo.setOtherImg2(rs.getBytes("otherImg2"));
+				eventvo.setCollectType(rs.getBoolean("collectType"));
+				eventvo.setBanner(rs.getInt("banner"));
+				eventvo.setFocus(rs.getInt("focus"));
+				eventvo.setTotalClick(rs.getInt("totalClick"));
+				eventvo.setIsON(rs.getBoolean("isON"));
+				eventvo.setEventType(rs.getString("eventType"));
+				eventvo.setNeedSeat(rs.getBoolean("needSeat"));
+				eventvo.setSeatX(rs.getInt("seatX"));
+				eventvo.setSeatY(rs.getInt("seatY"));
+				list.add(eventvo); // Store the row in the list
+			}
+			System.out.println("event dao used select all");
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	
 	}
 
 	@Override

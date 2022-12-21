@@ -90,4 +90,16 @@ public class EventService {
 		
 		return re;
 	}
+	
+	public List<EventVO> selectAllEvent() {
+		List<EventVO> list1 = null;
+		list1 = dao.selectAll();
+		return list1;
+	}
+	public static void main(String args[]) {
+		EventService es = new EventService();
+		es.selectAllEvent();
+		
+	}
+	
 }

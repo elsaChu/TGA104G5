@@ -24,7 +24,9 @@ public class MemberService {
 		memberVO.setName(name);
 		memberVO.setPhoneNumber(phoneNumber);
 	
+		System.out.println("member Insert before");
 		dao.insert(memberVO);
+		System.out.println("member Insert after");
 		
 		return memberVO;
 	}

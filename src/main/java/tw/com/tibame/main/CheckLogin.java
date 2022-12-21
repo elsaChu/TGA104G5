@@ -40,7 +40,6 @@ public class CheckLogin extends HttpServlet {
 		}else {
 			System.out.println("loginDone is null");
 			resBody.addProperty("successful", false);
-
 		}
 		res.getWriter().write(resBody.toString());
 	}
