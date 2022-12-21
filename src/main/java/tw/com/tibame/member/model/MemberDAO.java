@@ -26,11 +26,11 @@ public class MemberDAO implements MemberDAOinterface {
 	private static final String GET_ACCOUNT_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber FROM member where upper(account) like upper(?)";
 	private static final String GET_PASSWORD_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber FROM member where upper(password) like upper(?)";
 //	private static final String UPDATE = "UPDATE member set account=?,password=?,email=?,birthday=?,name=?,phoneNumber=?,subscription=?,IDNumber=? where number = ?";
-	private static final String UPDATE = "UPDATE member set account=?,password=?,birthday=?,name=?,phoneNumber=?,subscription=?,IDNumber=? where email = ?";
-	private static final String GET_ONE_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,IDNumber FROM MEMBER where number = ?";
+	private static final String UPDATE = "UPDATE member set email=?,birthday=?,name=?,phoneNumber=?,subscription=?,idNumber=? where number = ?";
+	private static final String GET_ONE_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,idNumber FROM MEMBER where number = ?";
 	private static final String UPDATE_PASSWORD = "UPDATE member set password=? where email = ?";;
 	@Override
-	public void insert(MemberVO MemberVO) {
+	public void insert(MemberVO memberVO) {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -41,12 +41,12 @@ public class MemberDAO implements MemberDAOinterface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
-			pstmt.setString(1, MemberVO.getAccount());
-			pstmt.setString(2, MemberVO.getPassword());
-			pstmt.setString(3, MemberVO.getEmail());
-			pstmt.setDate(4, MemberVO.getBirthday());
-			pstmt.setString(5, MemberVO.getName());
-			pstmt.setString(6, MemberVO.getPhoneNumber());
+			pstmt.setString(1, memberVO.getAccount());
+			pstmt.setString(2, memberVO.getPassword());
+			pstmt.setString(3, memberVO.getEmail());
+			pstmt.setDate(4, memberVO.getBirthday());
+			pstmt.setString(5, memberVO.getName());
+			pstmt.setString(6, memberVO.getPhoneNumber());
 			pstmt.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -73,7 +73,7 @@ public class MemberDAO implements MemberDAOinterface {
 
 	}
 	@Override
-	public void update(MemberVO MemberVO) {
+	public void update(MemberVO memberVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -82,22 +82,13 @@ public class MemberDAO implements MemberDAOinterface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			
-			pstmt.setString(1, MemberVO.getAccount());
-			pstmt.setString(2, MemberVO.getPassword());
-//			pstmt.setString(3, MemberVO.getEmail());
-//			pstmt.setDate(4, MemberVO.getBirthday());
-//			pstmt.setString(5, MemberVO.getName());
-//			pstmt.setString(6, MemberVO.getPhoneNumber());
-//			pstmt.setBoolean(7, MemberVO.getSubscription());
-//			pstmt.setString(8, MemberVO.getIDNumber());
-			
-			pstmt.setDate(3, MemberVO.getBirthday());
-			pstmt.setString(4, MemberVO.getName());
-			pstmt.setString(5, MemberVO.getPhoneNumber());
-			pstmt.setBoolean(6, MemberVO.getSubscription());
-			pstmt.setString(7, MemberVO.getIDNumber());
-			pstmt.setString(8, MemberVO.getEmail());
+			pstmt.setString(1, memberVO.getEmail());					
+			pstmt.setDate(2, memberVO.getBirthday());
+			pstmt.setString(3, memberVO.getName());
+			pstmt.setString(4, memberVO.getPhoneNumber());
+			pstmt.setBoolean(5, memberVO.getSubscription());
+			pstmt.setString(6, memberVO.getIdNumber());
+			pstmt.setInt(7, memberVO.getNumber());
 
 			pstmt.executeUpdate();
 			System.out.println("我到這裡了");
@@ -126,7 +117,7 @@ public class MemberDAO implements MemberDAOinterface {
 		}
 		
 	}
-	public void updatePassword(MemberVO MemberVO) {
+	public void updatePassword(MemberVO memberVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -135,8 +126,8 @@ public class MemberDAO implements MemberDAOinterface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE_PASSWORD);
 						
-			pstmt.setString(1, MemberVO.getPassword());
-			pstmt.setString(2, MemberVO.getEmail());
+			pstmt.setString(1, memberVO.getPassword());
+			pstmt.setString(2, memberVO.getEmail());
 
 
 			pstmt.executeUpdate();
@@ -200,7 +191,8 @@ public class MemberDAO implements MemberDAOinterface {
 				memberVO.setBirthday(rs.getDate("birthday"));
 				memberVO.setName(rs.getString("name"));
 				memberVO.setPhoneNumber(rs.getString("phoneNumber"));
-				memberVO.setIDNumber(rs.getString("IDNumber"));
+				memberVO.setIdNumber(rs.getString("idNumber"));
+				memberVO.setSubscription(rs.getBoolean("subscription"));
 			}
 
 			// Handle any driver errors
@@ -379,7 +371,7 @@ public class MemberDAO implements MemberDAOinterface {
 	         con = DriverManager.getConnection(url, userid, passwd);
 
 			pstmt = con.prepareStatement(GET_ACCOUNT_STMT);
-			System.out.println("Connecting to database successfully findByHotelEmail! ");
+			System.out.println("Connecting to database successfully findByEmail! ");
 
 			pstmt.setString(1, account);
 			
@@ -594,7 +586,7 @@ public class MemberDAO implements MemberDAOinterface {
 		  updateTest.setName("蔡安罧");
 		  updateTest.setPhoneNumber("0975798318");
 		  updateTest.setSubscription(true);
-		  updateTest.setIDNumber("F229052175");
+		  updateTest.setIdNumber("F229052175");
 		  updateTest.setNumber(1);
 		dao.update(updateTest);
 		System.out.println("修改成功");

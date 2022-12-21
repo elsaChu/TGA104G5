@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="tw.com.tibame.member.model.*"%>
+<% MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");%>
 <%
 MemberService memberSvc = new MemberService();
 List<MemberVO> list = memberSvc.getAll();
@@ -133,6 +134,26 @@ pageContext.setAttribute("list", list);
     <br/> 
     <h3 style="font-weight: 600;">會員列表</h3>
     <br/> 
+	<%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
+    <div >
+	<form action="MemberServlet" method="POST" >
+    <input  
+    style="font-size: 14px;width: 10%;  
+    border-radius: 6px;margin: 50px 0px -100px 500px;" 
+    placeholder="搜尋會員編號" name="number"/>
+    <input type="hidden" name="action" value="search">
+    <input style="font-size: 14px;width: 10%;  background: #000000;padding: 5px 5px;  border-radius: 6px; margin: 50px 0px -100px 0px;" outline: none;
+  border: none; type="submit" value="搜尋" />
+     </form>
+    </div>
     <div>
     
       <table class="box">
