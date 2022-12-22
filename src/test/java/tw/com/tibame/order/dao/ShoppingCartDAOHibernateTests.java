@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import tw.com.tibame.order.vo.ShowShoppingCartVO;
+import tw.com.tibame.order.vo.ShoppingCartVO;
 
 @SpringBootTest
 public class ShoppingCartDAOHibernateTests {
@@ -23,7 +23,7 @@ public class ShoppingCartDAOHibernateTests {
 	
 	@Test
 	public void testInsert() {
-		ShowShoppingCartVO vo = new ShowShoppingCartVO();
+		ShoppingCartVO vo = new ShoppingCartVO();
 		vo.setNumber(1);
 		vo.setProdNo(10);
 		vo.setShoppingQty(2);
@@ -32,7 +32,7 @@ public class ShoppingCartDAOHibernateTests {
 	
 	@Test
 	public void testUpdate() {
-		ShowShoppingCartVO vo = new ShowShoppingCartVO();
+		ShoppingCartVO vo = new ShoppingCartVO();
 		vo.setShoppingCartNo(7);
 		vo.setNumber(1);
 		vo.setProdNo(10);

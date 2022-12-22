@@ -25,7 +25,7 @@ public class ShoppingCartServiceTests {
 	
 	@Test
 	public void testInsert() {
-		ShowShoppingCartVO shoppingCartVO = new ShowShoppingCartVO();
+		ShoppingCartVO shoppingCartVO = new ShoppingCartVO();
 		shoppingCartVO.setNumber(3);
 		shoppingCartVO.setProdNo(14);
 		shoppingCartVO.setShoppingQty(5);
@@ -34,7 +34,7 @@ public class ShoppingCartServiceTests {
 	
 	@Test
 	public void testUpdate() {
-		ShowShoppingCartVO shoppingCartVO = new ShowShoppingCartVO();
+		ShoppingCartVO shoppingCartVO = new ShoppingCartVO();
 		shoppingCartVO.setShoppingCartNo(9);
 		shoppingCartVO.setNumber(4);
 		shoppingCartVO.setProdNo(14);

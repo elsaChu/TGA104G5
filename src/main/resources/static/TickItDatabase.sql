@@ -10,6 +10,8 @@ use TICK_IT;
 #26 [新建] View商品訂單 (V_PROD_ORDER)
 #27 [新建] View商品評論星星 (V_PROD_RANKING)
 #28 [更新] View商品 (V_PRODUCT)
+#29 [新建] View購物車 (V_SHOPPING_CART)
+
 #--------------- create table ----------------
 #1 隱私權政策
 create table PRIVACY(
@@ -453,6 +455,14 @@ on p.eventNumber = e.eventNumber
 left join V_PROD_RANKING vp
 on p.prodNo = vp.prodNo
 order by prodNo;
+
+#29 View購物車
+create view V_SHOPPING_CART as
+select sc.*, p.prodName, p.prodSpec, p.unitPrice
+from SHOPPING_CART sc
+join PRODUCT p
+on sc.prodNo = p.prodNo
+
 
 
 -- drop database TICK_IT;

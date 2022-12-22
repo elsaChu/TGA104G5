@@ -16,7 +16,7 @@ import tw.com.tibame.order.vo.ShowShoppingCartVO;
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Autowired
 	private ShoppingCartDAO shoppingCartDAO;
-	
+
 	public ShoppingCartServiceImpl(ShoppingCartDAO shoppingCartDAO) {
 		super();
 		this.shoppingCartDAO = shoppingCartDAO;
@@ -24,73 +24,68 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	@Override
 	public List<ShowShoppingCartVO> getAll() {
-		return	shoppingCartDAO.getAll();	
+		return shoppingCartDAO.getAll();
 	}
-	
+
 	@Override
 	public ShowShoppingCartVO getByPrimaryKey(Integer shoppingCartNo) {
-		if(shoppingCartNo != null) {
-			return shoppingCartDAO.getByPrimaryKey(shoppingCartNo);
+		if (shoppingCartNo != null) {
+			return shoppingCartDAO.getByShoppingCartNo(shoppingCartNo);
 		}
 		return null;
 	}
-	
+
 	@Override
 	public List<ShowShoppingCartVO> getByMemberNumber(Integer number) {
-		if(number != null) {
+		if (number != null) {
 			return shoppingCartDAO.getByMemberNumber(number);
 		}
 		return null;
 	}
-	
+
 	@Override
-	public ShowShoppingCartVO insert(ShowShoppingCartVO shoppingCartVO) {
-		if(shoppingCartVO != null 
-				&& shoppingCartVO.getNumber() != null
-				&& shoppingCartVO.getProdNo() != null
+	public ShoppingCartVO insert(ShoppingCartVO shoppingCartVO) {
+		if (shoppingCartVO != null && shoppingCartVO.getNumber() != null && shoppingCartVO.getProdNo() != null
 				&& shoppingCartVO.getShoppingQty() != null) {
 			return shoppingCartDAO.insert(shoppingCartVO);
 		}
 		return null;
 	}
-	
+
 	@Override
-	public ShowShoppingCartVO update(ShowShoppingCartVO shoppingCartVO) {
-		if(shoppingCartVO != null 
-				&& shoppingCartVO.getShoppingCartNo() != null
+	public ShoppingCartVO update(ShoppingCartVO shoppingCartVO) {
+		if (shoppingCartVO != null && shoppingCartVO.getShoppingCartNo() != null
 				&& shoppingCartVO.getShoppingQty() != null) {
-			ShowShoppingCartVO temp = shoppingCartDAO.getByPrimaryKey(shoppingCartVO.getShoppingCartNo());
-			if(temp != null) {
+			ShoppingCartVO temp = shoppingCartDAO.getByPrimaryKey(shoppingCartVO.getShoppingCartNo());
+			if (temp != null) {
 				return shoppingCartDAO.update(shoppingCartVO);
 			}
 		}
 		return null;
 	}
-	
+
 	@Override
-	public ShowShoppingCartVO updateQty(Integer shoppingCartNo, Integer shoppingQty) {
-		if(shoppingCartNo != null && shoppingQty != null) {
-			ShowShoppingCartVO temp = shoppingCartDAO.getByPrimaryKey(shoppingCartNo);
-			if(temp != null) {
+	public ShoppingCartVO updateQty(Integer shoppingCartNo, Integer shoppingQty) {
+		if (shoppingCartNo != null && shoppingQty != null) {
+			ShoppingCartVO temp = shoppingCartDAO.getByPrimaryKey(shoppingCartNo);
+			if (temp != null) {
 				temp.setShoppingQty(shoppingQty);
-				
+
 				return shoppingCartDAO.update(temp);
 			}
 		}
 		return null;
 	}
-	
-	
+
 	@Override
 	public boolean delete(Integer shoppingCartNo) {
-		if(shoppingCartNo != null) {
-			ShowShoppingCartVO temp = shoppingCartDAO.getByPrimaryKey(shoppingCartNo);
-			if(temp != null) {
+		if (shoppingCartNo != null) {
+			ShoppingCartVO temp = shoppingCartDAO.getByPrimaryKey(shoppingCartNo);
+			if (temp != null) {
 				return shoppingCartDAO.delete(shoppingCartNo);
 			}
 		}
 		return false;
 	}
 
-	
 }

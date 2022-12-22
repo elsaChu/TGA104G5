@@ -23,38 +23,37 @@ import tw.com.tibame.order.vo.ShowShoppingCartVO;
  * 
  */
 
-
 @RestController
 @RequestMapping("shoppingCart")
 public class ShoppingCartController {
 	@Autowired
 	private ShoppingCartService shoppingCartService;
-	
+
 	@GetMapping("selectAll")
 	public List<ShowShoppingCartVO> selectAll() {
 		return shoppingCartService.getAll();
 	}
-	
+
 //	@GetMapping("memberCart") // 這是對的唷
 //	public List<ShowShoppingCartVO> getByMemberNumber(HttpSession session) {
 //		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 //		Integer number = memberVO.getNumber();
 //		return shoppingCartService.getByMemberNumber(number);
 //	}
-	
+
 	@GetMapping("memberCart")
 	public List<ShowShoppingCartVO> getByMemberNumber(Integer number) {
 		return shoppingCartService.getByMemberNumber(4);
 	}
-	
+
 	@PostMapping("addToCart")
-	public ShowShoppingCartVO addToCart(@RequestBody Integer number, Integer prodNo, Integer shoppingQty) {
-		ShowShoppingCartVO shoppingCartVO = new ShowShoppingCartVO();
+	public ShoppingCartVO addToCart(@RequestBody Integer number, Integer prodNo, Integer shoppingQty) {
+		ShoppingCartVO shoppingCartVO = new ShoppingCartVO();
 //		Integer number =  (Integer) request.getSession().getAttribute("number");
 //		Integer number = 5;  // 這些是先寫死的唷!
 //		Integer prodNo = 9;
 //		Integer shoppingQty = 4;
-		
+
 //		shoppingCartVO.setNumber(3);
 //		shoppingCartVO.setProdNo(14);
 //		shoppingCartVO.setShoppingQty(5);
@@ -64,24 +63,24 @@ public class ShoppingCartController {
 //		}
 //		return null;
 	}
-	
+
 	@PutMapping("updateCart")
-	public ShowShoppingCartVO updateQty() {
+	public ShoppingCartVO updateQty() {
 //		Integer shoppingCartNo =  (Integer) request.getSession().getAttribute("shoppingCartNo");
-		Integer shoppingCartNo = 2;		// 購物車編號是先寫死的唷!!
-		Integer shoppingQty = 100;		// 這些是先寫死的唷要從表單得到資料唷!
-    	
-		ShowShoppingCartVO shoppingCartVO = shoppingCartService.updateQty(shoppingCartNo, shoppingQty);
+		Integer shoppingCartNo = 2; // 購物車編號是先寫死的唷!!
+		Integer shoppingQty = 100; // 這些是先寫死的唷要從表單得到資料唷!
+
+		ShoppingCartVO shoppingCartVO = shoppingCartService.updateQty(shoppingCartNo, shoppingQty);
 		return shoppingCartVO;
 	}
-	
+
 	@GetMapping("removeFromCart")
 	public boolean removeFromCart(Integer shoppingCartNo) {
-		if(shoppingCartNo != null) {
+		if (shoppingCartNo != null) {
 			shoppingCartService.delete(shoppingCartNo);
 			return true;
 		}
 		return false;
 	}
-	
+
 }

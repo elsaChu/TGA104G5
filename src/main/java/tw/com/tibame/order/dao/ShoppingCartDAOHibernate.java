@@ -9,15 +9,16 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import tw.com.tibame.order.vo.ShoppingCartVO;
 import tw.com.tibame.order.vo.ShowShoppingCartVO;
 
 @Repository
 @Transactional
 public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
-	
+
 	@PersistenceContext
 	private Session session;
-	
+
 	public Session getSession() {
 		return this.session;
 	}
@@ -28,16 +29,24 @@ public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
 	}
 
 	@Override
-	public ShowShoppingCartVO getByPrimaryKey(Integer shoppingCartNo) {
-		if(shoppingCartNo != null) {
+	public ShowShoppingCartVO getByShoppingCartNo(Integer shoppingCartNo) {
+		if (shoppingCartNo != null) {
 			return this.getSession().get(ShowShoppingCartVO.class, shoppingCartNo);
 		}
 		return null;
 	}
 
 	@Override
-	public ShowShoppingCartVO insert(ShowShoppingCartVO shoppingCartVO) {
-		if(shoppingCartVO != null) {
+	public ShoppingCartVO getByPrimaryKey(Integer shoppingCartNo) {
+		if (shoppingCartNo != null) {
+			return this.getSession().get(ShoppingCartVO.class, shoppingCartNo);
+		}
+		return null;
+	}
+
+	@Override
+	public ShoppingCartVO insert(ShoppingCartVO shoppingCartVO) {
+		if (shoppingCartVO != null) {
 			this.getSession().persist(shoppingCartVO);
 			return shoppingCartVO;
 		}
@@ -45,10 +54,10 @@ public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
 	}
 
 	@Override
-	public ShowShoppingCartVO update(ShowShoppingCartVO shoppingCartVO) {
-		if(shoppingCartVO != null && shoppingCartVO != null) {
-			ShowShoppingCartVO temp = this.getSession().get(ShowShoppingCartVO.class, shoppingCartVO.getShoppingCartNo());
-			if(temp != null) {
+	public ShoppingCartVO update(ShoppingCartVO shoppingCartVO) {
+		if (shoppingCartVO != null && shoppingCartVO != null) {
+			ShoppingCartVO temp = this.getSession().get(ShoppingCartVO.class, shoppingCartVO.getShoppingCartNo());
+			if (temp != null) {
 				this.getSession().merge(shoppingCartVO);
 				return shoppingCartVO;
 			}
@@ -58,9 +67,9 @@ public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
 
 	@Override
 	public boolean delete(Integer shoppingCartNo) {
-		if(shoppingCartNo != null) {
-			ShowShoppingCartVO temp = this.getSession().get(ShowShoppingCartVO.class, shoppingCartNo);
-			if(temp != null) {
+		if (shoppingCartNo != null) {
+			ShoppingCartVO temp = this.getSession().get(ShoppingCartVO.class, shoppingCartNo);
+			if (temp != null) {
 				this.getSession().delete(temp);
 				return true;
 			}
@@ -68,14 +77,14 @@ public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
 		return false;
 	}
 
-	@Override 
+	@Override
 	public List<ShowShoppingCartVO> getByMemberNumber(Integer number) {
-		if(number != null) {
-			Query<ShowShoppingCartVO> query = getSession().createQuery("from ShowShoppingCartVO where number =: number", ShowShoppingCartVO.class); 
+		if (number != null) {
+			Query<ShowShoppingCartVO> query = getSession().createQuery("from ShowShoppingCartVO where number = :number",
+					ShowShoppingCartVO.class);
 			return query.setParameter("number", number).list();
 		}
 		return null;
 	}
-
 
 }

@@ -2,6 +2,7 @@ package tw.com.tibame.order.service;
 
 import java.util.List;
 
+import tw.com.tibame.order.vo.ShoppingCartVO;
 import tw.com.tibame.order.vo.ShowShoppingCartVO;
 
 public interface ShoppingCartService {
@@ -12,11 +13,11 @@ public interface ShoppingCartService {
 	
 	List<ShowShoppingCartVO> getByMemberNumber(Integer number);
 
-	ShowShoppingCartVO insert(ShowShoppingCartVO shoppingCartVO);
+	ShoppingCartVO insert(ShoppingCartVO shoppingCartVO);
 
-	ShowShoppingCartVO update(ShowShoppingCartVO shoppingCartVO);
+	ShoppingCartVO update(ShoppingCartVO shoppingCartVO);
 	
-	ShowShoppingCartVO updateQty(Integer shoppingCartNo, Integer shoppingQty);
+	ShoppingCartVO updateQty(Integer shoppingCartNo, Integer shoppingQty);
 
 	boolean delete(Integer shoppingCartNo);
 

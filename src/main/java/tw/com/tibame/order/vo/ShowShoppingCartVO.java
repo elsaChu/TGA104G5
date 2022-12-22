@@ -14,27 +14,31 @@ public class ShowShoppingCartVO implements java.io.Serializable {
 
 	@Id
 	@Column(name = "shoppingCartNo")
-	private Integer shoppingCartNo;	
-	
+	private Integer shoppingCartNo;
+
 	@Column(name = "number")
 	private Integer number;
-	
+
 	@Column(name = "prodNo")
 	private Integer prodNo;
-	
+
 	@Column(name = "shoppingQty")
 	private Integer shoppingQty;
-	
+
 	@Column(name = "prodName")
 	private String prodName;
-	
+
 	@Column(name = "prodSpec")
 	private String prodSpec;
+
+	@Column(name = "unitPrice")
+	private Integer unitPrice;
 
 	@Override
 	public String toString() {
 		return "ShowShoppingCartVO [shoppingCartNo=" + shoppingCartNo + ", number=" + number + ", prodNo=" + prodNo
-				+ ", shoppingQty=" + shoppingQty + ", prodName=" + prodName + ", prodSpec=" + prodSpec + "]";
+				+ ", shoppingQty=" + shoppingQty + ", prodName=" + prodName + ", prodSpec=" + prodSpec + ", unitPrice="
+				+ unitPrice + "]";
 	}
 
 	public Integer getShoppingCartNo() {
@@ -85,7 +89,12 @@ public class ShowShoppingCartVO implements java.io.Serializable {
 		this.prodSpec = prodSpec;
 	}
 
-	
+	public Integer getUnitPrice() {
+		return unitPrice;
+	}
 
-	
+	public void setUnitPrice(Integer unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+
 }
