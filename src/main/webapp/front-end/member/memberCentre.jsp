@@ -210,8 +210,8 @@
             >此手機號碼將作為購票緊急聯絡的用途，部分活動可能需要手機認證才能報名購票，請務必輸入正確的手機號碼。</label
           ><br /><br /><br /><br />
           <hr style="width: 0%" />
-<%--           	<input type="text" name="IDNumber" value="<%=(memberVO == null) ? "" : memberVO.getIdNumber()%>"/> --%>
-<%--           	<span class="error" style="color: red">${errors.IDNumber}</span><br /><br /> --%>
+          	<input type="text" name="IDNumber" value="<%=(memberVO == null) ? "" : memberVO.getIDNumber()%>"/>
+          	<span class="error" style="color: red">${errors.IDNumber}</span><br /><br />
         </div>
         <div class="checkbox">
           <input type="checkbox" name="subscription" id="subscription"  value="<%=(memberVO == null) ? "" : memberVO.getSubscription()%>"
@@ -221,7 +221,7 @@
         </div>
         <div class="submit">
         	<input type="hidden" name="action" value="update">
-          <input type="submit" value="儲存個人資料" /><br /><br />
+          <input type="submit" id="goo" value="儲存個人資料" /><br /><br />
           </form>
         </div>
         </div>
@@ -234,7 +234,7 @@
         	} else {
         		subscription.value = "false";
         	}
-        })
+        });
 
         </script>
 
