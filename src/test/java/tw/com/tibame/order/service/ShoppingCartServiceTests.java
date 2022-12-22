@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import tw.com.tibame.order.service.impl.ShoppingCartServiceImpl;
 import tw.com.tibame.order.vo.ShoppingCartVO;
+import tw.com.tibame.order.vo.ShowShoppingCartVO;
 
 @SpringBootTest
 public class ShoppingCartServiceTests {
@@ -24,7 +25,7 @@ public class ShoppingCartServiceTests {
 	
 	@Test
 	public void testInsert() {
-		ShoppingCartVO shoppingCartVO = new ShoppingCartVO();
+		ShowShoppingCartVO shoppingCartVO = new ShowShoppingCartVO();
 		shoppingCartVO.setNumber(3);
 		shoppingCartVO.setProdNo(14);
 		shoppingCartVO.setShoppingQty(5);
@@ -33,7 +34,7 @@ public class ShoppingCartServiceTests {
 	
 	@Test
 	public void testUpdate() {
-		ShoppingCartVO shoppingCartVO = new ShoppingCartVO();
+		ShowShoppingCartVO shoppingCartVO = new ShowShoppingCartVO();
 		shoppingCartVO.setShoppingCartNo(9);
 		shoppingCartVO.setNumber(4);
 		shoppingCartVO.setProdNo(14);

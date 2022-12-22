@@ -9,8 +9,7 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.com.tibame.order.vo.OrderDetailVO;
-import tw.com.tibame.order.vo.ShoppingCartVO;
+import tw.com.tibame.order.vo.ShowShoppingCartVO;
 
 @Repository
 @Transactional
@@ -24,20 +23,20 @@ public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
 	}
 
 	@Override
-	public List<ShoppingCartVO> getAll() {
-		return this.getSession().createQuery("from ShoppingCartVO", ShoppingCartVO.class).list();
+	public List<ShowShoppingCartVO> getAll() {
+		return this.getSession().createQuery("from ShowShoppingCartVO", ShowShoppingCartVO.class).list();
 	}
 
 	@Override
-	public ShoppingCartVO getByPrimaryKey(Integer shoppingCartNo) {
+	public ShowShoppingCartVO getByPrimaryKey(Integer shoppingCartNo) {
 		if(shoppingCartNo != null) {
-			return this.getSession().get(ShoppingCartVO.class, shoppingCartNo);
+			return this.getSession().get(ShowShoppingCartVO.class, shoppingCartNo);
 		}
 		return null;
 	}
 
 	@Override
-	public ShoppingCartVO insert(ShoppingCartVO shoppingCartVO) {
+	public ShowShoppingCartVO insert(ShowShoppingCartVO shoppingCartVO) {
 		if(shoppingCartVO != null) {
 			this.getSession().persist(shoppingCartVO);
 			return shoppingCartVO;
@@ -46,9 +45,9 @@ public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
 	}
 
 	@Override
-	public ShoppingCartVO update(ShoppingCartVO shoppingCartVO) {
-		if(shoppingCartVO != null && shoppingCartVO.getShoppingCartNo() != null) {
-			ShoppingCartVO temp = this.getSession().get(ShoppingCartVO.class, shoppingCartVO.getShoppingCartNo());
+	public ShowShoppingCartVO update(ShowShoppingCartVO shoppingCartVO) {
+		if(shoppingCartVO != null && shoppingCartVO != null) {
+			ShowShoppingCartVO temp = this.getSession().get(ShowShoppingCartVO.class, shoppingCartVO.getShoppingCartNo());
 			if(temp != null) {
 				this.getSession().merge(shoppingCartVO);
 				return shoppingCartVO;
@@ -60,7 +59,7 @@ public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
 	@Override
 	public boolean delete(Integer shoppingCartNo) {
 		if(shoppingCartNo != null) {
-			ShoppingCartVO temp = this.getSession().get(ShoppingCartVO.class, shoppingCartNo);
+			ShowShoppingCartVO temp = this.getSession().get(ShowShoppingCartVO.class, shoppingCartNo);
 			if(temp != null) {
 				this.getSession().delete(temp);
 				return true;
@@ -70,9 +69,9 @@ public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
 	}
 
 	@Override 
-	public List<ShoppingCartVO> getByMemberNumber(Integer number) {
+	public List<ShowShoppingCartVO> getByMemberNumber(Integer number) {
 		if(number != null) {
-			Query<ShoppingCartVO> query = getSession().createQuery("from ShoppingCartVO where number =: number", ShoppingCartVO.class); 
+			Query<ShowShoppingCartVO> query = getSession().createQuery("from ShowShoppingCartVO where number =: number", ShowShoppingCartVO.class); 
 			return query.setParameter("number", number).list();
 		}
 		return null;

@@ -318,7 +318,7 @@ create table PRODUCT(
     prodStock		int not null comment '庫存數量',
     prodDetails		text comment '商品詳情',
     prodScore		float not null default 0 comment '商品總評價', 
-	isPOn			bit(1) not null default 0 comment '商品是否上架',
+	isPOn			bit(1) not null default 1 comment '商品是否上架',
     
     constraint FK_PRODUCT_eventNumber foreign key (eventNumber) references `EVENT` (eventNumber),
     constraint FK_PRODUCT_organizerNumber foreign key (organizerNumber) references ORGANIZER (organizerNumber)
@@ -349,7 +349,14 @@ create table PRODUCT_IMG(
     
     constraint FK_PRODUCT_IMG_prodNo foreign key (prodNo) references PRODUCT (prodNo)
 ) comment '商品圖片';
-# insert into 
+insert into PRODUCT_IMG(prodNo)
+values	(1),(1),(1),
+		(2),
+        (3),(3),(3),(3),
+        (4),(4),(4),
+		(5),
+        (6),(6),(6),(6)
+        ;
 
 
 #22 商品訂單

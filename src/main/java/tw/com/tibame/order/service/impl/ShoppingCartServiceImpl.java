@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tw.com.tibame.order.dao.ShoppingCartDAO;
 import tw.com.tibame.order.service.ShoppingCartService;
 import tw.com.tibame.order.vo.ShoppingCartVO;
+import tw.com.tibame.order.vo.ShowShoppingCartVO;
 
 @Service
 @Transactional
@@ -22,12 +23,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	}
 
 	@Override
-	public List<ShoppingCartVO> getAll() {
+	public List<ShowShoppingCartVO> getAll() {
 		return	shoppingCartDAO.getAll();	
 	}
 	
 	@Override
-	public ShoppingCartVO getByPrimaryKey(Integer shoppingCartNo) {
+	public ShowShoppingCartVO getByPrimaryKey(Integer shoppingCartNo) {
 		if(shoppingCartNo != null) {
 			return shoppingCartDAO.getByPrimaryKey(shoppingCartNo);
 		}
@@ -35,7 +36,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	}
 	
 	@Override
-	public List<ShoppingCartVO> getByMemberNumber(Integer number) {
+	public List<ShowShoppingCartVO> getByMemberNumber(Integer number) {
 		if(number != null) {
 			return shoppingCartDAO.getByMemberNumber(number);
 		}
@@ -43,23 +44,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	}
 	
 	@Override
-	public ShoppingCartVO insert(ShoppingCartVO shoppingCartVO) {
+	public ShowShoppingCartVO insert(ShowShoppingCartVO shoppingCartVO) {
 		if(shoppingCartVO != null 
 				&& shoppingCartVO.getNumber() != null
 				&& shoppingCartVO.getProdNo() != null
 				&& shoppingCartVO.getShoppingQty() != null) {
-			ShoppingCartVO temp = shoppingCartDAO.insert(shoppingCartVO);
-			return shoppingCartVO;
+			return shoppingCartDAO.insert(shoppingCartVO);
 		}
 		return null;
 	}
 	
 	@Override
-	public ShoppingCartVO update(ShoppingCartVO shoppingCartVO) {
+	public ShowShoppingCartVO update(ShowShoppingCartVO shoppingCartVO) {
 		if(shoppingCartVO != null 
 				&& shoppingCartVO.getShoppingCartNo() != null
 				&& shoppingCartVO.getShoppingQty() != null) {
-			ShoppingCartVO temp = shoppingCartDAO.getByPrimaryKey(shoppingCartVO.getShoppingCartNo());
+			ShowShoppingCartVO temp = shoppingCartDAO.getByPrimaryKey(shoppingCartVO.getShoppingCartNo());
 			if(temp != null) {
 				return shoppingCartDAO.update(shoppingCartVO);
 			}
@@ -68,9 +68,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	}
 	
 	@Override
-	public ShoppingCartVO updateQty(Integer shoppingCartNo, Integer shoppingQty) {
+	public ShowShoppingCartVO updateQty(Integer shoppingCartNo, Integer shoppingQty) {
 		if(shoppingCartNo != null && shoppingQty != null) {
-			ShoppingCartVO temp = shoppingCartDAO.getByPrimaryKey(shoppingCartNo);
+			ShowShoppingCartVO temp = shoppingCartDAO.getByPrimaryKey(shoppingCartNo);
 			if(temp != null) {
 				temp.setShoppingQty(shoppingQty);
 				
@@ -84,7 +84,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Override
 	public boolean delete(Integer shoppingCartNo) {
 		if(shoppingCartNo != null) {
-			ShoppingCartVO temp = shoppingCartDAO.getByPrimaryKey(shoppingCartNo);
+			ShowShoppingCartVO temp = shoppingCartDAO.getByPrimaryKey(shoppingCartNo);
 			if(temp != null) {
 				return shoppingCartDAO.delete(shoppingCartNo);
 			}

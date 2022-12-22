@@ -2,6 +2,8 @@ package tw.com.tibame.order.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import tw.com.tibame.member.model.MemberVO;
 import tw.com.tibame.order.service.ShoppingCartService;
 import tw.com.tibame.order.vo.ShoppingCartVO;
+import tw.com.tibame.order.vo.ShowShoppingCartVO;
 
 /*
  * 結帳之後要刪除購物車內容
@@ -27,18 +31,25 @@ public class ShoppingCartController {
 	private ShoppingCartService shoppingCartService;
 	
 	@GetMapping("selectAll")
-	public List<ShoppingCartVO> selectAll() {
+	public List<ShowShoppingCartVO> selectAll() {
 		return shoppingCartService.getAll();
 	}
 	
+//	@GetMapping("memberCart") // 這是對的唷
+//	public List<ShowShoppingCartVO> getByMemberNumber(HttpSession session) {
+//		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+//		Integer number = memberVO.getNumber();
+//		return shoppingCartService.getByMemberNumber(number);
+//	}
+	
 	@GetMapping("memberCart")
-	public List<ShoppingCartVO> getByMemberNumber(@RequestParam Integer number) {
-		return shoppingCartService.getByMemberNumber(number);
+	public List<ShowShoppingCartVO> getByMemberNumber(Integer number) {
+		return shoppingCartService.getByMemberNumber(4);
 	}
 	
 	@PostMapping("addToCart")
-	public ShoppingCartVO addToCart(@RequestBody Integer number, Integer prodNo, Integer shoppingQty) {
-		ShoppingCartVO shoppingCartVO = new ShoppingCartVO();
+	public ShowShoppingCartVO addToCart(@RequestBody Integer number, Integer prodNo, Integer shoppingQty) {
+		ShowShoppingCartVO shoppingCartVO = new ShowShoppingCartVO();
 //		Integer number =  (Integer) request.getSession().getAttribute("number");
 //		Integer number = 5;  // 這些是先寫死的唷!
 //		Integer prodNo = 9;
@@ -55,12 +66,12 @@ public class ShoppingCartController {
 	}
 	
 	@PutMapping("updateCart")
-	public ShoppingCartVO updateQty() {
+	public ShowShoppingCartVO updateQty() {
 //		Integer shoppingCartNo =  (Integer) request.getSession().getAttribute("shoppingCartNo");
 		Integer shoppingCartNo = 2;		// 購物車編號是先寫死的唷!!
 		Integer shoppingQty = 100;		// 這些是先寫死的唷要從表單得到資料唷!
     	
-		ShoppingCartVO shoppingCartVO = shoppingCartService.updateQty(shoppingCartNo, shoppingQty);
+		ShowShoppingCartVO shoppingCartVO = shoppingCartService.updateQty(shoppingCartNo, shoppingQty);
 		return shoppingCartVO;
 	}
 	
