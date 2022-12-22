@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import tw.com.tibame.staff.model.StaffService;
 import tw.com.tibame.staff.model.StaffVO;
 
-@WebServlet("/back-staff-end/staff/StaffServlet")
+@WebServlet("/StaffServlet")
 public class StaffServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -417,7 +417,7 @@ public class StaffServlet extends HttpServlet {
 			    session.invalidate(); // 清除用戶端與伺服器之間的會話資料
 			    
 			 // 新增完成，準備轉交
-				String url = "loginStaff.jsp";
+				String url = "/back-staff-end/staff/loginStaff.jsp";
 				RequestDispatcher successView = request.getRequestDispatcher(url);
 				successView.forward(request, response);
 
@@ -430,29 +430,7 @@ public class StaffServlet extends HttpServlet {
 			   
 			  }
 		
-		// ===================================================確認狀態=========================================================//	
-		if ("checkLogin".equals(action)) {
-			   try {
-			    StaffVO staffVO = (StaffVO) session.getAttribute("staffVO");
-			    
-			    HashMap<String, String> userInfoMap = new HashMap<String, String>();
-			    userInfoMap.put("check", "2");
-			    
-			    if(staffVO != null) {
-			     userInfoMap.put("check", "1");
-			     userInfoMap.put("url", "MemberCenter.jsp");
-			    } 
-			    
-			    JSONObject obj = new JSONObject(userInfoMap);
-			    out.println(obj);
-			    System.out.println(obj);
-			    
-			   }catch(Exception e) {
-			    e.printStackTrace();
-			    RequestDispatcher failureView = request.getRequestDispatcher("index.html");
-			    failureView.forward(request, response);
-			   }
-			  }
+
 	}
 
 }
