@@ -122,7 +122,7 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
-          <form action="StaffServlet" method="POST" >
+          <form action="${context}/StaffServlet" method="POST" >
             <li id="Signout" ><iconify-icon style="color:#FFF;" class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20"></iconify-icon>
             <input  style="font-size:16px;width: 40px;
             margin: 10px 50px 0px -10px;
