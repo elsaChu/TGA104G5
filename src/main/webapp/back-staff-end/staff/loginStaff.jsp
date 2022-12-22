@@ -7,13 +7,14 @@ page import="tw.com.tibame.staff.model.*"
 <%
 StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
 %>
+<c:set var="context" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
   <head>
     <title>TICK IT</title>
     <!-- Custom Theme files -->
     <link
-      href="css/style_staff.css"
+      href="${context}/back-staff-end/staff/css/style_staff.css"
       rel="stylesheet"
       type="text/css"
       media="all"
@@ -58,7 +59,7 @@ StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
 			</c:forEach>
 		</ul>
 	</c:if>
-        <form  method="post" ACTION="StaffServlet" >
+        <form  method="post" ACTION="${context}/StaffServlet">
           <input type="text" name="staffAccount" placeholder="Staff Id" autocomplete="off"/>
           <input type="password" name="staffPassword" placeholder="Staff Password" autocomplete="off"/>
         

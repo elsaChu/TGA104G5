@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+ <%@page import="tw.com.tibame.staff.model.*"%>
 <%@ page import="tw.com.tibame.member.model.*"%>
+<% StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");%>
 <% MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");%>
 <!DOCTYPE html>
 <html>
@@ -10,7 +12,7 @@
     <meta charset="utf-8" />
 	<title>TICK IT 員工後台</title>
 
-    <link href="css/staffBootstrap.css" rel="stylesheet" />
+    <link href="${context}css/staffBootstrap.css" rel="stylesheet" />
 
   </head>
 

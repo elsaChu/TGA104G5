@@ -18,7 +18,7 @@ pageContext.setAttribute("list", list);
     <meta charset="utf-8" />
 	<title>TICK IT 員工後台</title>
 
- <link href="css/staffBootstrap.css" rel="stylesheet" />
+ <link href="${context}css/staffBootstrap.css" rel="stylesheet" />
     
   </head>
  
