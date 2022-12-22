@@ -275,20 +275,24 @@
 				<!--左邊商品圖-->
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
-                        <div class="product__details__pic__item">
-                            <img class="product__details__pic__item--large"
-                                src="img/product/details/product-details-1.jpg" alt="">
+                        // 主要圖片
+                        <div class="product__details__pic__item" id="mainPic">
+                            <!-- <img class="product__details__pic__item--large"
+                                src="img/product/details/product-details-1.jpg" alt=""> -->
                         </div>
-                        <div class="product__details__pic__slider owl-carousel">
-                            <img data-imgbigurl="img/product/details/product-details-2.jpg"
+
+                        // 小圖區域
+                        <div class="product__details__pic__slider owl-carousel" id="picture">
+                            <!-- <img data-imgbigurl="img/product/details/product-details-2.jpg"
                                 src="img/product/details/thumb-1.jpg" alt="">
                             <img data-imgbigurl="img/product/details/product-details-3.jpg"
                                 src="img/product/details/thumb-2.jpg" alt="">
                             <img data-imgbigurl="img/product/details/product-details-5.jpg"
                                 src="img/product/details/thumb-3.jpg" alt="">
                             <img data-imgbigurl="img/product/details/product-details-4.jpg"
-                                src="img/product/details/thumb-4.jpg" alt="">
+                                src="img/product/details/thumb-4.jpg" alt=""> -->
                         </div>
+
                     </div>
                 </div>
 				<!--左邊商品圖-->
@@ -316,7 +320,7 @@
                         <a href="#" class="primary-btn">加入購物車</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <div>
-		      				<span>商品描述商品描述商品描述商品描述商品描述</span>                  
+		      				<p id="prodDetails">商品詳情商品詳情商品詳情商品詳情商品詳情商品詳情商品詳情</p>                  
 	      				</div>
                     </div> -->
                 </div>
@@ -338,7 +342,10 @@
                                     aria-selected="false">Reviews <span>(1)</span></a>
                             </li>
                         </ul> -->
-                        <div class="tab-content">
+
+
+                        <!-- 滿版的商品詳情 -->
+                        <!-- <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                     <h6>Products Infomation</h6>
@@ -399,7 +406,10 @@
                                         Proin eget tortor risus.</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+                        <!-- 滿版的商品詳情 -->
+
+
                     </div>
                 </div>
             </div>
@@ -413,7 +423,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title related__product__title">
-                        <h2>Related Product</h2>
+                        <h2>最近瀏覽</h2>
                     </div>
                 </div>
             </div>
@@ -524,6 +534,8 @@
             </div>
         </div>
         </div>
+
+        
     </footer>
     <!-- Footer Section End -->
 

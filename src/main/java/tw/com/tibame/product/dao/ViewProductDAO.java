@@ -19,4 +19,8 @@ public interface ViewProductDAO {
 	public ProductImage findPicByProdIMGID(Integer prodIMGID);
 
 	public ProductImage findMainPic(Integer prodNo);
+	
+	public List<Integer> findProdImageIdByProdNo(Integer prodNo);
+
+	public ProductImage update(ProductImage productImage);
 }

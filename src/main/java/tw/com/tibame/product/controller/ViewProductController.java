@@ -45,8 +45,8 @@ public class ViewProductController {
     	return list;
 	}
 	
-	@PostMapping("allPic")
-	public byte[] findPicByProdIMGID(@RequestBody Integer prodIMGID) {
+	@GetMapping("findPictureById")
+	public byte[] findPicByProdIMGID(@RequestParam Integer prodIMGID) {
 		ProductImage productImage = viewProductService.findMainPic(prodIMGID);
 		return productImage != null ? productImage.getProdIMG() : null;
 	}
@@ -56,4 +56,14 @@ public class ViewProductController {
 		ProductImage productImage = viewProductService.findMainPic(prodNo);
 		return productImage != null ? productImage.getProdIMG() : null;
 	}
+	
+	@GetMapping("findImageId")
+	public List<Integer> findProdImageIdByProdNo(@RequestParam Integer prodNo){
+		List<Integer> list = viewProductService.findProdImageIdByProdNo(prodNo);
+		if(list != null) {
+			return list;
+		}
+		return null;
+	}
+	
 }

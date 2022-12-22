@@ -11,6 +11,7 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import tw.com.tibame.order.vo.OrderDetailVO;
 import tw.com.tibame.product.vo.ProductImage;
 import tw.com.tibame.product.vo.ViewProductVO;
 
@@ -106,11 +107,37 @@ public class ViewProductDAOHibernate implements ViewProductDAO {
 				return getSession()
 						.createQuery("from ProductImage where prodNo = :prodNo", ProductImage.class)
 						.setParameter("prodNo", prodNo)
+						.setMaxResults(1)
 						.getSingleResult();
 			}
 		} catch (NoResultException e) {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Integer> findProdImageIdByProdNo(Integer prodNo) {
+		List<Integer> result = new ArrayList<>();
+		
+		if (prodNo != null) {
+			Query<Integer> query = getSession()
+					.createQuery("select prodIMGID from ProductImage where prodNo = :prodNo", Integer.class)
+					.setParameter("prodNo", prodNo);
+			result = query.list();
+			return result;
+		}
+		return null;
+	}
+
+	@Override
+	public ProductImage update(ProductImage productImage) {
+		if(productImage != null && productImage.getProdNo() != null) {
+			this.getSession().merge(productImage);
+			return productImage;
+		}
+		return null;
+	}
+
+
 
 }

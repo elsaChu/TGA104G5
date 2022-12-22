@@ -20,5 +20,9 @@ public interface ViewProductService {
 	ProductImage findPicByProdIMGID(Integer prodIMGID);
 	
 	ProductImage findMainPic(Integer prodNo);
+	
+	ProductImage update(ProductImage productImage);
+
+	List<Integer> findProdImageIdByProdNo(Integer prodNo);
 
 }

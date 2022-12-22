@@ -55,7 +55,7 @@ function Template(prodNo, prodName, prodSpec, unitPrice) {
                                 <div class="product__item__text">
                                     <h6 data-prodNo="${prodNo}"><a href="#">${prodName}</a></h6>
                                     <h6><a href="#">${prodSpec}</a></h6>
-                                    <h5>${unitPrice}</h5>
+                                    <h5>$ ${unitPrice}</h5>
                                 </div>
                             </div>
                         </div>

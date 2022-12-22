@@ -79,4 +79,20 @@ public class ViewProductServiceImpl implements ViewProductService {
 		return null;
 	}
 
+	@Override
+	public ProductImage update(ProductImage productImage) {
+		Integer prodNo = productImage.getProdNo();
+		if(prodNo != null) {
+			return viewProductDAO.update(productImage);
+		}
+		return null;
+	}
+	
+	public List<Integer> findProdImageIdByProdNo(Integer prodNo) {
+		if(prodNo != null && prodNo > 0) {
+			return viewProductDAO.findProdImageIdByProdNo(prodNo);
+		}
+		return null;
+	}
+
 }
