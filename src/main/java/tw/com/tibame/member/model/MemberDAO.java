@@ -371,7 +371,7 @@ public class MemberDAO implements MemberDAOinterface {
 	         con = DriverManager.getConnection(url, userid, passwd);
 
 			pstmt = con.prepareStatement(GET_ACCOUNT_STMT);
-			System.out.println("Connecting to database successfully findByEmail! ");
+			System.out.println("Connecting to database successfully findByAccount! ");
 
 			pstmt.setString(1, account);
 			
