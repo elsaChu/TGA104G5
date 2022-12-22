@@ -25,7 +25,6 @@ import tw.com.tibame.event.model.OrderService;
 import tw.com.tibame.event.model.OrderVO;
 
 
-//@WebServlet(name = "processEventOrder", urlPatterns = { "/processEventOrder" })
 @WebServlet("/FrontendEventOrderProcessServlet")
 public class FrontendEventOrderProcessServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
