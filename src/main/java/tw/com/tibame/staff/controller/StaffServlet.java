@@ -1,6 +1,8 @@
 package tw.com.tibame.staff.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,13 +12,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+
+import org.json.JSONObject;
 
 import tw.com.tibame.staff.model.StaffService;
 import tw.com.tibame.staff.model.StaffVO;
 
-@WebServlet("/StaffServlet")
+@WebServlet("/back-staff-end/staff/StaffServlet")
 public class StaffServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -30,11 +35,16 @@ public class StaffServlet extends HttpServlet {
 	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		HttpSession session = request.getSession();
+		
 		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+	
 		String action = request.getParameter("action");
 		System.out.println("action: " + request.getParameter("action"));
 		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 
 //		if ("getOne_Staff_Display".equals(action)) { // 來自select_page.jsp的請求
 //
@@ -330,6 +340,119 @@ public class StaffServlet extends HttpServlet {
 			// 修改成功後,轉交/back-staff-end/staff/listAllStaff.jsp
 			successView.forward(request, response);
 		}
+	
+		// =============================員工登入=============================//
 
+		if ("loginForStaff".equals(action)) {
+			List<String> errorMsgs = new LinkedList<>();
+			request.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+
+				StaffVO staffVO = new StaffVO();
+				StaffService staffSvc = new StaffService();
+
+				// 確認輸入的值
+				String staffAccount = request.getParameter("staffAccount");
+				if (staffAccount == null ||staffAccount.trim().length() == 0) {
+					errorMsgs.add("請輸入帳號");
+				}
+				System.out.println("使用者輸入的帳號: " + staffAccount); // 使用者輸入的帳號
+
+
+				String staffPassword = request.getParameter("staffPassword");
+				if (staffPassword== null || staffPassword.trim().length() == 0) {
+					errorMsgs.add("請輸入密碼");
+				}
+				System.out.println("使用者輸入的密碼: " + staffPassword); // 使用者輸入的密碼
+				// 設定UserService傳入資訊
+
+				staffVO = staffSvc.findByStaffAccount(staffAccount);
+				String tickitPwd = staffSvc.pwd(staffPassword);
+
+				if(staffVO == null) {
+					errorMsgs.add("帳號或密碼錯誤");
+				}
+
+				String PasswordCheck = staffVO.getStaffPassword();
+				if (!PasswordCheck.equals(tickitPwd)) {
+					errorMsgs.add("帳號或密碼錯誤");
+				}
+
+				// 確認資料有誤，印出錯誤資料並跳回原頁
+				if (!errorMsgs.isEmpty()) {
+					session.setAttribute("staffVO", staffVO);
+					RequestDispatcher failureView = request.getRequestDispatcher("/back-staff-end/staff/loginStaff.jsp");
+					failureView.forward(request, response);
+					return;
+				}
+
+				// 確認資料無誤，則設定
+				session.setAttribute("staffVO", staffVO);
+				System.out.println("be login...");
+				String location = (String) session.getAttribute("location"); // 看看有無來源網頁
+
+				if (location != null) { // 代表有來源網頁
+					session.removeAttribute("location"); // 有來源網頁:重導至來源網頁
+					response.sendRedirect(location);
+					return;
+				}
+				RequestDispatcher successView = request.getRequestDispatcher("/main_frame/index_Staff.jsp");
+				successView.forward(request, response);
+				return;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				RequestDispatcher failureView = request.getRequestDispatcher("/back-staff-end/staff/loginStaff.jsp");
+				failureView.forward(request, response);
+			}
+		}
+		// ===================================================員工登出=========================================================//
+		
+		if("logout".equals(action)) {
+			   try {
+			    System.out.println("into logout");
+			    session.removeAttribute("staffVO");
+			    
+			    session.invalidate(); // 清除用戶端與伺服器之間的會話資料
+			    
+			 // 新增完成，準備轉交
+				String url = "loginStaff.jsp";
+				RequestDispatcher successView = request.getRequestDispatcher(url);
+				successView.forward(request, response);
+
+			    
+			   }catch(Exception e) {
+			    e.getStackTrace();
+			    RequestDispatcher failureView = request.getRequestDispatcher("index.jsp");
+			    failureView.forward(request, response);
+			   }
+			   
+			  }
+		
+		// ===================================================確認狀態=========================================================//	
+		if ("checkLogin".equals(action)) {
+			   try {
+			    StaffVO staffVO = (StaffVO) session.getAttribute("staffVO");
+			    
+			    HashMap<String, String> userInfoMap = new HashMap<String, String>();
+			    userInfoMap.put("check", "2");
+			    
+			    if(staffVO != null) {
+			     userInfoMap.put("check", "1");
+			     userInfoMap.put("url", "MemberCenter.jsp");
+			    } 
+			    
+			    JSONObject obj = new JSONObject(userInfoMap);
+			    out.println(obj);
+			    System.out.println(obj);
+			    
+			   }catch(Exception e) {
+			    e.printStackTrace();
+			    RequestDispatcher failureView = request.getRequestDispatcher("index.html");
+			    failureView.forward(request, response);
+			   }
+			  }
 	}
+
 }
