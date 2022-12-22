@@ -127,6 +127,94 @@ public class OrderServlet extends HttpServlet {
 
 			OrderService orderSvc = new OrderService();
 			List<OrderVO> orderVO = orderSvc.selectByEventNumber(int_eventnumber);
+			
+			request.setAttribute("orderVO", orderVO); // 資料庫取出的staffVO物件,存入request
+			String url = "/front-end/event/listOneOrganizerEvent.jsp";
+			RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 ticketOrder.jsp
+			successView.forward(request, response);
+		}
+		
+		if ("search".equals(action)) { // 來自listAllStaff.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// 先把errorMsgs new出來，再裝進去request
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			request.setAttribute("errorMsgs", errorMsgs);
+
+			String searchEventType = request.getParameter("searchEventType");
+			OrderService orderSvc = new OrderService();
+			
+//			Integer int_ssn = null;
+			OrderVO orderVO = null;
+			try {
+				// 轉型 STR轉INT，用PARSEINT()
+//				int_ssn = Integer.valueOf(searchStaffNumber);
+//				staffVO = staffSvc.findByStaffNumber(int_ssn);
+				if(orderVO.getOrderType() == null) {
+					orderVO = null;
+				}
+			} catch (NumberFormatException e) {
+				errorMsgs.add("未輸入篩選條件");
+			}
+			
+//			System.out.println("staffVO servlet="+staffVO.toString());
+//			if (orderVO == null) {
+////				System.out.println("in null");
+//				errorMsgs.add("此員工編號不存在，請再確認一次");
+//			}
+
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = request.getRequestDispatcher("/back-staff-end/staff/listAllStaff.jsp");
+				failureView.forward(request, response);
+				return;// 程式中斷
+			}
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			request.setAttribute("orderVO", orderVO); // 資料庫取出的staffVO物件,存入request
+			String url = "/front-end/staff/listEventType.jsp";
+			RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 listOneStaff.jsp
+			successView.forward(request, response);
+		}
+		
+		if ("searchByOrderID".equals(action)) { // 來自listAllStaff.jsp的請求
+			List<String> errorMsgs = new LinkedList<String>();
+//			先把errorMsgs new出來，再裝進去request
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			request.setAttribute("errorMsgs", errorMsgs);
+
+			String searchByOrderID = request.getParameter("searchByOrderID");
+			OrderService orderSvc = new OrderService();
+			
+//			Integer int_sboID = null;
+			OrderVO orderVO = null;
+			
+			try {
+//				int_sboID = Integer.valueOf(searchByOrderID);
+//				orderVO = orderSvc.searchByOrderID(int_sboID);
+				if(orderVO.getOrderID() == null) {
+					orderVO = null;
+				}
+			} catch (NumberFormatException e) {
+				errorMsgs.add("未輸入員工編號");
+			}
+			
+			if (orderVO == null) {
+				errorMsgs.add("此員工編號不存在，請再確認一次");
+			}
+
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = request.getRequestDispatcher("/front-end/event/listOneOrganizerEvent.jsp");
+				failureView.forward(request, response);
+				return;// 程式中斷
+			}
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			request.setAttribute("orderVO", orderVO); // 資料庫取出的staffVO物件,存入request
+			String url = "/front-end/event/searchByOrderID.jsp";
+			RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 listOneStaff.jsp
+			successView.forward(request, response);
 		}
 
 	}
