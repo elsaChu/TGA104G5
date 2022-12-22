@@ -12,13 +12,14 @@ MemberService memberSvc = new MemberService();
 List<MemberVO> list = memberSvc.getAll();
 pageContext.setAttribute("list", list);
 %>
+<c:set var="context" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
 	<title>TICK IT 員工後台</title>
 
- <link href="${context}css/staffBootstrap.css" rel="stylesheet" />
+ <link href="${context}/front-end/member/css/staffBootstrap.css" rel="stylesheet" />
     
   </head>
  

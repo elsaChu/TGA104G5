@@ -6,13 +6,15 @@
 <%@ page import="tw.com.tibame.member.model.*"%>
 <% StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");%>
 <% MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");%>
+<c:set var="context" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
 	<title>TICK IT 員工後台</title>
 
-    <link href="${context}css/staffBootstrap.css" rel="stylesheet" />
+    <link href="${context}/front-end/member/css/staffBootstrap.css" rel="stylesheet" />
 
   </head>
 
@@ -22,6 +24,7 @@
     <br/> 
     <h3 style="font-weight: 600;">會員列表</h3>
     <br/> 
+    <a href="${context}/front-end/member/memberList.jsp"><iconify-icon icon="heroicons:arrow-uturn-left-20-solid"></iconify-icon>返回會員列表</a>
     <div >
     <%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
