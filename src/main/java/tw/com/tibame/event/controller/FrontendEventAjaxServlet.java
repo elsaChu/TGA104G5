@@ -24,9 +24,12 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import tw.com.tibame.event.model.EventService;
 import tw.com.tibame.event.model.EventVO;
 import tw.com.tibame.event.model.OrderService;
+import tw.com.tibame.event.model.OrderVO;
 import tw.com.tibame.event.model.SeatService;
 import tw.com.tibame.event.model.SeatVO;
+import tw.com.tibame.event.model.SoldTicketsVO;
 import tw.com.tibame.event.model.TicketVO;
+import tw.com.tibame.member.model.MemberVO;
 
 @WebServlet("/FrontendEventAjaxServlet")
 public class FrontendEventAjaxServlet extends HttpServlet {
@@ -73,8 +76,17 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                 }
             }else if("confirmTicket".equals(action)) {
                 
-                //這邊後續應該會有個是否已登入會員的檢查
-                //TODO
+                //登入會員檢查
+                MemberVO memberProfile = (MemberVO)session.getAttribute("memberVO");
+                if(memberProfile == null) {
+                    result.put("success", false);
+                    result.put("needLogin", true);
+                    PrintWriter out = response.getWriter();
+                    out.print(gson.toJson(result));
+                    out.flush();
+                    return;
+                }
+                
                 
                 eventNumberStr = request.getParameter("eventNumber");
                 int eventNumber = Integer.parseInt(eventNumberStr);
@@ -115,7 +127,7 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                     //TODO
                     
                     //建立訂單
-                    orderService.createOrUpdateOrder(selectEventInfo);
+                    orderService.createOrUpdateOrder(selectEventInfo,memberProfile);
                     //移除selectSeat
                     selectEventInfo.remove("selectSeat");
                     session.setAttribute("selectEventInfo", selectEventInfo);
@@ -167,6 +179,17 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                 
             }else if("getSeat".equals(action)) {
                 
+                //登入會員檢查
+                MemberVO memberProfile = (MemberVO)session.getAttribute("memberVO");
+                if(memberProfile == null) {
+                    result.put("success", false);
+                    result.put("needLogin", true);
+                    PrintWriter out = response.getWriter();
+                    out.print(gson.toJson(result));
+                    out.flush();
+                    return;
+                }
+                
                 Map<String,Object> selectEventInfo = (Map<String,Object>)session.getAttribute("selectEventInfo");
                 if(selectEventInfo == null) {
                     result.put("success", false);
@@ -186,6 +209,17 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                 result.put("success", true);
                 
             }else if("confirmSeat".equals(action)) {
+                
+                //登入會員檢查
+                MemberVO memberProfile = (MemberVO)session.getAttribute("memberVO");
+                if(memberProfile == null) {
+                    result.put("success", false);
+                    result.put("needLogin", true);
+                    PrintWriter out = response.getWriter();
+                    out.print(gson.toJson(result));
+                    out.flush();
+                    return;
+                }
                 
                 Map<String,Object> selectEventInfo = (Map<String,Object>)session.getAttribute("selectEventInfo");
                 if(selectEventInfo == null) {
@@ -227,7 +261,53 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                 result.put("selectEventInfo", selectEventInfo);
                 result.put("success", true);
                 
+            }else if("getUserData".equals(action)) {
+                
+                //登入會員檢查
+                MemberVO memberProfile = (MemberVO)session.getAttribute("memberVO");
+                if(memberProfile == null) {
+                    result.put("success", false);
+                    result.put("needLogin", true);
+                    PrintWriter out = response.getWriter();
+                    out.print(gson.toJson(result));
+                    out.flush();
+                    return;
+                }
+                if(memberProfile.getName() != null) {
+                    result.put("inputName", memberProfile.getName());
+                }else {
+                    result.put("inputName", "");
+                }
+                if(memberProfile.getEmail() != null) {
+                    result.put("inputEmail", memberProfile.getEmail());
+                }else {
+                    result.put("inputEmail", "");
+                }
+                if(memberProfile.getIdNumber() != null) {
+                    result.put("inputRocid", memberProfile.getIdNumber());
+                }else {
+                    result.put("inputRocid", "");
+                }
+                if(memberProfile.getPhoneNumber() != null) {
+                    result.put("inputPhone", memberProfile.getPhoneNumber());
+                }else {
+                    result.put("inputPhone", "");
+                }
+               
+                result.put("success", true);
+                
             }else if("confirmUserData".equals(action)) {
+                
+                //登入會員檢查
+                MemberVO memberProfile = (MemberVO)session.getAttribute("memberVO");
+                if(memberProfile == null) {
+                    result.put("success", false);
+                    result.put("needLogin", true);
+                    PrintWriter out = response.getWriter();
+                    out.print(gson.toJson(result));
+                    out.flush();
+                    return;
+                }
                 
                 Map<String,Object> selectEventInfo = (Map<String,Object>)session.getAttribute("selectEventInfo");
                 if(selectEventInfo == null) {
@@ -279,9 +359,7 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                 
             }else if("cancelOrder".equals(action)) {
                 String orderIdStr = request.getParameter("orderId");
-                orderService.changeOrderType(Integer.parseInt(orderIdStr), "已取消");
-                
-                result.put("success", true);
+                result = orderService.doCancelOrder(Integer.parseInt(orderIdStr));
             }
             
         }

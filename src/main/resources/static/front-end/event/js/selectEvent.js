@@ -81,14 +81,21 @@ function getRandomInt(max) {
 				
 				
 				console.log(data);
-				if(!data || ! data.success){
-					let errMsg = 'error';
+				if(! data.success){
+					
+					if (data.needLogin) {
+						window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+						return false;
+					} else {
+						let errMsg = 'error';
 					if(data.msgList){
 						data.msgList.forEach(msg=> errMsg += `${msg}\n`);
 					}
 					
 					alert(errMsg);
 					return;
+					}
+					
 				}else{
 					//跳至步驟
 					switchStep(data.step);
@@ -122,13 +129,34 @@ function getRandomInt(max) {
     	changediv('.stepDiv','#step03');
     	getSelectTicket();
     	
-    	if(selectEventInfo && selectEventInfo.userData){
-			let userData = selectEventInfo.userData;
-			$('#inputName').val(userData.inputName);
-			$('#inputEmail').val(userData.inputEmail);
-			$('#inputPhone').val(userData.inputPhone);
-		}
+    	getUserData();
     }
+    
+    function getUserData(){
+		let params = {
+				action:'getUserData' ,
+				};
+		callAjax(params,function(data){
+	    		
+	    		console.log(data);
+				if(! data.success){
+					if(data.needLogin){
+						window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+					}else{
+						alert('error:',data.msg);
+					}
+					return;
+				}else{
+					$('#inputName').val(data.inputName);
+    	        	$('#inputEmail').val(data.inputEmail);
+    	        	$('#inputPhone').val(data.inputPhone);
+    	        	$('#inputRocid').val(data.inputRocid);
+				}
+				
+				
+	    });
+	}
+    
     function buildStep4(){
     	/*
     	$('.eventDesc').hide('1000');
@@ -158,6 +186,7 @@ function getRandomInt(max) {
     	}
     }
     
+    
     function confirmUserData(){
     	
     	//儲存購買者資訊
@@ -166,6 +195,7 @@ function getRandomInt(max) {
     	        inputEmail:$('#inputEmail').val(),
     	        inputPhone:$('#inputPhone').val(),
     	        inputRocid:$('#inputRocid').val(),
+    	        action: 'confirmUserData',
     	};
     	
     	$('.invalid-feedback').html('');
@@ -175,67 +205,70 @@ function getRandomInt(max) {
     	$('#inputPhone').removeClass('is-invalid');
     	
     	let validFlag = true;
+    	
+    	var nameReg = /[0-9!@^*#&\_\+<>\"~;$^%,.{}?]/;
+    	if(!$('#inputName').val()){
+    		$('#inputName').addClass('is-invalid');
+    		$('#inputName_errMsg').html('請輸入姓名');
+    		validFlag = false;
+    	}else if($('#inputName').val().match(nameReg)){
+    		$('#inputName').addClass('is-invalid');
+    		$('#inputName_errMsg').html('姓名格式異常');
+    		validFlag = false;
+    	}
+    	
     	var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     	if(!$('#inputEmail').val()){
     		$('#inputEmail').addClass('is-invalid');
     		$('#inputEmail_errMsg').html('請輸入 Email');
-    		console.log('mail1');
     		validFlag = false;
     	}else if(!$('#inputEmail').val().match(emailReg)){
     		$('#inputEmail').addClass('is-invalid');
     		$('#inputEmail_errMsg').html('Email 格式異常');
-    		console.log('mail2');
     		validFlag = false;
     	}
-    	if(!$('#inputName').val()){
-    		$('#inputName').addClass('is-invalid');
-    		$('#inputName_errMsg').html('請輸入姓名');
-    		console.log('name1');
-    		validFlag = false;
-    	}
+    	
     	
     	if(!$('#inputRocid').val()){
     		$('#inputRocid').addClass('is-invalid');
     		$('#inputRocid_errMsg').html('請輸入身分證號');
-    		console.log('rocid1');
     		validFlag = false;
     	}else if(! verifyId($('#inputRocid').val())){
     		$('#inputRocid').addClass('is-invalid');
     		$('#inputRocid_errMsg').html('身分證號格式異常');
-    		console.log('rocid2');
     		validFlag = false;
     	}
     	
     	if(!$('#inputPhone').val()){
     		$('#inputPhone').addClass('is-invalid');
     		$('#inputPhone_errMsg').html('請輸入手機號碼');
-    		console.log('phone1');
     		validFlag = false;
     	}else if(!$('#inputPhone').val().match(/^(09)[0-9]{8}$/)){
     		$('#inputPhone').addClass('is-invalid');
     		$('#inputPhone_errMsg').html('手機號碼格式異常');
-    		console.log('phone2');
     		validFlag = false;
     	}
     	if(!validFlag){
     		return false;
     	}
     	
-		userData.action = 'confirmUserData';
-    	
-    	callAjax(userData,function(data){
+		callAjax(userData, function(data) {
 			console.log(data);
-			if(!data || ! data.success){
-				let errMsg = 'error';
-				alert(errMsg);
+			if (!data.success) {
+				if (data.needLogin) {
+					window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+					return false;
+				} else {
+					alert('error:', data);
+				}
 				return;
-			}else{
+			} else {
 				//跳至下一步驟
 				selectEventInfo = data.selectEventInfo;
 				//switchStep(4);
-				initPayment(data.returnUrl,data.callbackUrl);
+				initPayment(data.returnUrl, data.callbackUrl);
 			}
-    	});
+		});
     }
     
     //確認票種資訊
@@ -279,14 +312,18 @@ function getRandomInt(max) {
     	
     	callAjax(params,function(data){
 			console.log(data);
-			if(!data || ! data.success){
-				let errMsg = 'error';
-				if(data.msgList){
-					data.msgList.forEach(msg=> errMsg += `${msg}\n`);
-				}
-				
-				alert(errMsg);
+			if(! data.success){
+				if (data.needLogin) {
+					window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+					return false;
+				} else {
+					let errMsg = 'error';
+					if(data.msgList){
+						data.msgList.forEach(msg=> errMsg += `${msg}\n`);
+					}
+					alert(errMsg);
 				return;
+				}
 			}else{
 				//跳至下一步驟
 				selectEventInfo.ticketSelect = ticketSelect;
@@ -314,8 +351,13 @@ function getRandomInt(max) {
     	callAjax(params,function(data){
     		
     		console.log(data);
-			if(!data || ! data.success){
-				alert('error');
+			if(!data.success){
+				if (data.needLogin) {
+					window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+					return false;
+				} else {
+					alert('error');
+				}
 				return;
 			}
 			
@@ -463,7 +505,13 @@ function getRandomInt(max) {
 				if(data.occupy && data.occupy != ''){
 					alert(`座位${data.occupy}已被占用`);
 				}else{
-					alert(data.msg);
+					if (data.needLogin) {
+						window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+						return false;
+					} else {
+						alert('error');
+					}
+					return;
 				}
 				
 			}
@@ -479,9 +527,14 @@ function getRandomInt(max) {
 		callAjax(params,function(data){
     		
 			console.log(data);
-			if(!data || ! data.success){
-				alert('error');
-				return;
+			if( ! data.success){
+				if (data.needLogin) {
+						window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+						return false;
+					} else {
+						alert('error');
+					}
+					return;
 			}
 			
 			selectEventInfo = data.selectEventInfo;
@@ -530,7 +583,12 @@ function getRandomInt(max) {
 			success:function(data){
 				console.log(data);
 				if(!data || ! data.success){
-					alert('error');
+					if (data.needLogin) {
+						window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+						return false;
+					} else {
+						alert('error');
+					}
 					return;
 				}
 				
