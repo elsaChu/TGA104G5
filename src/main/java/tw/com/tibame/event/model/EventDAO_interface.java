@@ -6,6 +6,8 @@ import java.util.Map;
 public interface EventDAO_interface {
 	public int insert(EventVO eventvo,List<TicketVO> ticketlist,List<EventClassVO> eventclasslist,List<SeatVO> seatlist);
 	public List<EventVO> selectAll();
+	public List<EventVO> searchBy(String k);
+	public List<Integer> getBanner();
 	public EventVO selectByeventNumber(Integer eventNumber);
 	public EventVO selectByeventName();
 	public List<EventVO> selectByorganizerNumber();

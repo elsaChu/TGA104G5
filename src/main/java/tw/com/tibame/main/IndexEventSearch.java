@@ -38,21 +38,26 @@ public class IndexEventSearch extends HttpServlet {
 		String keyword = req.getParameter("mainSearch");
 		System.out.println(keyword);
 		if(keyword != null) {
-			System.out.println("keyword" + keyword);
+			System.out.println("keyword: " + keyword);
 			EventService es1 = new EventService();
 			List<EventVO> list1= new ArrayList<EventVO>();
-			list1 = es1.selectAllEvent();
+			if(! keyword.trim().equals("")) {
+				list1 = es1.searchEvent(keyword);
+				
+			}else {
+				list1 = es1.selectAllEvent();
+			}
 			
 			JsonObject resBody = new JsonObject();
-			if (list1 != null ) {
+			if (! list1.isEmpty()) {
 				resBody.addProperty("successful", true);
 				resBody.addProperty("allEvents", gson1.toJson(list1));
 			} else {
 				resBody.addProperty("successful", false);
+				list1 = es1.selectAllEvent();
+				resBody.addProperty("allEvents", gson1.toJson(list1));
 			}
-			
 			res.getWriter().write(resBody.toString());
-			
 			
 			
 		}else {

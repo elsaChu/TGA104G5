@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import java.util.List;
@@ -205,11 +206,11 @@ public class EventJDBCDAO implements EventDAO_interface {
 				eventvo.setEventP2(rs.getString("eventP2"));
 				eventvo.setEventSummary(rs.getString("eventSummary"));
 				eventvo.setEventDescribe(rs.getString("eventDescribe"));
-				eventvo.setBigImg(rs.getBytes("bigImg"));
-				eventvo.setSmallImg(rs.getBytes("smallImg"));
-				eventvo.setVideo(rs.getBytes("video"));
-				eventvo.setOtherImg1(rs.getBytes("otherImg1"));
-				eventvo.setOtherImg2(rs.getBytes("otherImg2"));
+//				eventvo.setBigImg(rs.getBytes("bigImg"));
+//				eventvo.setSmallImg(rs.getBytes("smallImg"));
+//				eventvo.setVideo(rs.getBytes("video"));
+//				eventvo.setOtherImg1(rs.getBytes("otherImg1"));
+//				eventvo.setOtherImg2(rs.getBytes("otherImg2"));
 				eventvo.setCollectType(rs.getBoolean("collectType"));
 				eventvo.setBanner(rs.getInt("banner"));
 				eventvo.setFocus(rs.getInt("focus"));
@@ -555,4 +556,137 @@ public class EventJDBCDAO implements EventDAO_interface {
         return res;
 	    
 	}
+    
+    
+//    "EventVO [eventNumber=" + eventNumber + ", organizerNumber=" + organizerNumber + ", eventName="
+//	+ eventName + ", eventStartDate=" + eventStartDate + ", eventEndDate=" + eventEndDate
+//	+ ", peopleNumber=" + peopleNumber + ", eventPlace=" + eventPlace + ", eventP2=" + eventP2
+//	+ ", eventSummary=" + eventSummary + ", eventDescribe=" + eventDescribe + ", bigImg="
+//	+ Arrays.toString(bigImg) + ", smallImg=" + Arrays.toString(smallImg) + ", video="
+//	+ Arrays.toString(video) + ", otherImg1=" + Arrays.toString(otherImg1) + ", otherImg2="
+//	+ Arrays.toString(otherImg2) + ", collectType=" + collectType + ", banner=" + banner + ", focus="
+//	+ focus + ", totalClick=" + totalClick + ", isON=" + isON + ", eventType=" + eventType + ", needSeat="
+//	+ needSeat + ", seatX=" + seatX + ", seatY=" + seatY + "]";
+    
+    private static final String SEARCH_ALL = 
+			"SELECT eventNumber, eventName, eventStartDate, eventEndDate, peopleNumber, eventPlace, eventType,"
+    		+" isOn, collectType "
+			+"FROM EVENT "
+			+ "where eventName like  CONCAT('%', ? , '%') " 
+			 +"   or eventPlace like CONCAT('%', ? , '%') "
+			 +"   or eventDescribe like CONCAT('%', ? , '%') "
+			+ "	or eventSummary like CONCAT('%', ? , '%') ";
+
+	@Override
+	public List<EventVO> searchBy(String searchString) {
+		List<EventVO> list = new ArrayList<EventVO>();
+		EventVO eventvo = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(Common.driver);
+			con = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
+			pstmt = con.prepareStatement(SEARCH_ALL);
+			pstmt.setString(1, searchString);
+			pstmt.setString(2, searchString);
+			pstmt.setString(3, searchString);
+			pstmt.setString(4, searchString);
+			rs = pstmt.executeQuery();
+ 
+			while (rs.next()) {
+				eventvo = new EventVO();
+				eventvo.setEventNumber(rs.getInt("eventNumber"));
+				eventvo.setEventName(rs.getString("eventName"));
+				eventvo.setEventStartDate(rs.getTimestamp("eventStartDate"));
+				eventvo.setEventEndDate(rs.getTimestamp("eventEndDate"));
+				eventvo.setPeopleNumber(rs.getInt("peopleNumber"));
+				eventvo.setEventPlace(rs.getString("eventPlace"));
+				eventvo.setEventType(rs.getString("eventType"));
+				eventvo.setCollectType(rs.getBoolean("collectType"));
+				eventvo.setIsON(rs.getBoolean("isON"));
+				list.add(eventvo); // Store the row in the list
+			}
+			System.out.println("event dao used select all");
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	private static final String SEARCH_BANNER = 
+			"SELECT eventNumber FROM EVENT "
+					+ "where banner = 1 " ;
+
+					
+	@Override
+	public List<Integer> getBanner() {
+			List<Integer> bannerInt = new ArrayList<Integer>();
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				Class.forName(Common.driver);
+				con = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
+				pstmt = con.prepareStatement(SEARCH_BANNER);
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					bannerInt.add(rs.getInt("eventNumber"));
+				}
+				System.out.println("event dao used get banner");
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. " + se.getMessage());
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+		return bannerInt;
+	}
+	
+	
 }
