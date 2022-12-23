@@ -22,7 +22,7 @@ import com.google.gson.GsonBuilder;
 @WebServlet("/AddEvent2Servlet")
 public class AddEvent2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	//insert page 3 use
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tw.com.tibame.product.service.ViewProductService;
+import tw.com.tibame.product.vo.ProductImage;
 import tw.com.tibame.product.vo.ViewProductVO;
 
 @RestController
@@ -18,6 +19,7 @@ import tw.com.tibame.product.vo.ViewProductVO;
 public class ViewProductController {
 	@Autowired
 	private ViewProductService viewProductService;
+	
 	
 	@GetMapping("launch")
     public List<ViewProductVO> productLaunch(@RequestParam boolean isPOn) {
@@ -38,8 +40,30 @@ public class ViewProductController {
 	}
 	
 	@GetMapping("all")
-    public List<ViewProductVO> findAllProduct() {
-    	List<ViewProductVO> list = viewProductService.findAll();
+    public List<ProductImage> findAllPic() {
+    	List<ProductImage> list = viewProductService.findAllPic();
     	return list;
 	}
+	
+	@GetMapping("findPictureById")
+	public byte[] findPicByProdIMGID(@RequestParam Integer prodIMGID) {
+		ProductImage productImage = viewProductService.findMainPic(prodIMGID);
+		return productImage != null ? productImage.getProdIMG() : null;
+	}
+
+	@GetMapping("mainPic")
+	public byte[] findMainImage(@RequestParam Integer prodNo) {
+		ProductImage productImage = viewProductService.findMainPic(prodNo);
+		return productImage != null ? productImage.getProdIMG() : null;
+	}
+	
+	@GetMapping("findImageId")
+	public List<Integer> findProdImageIdByProdNo(@RequestParam Integer prodNo){
+		List<Integer> list = viewProductService.findProdImageIdByProdNo(prodNo);
+		if(list != null) {
+			return list;
+		}
+		return null;
+	}
+	
 }

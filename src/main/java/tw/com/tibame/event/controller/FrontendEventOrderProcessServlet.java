@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,6 @@ import tw.com.tibame.event.model.OrderService;
 import tw.com.tibame.event.model.OrderVO;
 
 
-//@WebServlet(name = "processEventOrder", urlPatterns = { "/processEventOrder" })
 @WebServlet("/FrontendEventOrderProcessServlet")
 public class FrontendEventOrderProcessServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -53,6 +53,9 @@ public class FrontendEventOrderProcessServlet extends HttpServlet {
                 request.setAttribute("orgName", orgName);
                 request.setAttribute("order", order);
                 request.setAttribute("event", event);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                request.setAttribute("eventStart", sdf.format(event.getEventStartDate()));
+                request.setAttribute("eventEnd", sdf.format(event.getEventEndDate()));
                 
                 List<Map<String,String>> qrList = orderService.getOrderTicketQRCode(Integer.parseInt(orderId));
                 try {

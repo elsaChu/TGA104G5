@@ -189,6 +189,10 @@ public class EventService {
 		return re;
 	}
 	
+	public String getOrgName(int organizerNumber) {
+	    return dao.getOrganizerName(organizerNumber);
+	}
+	
 	public List<Map<String,Object>> findAllForDebug(){
 	    return dao.findAllForDebug();
 	}
@@ -197,6 +201,19 @@ public class EventService {
 		list1 = dao.selectAll();
 		return list1;
 	}
+	public List<EventVO> searchEvent(String k) {
+		List<EventVO> list1 = null;
+		list1 = dao.searchBy(k);
+		return list1;
+	}
+	public List<Integer> getBanner() {
+		List<Integer> list1 = null;
+		list1 = dao.getBanner();
+		return list1;
+	}
+	
+	
+	
 	public static void main(String args[]) {
 		EventService es = new EventService();
 		es.selectAllEvent();
