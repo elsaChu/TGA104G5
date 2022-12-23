@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.tibame.product.dao.ViewProductDAO;
+import tw.com.tibame.product.vo.ProductImage;
 import tw.com.tibame.product.vo.ViewProductVO;
 
 @Service
@@ -52,6 +53,44 @@ public class ViewProductServiceImpl implements ViewProductService {
 	public ViewProductVO findProductByPrimaryKey(Integer prodNo) {
 		if(prodNo != null && prodNo > 0) {
 			return viewProductDAO.findByPrimaryKey(prodNo);
+		}
+		return null;
+	}
+	
+
+	@Override
+	public List<ProductImage> findAllPic() {
+		return viewProductDAO.findAllPic();
+	}
+
+	@Override
+	public ProductImage findPicByProdIMGID(Integer prodIMGID) {
+		if (prodIMGID != null && prodIMGID > 0) {
+			return viewProductDAO.findPicByProdIMGID(prodIMGID);
+		}
+		return null;
+	}
+
+	@Override
+	public ProductImage findMainPic(Integer prodNo) {
+		if (prodNo != null && prodNo > 0) {
+			return viewProductDAO.findMainPic(prodNo);
+		}
+		return null;
+	}
+
+	@Override
+	public ProductImage update(ProductImage productImage) {
+		Integer prodNo = productImage.getProdNo();
+		if(prodNo != null) {
+			return viewProductDAO.update(productImage);
+		}
+		return null;
+	}
+	
+	public List<Integer> findProdImageIdByProdNo(Integer prodNo) {
+		if(prodNo != null && prodNo > 0) {
+			return viewProductDAO.findProdImageIdByProdNo(prodNo);
 		}
 		return null;
 	}
