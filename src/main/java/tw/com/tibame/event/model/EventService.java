@@ -189,6 +189,10 @@ public class EventService {
 		return re;
 	}
 	
+	public String getOrgName(int organizerNumber) {
+	    return dao.getOrganizerName(organizerNumber);
+	}
+	
 	public List<Map<String,Object>> findAllForDebug(){
 	    return dao.findAllForDebug();
 	}

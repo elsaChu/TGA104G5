@@ -9,6 +9,7 @@ public interface OrderDAO_interface {
 	public int update(OrderVO vo,List<SoldTicketsVO> solList);
 	public int updateOrder(OrderVO vo);
 	public OrderVO queryByOrderId(int OrderId);
+	public OrderVO queryByOrderIdAndMember(int OrderId,int memberId);
 	public List<OrderVO> selectByEventNumber(int eventNumber);
 	public List<OrderVO> selectByDate();
 	public List<OrderVO> selectByOrderType();
