@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
     
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+    <%@page import="tw.com.tibame.staff.model.*"%>
+    <% StaffVO staffVO = (StaffVO) session.getAttribute("staffVO");%>
     <c:set var="context" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +14,7 @@
     <meta name="author" content="" />
 
     <title>TICK IT 員工後台</title>
-
+ 	<link rel="icon" href="images/logo.ico"  />
     <!-- Bootstrap core CSS -->
     <link href="${context}/main_frame/css/bootstrap.css" rel="stylesheet" />
 
@@ -121,8 +122,16 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
-            <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20"></iconify-icon>登出</a></li>
-        
+          <form action="${context}/StaffServlet" method="POST" >
+            <li id="Signout" ><iconify-icon style="color:#FFF;" class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20"></iconify-icon>
+            <input  style="font-size:16px;width: 40px;
+            margin: 10px 50px 0px -10px;
+		background:#222222;
+		color:#FFF;
+		border-style:none;
+		"type="submit" value="登出">
+            <input type="hidden" name="action" value="logout"></a></li>
+        </form>
           </div>
         <!-- /.navbar-collapse -->
       </nav>
@@ -139,6 +148,15 @@
 <!--     <script src="js/morris/chart-data-morris.js"></script> -->
 <!--     <script src="js/tablesorter/jquery.tablesorter.js"></script> -->
 <!--     <script src="js/tablesorter/tables.js"></script> -->
+<script>
+   $('body').on('click', '#Signout', function() {
+   var yes = confirm('確定登出嗎？');
+   if (yes) {
+       onsole.log('yes');	
+       do_deletion();
+             } 
+     });
+ </script>
     <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
   </body>
 </html>

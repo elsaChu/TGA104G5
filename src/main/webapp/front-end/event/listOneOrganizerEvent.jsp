@@ -53,6 +53,16 @@ th, td {
 }
 </style>
 
+<script>
+	function searchEventType() {
+	}
+	document.getElementById("search").submit();
+	
+	function searchByOrderID(){
+		document.getElementById("searchByOrderID").submit();
+	} 
+</script>
+
 </head>
 
 <body bgcolor='white'>
@@ -60,10 +70,6 @@ th, td {
 		<tr>
 			<td>
 				<h3>廠商活動訂單列表 - listOneOrganizerEvent.jsp</h3>
-				<h4>
-					<a href="/back-staff-end/staff/listAllStaff.jsp"><img
-						src="images/back1.gif" width="100" height="32" border="0">回首頁</a>
-				</h4>
 			</td>
 		</tr>
 	</table>
@@ -98,6 +104,44 @@ th, td {
 
 			</tr>
 			<%@ include file="page1.file"%>
+			<div style="float: right; margin-right: 23%;">
+
+				<FORM METHOD="post" id="search"
+					ACTION="<%=request.getContextPath()%>/OrderServlet" name="action">
+					<b>訂單編號查詢</b>
+					<input type="text" name="searchByOrderID" 
+					value="" style="" placeholder="訂單編號" onclick="searchByOrderID()">
+<!-- 					<input type="hidden" name="action" value="searchByOrderID"> -->
+				</FORM>
+				
+				<FORM METHOD="post" id="search"
+					ACTION="<%=request.getContextPath()%>/OrderServlet" name="action">
+					<b>會員編號查詢</b>
+					<input type="text" name="searchByNumber" value="" style="" placeholder="會員編號">
+				</FORM>
+				
+				<FORM METHOD="post" id="search"
+					ACTION="<%=request.getContextPath()%>/OrderServlet" name="action">
+					<b>訂單狀態查詢</b>
+					<SELECT>
+						<option disabled selected>請選擇訂單狀態</option>
+						<option value="notyet">未開賣</option>
+						<option value="onsale">販售中</option>
+						<option value="soldout">已售罄</option>
+						<option value="ending">已結束</option>
+					</SELECT>
+					<!-- 			<input type="text" name="searchEventType" value="" style="" placeholder="訂單狀態"> -->
+					<!-- 			<input type="submit" name="action" value="search" onclick="searchEventType()"> -->
+				</FORM>
+				
+				<FORM METHOD="post" id="search"
+					ACTION="<%=request.getContextPath()%>/OrderServlet" name="action">
+					<b>訂單日期查詢</b>
+					<input type="datetime-local" name="startTime" value="" style="" placeholder="訂單日期">
+				</FORM>
+				
+			</div>
+
 			<c:forEach var="orderVO" items="${list}" begin="<%=pageIndex%>"
 				end="<%=pageIndex+rowsPerPage-1%>">
 

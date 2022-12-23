@@ -6,15 +6,15 @@ page import="tw.com.tibame.staff.model.*"
 %>
 <%
 StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
-System.out.println(request.getAttribute("staffVO"));
 %>
+<c:set var="context" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
   <head>
     <title>TICK IT</title>
     <!-- Custom Theme files -->
     <link
-      href="css/style_staff.css"
+      href="${context}/back-staff-end/staff/css/style_staff.css"
       rel="stylesheet"
       type="text/css"
       media="all"
@@ -50,12 +50,23 @@ System.out.println(request.getAttribute("staffVO"));
       <h2>員工登入</h2>
       <div class="login-top">
         <h1>LOGIN</h1>
-        <form>
-          <input type="text" placeholder="User Id" />
-          <input type="password" placeholder="password" />
-        </form>
+        <%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
+        <form  method="post" ACTION="${context}/StaffServlet">
+          <input type="text" name="staffAccount" placeholder="Staff Id" autocomplete="off"/>
+          <input type="password" name="staffPassword" placeholder="Staff Password" autocomplete="off"/>
+        
         <div class="forgot">
+        <input type="hidden" name="action" value="loginForStaff">
           <input type="submit" value="Login" />
+          </form>
         </div>
       </div>
       <div class="login-bottom">

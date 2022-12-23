@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 public class MemberDAO implements MemberDAOinterface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/TICK_IT?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/TICK_IT_TEST?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
 
@@ -371,7 +371,7 @@ public class MemberDAO implements MemberDAOinterface {
 	         con = DriverManager.getConnection(url, userid, passwd);
 
 			pstmt = con.prepareStatement(GET_ACCOUNT_STMT);
-			System.out.println("Connecting to database successfully findByEmail! ");
+			System.out.println("Connecting to database successfully findByAccount! ");
 
 			pstmt.setString(1, account);
 			

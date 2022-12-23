@@ -5,31 +5,14 @@
 <c:set var="context" value="${pageContext.request.contextPath}" />
 <% MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-
-    <title>TICK IT 員工後台</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="images/logo.ico"  />
-    
-<%--     <link rel="stylesheet" type="text/css" href="${context}/main_frame/css/bootstrap.css" /> --%>
-    <!-- Add custom CSS here -->
-<!--     <link href="css/sb-admin.css" rel="stylesheet" /> -->
-<!--     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" /> -->
-    <!-- Page Specific CSS -->
-<!--     <link rel="stylesheet" href="css/morris-0.4.3.min.css" /> -->
-    <jsp:include page="/main_frame/index_Staff.jsp"></jsp:include>
-        <!-- Bootstrap core CSS -->
+	<title>TICK IT 員工後台</title>
     <link href="css/memberNewSletter.css" rel="stylesheet" />
-    
-
   </head>
   <body>
+  <jsp:include page="/main_frame/index_Staff.jsp"></jsp:include>
     <!-- /#wrapper -->
     <div class="container">
 	    <br>

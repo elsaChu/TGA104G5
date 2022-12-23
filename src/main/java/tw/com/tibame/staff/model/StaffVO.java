@@ -1,7 +1,7 @@
 package tw.com.tibame.staff.model;
 
-public class StaffVO implements java.io.Serializable{
-	private static final long serialVersionUID = 1L;
+public class StaffVO {
+	
 	
 	private Integer staffNumber;
 	private String staffName;

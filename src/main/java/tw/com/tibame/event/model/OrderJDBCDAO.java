@@ -56,6 +56,7 @@ public class OrderJDBCDAO implements OrderDAO_interface {
             + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, null, NULL, NULL)"
             ;
     private static final String queryByOrderIdSQL = "SELECT * from `ORDER` where orderID = ? ";
+    private static final String queryByOrderIdAndMemberSQL = "SELECT * from `ORDER` where orderID = ? and number = ?";
     private static final String updateSQL = 
             " UPDATE `ORDER` set %s where orderID = ? " ;
 	private static final String selectByEventNumberSQL =
@@ -416,6 +417,43 @@ public class OrderJDBCDAO implements OrderDAO_interface {
             conn = DriverManager.getConnection(Common.URL,Common.USER,Common.PASSWORD);
             ps = conn.prepareStatement(queryByOrderIdSQL);
             ps.setInt(1, OrderId);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                vo = buildVO(rs);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                rs.close();
+            } catch (Exception e) {}
+            try {
+                ps.close();
+            } catch (Exception e) {}
+            try {
+                conn.close();
+            } catch (Exception e) {}
+        }
+        
+        return vo;
+    }
+    
+    
+
+    @Override
+    public OrderVO queryByOrderIdAndMember(int OrderId, int memberId) {
+        OrderVO vo = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            Class.forName(Common.driver);
+            conn = DriverManager.getConnection(Common.URL,Common.USER,Common.PASSWORD);
+            ps = conn.prepareStatement(queryByOrderIdAndMemberSQL);
+            ps.setInt(1, OrderId);
+            ps.setInt(1, memberId);
             rs = ps.executeQuery();
             
             while (rs.next()) {
@@ -862,5 +900,11 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 		}
 		EventVO s = list.get(0);
 		return list;
+	}
+
+	@Override
+	public List<OrderVO> searchByOrderID(Integer orderID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

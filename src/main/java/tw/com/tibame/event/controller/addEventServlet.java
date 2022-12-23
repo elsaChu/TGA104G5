@@ -51,7 +51,7 @@ public class addEventServlet extends HttpServlet {
 		
 		String action = req.getParameter("action");
 		System.out.println("action="+action);
-		
+		//insert page 1
 		if("page1".equals(action)) {
 			System.out.println("in page1");
 			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
@@ -239,7 +239,7 @@ public class addEventServlet extends HttpServlet {
 			return;
 		}
 		
-		//page2
+		//insert page2
 		if("page2".equals(action)) {
 			System.out.println("in page2");
 			Map map = (Map)session.getAttribute("adddata");

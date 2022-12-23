@@ -2,6 +2,8 @@ package tw.com.tibame.staff.model;
 
 import java.util.*;
 
+import tw.com.tibame.member.model.MemberVO;
+
 public class StaffService {
 
 	private StaffDAO_interface dao;
@@ -73,4 +75,13 @@ public class StaffService {
 
 		return dao.findByStaffAccount(staffAccount);
 	}
+	public StaffVO findByStaffAccount(String staffAccount) {
+		System.out.println("getOneByAccount");
+
+		return dao.findByStaffAccount2(staffAccount);
+	}
+	public String pwd(String staffPassword) {
+		return dao.pwd(staffPassword);
+	}
+
 }

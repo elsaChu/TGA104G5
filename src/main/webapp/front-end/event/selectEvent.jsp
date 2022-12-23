@@ -38,11 +38,11 @@
 					class="card-img-top eventDesc" alt="${event.eventName}">
 				<div class="card-body">
 					<h3 class="card-title">${event.eventName}</h3>
-					<p class="card-text eventDesc">活動時間：${event.eventStartDate} ~
-						${event.eventEndDate}</p>
-					<p class="card-text eventDesc">活動地點：${event.eventPlace} ,
-						${event.eventP2}</p>
-					<p class="card-text eventDesc">主辦單位：${event.organizerNumber}</p>
+					<p class="card-text eventDesc">活動時間：${eventStart} ~
+						${eventEnd}</p>
+					<p class="card-text eventDesc">演出地點：${event.eventPlace}</p>
+					<p class="card-text eventDesc">演出地址：${event.eventP2}</p>
+					<p class="card-text eventDesc">主辦單位：${orgName}</p>
 					<p class="card-text eventDesc">付款方式：信用卡</p>
 				</div>
 			</div>

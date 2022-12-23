@@ -200,15 +200,18 @@ public class MemberServlet extends HttpServlet {
 							res.sendRedirect(location);
 							return;
 						}
+						System.out.println("正確無誤，導至會員中心");
 						RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/memberCentre.jsp");
 						successView.forward(req, res);
 						return;
 
 					} catch (Exception e) {
+						e.printStackTrace();
+						System.out.println("錯誤了");
 						RequestDispatcher failureView = req.getRequestDispatcher("/front-end/member/memberLogin.jsp");
 						failureView.forward(req, res);
 					}
-				
+				}
 //					if (session.getAttribute("memberVO") == null) {
 //					RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
 //					dispatcher.forward(req, res);
@@ -220,7 +223,7 @@ public class MemberServlet extends HttpServlet {
 //					return;
 //					}
 		
-				}
+				
 				// ===================================================忘記密碼=========================================================//
 
 				if ("forgotPasswordForTickit".equals(action)) {
