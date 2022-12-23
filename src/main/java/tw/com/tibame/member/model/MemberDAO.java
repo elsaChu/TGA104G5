@@ -21,13 +21,13 @@ public class MemberDAO implements MemberDAOinterface {
 	String passwd = "password";
 
 	private static final String INSERT_STMT = "INSERT INTO MEMBER (account,password,email,birthday,name,phoneNumber)VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription FROM member";
-	private static final String GET_EMAIL_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber FROM member where upper(email) like upper(?)";
-	private static final String GET_ACCOUNT_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber FROM member where upper(account) like upper(?)";
-	private static final String GET_PASSWORD_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber FROM member where upper(password) like upper(?)";
+	private static final String GET_ALL_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,IDNumber FROM member";
+	private static final String GET_EMAIL_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,IDNumber FROM member where upper(email) like upper(?)";
+	private static final String GET_ACCOUNT_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,IDNumber FROM member where upper(account) like upper(?)";
+	private static final String GET_PASSWORD_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,IDNumber FROM member where upper(password) like upper(?)";
 //	private static final String UPDATE = "UPDATE member set account=?,password=?,email=?,birthday=?,name=?,phoneNumber=?,subscription=?,IDNumber=? where number = ?";
-	private static final String UPDATE = "UPDATE member set email=?,birthday=?,name=?,phoneNumber=?,subscription=?,idNumber=? where number = ?";
-	private static final String GET_ONE_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,idNumber FROM MEMBER where number = ?";
+	private static final String UPDATE = "UPDATE member set email=?,birthday=?,name=?,phoneNumber=?,subscription=?,IDNumber=? where number = ?";
+	private static final String GET_ONE_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,IDNumber FROM MEMBER where number = ?";
 	private static final String UPDATE_PASSWORD = "UPDATE member set password=? where email = ?";;
 	@Override
 	public void insert(MemberVO memberVO) {
@@ -87,7 +87,7 @@ public class MemberDAO implements MemberDAOinterface {
 			pstmt.setString(3, memberVO.getName());
 			pstmt.setString(4, memberVO.getPhoneNumber());
 			pstmt.setBoolean(5, memberVO.getSubscription());
-			pstmt.setString(6, memberVO.getIdNumber());
+			pstmt.setString(6, memberVO.getIDNumber());
 			pstmt.setInt(7, memberVO.getNumber());
 
 			pstmt.executeUpdate();
@@ -191,7 +191,7 @@ public class MemberDAO implements MemberDAOinterface {
 				memberVO.setBirthday(rs.getDate("birthday"));
 				memberVO.setName(rs.getString("name"));
 				memberVO.setPhoneNumber(rs.getString("phoneNumber"));
-				memberVO.setIdNumber(rs.getString("idNumber"));
+				memberVO.setIDNumber(rs.getString("IDNumber"));
 				memberVO.setSubscription(rs.getBoolean("subscription"));
 			}
 
@@ -259,6 +259,7 @@ public class MemberDAO implements MemberDAOinterface {
 				memberVO.setName(rs.getString("name"));
 				memberVO.setPhoneNumber(rs.getString("phoneNumber"));
 				memberVO.setSubscription(rs.getBoolean("subscription"));
+				memberVO.setIDNumber(rs.getString("IDNumber"));
 				list.add(memberVO); // Store the row in the list
 			}
 
@@ -322,6 +323,7 @@ public class MemberDAO implements MemberDAOinterface {
 				memberVO.setBirthday(rs.getDate("birthday"));
 				memberVO.setName(rs.getString("name"));
 				memberVO.setPhoneNumber(rs.getString("phoneNumber"));
+				memberVO.setIDNumber(rs.getString("IDNumber"));
 		    list.add(memberVO); // Store the row in the list
 		   }
 
@@ -388,7 +390,8 @@ public class MemberDAO implements MemberDAOinterface {
 				memberVO.setBirthday(rs.getDate("birthday"));
 				memberVO.setName(rs.getString("name"));
 				memberVO.setPhoneNumber(rs.getString("phoneNumber"));
-				
+				memberVO.setIDNumber(rs.getString("IDNumber"));
+
 			}
 
 			// Handle any driver errors
@@ -455,6 +458,7 @@ public class MemberDAO implements MemberDAOinterface {
 				memberVO.setBirthday(rs.getDate("birthday"));
 				memberVO.setName(rs.getString("name"));
 				memberVO.setPhoneNumber(rs.getString("phoneNumber"));
+				memberVO.setIDNumber(rs.getString("IDNumber"));
 				
 			}
 
@@ -586,7 +590,7 @@ public class MemberDAO implements MemberDAOinterface {
 		  updateTest.setName("蔡安罧");
 		  updateTest.setPhoneNumber("0975798318");
 		  updateTest.setSubscription(true);
-		  updateTest.setIdNumber("F229052175");
+		  updateTest.setIDNumber("F229052175");
 		  updateTest.setNumber(1);
 		dao.update(updateTest);
 		System.out.println("修改成功");

@@ -96,6 +96,12 @@ public class MemberService {
 		return memberVO;
 	}
 
+
+	public MemberVO updatePassword(MemberVO memberVO) {
+		dao.update(memberVO);
+		return memberVO;
+	}
+
 	
 	
 

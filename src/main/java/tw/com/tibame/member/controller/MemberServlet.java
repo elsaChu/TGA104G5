@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
+
 import tw.com.tibame.member.model.MailService;
 import tw.com.tibame.member.model.MemberService;
 import tw.com.tibame.member.model.MemberVO;
@@ -307,17 +308,17 @@ public class MemberServlet extends HttpServlet {
 						String name = req.getParameter("name");
 						String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 						if (name == null || name.trim().length() == 0) {
-							errorMsgs.put("name", "請填寫姓名");
+							errorMsgs.put(name, "請填寫姓名");
 						} else if (!name.trim().matches(nameReg)) { // 以下練習正則(規)表示式(regular-expression)
-							errorMsgs.put("userName", "姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+							errorMsgs.put(name, "姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 						}	
 						System.out.println("### into update ### 2");
 						String email = req.getParameter("email");
 						String emailReg = "^[_a-z0-9-]+([.][_a-z0-9-]+)*@[a-z0-9-]+([.][a-z0-9-]+)*$";
 						if (email == null || email.trim().length() == 0) {
-							errorMsgs.put("email", "請填寫信箱");
+							errorMsgs.put(email, "請填寫信箱");
 						} else if (!email.trim().matches(emailReg)) {
-							errorMsgs.put("email", "請輸入正確信箱格式");
+							errorMsgs.put(email, "請輸入正確信箱格式");
 						} else if(memberVO.getEmail().equals(email)) {
 							
 						} else {
@@ -327,23 +328,23 @@ public class MemberServlet extends HttpServlet {
 						String phoneNumber = req.getParameter("phoneNumber");
 						String phoneNumberReg = "^[0-9]{10}$";
 						if (phoneNumber == null || phoneNumber.trim().length() == 0) {
-							errorMsgs.put("phoneNumber", "請輸入電話號碼");
+							errorMsgs.put(phoneNumber, "請輸入電話號碼");
 						} else if (!phoneNumber.trim().matches(phoneNumberReg)) {
-							errorMsgs.put("phoneNumber", "電話號碼: 只能是數字 , 且長度必需是10");
+							errorMsgs.put(phoneNumber, "電話號碼: 只能是數字 , 且長度必需是10");
 						}
 						System.out.println("### into update ### 4");
-//						String IDNumber = req.getParameter("idNumber");
-//						String IDNumberReg = "^[A-Z][12]\\d{8}$";
-//						 if (!IDNumber.trim().matches(IDNumberReg)) {
-//							errors.put("IDNumber" ,"請符合身分證格式");
-//						}
+						String IDNumber = req.getParameter("IDNumber");
+						String IDNumberReg = "^[A-Z][12]\\d{8}$";
+						 if (!IDNumber.trim().matches(IDNumberReg)) {
+							 errorMsgs.put(IDNumber ,"請符合身分證格式");
+						}
 
 						java.sql.Date birthday = null;
 						try {
 							birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
 						} catch (IllegalArgumentException e) {
 							birthday = new java.sql.Date(System.currentTimeMillis());
-							errorMsgs.put("birthday" ,"請輸入西元日期");
+							errorMsgs.put(IDNumber,"請輸入西元日期");
 						}
 						System.out.println("### into update ### 5");
 						
@@ -358,7 +359,7 @@ public class MemberServlet extends HttpServlet {
 						memberVO.setName(name);
 						memberVO.setPhoneNumber(phoneNumber);
 						memberVO.setSubscription(subscription);
-//						memberVO.setIdNumber(IDNumber);
+						memberVO.setIDNumber(IDNumber);
 						
 						System.out.println("### into update ### 7");
 						if (errorMsgs != null && !errorMsgs.isEmpty()) {
@@ -491,5 +492,63 @@ public class MemberServlet extends HttpServlet {
 					RequestDispatcher successView = req.getRequestDispatcher(url); 
 					successView.forward(req, res);
 					}
+					
+					// ===================================================修改密碼=========================================================//
+					
+					if("updatePassword".equals(action)) {
+						
+						System.out.println("updatePassword");
+
+						Map<String, String> errors = new HashMap<String, String>();
+						req.setAttribute("errors", errors);
+						
+						try {
+
+							MemberService memberSvc = new MemberService();
+							MemberVO memberVO = (MemberVO) session.getAttribute("memberVO"); // 表示已登入，取得userVO物件
+							System.out.println("### into updatePassword ### 1");
+
+							
+							String oldPassword = req.getParameter("oldPassword");
+							String newPassword = req.getParameter("newPassword");
+							String newPassword2 = req.getParameter("newPassword2");
+							String oldPwd = memberSvc.pwdhash(oldPassword);
+							if(oldPassword == null || oldPassword.trim().length() == 0) {
+								errors.put("oldPassword", "請輸入舊密碼");
+							} else if(!oldPwd.equals(memberVO.getPassword())) {
+								errors.put("oldPassword", "舊密碼錯誤");			
+							} else if(newPassword == null) {
+								errors.put("newPassword", "請輸入新密碼");
+							} else if(newPassword2 == null) {
+								errors.put("newPassword2", "請確認新密碼");
+							} else if(newPassword != newPassword2 ) {
+								errors.put("newPassword2", "新密碼與確認密碼不相符，請重新輸入");
+							}
+							System.out.println(oldPassword);
+							System.out.println(newPassword);
+							System.out.println(newPassword2);
+								
+									
+							
+							if (errors != null && !errors.isEmpty()) {
+								System.out.println("發生錯誤!");
+								session.setAttribute("memberVO", memberVO);
+								RequestDispatcher failureView = req.getRequestDispatcher("memberCentre.jsp");
+								failureView.forward(req, res);
+								return;
+							}
+
+							// 開始修改資料
+							memberVO.setPassword(memberSvc.pwdhash(newPassword));
+							memberVO = memberSvc.updatePassword(memberVO);
+							System.out.println("密碼修改成功");
+
+						} catch (Exception e) {
+							System.out.println("update exception :" + e);
+							RequestDispatcher failureView = req.getRequestDispatcher("index.jsp");
+							failureView.forward(req, res);
+						}
+						
 	}
+}
 }

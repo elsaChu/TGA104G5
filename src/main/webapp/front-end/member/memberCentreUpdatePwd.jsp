@@ -160,8 +160,8 @@
     <!-- 頁籤按鈕 -->
     <div id="tab">
       <ul>
-        <li><a href="#tab-1">帳號設定</a></li>
-        <li><a href="#tab-2">修改密碼</a></li>
+        <li><a href="${context}/front-end/member/memberCentre.jsp">帳號設定</a></li>
+        <li><a href="${context}/front-end/member/memberCentreUpdatePwd.jsp">修改密碼</a></li>
         <li><a href="#tab-3">票券訂單</a></li>
         <li><a href="#tab-4">商品訂單</a></li>
       </ul>
@@ -253,7 +253,7 @@
         </div>
         <form action="MemberServlet" method="POST" >
         <div class="Data-Items2">
-          <input type="password" name="oldPassword"/><br />
+          <input type="password" name="oldpassword"/><br />
           <span class="error" style="color: red">${errors.oldPassword}</span>
           <input type="password" name="newPassword"/><br />
           <input type="password" name="newPassword2"/><br /><br /><br />
@@ -261,7 +261,7 @@
         <div class="submit">
            <input type="hidden" name="action" value="updatePassword">
           <input type="submit" value="確定修改密碼" /><br /><br />
-          </form>
+          </from>
         </div>
       </div>
       <div class="tab-content-3">
