@@ -148,86 +148,40 @@ hr {
 			</div>
 			<div>
 				<div>
-					<a>訂單編號</a> <span style="display: inline-block; width: 350px;"></span>
+					<c:forEach var="orderEventVO" items="${list}">
+					<a>訂單編號</a>${orderEventVO.number}
+					<span style="display: inline-block; width: 350px;"></span>
 					<a>活動名稱 / 描述</a>
+					</c:forEach>
 				</div>
 			</div>
 			<hr class="hr_style">
 			<div class="row">
+				<img src="my-image.png" alt="My Image"
+							width="" height="">
 				<br>
 				<div class="col">
 <!-- 					<a>#動態抓訂單編號</a><br> -->
 <!-- 					<img src="my-image.png" alt="My Image" -->
 <!-- 						width="" height=""> -->
 				</div>
+				<c:forEach var="orderEventVO" items="${list}">
 				<div class="col">
-					<table>
-						<tr>
-							<th>活動名稱</th>
-							<th>開始時間</th>
-							<th>活動地點</th>
-							<th>主辦單位</th>
-							<th>訂單狀態</th>
-							<th>票券數量</th>
-							<th>總金額</th>
-						</tr>
-
-						<%@ include file="page1.file"%>
-						<c:forEach var="orderEventVO" items="${list}"
-							begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-					
-
-						<tr>
-							<a>${orderEventVO.number}</a><br>
-					 		<img src="my-image.png" alt="My Image"
-							width="" height="">
-							
-							<td>${orderEventVO.organizerName}</td>
-							<td>${orderEventVO.eventStartDate}</td>
-							<td>${orderEventVO.eventPlace}</td>
-							<td>${orderEventVO.organizerName}</td>
-							<td>${orderEventVO.orderType}</td>
-							<td>${orderEventVO.totalTicket}</td>
-							<td>${orderEventVO.total}</td>
-
-							<td>
-								<FORM METHOD="post"
-									ACTION="<%=request.getContextPath()%>/Servlet路徑"
-									style="margin-bottom: 0px;">
-									<input type="submit" value="立即付款"> <input type="hidden"
-										name="staffNumber" value="${staffVO.staffNumber}"> <input
-										type="hidden" name="action" value="getOne_For_Update">
-								</FORM>
-								<FORM METHOD="post"
-									ACTION="<%=request.getContextPath()%>/Servlet路徑"
-									style="margin-bottom: 0px;">
-									<input type="submit" value="修改訂單資訊"> <input
-										type="hidden" name="staffNumber"
-										value="${staffVO.staffNumber}"> <input type="hidden"
-										name="action" value="getOne_For_Update">
-								</FORM>
-								<FORM METHOD="post"
-									ACTION="<%=request.getContextPath()%>/Servlet路徑"
-									style="margin-bottom: 0px;">
-									<input type="submit" value="取消訂單"> <input type="hidden"
-										name="staffNumber" value="${staffVO.staffNumber}"> <input
-										type="hidden" name="action" value="getOne_For_Update">
-								</FORM>
-
-
-
-							</td>
-						</tr>
-						</c:forEach>
-
-					</table>
+					<div>
+					 <p>活動名稱</p>${orderEventVO.eventName}
+            		 <P>開始時間</P>${orderEventVO.eventStartDate}
+          			 <p>活動地點</p>${orderEventVO.eventPlace}
+        		     <p>主辦單位</p>${orderEventVO.organizerName}
+        		     <p>訂單狀態</p>${orderEventVO.orderType}
+       			     <p>票券數量</p>${orderEventVO.totalTicket}
+            		 <p>總金額</p>${orderEventVO.total}
+            		</div>
 				</div>
+					</c:forEach>
 				<div class="col">
-
-
-					<!--             <div class="myButton1"><input type="submit"  value="立即付款"></div> -->
-					<!--             <div class="myButton1"><input type="submit"  value="修改訂單資訊"></div> -->
-					<!--             <div class="myButton1"><input type="submit"  value="取消訂單"></div> -->
+					            <div class="myButton1"><input type="submit"  value="立即付款"></div>
+					            <div class="myButton1"><input type="submit"  value="修改訂單資訊"></div>
+					            <div class="myButton1"><input type="submit"  value="取消訂單"></div>
 
 					<!-- <a># 動態抓訂單編號</a>
           <div>

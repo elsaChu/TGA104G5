@@ -62,7 +62,7 @@ th, td {
 
 	<%-- 	<jsp:include page="/main_frame/index_Staff.jsp"></jsp:include> --%>
 
-	<h4>此頁暫練習採用 Script 的寫法取值:</h4>
+	
 	<table id="table-1">
 		<tr>
 			<td>

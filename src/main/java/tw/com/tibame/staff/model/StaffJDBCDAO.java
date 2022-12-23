@@ -389,7 +389,7 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 			while (rs.next()) {
 				staffVO = new StaffVO();
 				staffVO.setStaffNumber(rs.getInt("staffNumber"));
-				System.out.println(staffVO.getStaffNumber());
+//				System.out.println(staffVO.getStaffNumber());
 				staffVO.setStaffName(rs.getString("staffName"));
 				staffVO.setStaffAccount(rs.getString("staffAccount"));
 				staffVO.setStaffPassword(rs.getString("staffPassword"));
