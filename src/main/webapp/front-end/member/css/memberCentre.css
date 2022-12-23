@@ -226,8 +226,8 @@ span:target ~ #tab > div:first-of-type {
 
 /*頁籤變換&第一筆*/
 span ~ #tab > ul li:first-child a,
-#tab-1:target ~ #tab > ul li a[href$="#tab-1"],
-#tab-2:target ~ #tab > ul li a[href$="#tab-2"],
+#tab-1:target ~ #tab > ul li a[href="${context}/front-end/member/memberCentre.jsp"],
+#tab-2:target ~ #tab > ul li a[href="${context}/front-end/member/memberCentreUpdatePwd.jsp"],
 #tab-3:target ~ #tab > ul li a[href$="#tab-3"],
 #tab-4:target ~ #tab > ul li a[href$="#tab-4"] {
   background: #fff;
@@ -235,8 +235,8 @@ span ~ #tab > ul li:first-child a,
 }
 
 span ~ #tab > ul li:first-child a::before,
-#tab-1:target ~ #tab > ul li a[href$="#tab-1"]::before,
-#tab-2:target ~ #tab > ul li a[href$="#tab-2"]::before,
+#tab-1:target ~ #tab > ul li a[href="${context}/front-end/member/memberCentre.jsp"]::before,
+#tab-2:target ~ #tab > ul li a[href="${context}/front-end/member/memberCentreUpdatePwd.jsp"]::before,
 #tab-3:target ~ #tab > ul li a[href$="#tab-3"]::before,
 #tab-4:target ~ #tab > ul li a[href$="#tab-4"]::before {
   background-color: white;

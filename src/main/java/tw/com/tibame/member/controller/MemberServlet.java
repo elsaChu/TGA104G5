@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
+
 import tw.com.tibame.member.model.MailService;
 import tw.com.tibame.member.model.MemberService;
 import tw.com.tibame.member.model.MemberVO;
@@ -491,5 +492,63 @@ public class MemberServlet extends HttpServlet {
 					RequestDispatcher successView = req.getRequestDispatcher(url); 
 					successView.forward(req, res);
 					}
+					
+					// ===================================================修改密碼=========================================================//
+					
+					if("updatePassword".equals(action)) {
+						
+						System.out.println("updatePassword");
+
+						Map<String, String> errors = new HashMap<String, String>();
+						req.setAttribute("errors", errors);
+						
+						try {
+
+							MemberService memberSvc = new MemberService();
+							MemberVO memberVO = (MemberVO) session.getAttribute("memberVO"); // 表示已登入，取得userVO物件
+							System.out.println("### into updatePassword ### 1");
+
+							
+							String oldPassword = req.getParameter("oldPassword");
+							String newPassword = req.getParameter("newPassword");
+							String newPassword2 = req.getParameter("newPassword2");
+							String oldPwd = memberSvc.pwdhash(oldPassword);
+							if(oldPassword == null || oldPassword.trim().length() == 0) {
+								errors.put("oldPassword", "請輸入舊密碼");
+							} else if(!oldPwd.equals(memberVO.getPassword())) {
+								errors.put("oldPassword", "舊密碼錯誤");			
+							} else if(newPassword == null) {
+								errors.put("newPassword", "請輸入新密碼");
+							} else if(newPassword2 == null) {
+								errors.put("newPassword2", "請確認新密碼");
+							} else if(newPassword != newPassword2 ) {
+								errors.put("newPassword2", "新密碼與確認密碼不相符，請重新輸入");
+							}
+							System.out.println(oldPassword);
+							System.out.println(newPassword);
+							System.out.println(newPassword2);
+								
+									
+							
+							if (errors != null && !errors.isEmpty()) {
+								System.out.println("發生錯誤!");
+								session.setAttribute("memberVO", memberVO);
+								RequestDispatcher failureView = req.getRequestDispatcher("memberCentre.jsp");
+								failureView.forward(req, res);
+								return;
+							}
+
+							// 開始修改資料
+							memberVO.setPassword(memberSvc.pwdhash(newPassword));
+							memberVO = memberSvc.updatePassword(memberVO);
+							System.out.println("密碼修改成功");
+
+						} catch (Exception e) {
+							System.out.println("update exception :" + e);
+							RequestDispatcher failureView = req.getRequestDispatcher("index.jsp");
+							failureView.forward(req, res);
+						}
+						
 	}
+}
 }
