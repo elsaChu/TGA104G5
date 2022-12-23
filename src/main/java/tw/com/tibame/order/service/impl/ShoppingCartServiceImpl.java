@@ -45,18 +45,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	@Override
 	public ShoppingCartVO insert(ShoppingCartVO shoppingCartVO) {
-		if (shoppingCartVO != null && shoppingCartVO.getNumber() != null && shoppingCartVO.getProdNo() != null
-				&& shoppingCartVO.getShoppingQty() != null) {
-			return shoppingCartDAO.insert(shoppingCartVO);
+		if (shoppingCartVO != null) {
+			ShoppingCartVO temp = shoppingCartDAO.getByMemberNoAndProdNo(shoppingCartVO.getNumber(), shoppingCartVO.getProdNo());
+			if (temp == null) {
+				return shoppingCartDAO.insert(shoppingCartVO);
+			} else {
+				return shoppingCartDAO.update(shoppingCartVO);
+			}
 		}
 		return null;
 	}
 
 	@Override
 	public ShoppingCartVO update(ShoppingCartVO shoppingCartVO) {
-		if (shoppingCartVO != null && shoppingCartVO.getShoppingCartNo() != null
-				&& shoppingCartVO.getShoppingQty() != null) {
-			ShoppingCartVO temp = shoppingCartDAO.getByPrimaryKey(shoppingCartVO.getShoppingCartNo());
+		if (shoppingCartVO != null) {
+			ShoppingCartVO temp = shoppingCartDAO.getByMemberNoAndProdNo(shoppingCartVO.getNumber(), shoppingCartVO.getProdNo());
 			if (temp != null) {
 				return shoppingCartDAO.update(shoppingCartVO);
 			}

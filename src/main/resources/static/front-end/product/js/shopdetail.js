@@ -14,7 +14,7 @@ function init() {
         success: function (data) {
 
             prodarea.innerHTML = Template1(data);
-            console.log(data.length);
+          
             
         },
         error: function (xhr) {
@@ -25,43 +25,89 @@ function init() {
 	
 
 	// 顯示下方小圖(未完成)
-	$.ajax({
-        url: "../../product/findImageId",
-        type: "GET",
-        data: { "prodNo": prodNo },
-        dataType: "json",
-        success: function (data) {
+	// $.ajax({
+    //     url: "../../product/findImageId",
+    //     type: "GET",
+    //     data: { "prodNo": prodNo },
+    //     dataType: "json",
+    //     success: function (data) {
 			
-            let imageId = data;
-            console.log(data);
-			console.log(data[0]);
-			picture.innerHTML = "";
-			// 小圖區域不見了O_O
-			for(i = 0; i < imageId.length; i++) {
-				picture.innerHTML = Template2(imageId[i]);
-			};
+    //         let imageId = data;
+    //         console.log(data);
+	// 		console.log(data[0]);
+	// 		picture.innerHTML = "";
+			
+	// 		for(i = 0; i < imageId.length; i++) {
+	// 			picture.innerHTML = Template2(imageId[i]);
+	// 		};
 			
            
             
-        },
-        error: function (xhr) {
-            console.log(xhr);
-        }
+    //     },
+    //     error: function (xhr) {
+    //         console.log(xhr);
+    //     }
   
-    });
+    // });
 
 	// 顯示主要圖片
 	mainPic.innerHTML = `
 			<img class="product__details__pic__item--large"
 			src="../../product/mainPic?prodNo=${prodNo}" alt="">
 			  `;
-	
 
-}
+
+// 加入購物車
+$("#prodarea").on("click", "a.primary-btn", function(e){
+    e.preventDefault();
+    if($(this).hasClass("added")) {
+      return;
+    }
+
+// console.log("ddd");
+
+    let data = {
+	//   "number": number,
+      "prodNo": parseInt(prodNo),
+      "shoppingQty": parseInt($("div.pro-qty input").val()) 
+    };
+
+console.log(data);
+	// $.ajax({
+    //     url: "http://localhost:8080/TGA104G5/cart/addToCart",
+    //     type: "POST",
+	// 	contentType: "application/json",
+    //     data: data,
+    //     dataType: "json",
+    //     success: function (data) {	
+	// 		console.log(data);
+    //     },
+    //     // error: function (xhr) {
+    //     //     console.log(xhr);
+    //     // }
+
+    // });
+
+
+	fetch("../../cart/addToCart", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {'content-type': 'application/json'}
+    })
+	.then((r) => r.json())
+    .then((data) => {
+      // console.log(data);
+      $(this).closest("div").addClass("added");
+      $(this).text("已在購物車");
+	});
+  });
+	
+  
+
 
 // 顯示商品資訊
 function Template1({prodName, totalcomment, eventName, unitPrice, prodDetails, commentQty}) {
-	console.log(totalcomment);
+	// console.log(totalcomment); // 沒有被買過的商品會顯示null 先取消此功能
 	let avgComment = (totalcomment / commentQty) * 20;
 	// console.log(avgComment);
     return `
@@ -92,22 +138,23 @@ function Template1({prodName, totalcomment, eventName, unitPrice, prodDetails, c
 				</div>
 			</div>
 				<a href="#" class="primary-btn">加入購物車</a>
-				<a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+				
 				<div>
 					<p id="prodDetails">${prodDetails}</p>
 				</div>
 			</div>	
 		</div>
       `;
+	  
 }
 
-
-function Template2({prodIMGID}) {
+// 這個小圖要跑迴圈
+// function Template2({prodIMGID}) {
 	
-    return `
-		<img data-imgbigurl=""../../product/findPictureById?prodIMGID=${prodIMGID}"
-		src="../../product/findPictureById?prodIMGID=${prodIMGID}" alt="">
-      `;
+//     return `
+// 		<img data-imgbigurl=""../../product/findPictureById?prodIMGID=${prodIMGID}"
+// 		src="../../product/findPictureById?prodIMGID=${prodIMGID}" alt="">
+//       `;
 }
 
 
@@ -123,7 +170,9 @@ setTimeout(() => {
 	bbb.addEventListener('click', () => {
 		qtyVal.value++
 	})
-	console.log(aaa);
+	// console.log(aaa);
 }, 1000)
 
 window.onload = init;
+
+

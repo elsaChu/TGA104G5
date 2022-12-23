@@ -6,9 +6,11 @@ import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.hibernate.type.NumericBooleanType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import tw.com.tibame.order.vo.OrderDetailVO;
 import tw.com.tibame.order.vo.ShoppingCartVO;
 import tw.com.tibame.order.vo.ShowShoppingCartVO;
 
@@ -45,6 +47,21 @@ public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
 	}
 
 	@Override
+	public ShoppingCartVO getByMemberNoAndProdNo(Integer number, Integer prodNo) {
+		if (number != null && prodNo != null) {
+			Query<ShoppingCartVO> query = getSession().createQuery(
+					"from ShoppingCartVO where number = :number and prodNo= :prodNo",ShoppingCartVO.class);
+			return query.setParameter("number", number)
+						.setParameter("prodNo", prodNo)
+						.getSingleResult();
+			
+			
+		}
+		return null;
+	}
+	
+	
+	@Override
 	public ShoppingCartVO insert(ShoppingCartVO shoppingCartVO) {
 		if (shoppingCartVO != null) {
 			this.getSession().persist(shoppingCartVO);
@@ -55,11 +72,10 @@ public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
 
 	@Override
 	public ShoppingCartVO update(ShoppingCartVO shoppingCartVO) {
-		if (shoppingCartVO != null && shoppingCartVO != null) {
-			ShoppingCartVO temp = this.getSession().get(ShoppingCartVO.class, shoppingCartVO.getShoppingCartNo());
-			if (temp != null) {
-				this.getSession().merge(shoppingCartVO);
-				return shoppingCartVO;
+		if (shoppingCartVO != null) {
+			ShoppingCartVO target = getByMemberNoAndProdNo(shoppingCartVO.getNumber(),shoppingCartVO.getProdNo());
+			if(shoppingCartVO.getShoppingQty()!= null) {
+				target.setShoppingQty(shoppingCartVO.getShoppingQty());
 			}
 		}
 		return null;

@@ -11,6 +11,8 @@ public interface ShoppingCartDAO {
 	public ShowShoppingCartVO getByShoppingCartNo(Integer shoppingCartNo);
 	
 	public ShoppingCartVO getByPrimaryKey(Integer shoppingCartNo);
+	
+	public ShoppingCartVO getByMemberNoAndProdNo(Integer number, Integer prodNo);
 
 	public List<ShowShoppingCartVO> getByMemberNumber(Integer number);
 

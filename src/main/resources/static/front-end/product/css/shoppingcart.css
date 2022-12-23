@@ -2,3 +2,20 @@
     padding-top: 10px;
     padding-bottom: 80px;
 }
+
+#mainPic {
+    height: 100px;
+    max-width: 100%;
+}
+
+#name{
+    display: inline-block;  /* ★ */
+    vertical-align: middle; /* ★ */
+}
+
+#cart__final__amount{
+    display: contents;
+    font-size: 18px;
+    color: #000000;
+    float: right;
+}
