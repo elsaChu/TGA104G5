@@ -4,9 +4,6 @@
 <%@ page import="java.util.*"%>
 <%@ page import="tw.com.tibame.event.model.*"%>
 
-<%
- OrderVO ordervo = (OrderVO) request.getAttribute("orderVO");
-%>
 
 <!DOCTYPE html>
 <html>
@@ -73,7 +70,7 @@ th, td {
 			<th>取消原因</th>
 		</tr>
 
-		<c:forEach var="orderVO" items="${list}">
+		<c:forEach var="orderVO" items="${orderVO_list}">
 			<tr>
 				<td>${orderVO.orderID}</td>
 				<td>${orderVO.number}</td>
