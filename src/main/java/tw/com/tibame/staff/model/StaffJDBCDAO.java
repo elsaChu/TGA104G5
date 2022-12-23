@@ -1,5 +1,6 @@
 package tw.com.tibame.staff.model;
 
+
 import tw.com.tibame.util.common.Common;
 
 import java.sql.Connection;
@@ -18,7 +19,8 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 	private static final String UPDATE_STAFF = "UPDATE STAFF set staffName=?, staffAccount=?, staffPassword=? where staffNumber=?";
 	private static final String DELETE_STAFF = "DELETE FROM STAFF where staffNumber = ?";
 	private static final String GET_ONE_ACCOUNT = "SELECT staffAccount FROM STAFF where staffAccount = ?";
-
+	private static final String GET_PASSWORD_STMT = "SELECT staffNumber,staffName,staffAccount,staffPassword FROM STAFF where upper(staffPassword) like upper(?)";
+	private static final String GET_ACCOUNT_STMT = "SELECT StaffAccount,staffPassword FROM STAFF where upper(staffAccount) like upper(?)";
 	@Override
 	public void insert(StaffVO staffVO, List<S_permissionVO> list) {
 
@@ -328,7 +330,7 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 //				staffVO.setStaffNumber(rs.getInt("staffNumber"));
 //				staffVO.setStaffName(rs.getString("staffName"));
 				staffVO.setStaffAccount(rs.getString("staffAccount"));
-//				staffVO.setStaffPassword(rs.getString("staffPassword"));
+				staffVO.setStaffPassword(rs.getString("staffPassword"));
 			}
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -424,4 +426,125 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 		return staffVO;
 
 	}
-}
+
+	@Override
+	public String pwd(String staffPassword) {
+
+		StaffVO staffVO = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(Common.driver);
+			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
+
+			pstmt = conn.prepareStatement(GET_PASSWORD_STMT);
+			System.out.println("Connecting to database successfully pwd! ");
+
+			pstmt.setString(1, staffPassword);
+			
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVo 也稱為 Domain objects
+				staffVO = new StaffVO();
+				staffVO.setStaffPassword(rs.getString("staffPassword"));
+
+				
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return staffPassword;
+	}
+	public StaffVO findByStaffAccount2(String staffAccount) {
+		StaffVO staffVO = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(Common.driver);
+			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
+			pstmt = conn.prepareStatement(GET_ACCOUNT_STMT);
+
+			pstmt.setString(1, staffAccount);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// staffVo 也稱為 Domain objects
+				staffVO = new StaffVO();
+//				staffVO.setStaffNumber(rs.getInt("staffNumber"));
+//				staffVO.setStaffName(rs.getString("staffName"));
+				staffVO.setStaffAccount(rs.getString("staffAccount"));
+				staffVO.setStaffPassword(rs.getString("staffPassword"));
+			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return staffVO;
+	}
+	
+	}
+

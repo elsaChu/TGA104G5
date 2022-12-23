@@ -65,7 +65,7 @@ public class OrganizerRegisterTwo extends HttpServlet {
 		if(isNameTaken.equals("Insert Success")) {
 			System.out.println("send verification mail");
 			MailService mailService = new MailService();
-			String to = "52rondo@gmail.com";
+			String to = windowEmail;
 			String subject = " TICK IT 帳號啟用";
 			String ch_name = "親愛的使用者 " + OAccount;
 			String authCode = mailService.genAuthCode();

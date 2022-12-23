@@ -22,7 +22,7 @@ import com.google.gson.GsonBuilder;
 @WebServlet("/AddEvent2Servlet")
 public class AddEvent2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	//insert page 3 use
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -78,22 +78,46 @@ public class AddEvent2Servlet extends HttpServlet {
 				System.out.println("in suc true"+result.size());
 				result.put("success", true);
 			}
-
-			System.out.println("adddata="+((Map)session.getAttribute("adddata")).toString());
-			System.out.println(session.getAttribute("tickets").toString());
-			//get page1 data
-			Map eventMap =(Map)session.getAttribute("adddata");
-			EventVO eventvo = (EventVO)eventMap.get("page1");
-			String[] event_class=(String[]) eventMap.get("event_class");
-			//get page2 data
-			String tickets=session.getAttribute("tickets").toString();
 			
-			// call service insert data
-			EventService eventSvc = new EventService();
-			int eventInsertOK = eventSvc.addEvent(eventvo,event_class,tickets,xval,yval,seatIdListary);
-			result.put("insertOK",eventInsertOK);
-			session.removeAttribute("adddata");
-			session.removeAttribute("tickets");
+			String eventNumber=request.getParameter("eventNumber");
+			System.out.println("eventNumber="+eventNumber);
+			if("".equals(eventNumber)) {
+				System.out.println("adddata="+((Map)session.getAttribute("adddata")).toString());
+				System.out.println(session.getAttribute("tickets").toString());
+				//get page1 data
+				Map eventMap =(Map)session.getAttribute("adddata");
+				EventVO eventvo = (EventVO)eventMap.get("page1");
+				String[] event_class=(String[]) eventMap.get("event_class");
+				//get page2 data
+				String tickets=session.getAttribute("tickets").toString();
+				
+				// call service insert data
+				EventService eventSvc = new EventService();
+				int eventInsertOK = eventSvc.addEvent(eventvo,event_class,tickets,xval,yval,seatIdListary);
+				result.put("insertOK",eventInsertOK);
+				session.removeAttribute("adddata");
+				session.removeAttribute("maxDate");
+				session.removeAttribute("tickets");
+			}else {
+				System.out.println("up_adddata="+((Map)session.getAttribute("up_adddata")).toString());
+				System.out.println(session.getAttribute("up_tickets").toString());
+				//get page1 data
+				Map eventMap =(Map)session.getAttribute("up_adddata");
+				EventVO eventvo = (EventVO)eventMap.get("page1");
+				String[] event_class=(String[]) eventMap.get("event_class");
+				//get page2 data
+				String tickets=session.getAttribute("up_tickets").toString();
+				
+				// call service insert data
+				EventService eventSvc = new EventService();
+				int eventInsertOK = eventSvc.updateEvent(eventvo,event_class,tickets,xval,yval,seatIdListary);
+				result.put("insertOK",eventInsertOK);
+				session.removeAttribute("up_eventvo");
+				session.removeAttribute("up_adddata");
+				session.removeAttribute("up_maxDate");
+				session.removeAttribute("up_tickets");
+			}
+			
         }
         
 	    PrintWriter out = response.getWriter();

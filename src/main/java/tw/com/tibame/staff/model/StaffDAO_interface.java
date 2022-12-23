@@ -10,8 +10,10 @@ public interface StaffDAO_interface {
 	public void delete(Integer staffNumber);
 	public StaffVO findByPrimaryKey(Integer staffNumber);
 	public StaffVO findByStaffAccount(String staffAccount);
+	public StaffVO findByStaffAccount2(String staffAccount);
 	public List<StaffVO> getAll();
 	public StaffVO findByStaffNumber(Integer staffNumber);
+	public String pwd(String staffPassword) ;
 	//萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<EmpVO> getAll(Map<String, String[]> map);
 }

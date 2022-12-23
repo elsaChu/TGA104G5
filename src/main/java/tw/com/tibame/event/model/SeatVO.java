@@ -5,17 +5,26 @@ import java.util.Arrays;
 public class SeatVO {
 	private Integer seatID;
 	private Integer eventNumber;
-	private byte[] seatType; // default 0
+	private Boolean seatType; // default 0
 	private Integer seatNumber;
 	private Integer seatSet;
 
 	@Override
-	public String toString() {
-		return "SeatVO [seatID=" + seatID + ", eventNumber=" + eventNumber + ", seatType=" + Arrays.toString(seatType)
-				+ ", seatNumber=" + seatNumber + ", seatSet=" + seatSet + "]";
-	}
+    public String toString() {
+        return "SeatVO [seatID=" + seatID + ", eventNumber=" + eventNumber + ", seatType=" + seatType + ", seatNumber="
+                + seatNumber + ", seatSet=" + seatSet + "]";
+    }
+	
 
-	public Integer getSeatID() {
+    public Boolean getSeatType() {
+        return seatType;
+    }
+
+    public void setSeatType(Boolean seatType) {
+        this.seatType = seatType;
+    }
+
+    public Integer getSeatID() {
 		return seatID;
 	}
 
@@ -29,14 +38,6 @@ public class SeatVO {
 
 	public void setEventNumber(Integer eventNumber) {
 		this.eventNumber = eventNumber;
-	}
-
-	public byte[] getSeatType() {
-		return seatType;
-	}
-
-	public void setSeatType(byte[] seatType) {
-		this.seatType = seatType;
 	}
 
 	public Integer getSeatNumber() {

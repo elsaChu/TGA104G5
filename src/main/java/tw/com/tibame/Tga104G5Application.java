@@ -13,5 +13,4 @@ public class Tga104G5Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Tga104G5Application.class, args);
 	}
-
 }

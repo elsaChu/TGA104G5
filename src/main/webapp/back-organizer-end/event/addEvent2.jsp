@@ -60,6 +60,7 @@
     <script>
 		var context = '${context}';
 		var maxDate = '${maxDate}';
+		var eventNumber = '';
 	</script>
     <script src="<%=request.getContextPath()%>/back-organizer-end/event/datetimepicker/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/back-organizer-end/event/datetimepicker/jquery.datetimepicker.full.js"></script>

@@ -26,11 +26,21 @@ $(function () {
 	});
 	
 //====show pic=====
-//window.addEventListener("pageshow", function () {
-	// console.log("in load");
-	// document.getElementsByTagName("form").reset();
-//	document.getElementById("formNa").reset();
-//});
+window.addEventListener("pageshow", function () {
+//	 console.log("in load");
+//	 console.log("smallimg=" + smallimgPIC);
+//	 console.log("bigimg=" + bigimgPIC);
+		 if(bigimgPIC != ""){
+			document.getElementById("bigImg_img").src = bigimgPIC;
+		 }else{
+			document.getElementById("bigImg_img").src = context +"/back-organizer-end/event/img/defPic4.jpg";
+		 }
+		 if(smallimgPIC != ""){
+			document.getElementById("smallImg_img").src = smallimgPIC;
+		 }else{
+			document.getElementById("smallImg_img").src = context +"/back-organizer-end/event/img/defPic4.jpg";
+		 }
+});
 let getInImg = document.getElementsByClassName("inImg");
 //console.log(getInImg);
 for (let i = 0; i < getInImg.length; i++) {
@@ -61,17 +71,10 @@ for (let i = 0; i < getInImg.length; i++) {
 					<img src="${this.result}" class="preview">
 				</li>	
 			`;
-			let li_el_def = `
-				<li>
-					<img src="img/defPic4.jpg" class="preview">
-				</li>
-			`
 			let getUL = document.getElementsByClassName("picture_list")[i];
 			// console.log(getUL);
 
 			getUL.insertAdjacentHTML("beforeend", li_el);
-
-
 		});
 	});
 };
@@ -88,21 +91,33 @@ ClassicEditor
 		console.error(err.stack);
 	});
 
-
-
-
-
 //check box
-function totalChb(e) {
+function totalChb(loadClass,fromwhere) {
+//	console.log(fromwhere);
 	let items = document.querySelectorAll(".chb");
-	// console.log(items);
-	let total = 0;
+//	 console.log(items);
+	 let total = 0;
+//	 console.log("load class ="+loadClass);
+	if(loadClass != undefined){
+		total = loadClass;
+		if (total >= 3) {
+				// console.log(" >=3");
+				items.forEach(function (el) {
+					if (!el.checked) {
+						// console.log(el);
+						// el.disabled = ture;
+						el.setAttribute("disabled", true);
+					}
+				});
+		}
+	}
+	
 	items.forEach(function (element) {
 		element.addEventListener("click", function (e) {
 			if (element.checked) {
 				total++;
 				console.log(total);
-			} else {
+			} else if(total > 0){
 				total--;
 				console.log(total);
 			}
@@ -125,6 +140,41 @@ function totalChb(e) {
 		});
 	});
 }
+
+//window load
+window.addEventListener("load",function(){
+//	 console.log("isON=" +isON + typeof(isON));
+//	 console.log("needSeat=" + needSeat+ typeof(needSeat));
+	if(isON == "true"){
+		document.getElementById("isON").checked = true;
+	}
+	if(needSeat == "true"){
+		document.getElementById("needSeat").checked = true;
+	}
+	
+	//event class check box
+//	console.log("evclassJSON=" +evclassJSON + typeof(evclassJSON));
+	if(evclassJSON != ""){
+		let evclaJSON = JSON.parse(evclassJSON);	
+		let loadClass = evclaJSON.length;
+	//	console.log(evclaJSON);
+	//	console.log(evclaJSON[0].eventClassNumber);
+		let chbclass = document.getElementsByClassName("chb");
+	//	console.log(chbclass);
+		for(let i=0 ; i< chbclass.length ; i++){
+	//		console.log(chbclass[i]);
+	//		console.log(chbclass[i].value);
+			for(let j=0 ; j < evclaJSON.length ; j++){
+				if(chbclass[i].value == evclaJSON[j].eventClassNumber){
+	//				console.log("chbclass="+chbclass[i].value + "json="+evclaJSON[j].eventClassNumber);
+					chbclass[i].checked = true;
+				}
+			}
+		}
+		totalChb(loadClass,"from load");
+	}
+});
+
 totalChb();
 
 });

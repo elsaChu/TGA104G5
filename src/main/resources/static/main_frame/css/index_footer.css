@@ -1,0 +1,10 @@
+.relative-bottom {
+    height: 150px;
+}
+
+@media (max-width:992px) {
+    .relative-bottom {
+        height: auto;
+        text-align: center;
+    }
+}

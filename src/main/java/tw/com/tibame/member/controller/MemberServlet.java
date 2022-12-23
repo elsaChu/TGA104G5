@@ -200,15 +200,18 @@ public class MemberServlet extends HttpServlet {
 							res.sendRedirect(location);
 							return;
 						}
+						System.out.println("正確無誤，導至會員中心");
 						RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/memberCentre.jsp");
 						successView.forward(req, res);
 						return;
 
 					} catch (Exception e) {
+						e.printStackTrace();
+						System.out.println("錯誤了");
 						RequestDispatcher failureView = req.getRequestDispatcher("/front-end/member/memberLogin.jsp");
 						failureView.forward(req, res);
 					}
-				
+				}
 //					if (session.getAttribute("memberVO") == null) {
 //					RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
 //					dispatcher.forward(req, res);
@@ -220,7 +223,7 @@ public class MemberServlet extends HttpServlet {
 //					return;
 //					}
 		
-				}
+				
 				// ===================================================忘記密碼=========================================================//
 
 				if ("forgotPasswordForTickit".equals(action)) {
@@ -290,13 +293,13 @@ public class MemberServlet extends HttpServlet {
 
 					System.out.println("update");
 
-					Map<String, String> errors = new HashMap<String, String>();
-					req.setAttribute("errors", errors);
+					Map<String, String> errorMsgs = new HashMap<String, String>();
+					req.setAttribute("errorMsgs", errorMsgs);
 
 					try {
 
 						MemberService memberSvc = new MemberService();
-						MemberVO memberVO = (MemberVO) session.getAttribute("memberVO"); // 表示已登入，取得userVO物件
+						MemberVO memberVO = (MemberVO) session.getAttribute("memberVO"); // 表示已登入，取得memberVO物件
 						System.out.println("### into update ### 1");
 
 						// 1.接收請求參數，輸入格式的錯誤處理
@@ -304,72 +307,83 @@ public class MemberServlet extends HttpServlet {
 						String name = req.getParameter("name");
 						String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 						if (name == null || name.trim().length() == 0) {
-							errors.put("name", "請填寫姓名");
+							errorMsgs.put("name", "請填寫姓名");
 						} else if (!name.trim().matches(nameReg)) { // 以下練習正則(規)表示式(regular-expression)
-							errors.put("userName", "姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+							errorMsgs.put("userName", "姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 						}	
-						
+						System.out.println("### into update ### 2");
 						String email = req.getParameter("email");
 						String emailReg = "^[_a-z0-9-]+([.][_a-z0-9-]+)*@[a-z0-9-]+([.][a-z0-9-]+)*$";
 						if (email == null || email.trim().length() == 0) {
-							errors.put("email", "請填寫信箱");
+							errorMsgs.put("email", "請填寫信箱");
 						} else if (!email.trim().matches(emailReg)) {
-							errors.put("email", "請輸入正確信箱格式");
-						} else if(memberSvc.getEmail(email).size() > 0) {
-							errors.put("email", "此信箱已註冊過");
+							errorMsgs.put("email", "請輸入正確信箱格式");
+						} else if(memberVO.getEmail().equals(email)) {
+							
+						} else {
+							errorMsgs.put("email", "此信箱已註冊過");
 						}
-						
+						System.out.println("### into update ### 3");
 						String phoneNumber = req.getParameter("phoneNumber");
 						String phoneNumberReg = "^[0-9]{10}$";
 						if (phoneNumber == null || phoneNumber.trim().length() == 0) {
-							errors.put("phoneNumber", "請輸入電話號碼");
+							errorMsgs.put("phoneNumber", "請輸入電話號碼");
 						} else if (!phoneNumber.trim().matches(phoneNumberReg)) {
-							errors.put("phoneNumber", "電話號碼: 只能是數字 , 且長度必需是10");
+							errorMsgs.put("phoneNumber", "電話號碼: 只能是數字 , 且長度必需是10");
 						}
-
-						String IDNumber = req.getParameter("IDNumber");
-						String IDNumberReg = "^[A-Z][12]\\d{8}$";
-						 if (!IDNumber.trim().matches(IDNumberReg)) {
-							errors.put("IDNumber" ,"請符合身分證格式");
-						}
+						System.out.println("### into update ### 4");
+//						String IDNumber = req.getParameter("idNumber");
+//						String IDNumberReg = "^[A-Z][12]\\d{8}$";
+//						 if (!IDNumber.trim().matches(IDNumberReg)) {
+//							errors.put("IDNumber" ,"請符合身分證格式");
+//						}
 
 						java.sql.Date birthday = null;
 						try {
 							birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
 						} catch (IllegalArgumentException e) {
 							birthday = new java.sql.Date(System.currentTimeMillis());
-							errors.put("birthday" ,"請輸入西元日期");
+							errorMsgs.put("birthday" ,"請輸入西元日期");
 						}
+						System.out.println("### into update ### 5");
 						
 						
-						if (errors != null && !errors.isEmpty()) {
-							session.setAttribute("memberrVO", memberVO);
-							RequestDispatcher failureView = req.getRequestDispatcher("memberCenter.jsp");
-							failureView.forward(req, res);
+						String str= req.getParameter("subscription");
+						boolean subscription = Boolean.parseBoolean(str);  
+						
+						System.out.println("### into update ### 6");
+						
+						memberVO.setEmail(email);
+						memberVO.setBirthday(birthday);
+						memberVO.setName(name);
+						memberVO.setPhoneNumber(phoneNumber);
+						memberVO.setSubscription(subscription);
+//						memberVO.setIdNumber(IDNumber);
+						
+						System.out.println("### into update ### 7");
+						if (errorMsgs != null && !errorMsgs.isEmpty()) {
+							req.getRequestDispatcher("memberCentre.jsp").forward(req, res);
 							return;
 						}
-
-				
-						memberVO.setName(name);
-						memberVO.setEmail(email);
-						memberVO.setPhoneNumber(phoneNumber);
-						memberVO.setIDNumber(IDNumber);
-						memberVO.setBirthday(birthday);
+						
+						System.out.println("### into update ### 8");
+						
 				
 						// 開始修改資料
 
-						memberVO = memberSvc.updateMember(memberVO);
+						memberVO = memberSvc.update(memberVO);
 						System.out.println("修改成功");
-
-						out.println("<meta http-equiv='refresh' content='0;URL=" + req.getContextPath()
-						+ "memberCenter.jsp'>");
-						out.println("<script> alert('修改資料完成!');</script>");
-
+						// 新增完成，準備轉交
+						String url = "memberCentre.jsp";
+						RequestDispatcher successView = req.getRequestDispatcher(url);
+						successView.forward(req, res);
+					
 					} catch (Exception e) {
 						System.out.println("update exception :" + e);
 						RequestDispatcher failureView = req.getRequestDispatcher("index.jsp");
 						failureView.forward(req, res);
 					}
+					
 				}
 				// ===================================================會員登出=========================================================//
 				
@@ -428,6 +442,54 @@ public class MemberServlet extends HttpServlet {
 					   }
 					  }
 				
-}
-	
+
+	// ===================================================會員查詢=========================================================//
+					if ("search".equals(action)) {
+					
+					System.out.println("search member");
+					
+					List<String> errorMsgs = new LinkedList<String>();
+					req.setAttribute("errorMsgs", errorMsgs);
+					
+					String str = req.getParameter("number");
+					if (str == null || (str.trim().length() == 0)) {
+						errorMsgs.add("請輸入會員編號");
+						}
+					if (!errorMsgs.isEmpty()) {
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("memberList.jsp");
+						failureView.forward(req, res);
+						return;
+					}
+					Integer number = null;
+					try {
+						number = Integer.valueOf(str);
+					} catch (Exception e) {
+						errorMsgs.add("員工編號只能是數字");
+					}
+					if (!errorMsgs.isEmpty()) {
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("memberList.jsp");
+						failureView.forward(req, res);
+						return;
+					}
+					/***************************2.開始查詢資料*****************************************/
+					MemberService memberSvc = new MemberService();
+					MemberVO memberVO = memberSvc.findByPrimaryKey(number);
+					if(memberVO == null) {
+						errorMsgs.add("查無此資料");
+					}
+					if (!errorMsgs.isEmpty()) {
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("memberList.jsp");
+						failureView.forward(req, res);
+						return;
+					}	
+					/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+					req.setAttribute("memberVO", memberVO); 
+					String url = "memberGetOne.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); 
+					successView.forward(req, res);
+					}
+	}
 }

@@ -25,13 +25,13 @@
     <!-- Style CSS -->
     <link rel="stylesheet" href="css/memberCentre.css" />
     <style>
-    .buttonOUT input[type="submit"] {
-	font-size: 14px;
-	width: 40px;
-	background: #FFF;
-	border-color:#FFF;
-	border-style:none;
-}
+/*     .buttonOUT input[type="submit"] { */
+/* 	font-size: 14px; */
+/* 	width: 40px; */
+/* 	background: #FFF; */
+/* 	border-color:#FFF; */
+/* 	border-style:none; */
+/* } */
     </style>
   </head>
 
@@ -100,7 +100,7 @@
               <div class="buttonOUT">
               <form action="MemberServlet" method="POST" >
               <li id="Signout" >
-              <a href="#">
+              
               <iconify-icon
                     class="sign-out"
                     icon="heroicons:arrow-right-on-rectangle-20-solid"
@@ -109,7 +109,7 @@
                     style="margin: 0px -7px 0px 2px;"
                   ></iconify-icon>
               <input type="submit" value="登出">
-              <input type="hidden" name="action" value="logout"></a>
+              <input type="hidden" name="action" value="logout">
               </li>
 				
               </form>
@@ -145,7 +145,7 @@
           </li>
         </ul>
       </div>
-      </div>
+
 
       <!-- 登入結束 -->
 
@@ -172,6 +172,15 @@
         <br />
         <h3>修改帳號設定</h3>
         <br />
+        <%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
         <div class="Data-Content">
           <div class="Data-Title">
             <div class="AlignRight">
@@ -201,16 +210,17 @@
             >此手機號碼將作為購票緊急聯絡的用途，部分活動可能需要手機認證才能報名購票，請務必輸入正確的手機號碼。</label
           ><br /><br /><br /><br />
           <hr style="width: 0%" />
-          	<input type="text" name="IDNumber" value="<%=(memberVO == null) ? "" : memberVO.getIDNumber()%>"/>
-          	<span class="error" style="color: red">${errors.IDNumber}</span><br /><br />
+<%--           	<input type="text" name="IDNumber" value="<%=(memberVO == null) ? "" : memberVO.getIdNumber()%>"/> --%>
+<%--           	<span class="error" style="color: red">${errors.IDNumber}</span><br /><br /> --%>
         </div>
         <div class="checkbox">
           <input type="checkbox" name="subscription" id="subscription"  value="<%=(memberVO == null) ? "" : memberVO.getSubscription()%>"
+          
           />
           是否訂閱TICK IT最新消息<br />
         </div>
         <div class="submit">
-        	<input type="hidden" name="memberServlet" value="memberUpdate">
+        	<input type="hidden" name="action" value="update">
           <input type="submit" value="儲存個人資料" /><br /><br />
           </form>
         </div>
@@ -220,18 +230,12 @@
         var subscription = document.getElementById("subscription")
         subscription.addEventListener('change',(e) => {
         	if(e.currentTarget.checked){
-        		subscription.value = 1;
+        		subscription.value = "true";
         	} else {
-        		subscription.value = 0;
+        		subscription.value = "false";
         	}
         })
-        if(subscription == null){
-        	subscription.setAttribute("checked", "checked");
-        }
-        
-        
-        
-        
+
         </script>
 
       <div class="tab-content-2">

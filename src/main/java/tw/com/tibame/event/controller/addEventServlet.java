@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -25,6 +26,8 @@ import org.hibernate.internal.build.AllowSysOut;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import tw.com.tibame.event.model.EventClassService;
+import tw.com.tibame.event.model.EventClassVO;
 import tw.com.tibame.event.model.EventService;
 import tw.com.tibame.event.model.EventVO;
 import com.google.gson.Gson;
@@ -47,6 +50,8 @@ public class addEventServlet extends HttpServlet {
 		Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		
 		String action = req.getParameter("action");
+		System.out.println("action="+action);
+		//insert page 1
 		if("page1".equals(action)) {
 			System.out.println("in page1");
 			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
@@ -208,9 +213,10 @@ public class addEventServlet extends HttpServlet {
 				String name = bigImg.getName();
 				InputStream in = bigImg.getInputStream();
 				bigimg = new byte[in.available()];
+				System.out.println("bigimg bytes = "+bigimg);
 				in.read(bigimg);
 				in.close();
-			}	
+			}
 			eventvo.setBigImg(bigimg);
 			
 			//set data go to page1
@@ -226,13 +232,14 @@ public class addEventServlet extends HttpServlet {
 			session.setAttribute("adddata", map);
 //			System.out.println(eventenddatestr);
 			session.setAttribute("maxDate", eventenddatestr);
+			System.out.println(eventvo.toString());
 			RequestDispatcher failureView = req
 					.getRequestDispatcher("/back-organizer-end/event/addEvent2.jsp");
 			failureView.forward(req, res);
 			return;
 		}
-		System.out.println("action="+action);
-		//page2
+		
+		//insert page2
 		if("page2".equals(action)) {
 			System.out.println("in page2");
 			Map map = (Map)session.getAttribute("adddata");
