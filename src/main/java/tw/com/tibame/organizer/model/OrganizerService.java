@@ -146,6 +146,11 @@ public class OrganizerService {
 		public OrganizerVO getOneOrganizer(Integer organizerNumber) {
 			return dao.findByPrimaryKey(organizerNumber);
 		}
+		
+		public OrganizerVO getOneOrganizer(String organizerAccount) {
+			return dao.findByAccount(organizerAccount);
+		}
+		
 
 		public List<OrganizerVO> selectAll() {
 			return dao.selectAll();

@@ -9,7 +9,7 @@ public interface OrganizerDAOinterface {
     public void delete(Integer empno);
     public OrganizerVO findByPrimaryKey(Integer organizerNumber);
     public List<OrganizerVO> selectAll();
-
+    public OrganizerVO findByAccount(String oAccout);
     public List <OrganizerVO> searchOrganizerByAll(String searchString);
  
 }
