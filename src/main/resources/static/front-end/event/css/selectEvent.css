@@ -43,11 +43,6 @@
 	font-size: 17px;
 }
 
-#eventImg{
-	height:360px;
-	max-width: 100%;
-}
-
  /* Button樣式 */
  .myButton_selEvn{
     background: #415A77;
@@ -59,9 +54,9 @@
     display: inline-block;
     cursor: pointer;
     border-radius: 6px;
-    -webkit-border-radius: 19px;
-    -moz-border-radius: 6px;
-    -o-border-radius: 6px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
     margin: 0px 7px 0px 3px;
     outline: none;
     border: none;
@@ -82,12 +77,16 @@
   /* Button大小設定 */
   .myButton_selEvn {
     /* 字體大小 */
-    font-size: 14px; 
+    font-size: 17px; 
     /* Button寬度 */
     /* 根據需求可設定 100.150.180 */
-    width: 100px;
-    height: 30px;
+    width: 200px;
+    height: 40px;
     /* 內間距 */
     padding: 5px 7px;
   }
   
+.tabdiv table {
+    margin: 20px auto;
+
+}

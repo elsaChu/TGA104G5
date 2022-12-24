@@ -1,6 +1,7 @@
 package tw.com.tibame.event.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
@@ -14,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,6 +26,7 @@ import tw.com.tibame.event.model.EventVO;
 import tw.com.tibame.event.model.MailService;
 import tw.com.tibame.event.model.OrderService;
 import tw.com.tibame.event.model.OrderVO;
+import tw.com.tibame.member.model.MemberVO;
 
 
 @WebServlet("/FrontendEventOrderProcessServlet")
@@ -38,9 +41,19 @@ public class FrontendEventOrderProcessServlet extends HttpServlet {
 		
 		Gson gson = new Gson();
 		
+		 HttpSession session = request.getSession();
 	    //自金流平台繳費專用處理
 	    if(request.getParameter("return") != null) {
+	        
             String returnVal = request.getParameter("return");
+            
+            MemberVO memberProfile = (MemberVO)session.getAttribute("memberVO");
+            if(memberProfile == null) {
+                session.setAttribute("location", request.getContextPath() + "/FrontendEventOrderProcessServlet?return=" + returnVal);
+                response.sendRedirect(request.getContextPath() + "/front-end/member/memberLogin.jsp");
+                return;
+            }
+            
             String[] returnAry = returnVal.split("_");
             String orderId = returnAry[0];
             OrderVO order = orderService.queryOrderById(Integer.parseInt(orderId));
@@ -106,9 +119,9 @@ public class FrontendEventOrderProcessServlet extends HttpServlet {
                 
                 request.setAttribute("qrList", qrList);
                 
-                request.getRequestDispatcher("/front-end/event/finishEventOrder.jsp").forward(request, response);
-                
             }
+            
+            request.getRequestDispatcher("/front-end/event/finishEventOrder.jsp").forward(request, response);
             
         }else {
             response.sendRedirect("/");

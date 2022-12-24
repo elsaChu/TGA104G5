@@ -33,9 +33,14 @@ function getRandomInt(max) {
 		$('#MerchantTradeDate').val(MerchantTradeDate);
 		
 		$('#TotalAmount').val(selectEventInfo.totalPrice);
-		let TradeDesc = '專題測試金流介接商品';
+		let TradeDesc = 'TICKIT活動購票';
 		$('#TradeDesc').val(TradeDesc);
-		let ItemName = '測試商品'
+		let ticketSelect = selectEventInfo.ticketSelect;
+		let ItemName = '';
+		ticketSelect.forEach((t)=>{
+			ItemName += (ItemName == '' ? '' : '#') + t.ticketName + 'X' + t.val;
+		});
+		
 		$('#ItemName').val(ItemName);
 		$('#ReturnURL').val(returnUrl);
 		//let ClientBackURL = 'http://127.0.0.1:8080${context}/frontend/event?return='+selectEventInfo.orderId+'_0';
@@ -59,6 +64,7 @@ function getRandomInt(max) {
 		
 		console.log('final checkVis:',digest);
 		$('#CheckMacValue').val(digest);
+//		alert('測試');
 		$('#paymetForm').submit();
 	}
 	
@@ -284,12 +290,15 @@ function getRandomInt(max) {
     	$.each($('.ticketInput'),function(){
     		if($(this).val() != '0'){
     			let price = $(this).attr('price');
+    			let min = $(this).attr('minTicket');
+    			let ticketName = $(this).attr('ticketName');
     			let ticketCount = $(this).val();
     			let ticketObj = {
         				id:$(this).attr('id').replace('count_' , ''),
         				price:$(this).attr('price'),
-        				ticketName:price,
+        				ticketName: ticketName,
         				val:ticketCount,
+        				min: min,
         				totalPrice: ( price * ticketCount )
         		};
         		ticketSelect.push(ticketObj);
@@ -430,8 +439,8 @@ function getRandomInt(max) {
 		let ticketSelect = selectEventInfo.ticketSelect;
 		selectEventInfo.totalTicket = 0;
 		ticketSelect.forEach((t)=>{
-			let val = 0;
-			selectEventInfo.totalTicket += parseInt(t.val);
+			//let val = 0;
+			selectEventInfo.totalTicket += (parseInt(t.val) * parseInt(t.min));
 		});
 	}
 	
@@ -629,7 +638,7 @@ function getRandomInt(max) {
 										<div class="col-sm">\$${vo.price}</div>
 										<div class="col-sm">
 										<p>${vo.ticketType}</p>
-										<input type="hidden" id="count_${vo.ticketID}" price="${vo.price}" ticketName="${vo.ticketName}" value="0" >
+										<input type="hidden" id="count_${vo.ticketID}" price="${vo.price}" minTicket="${vo.ticketMIN}" ticketName="${vo.ticketName}" value="0" >
 										</div>
 									</div>
 							    </li>
@@ -641,7 +650,7 @@ function getRandomInt(max) {
 										<div class="col-sm">${vo.ticketName}</div>
 										<div class="col-sm">\$${vo.price}</div>
 										<div class="col-sm">
-										<input class="ticketInput" type="number" id="count_${vo.ticketID}" price="${vo.price}" ticketName="${vo.ticketName}" ${vo.ticketMAX != 0 ? `max="${vo.ticketMAX}"` : ``} min="0" value="${vo.val}" >
+										<input class="ticketInput" type="number" id="count_${vo.ticketID}" price="${vo.price}" minTicket="${vo.ticketMIN}" ticketName="${vo.ticketName}" ${vo.ticketMAX != 0 ? `max="${vo.ticketMAX}"` : ``} min="0" value="${vo.val}" >
 										</div>
 									</div>
 							    </li>
