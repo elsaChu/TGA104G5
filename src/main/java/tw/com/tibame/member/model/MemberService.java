@@ -98,6 +98,14 @@ public class MemberService {
 
 
 	public MemberVO updatePassword(MemberVO memberVO) {
+		System.out.println("### updatePassword service");
+		dao.update(memberVO);
+		return memberVO;
+	}
+
+
+	public MemberVO updatePassword2(MemberVO memberVO) {
+		System.out.println("### updatePassword2 service");
 		dao.update(memberVO);
 		return memberVO;
 	}

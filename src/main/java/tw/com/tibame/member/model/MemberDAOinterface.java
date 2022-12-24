@@ -8,6 +8,7 @@ public interface MemberDAOinterface {
 	public void insert(MemberVO memberVO);
 	public void update(MemberVO memberVO);
 	public void updatePassword(MemberVO memberVO);
+	public void updatePassword2(MemberVO memberVO);
 	public void delete(Integer number);
 	public List<MemberVO> getEmail(String email);
 	public MemberVO findByPrimaryKey(Integer number);

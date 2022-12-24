@@ -22,13 +22,14 @@ public class MemberDAO implements MemberDAOinterface {
 
 	private static final String INSERT_STMT = "INSERT INTO MEMBER (account,password,email,birthday,name,phoneNumber)VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,IDNumber FROM member";
-	private static final String GET_EMAIL_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,IDNumber FROM member where upper(email) like upper(?)";
-	private static final String GET_ACCOUNT_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,IDNumber FROM member where upper(account) like upper(?)";
-	private static final String GET_PASSWORD_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,IDNumber FROM member where upper(password) like upper(?)";
+	private static final String GET_EMAIL_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,IDNumber FROM member where upper(email) like upper(?)";
+	private static final String GET_ACCOUNT_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,IDNumber FROM member where upper(account) like upper(?)";
+	private static final String GET_PASSWORD_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,IDNumber FROM member where upper(password) like upper(?)";
 //	private static final String UPDATE = "UPDATE member set account=?,password=?,email=?,birthday=?,name=?,phoneNumber=?,subscription=?,IDNumber=? where number = ?";
-	private static final String UPDATE = "UPDATE member set email=?,birthday=?,name=?,phoneNumber=?,subscription=?,IDNumber=? where number = ?";
+	private static final String UPDATE = "UPDATE member set email=?,password=?,birthday=?,name=?,phoneNumber=?,subscription=?,IDNumber=? where number = ?";
 	private static final String GET_ONE_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,IDNumber FROM MEMBER where number = ?";
-	private static final String UPDATE_PASSWORD = "UPDATE member set password=? where email = ?";;
+	private static final String UPDATE_PASSWORD = "UPDATE member set password=? where email = ?";
+	private static final String UPDATE_PASSWORD2 = "UPDATE member set password=? where number = ?";
 	@Override
 	public void insert(MemberVO memberVO) {
 		// TODO Auto-generated method stub
@@ -82,13 +83,14 @@ public class MemberDAO implements MemberDAOinterface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1, memberVO.getEmail());					
-			pstmt.setDate(2, memberVO.getBirthday());
-			pstmt.setString(3, memberVO.getName());
-			pstmt.setString(4, memberVO.getPhoneNumber());
-			pstmt.setBoolean(5, memberVO.getSubscription());
-			pstmt.setString(6, memberVO.getIDNumber());
-			pstmt.setInt(7, memberVO.getNumber());
+			pstmt.setString(1, memberVO.getEmail());
+			pstmt.setString(2, memberVO.getPassword());
+			pstmt.setDate(3, memberVO.getBirthday());
+			pstmt.setString(4, memberVO.getName());
+			pstmt.setString(5, memberVO.getPhoneNumber());
+			pstmt.setBoolean(6, memberVO.getSubscription());
+			pstmt.setString(7, memberVO.getIDNumber());
+			pstmt.setInt(8, memberVO.getNumber());
 
 			pstmt.executeUpdate();
 			System.out.println("我到這裡了");
@@ -128,6 +130,47 @@ public class MemberDAO implements MemberDAOinterface {
 						
 			pstmt.setString(1, memberVO.getPassword());
 			pstmt.setString(2, memberVO.getEmail());
+
+
+			pstmt.executeUpdate();
+			System.out.println("我到這裡了");
+			
+			// Handle any SQL errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	
+	public void updatePassword2(MemberVO memberVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_PASSWORD2);
+						
+			pstmt.setString(1, memberVO.getPassword());
+
 
 
 			pstmt.executeUpdate();
@@ -323,6 +366,7 @@ public class MemberDAO implements MemberDAOinterface {
 				memberVO.setBirthday(rs.getDate("birthday"));
 				memberVO.setName(rs.getString("name"));
 				memberVO.setPhoneNumber(rs.getString("phoneNumber"));
+				memberVO.setSubscription(rs.getBoolean("subscription"));
 				memberVO.setIDNumber(rs.getString("IDNumber"));
 		    list.add(memberVO); // Store the row in the list
 		   }
@@ -390,6 +434,7 @@ public class MemberDAO implements MemberDAOinterface {
 				memberVO.setBirthday(rs.getDate("birthday"));
 				memberVO.setName(rs.getString("name"));
 				memberVO.setPhoneNumber(rs.getString("phoneNumber"));
+				memberVO.setSubscription(rs.getBoolean("subscription"));
 				memberVO.setIDNumber(rs.getString("IDNumber"));
 
 			}
@@ -458,6 +503,7 @@ public class MemberDAO implements MemberDAOinterface {
 				memberVO.setBirthday(rs.getDate("birthday"));
 				memberVO.setName(rs.getString("name"));
 				memberVO.setPhoneNumber(rs.getString("phoneNumber"));
+				memberVO.setSubscription(rs.getBoolean("subscription"));
 				memberVO.setIDNumber(rs.getString("IDNumber"));
 				
 			}
@@ -530,7 +576,9 @@ public class MemberDAO implements MemberDAOinterface {
 				memberVO.setEmail(rs.getString("email"));
 				memberVO.setBirthday(rs.getDate("birthday"));
 				memberVO.setName(rs.getString("name"));
+				memberVO.setSubscription(rs.getBoolean("subscription"));
 				memberVO.setPhoneNumber(rs.getString("phoneNumber"));
+				memberVO.setIDNumber(rs.getString("IDNumber"));
 				
 			}
 
