@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import tw.com.tibame.member.model.MemberVO;
+
 @WebServlet("/CheckLogin")
 public class CheckLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,6 +29,15 @@ public class CheckLogin extends HttpServlet {
 //		final String idStr = req.getParameter("id");
 		HttpSession session = req.getSession();
 		String loginDone = (String) session.getAttribute("loginStatus");
+		
+		//FAKE INFO start
+		System.out.println("check login implemented fake member login info");
+		MemberVO fakeVo = new MemberVO();
+		fakeVo.setName("fakeName");
+		fakeVo.setIdNumber("100");
+		fakeVo.setNumber(1);
+		session.setAttribute("memberVO", fakeVo);
+		//FAKE INFO  end
 		
 		JsonObject resBody = new JsonObject();
 		if(loginDone != null) {

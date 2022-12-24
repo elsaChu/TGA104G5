@@ -35,6 +35,8 @@ public class IndexEventSearch extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=UTF-8");
 		String keyword = req.getParameter("mainSearch");
 		System.out.println(keyword);
 		if(keyword != null) {

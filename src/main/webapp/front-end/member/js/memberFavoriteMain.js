@@ -1,12 +1,36 @@
-const keyword = document.querySelector('#mainSearch');
-//var keyVal = keyword.value;
+
+// window on load 
+window.addEventListener("DOMContentLoaded", function () {
+   console.log("DOM Content Loaded");
+//   $("div.featured__filter").html('<div class="loadingIcon" ><span><img src="images/dotIcon.png"></i></span></div>');
+   getFavEvent();
+   
+  $(document).on("click", ".searchResult", function () {
+	 $(this).css("border", "3px solid black"); 
+	  console.log("click on div.searchResult");
+	 $(this).find("form").submit();
+  });
+  
+});
+
+	window.addEventListener("load", function () {
+		$("div.featured__filter").css("border","5px solid black");
+//		$("div.featured__filter").find("div.loadingIcon").remove();
+
+	});
+	
+		$(document).on('load', 'img', () => {
+			alert(123);
+		})
 
 document.querySelector('#submit').addEventListener('click', function () {
-		console.log("clicked");
-		console.log(keyword.value);
+	console.log("getFav from js");
 		
-//	fetch('http://localhost:8080/TGA104G5/DBGifReader?' + new URLSearchParams({"mainSearch": keyword.value}), {
-	fetch('http://localhost:8080/TGA104G5/IndexEventSearch?' + new URLSearchParams({"mainSearch": keyword.value}), {
+//	getFavEvent();
+ });
+
+function getFavEvent(){
+	fetch('http://localhost:8080/TGA104G5/FindFavorite', {
 	    method: 'get',
 	    headers: {
 	        'Content-Type': 'application/json'
@@ -19,10 +43,10 @@ document.querySelector('#submit').addEventListener('click', function () {
 			}else{
 	        	alert("無符合結果，請重新搜尋");
 			}
-			var allEvents1 = body.allEvents;
-			var eventObj = JSON.parse(allEvents1);
-            $("div.featured__filter").html("");
-			eventObj.forEach(function(e, index){
+			var favEvents1 = body.favEvents;
+			var eventObjArr = JSON.parse(favEvents1);
+//            $("div.featured__filter").html("");
+			eventObjArr.forEach(function(e, index){
 				console.log("index: ", index);
 				console.log("element", e);
 				console.log("element.eventNum: ", e.eventNumber);
@@ -61,11 +85,6 @@ document.querySelector('#submit').addEventListener('click', function () {
 				})
 			
 	    });
- });
- 
+}
 
 
-$("#submit").click(function(e){
-	e.preventDefault();
-	console.log();
-});

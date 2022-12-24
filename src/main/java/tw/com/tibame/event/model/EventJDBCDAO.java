@@ -687,6 +687,82 @@ public class EventJDBCDAO implements EventDAO_interface {
 			}
 		return bannerInt;
 	}
+
+	@Override
+	public EventVO selectSingleEvent(Integer eventNumber) {
+		EventVO eventvo = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			Class.forName(Common.driver);
+			con = DriverManager.getConnection(Common.URL,Common.USER,Common.PASSWORD);
+			pstmt = con.prepareStatement(selectByPKSQL);
+
+			pstmt.setInt(1, eventNumber);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				eventvo = new EventVO();
+				eventvo.setEventNumber(rs.getInt("eventNumber"));
+				eventvo.setOrganizerNumber(rs.getInt("organizerNumber"));
+				eventvo.setEventName(rs.getString("eventName"));
+				eventvo.setEventStartDate(rs.getTimestamp("eventStartDate"));
+				eventvo.setEventEndDate(rs.getTimestamp("eventEndDate"));
+				eventvo.setPeopleNumber(rs.getInt("peopleNumber"));
+				eventvo.setEventPlace(rs.getString("eventPlace"));
+				eventvo.setEventP2(rs.getString("eventP2"));
+				eventvo.setEventSummary(rs.getString("eventSummary"));
+				eventvo.setEventDescribe(rs.getString("eventDescribe"));
+//				eventvo.setBigImg(rs.getBytes("bigImg"));
+//				eventvo.setSmallImg(rs.getBytes("smallImg"));
+				eventvo.setCollectType(rs.getBoolean("collectType"));
+//				eventvo.setBanner(rs.getInt("banner"));
+				eventvo.setFocus(rs.getInt("focus"));
+				eventvo.setIsON(rs.getBoolean("isON"));
+				eventvo.setEventType(rs.getString("eventType"));
+				eventvo.setNeedSeat(rs.getBoolean("needSeat"));
+				eventvo.setSeatX(rs.getInt("seatX"));
+				eventvo.setSeatY(rs.getInt("seatY"));
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return eventvo;
+	}
 	
 	
 }

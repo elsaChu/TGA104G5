@@ -22,7 +22,6 @@ public class DBGifReader extends HttpServlet {
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
 		System.out.println("dbgifReader running:");
-		System.out.println(req.getParameter("mainSearch"));
 		String eventId = req.getParameter("eventId");
 		
 		try {
@@ -54,7 +53,6 @@ public class DBGifReader extends HttpServlet {
 			} else {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
-			System.out.println("im here (GIF reader)");
 			rs.close();
 			stmt.close();
 		} catch (Exception e) {

@@ -27,12 +27,16 @@ import tw.com.tibame.event.model.TicketVO;
 public class EventDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
+	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
+		System.out.println("controller event deatils got request");
 		String eventNumber = request.getParameter("eventNumber");
+		System.out.println(eventNumber);
 		if(eventNumber != null) {
 			//event
 	    	EventService eventService = new EventService();

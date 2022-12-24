@@ -11,7 +11,7 @@ public class CollectService {
 		 dao = new CollectDAO();
 	}
 	
-	public List<EventVO> getFavorite(int memberid){
+	public List<Integer> getFavorite(int memberid){
 		return dao.selectAll(memberid);
 	}
 
