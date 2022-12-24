@@ -26,7 +26,7 @@
     <!-- Favicon -->
     <link rel="icon" href="img/core-img/logo.ico" />
     <!-- Style CSS -->
-    <link rel="stylesheet" href="style_member.css" />
+    <!-- <link rel="stylesheet" href="style_member.css" /> -->
     <link rel="stylesheet" href="./css/checkout.css">
 <!--貼這段-->
 </head>
@@ -104,7 +104,7 @@
           <div class="col-1"></div>
           <div class="col-4" id="header1">
             <a class="www" href="#">我的票券</a>
-            <a class="www" href="#">商品專區</a>
+            <a class="www" href="./shop.html">商品專區</a>
             <a class="www" href="#">探索活動</a>
           </div>
           <div class="col-4">
@@ -148,14 +148,14 @@
                   >
                 </li>
                 <li>
-                  <a href="#"
+                  <a href="../order/order.html"
                     ><iconify-icon
                       class="sign-out"
                       icon="heroicons:gift"
                       width="20"
                       height="20"
                     ></iconify-icon>
-                    禮品訂單</a
+                    商品訂單</a
                   >
                 </li>
                 <li>
@@ -190,7 +190,7 @@
               ></a>
             </li>
             <li>
-              <a href="#"
+              <a href="./shoppingcart.html"
                 ><iconify-icon
                   icon="heroicons:shopping-cart-20-solid"
                   width="30"
@@ -297,7 +297,7 @@
                                 <div class="col-lg-12">
                                     <div class="checkout__input">
                                         <p>收件人姓名<span>*</span></p>
-                                        <input type="text">
+                                        <input type="text" id="receiverName" placeholder="請填寫真實姓名，以確保順利收件">
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-6">
@@ -309,16 +309,16 @@
                             </div>
                             <div class="checkout__input">
                                 <p>收件人手機<span>*</span></p>
-                                <input type="text" placeholder="Street Address">
+                                <input type="text" id="receiverTel" placeholder="請輸入連續數字">
                             </div>
                             <div class="checkout__input">
                                 <p>收件地址<span>*</span></p>
-                                <input type="text">
+                                <input type="text" id="shippingAdd">
                             </div>
-                            <div class="checkout__input">
+                            <!-- <div class="checkout__input">
                                 <p>Postcode / ZIP<span>*</span></p>
                                 <input type="text">
-                            </div>
+                            </div> -->
                             <!-- <div class="checkout__input__checkbox">
                                 <label for="acc">
                                     Create an account?
@@ -348,16 +348,16 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
                                 <h4>我的訂單</h4>
-                                <div class="checkout__order__products">商品 <span>Total</span></div>
+                                <div class="checkout__order__products">商品 <span class="subtotal_price">Total</span></div>
                                 <ul>
-                                    <li>Vegetable’s Package <span>$75.99</span></li>
-                                    <li>Fresh Vegetable <span>$151.99</span></li>
-                                    <li>Organic Bananas <span>$53.99</span></li>
+                                    <li>Vegetable’s Package <span class="subtotal_price">$75.99</span></li>
+                                    <li>Fresh Vegetable <span class="subtotal_price">$151.99</span></li>
+                                    <li>Organic Bananas <span class="subtotal_price">$53.99</span></li>
                                 </ul>
                                 <div class="checkout__order__subtotal">Subtotal <span>$750.99</span></div>
                                 <div class="checkout__order__total">Total <span>$750.99</span></div>
                                
-                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                                <button type="submit" class="site-btn" id="sitebtn">確 認 付 款</button>
                             </div>
                         </div>
                     </div>
@@ -423,14 +423,14 @@
 
 <!--貼這段-->
     <!-- Popper js -->
-    <script src="js/popper.min.js"></script>
+    <script src="../../main_frame/js/popper.min.js"></script>
     <!-- Plugins js -->
-    <script src="js/plugins.js"></script>
+    <script src="../../main_frame/js/plugins.js"></script>
     <!-- Active js -->
-    <script src="js/active.js"></script>
-    <script src="js/model.js"></script>
+    <script src="../../main_frame/js/active.js"></script>
+    <script src="../../main_frame/js/model.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
-    <script src="./js/shopdetail.js"></script>
+    <script src="./js/checkout.js"></script>
 <!--貼這段-->
 
 </body>

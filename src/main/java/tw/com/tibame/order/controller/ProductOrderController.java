@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import tw.com.tibame.member.model.MemberVO;
 import tw.com.tibame.order.service.OrderDetailService;
 import tw.com.tibame.order.service.ProductOrderService;
 import tw.com.tibame.order.vo.OrderDetailVO;
@@ -53,20 +54,32 @@ public class ProductOrderController {
 		return viewProductOrderVO;
     }
     
-    @PostMapping("addProdOrder")
-    public ProductOrderVO addProdOrder(HttpSession httpSession, @RequestBody ProductOrderVO productOrderVO) {
-//    	ProductOrderVO productOrderVO = new ProductOrderVO();
-    	Integer number = (Integer) httpSession.getAttribute("number");
-    	productOrderVO.setNumber(5);			// 這些是先寫死的唷要從表單得到資料唷!
-		productOrderVO.setAmountPrice(1000);
-		productOrderVO.setProdTotal(1);
-		productOrderVO.setReceiverName("達子1");
-		productOrderVO.setReceiverTel("8888888888");
-		productOrderVO.setShippingAdd("ppp");
+//    @PostMapping("addProdOrder") // 這是對的唷
+//    public ProductOrderVO addProdOrder(HttpSession session, @RequestBody ProductOrderVO productOrderVO) {
+//    	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+//    	Integer number = memberVO.getNumber();
+//		productOrderVO.setAmountPrice(productOrderVO.getAmountPrice());
+//		productOrderVO.setProdTotal(productOrderVO.getProdTotal());
+//		productOrderVO.setReceiverName(productOrderVO.getReceiverName());
+//		productOrderVO.setReceiverTel(productOrderVO.getReceiverTel());
+//		productOrderVO.setShippingAdd(productOrderVO.getShippingAdd());
+//		
+//    	return productOrderService.addOrder(productOrderVO);
+//	}
+    
+    @PostMapping("addProdOrder") // 這是寫死測試用
+    public ProductOrderVO addProdOrder(@RequestBody ProductOrderVO productOrderVO) {
+    	
+    	productOrderVO.setNumber(4);
+		productOrderVO.setAmountPrice(productOrderVO.getAmountPrice());
+		productOrderVO.setProdTotal(productOrderVO.getProdTotal());
+		productOrderVO.setReceiverName(productOrderVO.getReceiverName());
+		productOrderVO.setReceiverTel(productOrderVO.getReceiverTel());
+		productOrderVO.setShippingAdd(productOrderVO.getShippingAdd());
 		
     	return productOrderService.addOrder(productOrderVO);
 	}
-    
+        
     @PutMapping("updateReceiverInfo")
     public ProductOrderVO updateReceiverInfo() {
 //    	Integer prodOrderNo =  (Integer) request.getSession().getAttribute("prodOrderNo");
