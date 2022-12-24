@@ -19,11 +19,7 @@
     margin-top: 3px;
 }
 
-.nav-item * {
-    color: black;
-}
-
-.navbar-light .navbar-nav .nav-link {
+.navbar-light .navbar-nav .item_color {
     color: black;
 }
 

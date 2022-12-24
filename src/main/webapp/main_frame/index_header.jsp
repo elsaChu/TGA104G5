@@ -30,10 +30,10 @@
 <!--             <a class="nav-link" href="#">我的票劵 <span class="sr-only">(current)</span></a> -->
 <!--           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="#">禮品專區</a>
+            <a class="nav-link item_color" href="#">商品專區</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">探索活動</a>
+            <a class="nav-link item_color" href="#">探索活動</a>
           </li>
           <form class="form-inline my-2 my-lg-0">
             <div class="input-group">
@@ -49,13 +49,13 @@
         <div id="login_menuB"  class="hidden_login">
           <ul class="navbar-nav mr-right">
             <li class="nav-item">
-              <a class="nav-link" href="${context}/front-end/member/memberRegister.jsp">註冊</a>
+              <a class="nav-link item_color" href="${context}/front-end/member/memberRegister.jsp">註冊</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">|</a>
+              <a class="nav-link item_color disabled" href="#">|</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="${context}/front-end/member/memberLogin.jsp">登入</a>
+              <a class="nav-link item_color" href="${context}/front-end/member/memberLogin.jsp">登入</a>
             </li>
           </ul>
         </div>
@@ -63,7 +63,7 @@
         <div id="login_menuA"  class="hidden_login">
           <ul class="navbar-nav mr-right">
             <li class="nav-item dropdown">
-              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link item_color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <iconify-icon icon="heroicons:user-circle-solid" width="30" height="30"></iconify-icon>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -92,17 +92,17 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link item_color" href="#">
                 <iconify-icon icon="heroicons:bell-20-solid" width="30" height="30" ></iconify-icon>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link item_color" href="#">
                 <iconify-icon icon="heroicons:heart-20-solid" width="30" height="30" ></iconify-icon>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link item_color" href="#">
                 <iconify-icon icon="heroicons:shopping-cart-20-solid" width="30" height="30"></iconify-icon>
               </a>
             </li>

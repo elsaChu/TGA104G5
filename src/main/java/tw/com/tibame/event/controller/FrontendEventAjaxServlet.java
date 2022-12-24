@@ -283,8 +283,8 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                 }else {
                     result.put("inputEmail", "");
                 }
-                if(memberProfile.getIdNumber() != null) {
-                    result.put("inputRocid", memberProfile.getIdNumber());
+                if(memberProfile.getIDNumber() != null) {
+                    result.put("inputRocid", memberProfile.getIDNumber());
                 }else {
                     result.put("inputRocid", "");
                 }
