@@ -3,14 +3,15 @@ package tw.com.tibame.order.service;
 import java.util.List;
 
 import tw.com.tibame.order.vo.ShoppingCartVO;
+import tw.com.tibame.order.vo.ShowShoppingCartVO;
 
 public interface ShoppingCartService {
 
-	List<ShoppingCartVO> getAll();
+	List<ShowShoppingCartVO> getAll();
 
-	ShoppingCartVO getByPrimaryKey(Integer shoppingCartNo);
+	ShowShoppingCartVO getByPrimaryKey(Integer shoppingCartNo);
 	
-	List<ShoppingCartVO> getByMemberNumber(Integer number);
+	List<ShowShoppingCartVO> getByMemberNumber(Integer number);
 
 	ShoppingCartVO insert(ShoppingCartVO shoppingCartVO);
 

@@ -71,15 +71,13 @@ public class StaffService {
 	}
 
 	public StaffVO getOneByAccount(String staffAccount) {
-		System.out.println("getOneByAccount");
-
 		return dao.findByStaffAccount(staffAccount);
 	}
+	
 	public StaffVO findByStaffAccount(String staffAccount) {
-		System.out.println("getOneByAccount");
-
 		return dao.findByStaffAccount2(staffAccount);
 	}
+	
 	public String pwd(String staffPassword) {
 		return dao.pwd(staffPassword);
 	}

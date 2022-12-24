@@ -154,7 +154,7 @@ public class ProductServlet extends HttpServlet {
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("ProductVO", prodVo); // 資料庫取出的ProductVO物件,存入req
 			String url = "/back-organizer-end/product/updateProduct.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// forward to update_emp_input.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url);// forward to updateProduct.jsp
 			successView.forward(req, res);
 		}
 		
@@ -243,8 +243,8 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("ProductVO", prodVo); // 資料庫update成功後,正確的的ProductVO物件,存入req
-			String url = "/back-organizer-end/product/listAllProduct.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // forward to listAllProduct.jsp
+			String url = "/back-organizer-end/product/updateProductSucceed.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // forward to updateProductSucceed
 			successView.forward(req, res);
 		}
 
@@ -386,7 +386,7 @@ public class ProductServlet extends HttpServlet {
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("ProductVO", prodVo); // 資料庫取出的ProductVO物件,存入req
 			String url = "/back-organizer-end/product/listSelectedProduct.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// forward to update_emp_input.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url);// forward to listSelectedProduct.jsp
 			successView.forward(req, res);
 		}
 	}
