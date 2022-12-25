@@ -141,7 +141,7 @@ hr {
 				type="password" /><br /> <br /> <br />
 		</div>
 		<div class="tab-content-3">
-			<!-- 票券訂單todo=============== =============== -->
+			<!-- 票券訂單todo============================== -->
 			<br>
 			<div>
 				<h3>個人帳戶清單</h3>
@@ -179,10 +179,8 @@ hr {
 				</div>
 					</c:forEach>
 				<div class="col">
-					            <div class="myButton1"><input type="submit"  value="立即付款"></div>
 					            <div class="myButton1"><input type="submit"  value="修改訂單資訊"></div>
 					            <div class="myButton1"><input type="submit"  value="取消訂單"></div>
-
 					<!-- <a># 動態抓訂單編號</a>
           <div>
             <img src="my-image.png" alt="My Image" width="" height=""> 

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 
 import tw.com.tibame.event.model.EventVO;
@@ -34,6 +36,7 @@ public class OrderServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
 		System.out.println("action: " + request.getParameter("action"));
 		response.setContentType("text/html; charset=UTF-8");
@@ -172,13 +175,16 @@ public class OrderServlet extends HttpServlet {
 //System.out.println(searchByOrderID);
 		
 			OrderVO orderVO = null;
-			List<OrderVO> orderVO_list = new ArrayList<OrderVO>();		
-
+			List<Map> orderVO_list = new ArrayList<Map>();		
+			
 			try {
 //				int_sboID = Integer.valueOf(searchByOrderID);
 //				System.out.println("轉型"+int_sboID);
 				Integer int_sbID = Integer.valueOf(searchByOrderID);
-				orderVO_list = orderSvc.searchByOrderID(int_sbID);
+				//*************************************
+//				session.getAttribute("organizerlogin data");//必須串到廠商登入資訊,在放到searchByOrderID();
+				//*************************************
+				orderVO_list = orderSvc.searchByOrderID(int_sbID,1);//先寫死 要套上面拿到的資料
 //				System.out.println("@@@@@"+int_sboID);
 //				if (orderVO_list.get(0) == null) {
 //					orderVO_list = null;
@@ -187,8 +193,8 @@ public class OrderServlet extends HttpServlet {
 				errorMsgs.add("未輸入訂單編號");
 			}
 
-			if (orderVO_list.isEmpty()) {
-				errorMsgs.add("此訂單編號不存在，請再確認一次");
+			if (orderVO_list.isEmpty() && searchByOrderID.length() != 0) {
+					errorMsgs.add("此訂單編號不存在，請再確認一次");
 			}
 
 			if (!errorMsgs.isEmpty()) {

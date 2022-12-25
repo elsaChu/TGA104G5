@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -497,9 +498,29 @@ public class OrderService {
 		return dao.selectByNumber(number);
 	}
 	
-	public List<OrderVO> searchByOrderID(Integer orderID){ // 用訂單編號篩選
-		return dao.searchByOrderID(orderID);
+	public List<Map> searchByOrderID(Integer orderID,Integer organizerNumber){ // 用訂單編號篩選
+		List<Map> list =dao.searchByOrderID(orderID,organizerNumber);
+		List<Map> listformat =orderDateFormat(list);
+		
+		return listformat;
 		
 	}
+	
+	public List<Map> selectOrderByOrganizer(Integer organizerNumber){ //廠商活動訂單列表
+		List<Map> list =dao.selectOrderByOrganizer(organizerNumber);
+		List<Map> listformat =orderDateFormat(list);
+		
+		return listformat;
+	}
+	
+	private List<Map> orderDateFormat(List<Map> list){
+		SimpleDateFormat sformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		for(int i=0 ; i < list.size(); i++) {
+			Map aData=list.get(i);
+			aData.put("orderDate", sformat.format(aData.get("orderDate")));
+			list.set(i,aData);
+		}
+//		System.out.println("list="+list.get(0).toString());
+		return list;
+	}
 }
-
