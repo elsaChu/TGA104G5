@@ -90,5 +90,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		}
 		return false;
 	}
+	
+	@Override
+	public boolean deleteAllByMemberNumber(Integer number) {
+		if (number != null) {
+			List<ShoppingCartVO> temp = shoppingCartDAO.findByMemberNumber(number);
+			
+			for(ShoppingCartVO shoppingCartVO : temp) {
+				shoppingCartDAO.delete(shoppingCartVO.getShoppingCartNo());
+			}
+			return true;
+		}
+		return false;
+	}
 
 }

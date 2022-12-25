@@ -45,7 +45,7 @@ public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
 		return null;
 	}
 
-	@Override //這是對的唷
+	@Override
 	public ShoppingCartVO getByMemberNoAndProdNo(Integer number, Integer prodNo) {
 		if (number != null && prodNo != null) {
 			try {
@@ -100,6 +100,16 @@ public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
 		if (number != null) {
 			Query<ShowShoppingCartVO> query = getSession().createQuery("from ShowShoppingCartVO where number = :number",
 					ShowShoppingCartVO.class);
+			return query.setParameter("number", number).list();
+		}
+		return null;
+	}
+	
+	@Override
+	public List<ShoppingCartVO> findByMemberNumber(Integer number) {
+		if (number != null) {
+			Query<ShoppingCartVO> query = getSession().createQuery("from ShoppingCartVO where number = :number",
+					ShoppingCartVO.class);
 			return query.setParameter("number", number).list();
 		}
 		return null;

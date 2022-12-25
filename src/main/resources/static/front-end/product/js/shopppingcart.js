@@ -40,7 +40,7 @@ function init() {
     success: function (data) {                                         // request 成功取得回應後執行
       console.log(data);
       shoppingCart.innerHTML =
-        data.map((e) => Template(e.prodNo, e.prodName, e.prodSpec, e.unitPrice, e.shoppingQty)).join('');
+        data.map((e) => Template(e.shoppingCartNo, e.prodNo, e.prodName, e.prodSpec, e.unitPrice, e.shoppingQty)).join('');
       // 顯示購買數量調整按鈕
       var proQty = $('.pro-qty');
       proQty.prepend('<span class="dec qtybtn">-</span>');
@@ -79,7 +79,7 @@ function init() {
 
 
 
-  function Template(prodNo, prodName, prodSpec, unitPrice, shoppingQty) {
+  function Template(shoppingCartNo, prodNo, prodName, prodSpec, unitPrice, shoppingQty) {
     return `
     <tr data-prodNo="${prodNo}">
         <td class="shoping__cart__item">
@@ -100,7 +100,7 @@ function init() {
             $${unitPrice * shoppingQty}
         </td>
         <td class="shoping__cart__item__close">
-            <span class="icon_close"></span>
+            <span id="remove" data-shoppingCartNo="${shoppingCartNo}" class="icon_close"></span>
         </td>
     </tr>
     `;
@@ -203,7 +203,25 @@ function init() {
 
   });
 
+  // 移除購物車商品(未完成)
+  document.querySelector("#remove").addEventListener("click", function(){
+    let shoppingCartNo = parseInt(
+      document.querySelector("#remove").getAttribute("data-shoppingCartNo"));
 
+    $.ajax({
+      url: "http://localhost:8080/TGA104G5/cart/remove?shoppingCartNo",
+      type: "GET",
+      data: {"shoppingCartNo": shoppingCartNo},
+      dataType: "json",
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (xhr) {
+        console.log(xhr);
+      }
+    });
+
+  });
 
 
 

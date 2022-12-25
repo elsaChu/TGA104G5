@@ -20,5 +20,7 @@ public interface ShoppingCartService {
 	ShoppingCartVO updateQty(Integer shoppingCartNo, Integer shoppingQty);
 
 	boolean delete(Integer shoppingCartNo);
+	
+	boolean deleteAllByMemberNumber(Integer number);
 
 }
