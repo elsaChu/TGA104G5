@@ -2,15 +2,14 @@ package tw.com.tibame.order.dao;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.hibernate.type.NumericBooleanType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.com.tibame.order.vo.OrderDetailVO;
 import tw.com.tibame.order.vo.ShoppingCartVO;
 import tw.com.tibame.order.vo.ShowShoppingCartVO;
 
@@ -46,20 +45,23 @@ public class ShoppingCartDAOHibernate implements ShoppingCartDAO {
 		return null;
 	}
 
-	@Override
+	@Override //這是對的唷
 	public ShoppingCartVO getByMemberNoAndProdNo(Integer number, Integer prodNo) {
 		if (number != null && prodNo != null) {
-			Query<ShoppingCartVO> query = getSession().createQuery(
-					"from ShoppingCartVO where number = :number and prodNo= :prodNo",ShoppingCartVO.class);
-			return query.setParameter("number", number)
-						.setParameter("prodNo", prodNo)
-						.getSingleResult();
-			
+			try {
+				Query<ShoppingCartVO> query = getSession().createQuery(
+						"from ShoppingCartVO where number = :number and prodNo= :prodNo",ShoppingCartVO.class);
+				
+					return query
+							.setParameter("number", number)
+							.setParameter("prodNo", prodNo)
+							.getSingleResult();
+			} catch (NoResultException e) {
+			}
 			
 		}
 		return null;
 	}
-	
 	
 	@Override
 	public ShoppingCartVO insert(ShoppingCartVO shoppingCartVO) {

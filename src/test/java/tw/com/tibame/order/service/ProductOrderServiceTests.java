@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import tw.com.tibame.order.service.impl.ProductOrderServiceImpl;
+import tw.com.tibame.order.vo.OrderDetailVO;
 import tw.com.tibame.order.vo.ProductOrderVO;
 
 @SpringBootTest
@@ -38,8 +39,6 @@ public class ProductOrderServiceTests {
 	public void testUpdateReceiverInfo() {
 		System.out.println(service.updateReceiverInfo(4, "測試改名", "改電話", "hk4g42"));
 	}
-	
-	
 	
 	
 }

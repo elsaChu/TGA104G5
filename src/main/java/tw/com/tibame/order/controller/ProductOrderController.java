@@ -20,6 +20,7 @@ import tw.com.tibame.order.vo.OrderDetailVO;
 import tw.com.tibame.order.vo.ProductOrderVO;
 import tw.com.tibame.order.vo.ViewOrderDetailVO;
 import tw.com.tibame.order.vo.ViewProductOrderVO;
+import tw.com.tibame.product.vo.OrderWrapper;
 
 @RestController
 @RequestMapping("order")
@@ -68,19 +69,25 @@ public class ProductOrderController {
 //	}
     
     @PostMapping("addProdOrder") // 這是寫死測試用
-    public ProductOrderVO addProdOrder(@RequestBody ProductOrderVO productOrderVO) {
+    public boolean addProdOrder(@RequestBody OrderWrapper orderWrapper) {
     	
-    	productOrderVO.setNumber(4);
-		productOrderVO.setAmountPrice(productOrderVO.getAmountPrice());
-		productOrderVO.setProdTotal(productOrderVO.getProdTotal());
-		productOrderVO.setReceiverName(productOrderVO.getReceiverName());
-		productOrderVO.setReceiverTel(productOrderVO.getReceiverTel());
-		productOrderVO.setShippingAdd(productOrderVO.getShippingAdd());
-		
-    	return productOrderService.addOrder(productOrderVO);
+    	orderWrapper.getProductOrderVO().setNumber(4);
+    	
+    	if(orderWrapper.getProductOrderVO() != null) {
+    		ProductOrderVO newOrder = productOrderService.addOrder(orderWrapper.getProductOrderVO());
+    	
+	    	for(OrderDetailVO orderDetailVO : orderWrapper.getOrderDetailList()) {
+	    		orderDetailVO.setProdOrderNo(newOrder.getProdOrderNo());
+	    		orderDetailService.addDetail(orderDetailVO);
+	    		
+	    		
+	    	}
+	    	return true;
+    	}
+    	return false;
 	}
         
-    @PutMapping("updateReceiverInfo")
+    @PostMapping("updateReceiverInfo")
     public ProductOrderVO updateReceiverInfo() {
 //    	Integer prodOrderNo =  (Integer) request.getSession().getAttribute("prodOrderNo");
     	Integer prodOrderNo = 2;		// 訂單編號是先寫死的唷!!
