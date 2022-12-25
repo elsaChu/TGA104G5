@@ -16,31 +16,34 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import tw.com.tibame.event.model.EventService;
+import tw.com.tibame.management.model.BulletinService;
+import tw.com.tibame.management.model.BulletinVO;
 
-@WebServlet("/GetBanner")
-public class GetBanner extends HttpServlet {
+@WebServlet("/GetBulletin")
+public class GetBulletin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Gson gson;
 	public void init() throws ServletException {
-		System.out.println("init GetBanner Servlet");
+//		System.out.println("init GetBulletin Servlet");
 		gson = new Gson();
 	}
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html; charset=UTF-8");
-		System.out.println("GetBanner received doGet");
+		System.out.println("GetBulletin received doGet");
 		
-		EventService es1 = new EventService();
-		List bannerL = es1.getBanner();
-	
+		BulletinService bs1 = new BulletinService();
+		List<BulletinVO> listB = new ArrayList<BulletinVO>();
+		listB = bs1.getAllOn();
+		System.out.println(listB);
 		JsonObject resBody = new JsonObject();
-		if(bannerL != null) {
-			resBody.addProperty("bannerL", gson.toJson(bannerL));
+		if(! listB.isEmpty()) {
+			resBody.addProperty("listB", gson.toJson(listB));
 			resBody.addProperty("successful", true);
 		}else {
 			resBody.addProperty("successful", false);
-			System.out.println("noBanner");
+			System.out.println("no Bulletin is on");
 		}
 		res.getWriter().write(resBody.toString());
 	}

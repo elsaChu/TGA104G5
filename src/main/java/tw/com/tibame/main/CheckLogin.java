@@ -34,7 +34,7 @@ public class CheckLogin extends HttpServlet {
 		System.out.println("check login implemented fake member login info");
 		MemberVO fakeVo = new MemberVO();
 		fakeVo.setName("fakeName");
-		fakeVo.setIdNumber("100");
+		fakeVo.setIDNumber("100");
 		fakeVo.setNumber(1);
 		session.setAttribute("memberVO", fakeVo);
 		//FAKE INFO  end
