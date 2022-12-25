@@ -12,24 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import tw.com.tibame.event.model.OrderService;
 
-/**
- * Servlet implementation class FrontendCheckTicketServlet
- */
 @WebServlet("/FrontendCheckTicketServlet")
 public class FrontendCheckTicketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FrontendCheckTicketServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	//QR CODE change ticket type
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	    String ticketNumber = request.getParameter("ticket");
@@ -48,9 +34,6 @@ public class FrontendCheckTicketServlet extends HttpServlet {
         out.flush();
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

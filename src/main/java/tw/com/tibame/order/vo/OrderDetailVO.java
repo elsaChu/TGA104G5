@@ -14,7 +14,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "ORDER_DETAIL")
 public class OrderDetailVO implements java.io.Serializable {
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3320684379412207631L;
+
 	@Id
 	@Column(name = "itemNo")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  

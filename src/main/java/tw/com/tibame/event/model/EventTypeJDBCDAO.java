@@ -12,6 +12,7 @@ import java.util.List;
 
 public class EventTypeJDBCDAO implements EventTypeDAO_interface{
 	private static final String eventTypeAllSQL = "select * from `EVENT_TYPE` where `eventClassState` != ?;";
+	private static final String queryTypeSQL = "select * from EVENT_TYPE where eventClassNumber = ?;";
 	@Override
 	public int insert(EventTypeVO eventTypevo) {
 
@@ -86,9 +87,58 @@ public class EventTypeJDBCDAO implements EventTypeDAO_interface{
 	}
 
 	@Override
-	public List<EventTypeVO> selectByEventNumber(int eventNumber) {
+	public EventTypeVO selectByEventClassNumber(Integer eventClassNumber) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		EventTypeVO eventtypevo =null;
+		try {
 
-		return null;
+			Class.forName(Common.driver);
+			con = DriverManager.getConnection(Common.URL,Common.USER,Common.PASSWORD);
+			pstmt = con.prepareStatement(queryTypeSQL);
+			
+			pstmt.setInt(1, eventClassNumber);
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) {
+				eventtypevo = new EventTypeVO();
+				eventtypevo.setEventClassNumber(rs.getInt(1));
+				eventtypevo.setEventClassName(rs.getString(2));
+				eventtypevo.setEventClassState(rs.getBoolean(3));	
+			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return eventtypevo;
 	}
 
 	@Override

@@ -6,6 +6,6 @@ public interface EventTypeDAO_interface {
 	public int insert(EventTypeVO eventTypevo);
 	public int update(EventTypeVO eventTypevo);
 	public List<EventTypeVO> selectAll();
-	public List<EventTypeVO> selectByEventNumber(int eventNumber);
+	public EventTypeVO selectByEventClassNumber(Integer eventClassNumber);
 	public List<EventTypeVO> selectTypeIsON();
 }

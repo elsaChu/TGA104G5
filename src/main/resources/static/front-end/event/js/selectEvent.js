@@ -33,9 +33,14 @@ function getRandomInt(max) {
 		$('#MerchantTradeDate').val(MerchantTradeDate);
 		
 		$('#TotalAmount').val(selectEventInfo.totalPrice);
-		let TradeDesc = '專題測試金流介接商品';
+		let TradeDesc = 'TICKIT活動購票';
 		$('#TradeDesc').val(TradeDesc);
-		let ItemName = '測試商品'
+		let ticketSelect = selectEventInfo.ticketSelect;
+		let ItemName = '';
+		ticketSelect.forEach((t)=>{
+			ItemName += (ItemName == '' ? '' : '#') + t.ticketName + 'X' + t.val;
+		});
+		
 		$('#ItemName').val(ItemName);
 		$('#ReturnURL').val(returnUrl);
 		//let ClientBackURL = 'http://127.0.0.1:8080${context}/frontend/event?return='+selectEventInfo.orderId+'_0';
@@ -59,6 +64,7 @@ function getRandomInt(max) {
 		
 		console.log('final checkVis:',digest);
 		$('#CheckMacValue').val(digest);
+//		alert('測試');
 		$('#paymetForm').submit();
 	}
 	
@@ -81,14 +87,21 @@ function getRandomInt(max) {
 				
 				
 				console.log(data);
-				if(!data || ! data.success){
-					let errMsg = 'error';
+				if(! data.success){
+					
+					if (data.needLogin) {
+						window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+						return false;
+					} else {
+						let errMsg = 'error';
 					if(data.msgList){
 						data.msgList.forEach(msg=> errMsg += `${msg}\n`);
 					}
 					
 					alert(errMsg);
 					return;
+					}
+					
 				}else{
 					//跳至步驟
 					switchStep(data.step);
@@ -122,13 +135,34 @@ function getRandomInt(max) {
     	changediv('.stepDiv','#step03');
     	getSelectTicket();
     	
-    	if(selectEventInfo && selectEventInfo.userData){
-			let userData = selectEventInfo.userData;
-			$('#inputName').val(userData.inputName);
-			$('#inputEmail').val(userData.inputEmail);
-			$('#inputPhone').val(userData.inputPhone);
-		}
+    	getUserData();
     }
+    
+    function getUserData(){
+		let params = {
+				action:'getUserData' ,
+				};
+		callAjax(params,function(data){
+	    		
+	    		console.log(data);
+				if(! data.success){
+					if(data.needLogin){
+						window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+					}else{
+						alert('error:',data.msg);
+					}
+					return;
+				}else{
+					$('#inputName').val(data.inputName);
+    	        	$('#inputEmail').val(data.inputEmail);
+    	        	$('#inputPhone').val(data.inputPhone);
+    	        	$('#inputRocid').val(data.inputRocid);
+				}
+				
+				
+	    });
+	}
+    
     function buildStep4(){
     	/*
     	$('.eventDesc').hide('1000');
@@ -158,6 +192,7 @@ function getRandomInt(max) {
     	}
     }
     
+    
     function confirmUserData(){
     	
     	//儲存購買者資訊
@@ -166,6 +201,7 @@ function getRandomInt(max) {
     	        inputEmail:$('#inputEmail').val(),
     	        inputPhone:$('#inputPhone').val(),
     	        inputRocid:$('#inputRocid').val(),
+    	        action: 'confirmUserData',
     	};
     	
     	$('.invalid-feedback').html('');
@@ -175,67 +211,70 @@ function getRandomInt(max) {
     	$('#inputPhone').removeClass('is-invalid');
     	
     	let validFlag = true;
+    	
+    	var nameReg = /[0-9!@^*#&\_\+<>\"~;$^%,.{}?]/;
+    	if(!$('#inputName').val()){
+    		$('#inputName').addClass('is-invalid');
+    		$('#inputName_errMsg').html('請輸入姓名');
+    		validFlag = false;
+    	}else if($('#inputName').val().match(nameReg)){
+    		$('#inputName').addClass('is-invalid');
+    		$('#inputName_errMsg').html('姓名格式異常');
+    		validFlag = false;
+    	}
+    	
     	var emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     	if(!$('#inputEmail').val()){
     		$('#inputEmail').addClass('is-invalid');
     		$('#inputEmail_errMsg').html('請輸入 Email');
-    		console.log('mail1');
     		validFlag = false;
     	}else if(!$('#inputEmail').val().match(emailReg)){
     		$('#inputEmail').addClass('is-invalid');
     		$('#inputEmail_errMsg').html('Email 格式異常');
-    		console.log('mail2');
     		validFlag = false;
     	}
-    	if(!$('#inputName').val()){
-    		$('#inputName').addClass('is-invalid');
-    		$('#inputName_errMsg').html('請輸入姓名');
-    		console.log('name1');
-    		validFlag = false;
-    	}
+    	
     	
     	if(!$('#inputRocid').val()){
     		$('#inputRocid').addClass('is-invalid');
     		$('#inputRocid_errMsg').html('請輸入身分證號');
-    		console.log('rocid1');
     		validFlag = false;
     	}else if(! verifyId($('#inputRocid').val())){
     		$('#inputRocid').addClass('is-invalid');
     		$('#inputRocid_errMsg').html('身分證號格式異常');
-    		console.log('rocid2');
     		validFlag = false;
     	}
     	
     	if(!$('#inputPhone').val()){
     		$('#inputPhone').addClass('is-invalid');
     		$('#inputPhone_errMsg').html('請輸入手機號碼');
-    		console.log('phone1');
     		validFlag = false;
     	}else if(!$('#inputPhone').val().match(/^(09)[0-9]{8}$/)){
     		$('#inputPhone').addClass('is-invalid');
     		$('#inputPhone_errMsg').html('手機號碼格式異常');
-    		console.log('phone2');
     		validFlag = false;
     	}
     	if(!validFlag){
     		return false;
     	}
     	
-		userData.action = 'confirmUserData';
-    	
-    	callAjax(userData,function(data){
+		callAjax(userData, function(data) {
 			console.log(data);
-			if(!data || ! data.success){
-				let errMsg = 'error';
-				alert(errMsg);
+			if (!data.success) {
+				if (data.needLogin) {
+					window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+					return false;
+				} else {
+					alert('error:', data);
+				}
 				return;
-			}else{
+			} else {
 				//跳至下一步驟
 				selectEventInfo = data.selectEventInfo;
 				//switchStep(4);
-				initPayment(data.returnUrl,data.callbackUrl);
+				initPayment(data.returnUrl, data.callbackUrl);
 			}
-    	});
+		});
     }
     
     //確認票種資訊
@@ -251,12 +290,15 @@ function getRandomInt(max) {
     	$.each($('.ticketInput'),function(){
     		if($(this).val() != '0'){
     			let price = $(this).attr('price');
+    			let min = $(this).attr('minTicket');
+    			let ticketName = $(this).attr('ticketName');
     			let ticketCount = $(this).val();
     			let ticketObj = {
         				id:$(this).attr('id').replace('count_' , ''),
         				price:$(this).attr('price'),
-        				ticketName:price,
+        				ticketName: ticketName,
         				val:ticketCount,
+        				min: min,
         				totalPrice: ( price * ticketCount )
         		};
         		ticketSelect.push(ticketObj);
@@ -279,14 +321,18 @@ function getRandomInt(max) {
     	
     	callAjax(params,function(data){
 			console.log(data);
-			if(!data || ! data.success){
-				let errMsg = 'error';
-				if(data.msgList){
-					data.msgList.forEach(msg=> errMsg += `${msg}\n`);
-				}
-				
-				alert(errMsg);
+			if(! data.success){
+				if (data.needLogin) {
+					window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+					return false;
+				} else {
+					let errMsg = 'error';
+					if(data.msgList){
+						data.msgList.forEach(msg=> errMsg += `${msg}\n`);
+					}
+					alert(errMsg);
 				return;
+				}
 			}else{
 				//跳至下一步驟
 				selectEventInfo.ticketSelect = ticketSelect;
@@ -314,8 +360,13 @@ function getRandomInt(max) {
     	callAjax(params,function(data){
     		
     		console.log(data);
-			if(!data || ! data.success){
-				alert('error');
+			if(!data.success){
+				if (data.needLogin) {
+					window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+					return false;
+				} else {
+					alert('error');
+				}
 				return;
 			}
 			
@@ -388,8 +439,8 @@ function getRandomInt(max) {
 		let ticketSelect = selectEventInfo.ticketSelect;
 		selectEventInfo.totalTicket = 0;
 		ticketSelect.forEach((t)=>{
-			let val = 0;
-			selectEventInfo.totalTicket += parseInt(t.val);
+			//let val = 0;
+			selectEventInfo.totalTicket += (parseInt(t.val) * parseInt(t.min));
 		});
 	}
 	
@@ -463,7 +514,13 @@ function getRandomInt(max) {
 				if(data.occupy && data.occupy != ''){
 					alert(`座位${data.occupy}已被占用`);
 				}else{
-					alert(data.msg);
+					if (data.needLogin) {
+						window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+						return false;
+					} else {
+						alert('error');
+					}
+					return;
 				}
 				
 			}
@@ -479,9 +536,14 @@ function getRandomInt(max) {
 		callAjax(params,function(data){
     		
 			console.log(data);
-			if(!data || ! data.success){
-				alert('error');
-				return;
+			if( ! data.success){
+				if (data.needLogin) {
+						window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+						return false;
+					} else {
+						alert('error');
+					}
+					return;
 			}
 			
 			selectEventInfo = data.selectEventInfo;
@@ -530,7 +592,12 @@ function getRandomInt(max) {
 			success:function(data){
 				console.log(data);
 				if(!data || ! data.success){
-					alert('error');
+					if (data.needLogin) {
+						window.location.href = `${context}/front-end/member/memberLogin.jsp`;
+						return false;
+					} else {
+						alert('error');
+					}
 					return;
 				}
 				
@@ -571,7 +638,7 @@ function getRandomInt(max) {
 										<div class="col-sm">\$${vo.price}</div>
 										<div class="col-sm">
 										<p>${vo.ticketType}</p>
-										<input type="hidden" id="count_${vo.ticketID}" price="${vo.price}" ticketName="${vo.ticketName}" value="0" >
+										<input type="hidden" id="count_${vo.ticketID}" price="${vo.price}" minTicket="${vo.ticketMIN}" ticketName="${vo.ticketName}" value="0" >
 										</div>
 									</div>
 							    </li>
@@ -583,7 +650,7 @@ function getRandomInt(max) {
 										<div class="col-sm">${vo.ticketName}</div>
 										<div class="col-sm">\$${vo.price}</div>
 										<div class="col-sm">
-										<input class="ticketInput" type="number" id="count_${vo.ticketID}" price="${vo.price}" ticketName="${vo.ticketName}" ${vo.ticketMAX != 0 ? `max="${vo.ticketMAX}"` : ``} min="0" value="${vo.val}" >
+										<input class="ticketInput" type="number" id="count_${vo.ticketID}" price="${vo.price}" minTicket="${vo.ticketMIN}" ticketName="${vo.ticketName}" ${vo.ticketMAX != 0 ? `max="${vo.ticketMAX}"` : ``} min="0" value="${vo.val}" >
 										</div>
 									</div>
 							    </li>

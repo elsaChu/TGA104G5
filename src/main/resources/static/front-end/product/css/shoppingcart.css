@@ -2,3 +2,33 @@
     padding-top: 10px;
     padding-bottom: 80px;
 }
+
+#mainPic {
+    height: 100px;
+    max-width: 100%;
+}
+
+#name{
+    display: inline-block;  /* ★ */
+    vertical-align: middle; /* ★ */
+}
+
+#cart__final__amount{
+    display: contents;
+    font-size: 18px;
+    color: #000000;
+    float: right;
+}
+
+#primary-btn {
+    display: inline-block;
+    font-size: 14px;
+    padding: 10px 28px 10px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 700;
+    background: #7fad39;
+    letter-spacing: 2px;
+    border: none;
+    width: 100%;
+}

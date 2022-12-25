@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tw.com.tibame.order.dao.OrderDetailDAO;
 import tw.com.tibame.order.service.OrderDetailService;
 import tw.com.tibame.order.vo.OrderDetailVO;
+import tw.com.tibame.order.vo.ProductOrderVO;
 import tw.com.tibame.order.vo.ViewOrderDetailVO;
 
 @Service
@@ -25,15 +26,15 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		this.orderDetailDAO = orderDetailDAO;
 	}
 	
-	// 新增訂單明細
+	// 新增訂單明細 + 扣庫存
 	@Override
 	public OrderDetailVO addDetail(OrderDetailVO orderDetailVO) {
 		if(orderDetailVO != null && orderDetailVO.getItemNo() == null) {
-			
+//			orderDetailVO.setProdOrderNo(productOrderVO.getProdOrderNo());
 			return orderDetailDAO.insert(orderDetailVO);
 		}
 		return null;
-	}
+	}	
 	
 	// 會員中心 - 以訂單編號查詢明細
 	@Override

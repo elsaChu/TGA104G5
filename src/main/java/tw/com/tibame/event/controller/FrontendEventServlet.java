@@ -1,6 +1,7 @@
 package tw.com.tibame.event.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Map;
 
@@ -35,6 +36,10 @@ public class FrontendEventServlet extends HttpServlet {
 	    	String bigImg64 = "data:image/jpeg;base64,"+encoder.encodeToString(event.getBigImg());
 	    	request.setAttribute("bigImg64", bigImg64);
 	    	request.setAttribute("event", event);
+	    	request.setAttribute("orgName", orderService.getOrgName(event.getOrganizerNumber()));
+	    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    	request.setAttribute("eventStart", sdf.format(event.getEventStartDate()));
+	    	request.setAttribute("eventEnd", sdf.format(event.getEventEndDate()));
 	        //跳轉頁面進入，清空session
 	        HttpSession session = request.getSession();
 	        session.removeAttribute("selectEventInfo");

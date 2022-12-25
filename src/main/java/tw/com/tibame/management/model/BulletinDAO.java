@@ -3,12 +3,17 @@ package tw.com.tibame.management.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
+import tw.com.tibame.organizer.model.OrganizerVO;
+import tw.com.tibame.util.common.Common;
 
 public class BulletinDAO implements BulletinDAOInterface{
 	String driver = "com.mysql.cj.jdbc.Driver"; 
-	String url = "jdbc:mysql://localhost:3306/TICK_IT_TEST?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/TICK_IT?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
 
@@ -64,10 +69,36 @@ public class BulletinDAO implements BulletinDAOInterface{
 		return null;
 	}
 
+	private String SELECT_ALL_STMT = "select * from system_bulletin where bulletinDate <= curdate() and isOpen = 1";
 	@Override
-	public List<BulletinVO> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BulletinVO> selectAllOpen() {
+		List<BulletinVO> list = new ArrayList<BulletinVO>();
+		Connection con = null;
+		PreparedStatement ps1 = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(Common.driver);
+			con = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
+			ps1 = con.prepareStatement(SELECT_ALL_STMT);
+			rs = ps1.executeQuery();
+			while(rs.next()) {
+				BulletinVO vo = new BulletinVO();
+				vo.setBulletinID(rs.getInt("bulletinID"));
+				vo.setBulletinName(rs.getString("bulletinName"));
+				vo.setBulletinContent(rs.getString("bulletinContent"));
+				vo.setBulletinDate(rs.getTimestamp("bulletinDate"));
+				vo.setIsTop(rs.getBoolean("isTop"));
+				vo.setIsOpen(rs.getBoolean("isOpen"));
+				vo.setBulletinCreateDate(rs.getTimestamp("bulletinCreateDate"));
+				list.add(vo);
+			}
+			System.out.println("Bulletin DAO: execute select all");
+		} catch (SQLException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 	
 

@@ -8,5 +8,5 @@ public interface BulletinDAOInterface {
     public void update(BulletinVO bean);
     public void delete(Integer bulletinID);
     public BulletinVO findByPrimaryKey(Integer bulletinID);
-    public List<BulletinVO> selectAll();
+    public List<BulletinVO> selectAllOpen();
 }

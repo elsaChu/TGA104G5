@@ -10,6 +10,8 @@ use TICK_IT;
 #26 [新建] View商品訂單 (V_PROD_ORDER)
 #27 [新建] View商品評論星星 (V_PROD_RANKING)
 #28 [更新] View商品 (V_PRODUCT)
+#29 [新建] View購物車 (V_SHOPPING_CART)
+
 #--------------- create table ----------------
 #1 隱私權政策
 create table PRIVACY(
@@ -318,7 +320,7 @@ create table PRODUCT(
     prodStock		int not null comment '庫存數量',
     prodDetails		text comment '商品詳情',
     prodScore		float not null default 0 comment '商品總評價', 
-	isPOn			bit(1) not null default 0 comment '商品是否上架',
+	isPOn			bit(1) not null default 1 comment '商品是否上架',
     
     constraint FK_PRODUCT_eventNumber foreign key (eventNumber) references `EVENT` (eventNumber),
     constraint FK_PRODUCT_organizerNumber foreign key (organizerNumber) references ORGANIZER (organizerNumber)
@@ -349,7 +351,14 @@ create table PRODUCT_IMG(
     
     constraint FK_PRODUCT_IMG_prodNo foreign key (prodNo) references PRODUCT (prodNo)
 ) comment '商品圖片';
-# insert into 
+insert into PRODUCT_IMG(prodNo)
+values	(1),(1),(1),
+		(2),
+        (3),(3),(3),(3),
+        (4),(4),(4),
+		(5),
+        (6),(6),(6),(6)
+        ;
 
 
 #22 商品訂單
@@ -446,6 +455,14 @@ on p.eventNumber = e.eventNumber
 left join V_PROD_RANKING vp
 on p.prodNo = vp.prodNo
 order by prodNo;
+
+#29 View購物車
+create view V_SHOPPING_CART as
+select sc.*, p.prodName, p.prodSpec, p.unitPrice
+from SHOPPING_CART sc
+join PRODUCT p
+on sc.prodNo = p.prodNo
+
 
 
 -- drop database TICK_IT;

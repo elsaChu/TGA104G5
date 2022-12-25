@@ -2,15 +2,20 @@ package tw.com.tibame.event.model;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
+
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import javax.crypto.SecretKey;
@@ -21,6 +26,8 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
+import tw.com.tibame.member.model.MemberVO;
 
 public class OrderService {
 
@@ -62,17 +69,22 @@ public class OrderService {
 	        
 	        TicketVO ticketVO = ticketDao.queryById(ticketid);
 	        
+	        //min > 1 代表為單人以上的票，計算基數要往上乘
+            if(ticketVO.getTicketMIN() > 1) {
+                selectVal = selectVal * ticketVO.getTicketMIN();
+            }
+	        
 	        if(ticketVO.getTicketMAX() > 0 && selectVal > ticketVO.getTicketMAX()) {
                 msgList.add(String.format("票種:%s 單次購買上限為%d筆，請更換票種或調整購入筆數",ticketVO.getTicketName() ,ticketVO.getTicketMAX()));
             }else {
-            	
+                
             	SoldTicketsJDBCDAO soldTicketDao = new SoldTicketsJDBCDAO();
             	
                 List<SoldTicketsVO> soldList = soldTicketDao.selectByEventAndTicket(eventNumber, ticketid);
                 int soldCount = soldList.size();
-                if(soldCount + Integer.parseInt(val) > ticketVO.getTicketQuantity()) {
+                if(soldCount + selectVal > ticketVO.getTicketQuantity()) {
                     int diff = ticketVO.getTicketQuantity() - soldCount;
-                    msgList.add(String.format("票種:%s 剩餘票數不足(剩餘%d筆)，請更換票種或調整購入筆數",ticketVO.getTicketName() ,diff));
+                    msgList.add(String.format("票種:%s 剩餘票數不足(剩餘%d筆，您購買了%d筆)，請更換票種或調整購入筆數",ticketVO.getTicketName() ,diff,selectVal));
                 }
             }
 	        
@@ -145,22 +157,22 @@ public class OrderService {
         return occupySeatList;
 	}
 	
-	public void createOrUpdateOrder (Map<String,Object> selectEventInfo) {
+	public void createOrUpdateOrder (Map<String,Object> selectEventInfo,MemberVO memberProfile) {
 	    
 	    if(selectEventInfo.get("orderId") != null) {
 	        //int orderId = (Integer) selectEventInfo.get("orderId");
-	        updateOrder(selectEventInfo);
+	        updateOrder(selectEventInfo,memberProfile);
 	    }else {
-	        createOrder(selectEventInfo);
+	        createOrder(selectEventInfo,memberProfile);
 	    }
 	}
 	
-	public void createOrder(Map<String,Object> selectEventInfo) {
+	public void createOrder(Map<String,Object> selectEventInfo,MemberVO memberProfile ) {
 	    
 	    OrderVO order = new OrderVO();
 	    //EventVO eventvo = queryEventByEventNumber((Integer) selectEventInfo.get("eventNumber"));
 	    order.setEventNumber((Integer) selectEventInfo.get("eventNumber"));
-	    order.setNumber(1);
+	    order.setNumber(memberProfile.getNumber());
 	    order.setOrderDate(Timestamp.valueOf(LocalDateTime.now()));
 	    order.setOrderType("未繳費");
 	    order.setTotal((Integer) selectEventInfo.get("totalPrice"));
@@ -182,6 +194,11 @@ public class OrderService {
 	        int count = Integer.parseInt(String.valueOf(ts.get("val")));
 	        int ticketID = Integer.parseInt(String.valueOf(ts.get("id")));
 	        
+	        Integer min = Integer.parseInt(String.valueOf(ts.get("min")));
+            Integer price = Integer.parseInt(String.valueOf(ts.get("price")));
+            if(min > 1) {
+                price = price / min;
+            }
 	        
 	        TicketVO ticket = ticketDao.queryById(ticketID);
 	        
@@ -192,7 +209,8 @@ public class OrderService {
 	            //vo.setSeatID(null);
 	            vo.setTicketID(Integer.parseInt(String.valueOf(ts.get("id"))));
 	            vo.setUse(false);
-	            vo.setOrderPrice(Integer.parseInt(String.valueOf(ts.get("price"))));
+	            vo.setOrderPrice(price);
+	            
 	            soldList.add(vo);
 	        }
 	        
@@ -223,9 +241,13 @@ public class OrderService {
 	}
 	
 	
-	public void updateOrder(Map<String,Object> selectEventInfo) {
+	public boolean updateOrder(Map<String,Object> selectEventInfo,MemberVO memberProfile) {
 	    int orderId = (Integer) selectEventInfo.get("orderId");
-	    OrderVO order = dao.queryByOrderId(orderId);
+	    OrderVO order = dao.queryByOrderIdAndMember(orderId,memberProfile.getNumber());
+	    
+	    if(order == null) {
+	        return false;
+	    }
 	    
 	    order.setOrderDate(Timestamp.valueOf(LocalDateTime.now()));
 	    order.setOrderType("未繳費");
@@ -243,10 +265,15 @@ public class OrderService {
 	            int count = Integer.parseInt(String.valueOf(t.get("val")));
 	            for(int i = 0 ; i < count ; i ++) {
 	                SoldTicketsVO vo = new SoldTicketsVO();
+	                Integer min = Integer.parseInt(String.valueOf(t.get("min")));
+	                Integer price = Integer.parseInt(String.valueOf(t.get("price")));
+	                if(min > 1) {
+	                    price = price / min;
+	                }
 	                vo.setOrderID(orderId);
 	                vo.setTicketID(Integer.parseInt(String.valueOf(t.get("id"))));
 	                vo.setUse(false);
-	                vo.setOrderPrice(Integer.parseInt(String.valueOf(t.get("price"))));
+	                vo.setOrderPrice(price);
 	                //vo.setSeatID(Integer.parseInt(String.valueOf(t.get("seatID"))));
 	                soldList.add(vo);
 	                //int id = soldTicketDao.insert(vo);
@@ -258,8 +285,7 @@ public class OrderService {
 	        
 	    }
 	    
-	    
-	    
+	    return true;
 	}
 	
 	public void updateSeat(Map<String,Object> selectEventInfo) {
@@ -320,7 +346,18 @@ public class OrderService {
     	
 	    //產生該訂單所有票種的QRCODE
 	    List<SoldTicketsVO> soldList = soldTicketDao.selectByOrderID(orderId);
-	    String url = "http://192.168.1.108:8080/TGA104G5/FrontendCheckTicketServlet?ticket=%s";
+	    
+	    //環境仍舊為本機時的動態捕捉IP方法
+	    String ip = "";
+        try(final DatagramSocket socket = new DatagramSocket()){
+            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            ip = socket.getLocalAddress().getHostAddress();
+          }catch (Exception e) {
+              //抓不到時，預設請填自己的IP
+              ip = "192.168.1.108";
+        }
+	    
+	    String url = "http://%s:8080/TGA104G5/FrontendCheckTicketServlet?ticket=%s";
 	    
 	    for(SoldTicketsVO soldvo : soldList) {
 	        
@@ -328,7 +365,7 @@ public class OrderService {
 	        hMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
 	        try {
 	            String path = String.format("C:/tmp/qrCode_%s.png", soldvo.getTicketNumber());
-	            qrTool.createQRCode(String.format(url, soldvo.getTicketNumber()), path, "UTF-8", hMap, 200,200);
+	            qrTool.createQRCode(String.format(url,ip, soldvo.getTicketNumber()), path, "UTF-8", hMap, 200,200);
 	            File file = new File(path);
 	            
 	            byte[] qrBinary = Files.readAllBytes(Paths.get(path));
@@ -375,6 +412,37 @@ public class OrderService {
 	    }
 	    
 	    return info;
+	}
+	
+	public Map<String ,Object> doCancelOrder(int orderId){
+	    Map<String ,Object> result = new HashMap<>();
+	    result.put("success", true);
+	    SoldTicketsJDBCDAO solDao = new SoldTicketsJDBCDAO();
+	    OrderVO order = queryOrderById(orderId);
+	    List<SoldTicketsVO> soldList = solDao.selectByOrderID(orderId);
+	    
+	    if(order.getOrderType().equals("已過期") || order.getOrderType().equals("已取消") ) {
+	        result.put("success", false);
+            result.put("msg", "訂單已過期或取消");
+	    }else {
+	        //檢查票卷是否已被使用
+	        boolean isUse = false;
+	        for(SoldTicketsVO vo : soldList) {
+	            if(vo.isUse()) {
+	                isUse = true;
+	                break;
+	            }
+	        }
+	        if(isUse) {
+	            result.put("success", false);
+	            result.put("msg", "此訂單的票卷已被使用，無法取消。");
+	        }else {
+	            changeOrderType(orderId, "已取消");
+	        }
+	        
+	    }
+	    
+	    return result;
 	}
 	
 	
@@ -432,6 +500,43 @@ public class OrderService {
 	
 	public List<OrderVO> selectByEventNumber(Integer eventNumber){
 		return dao.selectByEventNumber(eventNumber);
-
+	}
+		
+	public List<OrderVO> selectByOrderDate(Timestamp orderDate){ // 用訂單日期篩選
+		return dao.selectByOrderDate(orderDate);
+	}
+	
+	public List<OrderVO> selectByOrderType(String orderType){ // 用訂單狀態篩選
+		return dao.selectByOrderType(orderType);
+	}
+	
+	public List<OrderVO> selectByNumber(Integer number){ // 用會員編號篩選
+		return dao.selectByNumber(number);
+	}
+	
+	public List<Map> searchByOrderID(Integer orderID,Integer organizerNumber){ // 用訂單編號篩選
+		List<Map> list =dao.searchByOrderID(orderID,organizerNumber);
+		List<Map> listformat =orderDateFormat(list);
+		
+		return listformat;
+		
+	}
+	
+	public List<Map> selectOrderByOrganizer(Integer organizerNumber){ //廠商活動訂單列表
+		List<Map> list =dao.selectOrderByOrganizer(organizerNumber);
+		List<Map> listformat =orderDateFormat(list);
+		
+		return listformat;
+	}
+	
+	private List<Map> orderDateFormat(List<Map> list){
+		SimpleDateFormat sformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		for(int i=0 ; i < list.size(); i++) {
+			Map aData=list.get(i);
+			aData.put("orderDate", sformat.format(aData.get("orderDate")));
+			list.set(i,aData);
+		}
+//		System.out.println("list="+list.get(0).toString());
+		return list;
 	}
 }

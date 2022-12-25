@@ -22,9 +22,9 @@ public class CollectDAO implements CollectDAOinterface{
 
 	private static final String GET_ALL_STMT = "SELECT eventNumber FROM COLLECT where number = ?";
 	@Override
-	public List<EventVO> selectAll(int memberId) {
-		List<EventVO> list = new ArrayList<EventVO>();
-		EventVO vo1 = new EventVO();
+	public List<Integer> selectAll(int memberId) {
+		System.out.println("collect dao used select all");
+		List<Integer> list = new ArrayList<Integer>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -36,10 +36,9 @@ public class CollectDAO implements CollectDAOinterface{
  
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				vo1.setEventNumber(rs.getInt("eventNumber"));
-				list.add(vo1);
+				list.add(rs.getInt("eventNumber"));
 			}
-			System.out.println("event dao used select all");
+			System.out.println("list: " + list);
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {

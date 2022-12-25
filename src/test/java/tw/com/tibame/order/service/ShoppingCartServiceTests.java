@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import tw.com.tibame.order.service.impl.ShoppingCartServiceImpl;
 import tw.com.tibame.order.vo.ShoppingCartVO;
+import tw.com.tibame.order.vo.ShowShoppingCartVO;
 
 @SpringBootTest
 public class ShoppingCartServiceTests {
