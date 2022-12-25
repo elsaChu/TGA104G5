@@ -18,4 +18,6 @@ public interface MemberDAOinterface {
 	public List<MemberVO> getAll();
 	public String pwdhash(String password);
 	public String pwdhash2(String password);
+	public List<MemberVO> getEmail2();
+
 }

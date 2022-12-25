@@ -110,6 +110,11 @@ public class MemberService {
 		return memberVO;
 	}
 
+
+	public List<MemberVO> getEmail2() {
+		return  dao.getEmail2();
+	}
+
 	
 	
 
