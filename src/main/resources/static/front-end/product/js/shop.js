@@ -1,13 +1,12 @@
 /*
  * 要寫一個算評價星星數的方法
  * 分頁?? 
- * 加入購物車
- * 顯示查詢筆數
 */
 function init() {
 
   const prodarea = document.querySelector("#prodarea");
   const prodQty = document.querySelector("#prodQty");
+  const categories = document.querySelector("#categories");
 
   // 載入頁面時先從後端取得已上架商品
   $.ajax({
@@ -33,6 +32,9 @@ function init() {
 //
 //    },
   });
+
+  // 載入頁面時先從後端取得商品分類
+  
 
 
 

@@ -8,7 +8,7 @@ import tw.com.tibame.order.vo.OrderDetailVO;
 import tw.com.tibame.order.vo.ViewOrderDetailVO;
 
 public interface OrderDetailService {
-
+	
 	OrderDetailVO addDetail(OrderDetailVO orderDetailVO);
 
 	// 會員中心 - 單筆訂單查詢

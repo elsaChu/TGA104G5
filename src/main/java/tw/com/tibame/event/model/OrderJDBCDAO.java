@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.sql.Timestamp;
 
 import tw.com.tibame.staff.model.StaffVO;
@@ -14,20 +16,33 @@ import tw.com.tibame.util.common.Common;
 
 public class OrderJDBCDAO implements OrderDAO_interface {
 	private static final String GET_ORDER_BY_EVENT_NUMBER = "SELECT orderID , number , orderDate, orderType, total , totalTicket , pData ,reason "
-			+ "FROM `ORDER` o , `EVENT` e " + "WHERE e.eventNumber = 2;";
+			+ "FROM `ORDER` o , `EVENT` e " + "WHERE e.eventNumber = ?;";
 	private static final String GET_ORDER_BY_ORDER_DATE = "";
 	private static final String GET_ORDER_BY_ORDER_TYPE = "";
 	private static final String GET_ORDER_BY_NUMBER = "";
-	private static final String GET_ONE_BY_ORDERID = "SELECT orderID, `number`, orderDate, orderType, total, totalTicket, pData, reason from `ORDER` where orderID = ?;";
+	private static final String GET_ONE_BY_ORDERID = "SELECT o.orderID, o.`number` ,o.eventNumber ,e.eventName  , o.orderDate, o.totalTicket, o.total, o.orderType from "
+			+ "    `ORDER` o join `EVENT` e on o.eventNumber = e.eventNumber "
+			+ "    where  orderID = ?  and organizerNumber = ?;";
 	private static final String GET_BY_ORDERID = "select o.orderID,o.orderType,o.totalTicket,o.total, "
-			+ "			e.eventName,e.eventPlace,e.bigImg,e.eventStartDate, " + "			g.organizerName,\r\n"
-			+ "			m.`number`\r\n" + "			from `MEMBER` m,`ORDER` o ,`EVENT` e,`ORGANIZER` g "
-			+ "			where m.`number` = 1 " + "			and m.`number` = o.`number` "
-			+ "			and o.eventNumber = e.eventNumber " + "			and e.organizerNumber = g.organizerNumber "
+			+ "			e.eventName,e.eventPlace,e.bigImg,e.eventStartDate, " 
+			+ "			g.organizerName, "
+			+ "			m.`number` "
+			+ "			from `MEMBER` m,`ORDER` o ,`EVENT` e,`ORGANIZER` g "
+			+ "			where m.`number` = ? "
+			+ "			and m.`number` = o.`number` "
+			+ "			and o.eventNumber = e.eventNumber "
+			+ "			and e.organizerNumber = g.organizerNumber "
 			+ "			and o.eventNumber = e.eventNumber;";
 	private static final String GET_ORGANIZER_BY_NUMBER = "SELECT eventNumber,eventName,eventType,eventStartDate,eventEndDate  "
-			+ " " + "FROM TICK_IT_TEST.`EVENT` e,ORGANIZER o " + "where o.organizerNumber = 1 "
+			+ " " 
+			+ "FROM TICK_IT_TEST.`EVENT` e,ORGANIZER o " 
+			+ "where o.organizerNumber = ? "
 			+ "and e.organizerNumber = o.organizerNumber;";
+	private static final String GET_ORDER_BY_ORGANIZER = "select o.orderID, o.`number` ,o.eventNumber ,e.eventName  , o.orderDate, o.totalTicket, o.total, o.orderType from "
+			+ "	`ORDER` o join `EVENT` e on o.eventNumber = e.eventNumber "
+			+ "    where e.eventNumber in(select eventNumber from `EVENT` where organizerNumber = ?) "
+			+ "	   order by o.orderID desc;";
+	
 	// elsa
 	private static final String insertSQL = " INSERT INTO `order` " + " ( " + "    eventNumber    "
 			+ "  , number         " + "  , orderDate      " + "  , orderType      " + "  , total          "
@@ -859,8 +874,8 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 	}
 
 	@Override
-	public List<OrderVO> searchByOrderID(Integer orderID) {
-		List<OrderVO> list = new ArrayList<OrderVO>();
+	public List<Map> searchByOrderID(Integer orderID,Integer organizerNumber) {
+		List<Map> list = new ArrayList<Map>();
 		OrderVO orderVO = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -873,20 +888,19 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 			pstmt = conn.prepareStatement(GET_ONE_BY_ORDERID);
 
 			pstmt.setInt(1, orderID);
+			pstmt.setInt(2, organizerNumber);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				// orderVo 也稱為 Domain objects
-				orderVO = new OrderVO();
-				orderVO.setOrderID(rs.getInt("orderID"));
-				orderVO.setNumber(rs.getInt("number"));
-				orderVO.setOrderDate(rs.getTimestamp("orderDate"));
-				orderVO.setOrderType(rs.getString("orderType"));
-				orderVO.setTotal(rs.getInt("total"));
-				orderVO.setTotalTicket(rs.getInt("totalTicket"));
-				orderVO.setpData(rs.getString("pData"));
-				orderVO.setReason(rs.getString("reason"));
-				
-				list.add(orderVO);
+				Map map = new HashMap();
+				map.put("orderID",rs.getInt(1));
+				map.put("number",rs.getInt(2));
+				map.put("eventNumber",rs.getInt(3));
+				map.put("eventName",rs.getString(4));
+				map.put("orderDate",rs.getTimestamp(5));
+				map.put("totalTicket",rs.getInt(6));
+				map.put("total",rs.getInt(7));
+				map.put("orderType",rs.getString(8));
+				list.add(map);
 			}
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -920,5 +934,61 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 		}
 		return list;
 	}
+	
+	public List<Map> selectOrderByOrganizer(Integer organizerNumber){
+		List<Map> list = new ArrayList<>();
 
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(Common.driver);
+			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
+			ps = conn.prepareStatement(GET_ORDER_BY_ORGANIZER);
+			ps.setInt(1, organizerNumber);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Map map = new HashMap();
+				map.put("orderID",rs.getInt(1));
+				map.put("number",rs.getInt(2));
+				map.put("eventNumber",rs.getInt(3));
+				map.put("eventName",rs.getString(4));
+				map.put("orderDate",rs.getTimestamp(5));
+				map.put("totalTicket",rs.getInt(6));
+				map.put("total",rs.getInt(7));
+				map.put("orderType",rs.getString(8));
+				list.add(map);
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return list;
+	}
 }

@@ -62,7 +62,7 @@ public class OrderDetailDAOHibernate implements OrderDetailDAO{
 	@Override
 	public OrderDetailVO insert(OrderDetailVO orderDetailVO) {
 		
-		if(orderDetailVO != null && orderDetailVO.getProdOrderNo() != null) {
+		if(orderDetailVO != null) {
 			this.getSession().persist(orderDetailVO);
 			return orderDetailVO;
 		}

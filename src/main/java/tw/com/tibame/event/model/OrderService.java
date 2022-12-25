@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -68,17 +69,22 @@ public class OrderService {
 	        
 	        TicketVO ticketVO = ticketDao.queryById(ticketid);
 	        
+	        //min > 1 代表為單人以上的票，計算基數要往上乘
+            if(ticketVO.getTicketMIN() > 1) {
+                selectVal = selectVal * ticketVO.getTicketMIN();
+            }
+	        
 	        if(ticketVO.getTicketMAX() > 0 && selectVal > ticketVO.getTicketMAX()) {
                 msgList.add(String.format("票種:%s 單次購買上限為%d筆，請更換票種或調整購入筆數",ticketVO.getTicketName() ,ticketVO.getTicketMAX()));
             }else {
-            	
+                
             	SoldTicketsJDBCDAO soldTicketDao = new SoldTicketsJDBCDAO();
             	
                 List<SoldTicketsVO> soldList = soldTicketDao.selectByEventAndTicket(eventNumber, ticketid);
                 int soldCount = soldList.size();
-                if(soldCount + Integer.parseInt(val) > ticketVO.getTicketQuantity()) {
+                if(soldCount + selectVal > ticketVO.getTicketQuantity()) {
                     int diff = ticketVO.getTicketQuantity() - soldCount;
-                    msgList.add(String.format("票種:%s 剩餘票數不足(剩餘%d筆)，請更換票種或調整購入筆數",ticketVO.getTicketName() ,diff));
+                    msgList.add(String.format("票種:%s 剩餘票數不足(剩餘%d筆，您購買了%d筆)，請更換票種或調整購入筆數",ticketVO.getTicketName() ,diff,selectVal));
                 }
             }
 	        
@@ -188,6 +194,11 @@ public class OrderService {
 	        int count = Integer.parseInt(String.valueOf(ts.get("val")));
 	        int ticketID = Integer.parseInt(String.valueOf(ts.get("id")));
 	        
+	        Integer min = Integer.parseInt(String.valueOf(ts.get("min")));
+            Integer price = Integer.parseInt(String.valueOf(ts.get("price")));
+            if(min > 1) {
+                price = price / min;
+            }
 	        
 	        TicketVO ticket = ticketDao.queryById(ticketID);
 	        
@@ -198,7 +209,8 @@ public class OrderService {
 	            //vo.setSeatID(null);
 	            vo.setTicketID(Integer.parseInt(String.valueOf(ts.get("id"))));
 	            vo.setUse(false);
-	            vo.setOrderPrice(Integer.parseInt(String.valueOf(ts.get("price"))));
+	            vo.setOrderPrice(price);
+	            
 	            soldList.add(vo);
 	        }
 	        
@@ -253,10 +265,15 @@ public class OrderService {
 	            int count = Integer.parseInt(String.valueOf(t.get("val")));
 	            for(int i = 0 ; i < count ; i ++) {
 	                SoldTicketsVO vo = new SoldTicketsVO();
+	                Integer min = Integer.parseInt(String.valueOf(t.get("min")));
+	                Integer price = Integer.parseInt(String.valueOf(t.get("price")));
+	                if(min > 1) {
+	                    price = price / min;
+	                }
 	                vo.setOrderID(orderId);
 	                vo.setTicketID(Integer.parseInt(String.valueOf(t.get("id"))));
 	                vo.setUse(false);
-	                vo.setOrderPrice(Integer.parseInt(String.valueOf(t.get("price"))));
+	                vo.setOrderPrice(price);
 	                //vo.setSeatID(Integer.parseInt(String.valueOf(t.get("seatID"))));
 	                soldList.add(vo);
 	                //int id = soldTicketDao.insert(vo);
@@ -497,9 +514,29 @@ public class OrderService {
 		return dao.selectByNumber(number);
 	}
 	
-	public List<OrderVO> searchByOrderID(Integer orderID){ // 用訂單編號篩選
-		return dao.searchByOrderID(orderID);
+	public List<Map> searchByOrderID(Integer orderID,Integer organizerNumber){ // 用訂單編號篩選
+		List<Map> list =dao.searchByOrderID(orderID,organizerNumber);
+		List<Map> listformat =orderDateFormat(list);
+		
+		return listformat;
 		
 	}
+	
+	public List<Map> selectOrderByOrganizer(Integer organizerNumber){ //廠商活動訂單列表
+		List<Map> list =dao.selectOrderByOrganizer(organizerNumber);
+		List<Map> listformat =orderDateFormat(list);
+		
+		return listformat;
+	}
+	
+	private List<Map> orderDateFormat(List<Map> list){
+		SimpleDateFormat sformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		for(int i=0 ; i < list.size(); i++) {
+			Map aData=list.get(i);
+			aData.put("orderDate", sformat.format(aData.get("orderDate")));
+			list.set(i,aData);
+		}
+//		System.out.println("list="+list.get(0).toString());
+		return list;
+	}
 }
-

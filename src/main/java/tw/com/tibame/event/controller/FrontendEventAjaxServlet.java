@@ -46,10 +46,11 @@ public class FrontendEventAjaxServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	    
+	    
 	    String action = request.getParameter("action");
 	    
 	    HttpSession session = request.getSession();
-        
+	    
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         
@@ -76,11 +77,14 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                 }
             }else if("confirmTicket".equals(action)) {
                 
+                
+                eventNumberStr = request.getParameter("eventNumber");
                 //登入會員檢查
                 MemberVO memberProfile = (MemberVO)session.getAttribute("memberVO");
                 if(memberProfile == null) {
                     result.put("success", false);
                     result.put("needLogin", true);
+                    session.setAttribute("location", request.getContextPath() + "/FrontendEventServlet?eventNumber=" + eventNumberStr);
                     PrintWriter out = response.getWriter();
                     out.print(gson.toJson(result));
                     out.flush();
@@ -88,7 +92,6 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                 }
                 
                 
-                eventNumberStr = request.getParameter("eventNumber");
                 int eventNumber = Integer.parseInt(eventNumberStr);
                 String ticketSelectStr = request.getParameter("ticketSelect");
                 System.out.println(String.format("ticketSelectStr:%s", ticketSelectStr));
@@ -179,11 +182,13 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                 
             }else if("getSeat".equals(action)) {
                 
+                eventNumberStr = request.getParameter("eventNumber");
                 //登入會員檢查
                 MemberVO memberProfile = (MemberVO)session.getAttribute("memberVO");
                 if(memberProfile == null) {
                     result.put("success", false);
                     result.put("needLogin", true);
+                    session.setAttribute("location", request.getContextPath() + "/FrontendEventServlet?eventNumber=" + eventNumberStr);
                     PrintWriter out = response.getWriter();
                     out.print(gson.toJson(result));
                     out.flush();
@@ -198,7 +203,6 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                 
                 result.put("selectEventInfo", selectEventInfo);
                 
-                eventNumberStr = request.getParameter("eventNumber");
                 int eventNumber = Integer.parseInt(eventNumberStr);
                 EventVO eventvo = orderService.queryEventByEventNumber(eventNumber);
                 SeatService seatService = new SeatService();
@@ -209,13 +213,14 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                 result.put("success", true);
                 
             }else if("confirmSeat".equals(action)) {
-                
+                eventNumberStr = request.getParameter("eventNumber");
                 //登入會員檢查
                 MemberVO memberProfile = (MemberVO)session.getAttribute("memberVO");
                 if(memberProfile == null) {
                     result.put("success", false);
                     result.put("needLogin", true);
                     PrintWriter out = response.getWriter();
+                    session.setAttribute("location", request.getContextPath() + "/FrontendEventServlet?eventNumber=" + eventNumberStr);
                     out.print(gson.toJson(result));
                     out.flush();
                     return;
@@ -227,7 +232,7 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                     result.put("noSession", true);
                 }
                 
-                eventNumberStr = request.getParameter("eventNumber");
+                
                 String selectSeatStr = request.getParameter("selectSeat");
                 int eventNumber = Integer.parseInt(eventNumberStr);
                 
@@ -268,6 +273,7 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                 if(memberProfile == null) {
                     result.put("success", false);
                     result.put("needLogin", true);
+                    //session.setAttribute("location", "/FrontendEventServlet?eventNumber=" + eventNumberStr);
                     PrintWriter out = response.getWriter();
                     out.print(gson.toJson(result));
                     out.flush();
@@ -298,22 +304,25 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                 
             }else if("confirmUserData".equals(action)) {
                 
+                Map<String,Object> selectEventInfo = (Map<String,Object>)session.getAttribute("selectEventInfo");
+                if(selectEventInfo == null) {
+                    result.put("success", false);
+                    result.put("noSession", true);
+                }
+                
                 //登入會員檢查
                 MemberVO memberProfile = (MemberVO)session.getAttribute("memberVO");
                 if(memberProfile == null) {
                     result.put("success", false);
                     result.put("needLogin", true);
+                    session.setAttribute("location", request.getContextPath() + "/FrontendEventServlet?eventNumber=" + selectEventInfo.get("eventNumber"));
                     PrintWriter out = response.getWriter();
                     out.print(gson.toJson(result));
                     out.flush();
                     return;
                 }
                 
-                Map<String,Object> selectEventInfo = (Map<String,Object>)session.getAttribute("selectEventInfo");
-                if(selectEventInfo == null) {
-                    result.put("success", false);
-                    result.put("noSession", true);
-                }
+                
                 Map<String,Object> userData = new HashMap<>();
                 userData.put("inputName", request.getParameter("inputName"));
                 userData.put("inputEmail", request.getParameter("inputEmail"));
@@ -335,7 +344,7 @@ public class FrontendEventAjaxServlet extends HttpServlet {
 //                System.out.println(httpPath);
 //                String callbackUrl = String.format(httpPath+"/FrontendEventOrderProcessServlet?return=%s_tickit",
 //                        String.valueOf(selectEventInfo.get("orderId")));
-                String callbackUrl = String.format("http://127.0.0.1:8080/TGA104G5/FrontendEventOrderProcessServlet?return=%s_tickit",
+                String callbackUrl = String.format("http://localhost:8080/TGA104G5/FrontendEventOrderProcessServlet?return=%s_tickit",
                         String.valueOf(selectEventInfo.get("orderId")));
                 result.put("callbackUrl", callbackUrl);
                 
@@ -344,6 +353,18 @@ public class FrontendEventAjaxServlet extends HttpServlet {
             }else if("confirmUserDataForFinish".equals(action)) {
                 
                 String orderIdStr = request.getParameter("orderId");
+                //OrderVO order = orderService.queryOrderById(Integer.parseInt(orderIdStr));
+                //登入會員檢查
+                MemberVO memberProfile = (MemberVO)session.getAttribute("memberVO");
+                if(memberProfile == null) {
+                    result.put("success", false);
+                    result.put("needLogin", true);
+                    session.setAttribute("location", request.getContextPath() + "/FrontendEventOrderProcessServlet?return=" + orderIdStr);
+                    PrintWriter out = response.getWriter();
+                    out.print(gson.toJson(result));
+                    out.flush();
+                    return;
+                }
                 
                 Map<String,Object> userData = new HashMap<>();
                 userData.put("inputName", request.getParameter("inputName"));

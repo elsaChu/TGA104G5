@@ -96,9 +96,9 @@ console.log(data);
     })
 	.then((r) => r.json())
     .then((data) => {
-      // console.log(data);
+      console.log(data);
       $(this).closest("div").addClass("added");
-      $(this).text("已在購物車");
+      $(this).text("已加入購物車");
 	});
   });
 	

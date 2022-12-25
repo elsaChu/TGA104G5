@@ -7,6 +7,8 @@ import tw.com.tibame.product.vo.ViewProductVO;
 
 public interface ViewProductDAO {
 	List<ViewProductVO> findAll();
+	
+	public List<ViewProductVO> findAllEventType();
 
 	public List<ViewProductVO> findByEventType(ViewProductVO vo);
 
@@ -23,4 +25,8 @@ public interface ViewProductDAO {
 	public List<Integer> findProdImageIdByProdNo(Integer prodNo);
 
 	public ProductImage update(ProductImage productImage);
+	
+	public Integer findStock(ViewProductVO viewProductVO);
+	
+	
 }
