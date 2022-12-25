@@ -23,6 +23,7 @@ public class MemberDAO implements MemberDAOinterface {
 	private static final String INSERT_STMT = "INSERT INTO MEMBER (account,password,email,birthday,name,phoneNumber)VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,IDNumber FROM member";
 	private static final String GET_EMAIL_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,IDNumber FROM member where upper(email) like upper(?)";
+	private static final String GET_EMAIL2_STMT = "SELECT email,name,subscription FROM member where subscription=1";
 	private static final String GET_ACCOUNT_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,IDNumber FROM member where upper(account) like upper(?)";
 	private static final String GET_PASSWORD_STMT = "SELECT number,account,password,email,birthday,name,phoneNumber,subscription,IDNumber FROM member where upper(password) like upper(?)";
 //	private static final String UPDATE = "UPDATE member set account=?,password=?,email=?,birthday=?,name=?,phoneNumber=?,subscription=?,IDNumber=? where number = ?";
@@ -404,6 +405,8 @@ public class MemberDAO implements MemberDAOinterface {
 		  }
 		  return list;
 	}
+	
+	
 	@Override
 	public MemberVO findByAccount2(String account) {
 
@@ -642,6 +645,62 @@ public class MemberDAO implements MemberDAOinterface {
 		  updateTest.setNumber(1);
 		dao.update(updateTest);
 		System.out.println("修改成功");
+	}
+	public List<MemberVO> getEmail2(){
+		List<MemberVO> list = new ArrayList<MemberVO>();
+		MemberVO memberVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_EMAIL2_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVO 也稱為 Domain objects
+				memberVO = new MemberVO();
+				memberVO.setEmail(rs.getString("email"));
+				memberVO.setName(rs.getString("name"));
+				memberVO.setSubscription(rs.getBoolean("subscription"));
+				list.add(memberVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		}	catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}	
 
 	}

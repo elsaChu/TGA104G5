@@ -2,6 +2,7 @@ package tw.com.tibame.member.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class MemberVO {
 	private Integer number;            // NOT NULL AUTO_INCREMENT
@@ -48,6 +49,9 @@ public class MemberVO {
 		this.password = password;
 	}
 	public String getEmail() {
+		return email;
+	}
+	public String getEmail(List<MemberVO> chk) {
 		return email;
 	}
 	public void setEmail(String email) {
