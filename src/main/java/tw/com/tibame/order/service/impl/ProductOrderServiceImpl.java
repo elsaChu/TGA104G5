@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tw.com.tibame.order.dao.OrderDetailDAO;
 import tw.com.tibame.order.dao.ProductOrderDAO;
 import tw.com.tibame.order.service.ProductOrderService;
 import tw.com.tibame.order.vo.ProductOrderVO;
@@ -17,7 +18,6 @@ import tw.com.tibame.order.vo.ViewProductOrderVO;
 public class ProductOrderServiceImpl implements ProductOrderService {
 	@Autowired
 	private ProductOrderDAO productOrderDAO;
-	
 
 	public ProductOrderServiceImpl(ProductOrderDAO productOrderDAO) {
 		super();
@@ -56,8 +56,8 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 			productOrderVO.setPaymentDate(new java.sql.Timestamp(new GregorianCalendar().getTimeInMillis()));
 			productOrderVO.setProdOrderStatus("訂單成立");
 			productOrderVO.setDeliveryStatus("處理中");
-			
-			return productOrderDAO.insert(productOrderVO);
+			ProductOrderVO newOrder = productOrderDAO.insert(productOrderVO);
+			return newOrder;
 		}
 		return null;		
 	}
@@ -73,6 +73,9 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 	public ViewProductOrderVO findAnOrder(Integer prodOrderNo) {
 		return productOrderDAO.findByPrimaryKey(prodOrderNo);
 	}
+
+
+	
 	
 	
 	

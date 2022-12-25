@@ -2,6 +2,7 @@ package tw.com.tibame.order.service;
 
 import java.util.List;
 
+import tw.com.tibame.order.vo.OrderDetailVO;
 import tw.com.tibame.order.vo.ProductOrderVO;
 import tw.com.tibame.order.vo.ViewProductOrderVO;
 

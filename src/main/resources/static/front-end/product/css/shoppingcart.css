@@ -19,3 +19,16 @@
     color: #000000;
     float: right;
 }
+
+#primary-btn {
+    display: inline-block;
+    font-size: 14px;
+    padding: 10px 28px 10px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 700;
+    background: #7fad39;
+    letter-spacing: 2px;
+    border: none;
+    width: 100%;
+}
