@@ -49,8 +49,6 @@ public class CheckRegister extends HttpServlet {
 				System.out.println("veri == auth");
 				System.out.println("verified");
 				//should add alert window here but is headless 
-				
-				
 				url = "/back-organizer-end/register-login/OrganizerLogin1.jsp";
 				RequestDispatcher rd = req.getRequestDispatcher(url);
 				rd.forward(req, res);

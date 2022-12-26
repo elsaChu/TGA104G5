@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.eclipse.jdt.internal.compiler.batch.Main;
 import org.json.JSONObject;
+
 
 import tw.com.tibame.member.model.MailService;
 import tw.com.tibame.member.model.MemberService;
@@ -293,7 +296,7 @@ public class MemberServlet extends HttpServlet {
 
 					System.out.println("update");
 
-					Map<String, String> errorMsgs = new HashMap<String, String>();
+					List<String> errorMsgs = new LinkedList<>();
 					req.setAttribute("errorMsgs", errorMsgs);
 
 					try {
@@ -307,43 +310,43 @@ public class MemberServlet extends HttpServlet {
 						String name = req.getParameter("name");
 						String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 						if (name == null || name.trim().length() == 0) {
-							errorMsgs.put("name", "請填寫姓名");
+							errorMsgs.add("請填寫姓名");
 						} else if (!name.trim().matches(nameReg)) { // 以下練習正則(規)表示式(regular-expression)
-							errorMsgs.put("userName", "姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+							errorMsgs.add("姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 						}	
 						System.out.println("### into update ### 2");
 						String email = req.getParameter("email");
 						String emailReg = "^[_a-z0-9-]+([.][_a-z0-9-]+)*@[a-z0-9-]+([.][a-z0-9-]+)*$";
 						if (email == null || email.trim().length() == 0) {
-							errorMsgs.put("email", "請填寫信箱");
+							errorMsgs.add("請填寫信箱");
 						} else if (!email.trim().matches(emailReg)) {
-							errorMsgs.put("email", "請輸入正確信箱格式");
+							errorMsgs.add("請輸入正確信箱格式");
 						} else if(memberVO.getEmail().equals(email)) {
 							
 						} else {
-							errorMsgs.put("email", "此信箱已註冊過");
+							errorMsgs.add("此信箱已註冊過");
 						}
 						System.out.println("### into update ### 3");
 						String phoneNumber = req.getParameter("phoneNumber");
 						String phoneNumberReg = "^[0-9]{10}$";
 						if (phoneNumber == null || phoneNumber.trim().length() == 0) {
-							errorMsgs.put("phoneNumber", "請輸入電話號碼");
+							errorMsgs.add("請輸入電話號碼");
 						} else if (!phoneNumber.trim().matches(phoneNumberReg)) {
-							errorMsgs.put("phoneNumber", "電話號碼: 只能是數字 , 且長度必需是10");
+							errorMsgs.add("電話號碼: 只能是數字 , 且長度必需是10");
 						}
 						System.out.println("### into update ### 4");
-//						String IDNumber = req.getParameter("idNumber");
-//						String IDNumberReg = "^[A-Z][12]\\d{8}$";
-//						 if (!IDNumber.trim().matches(IDNumberReg)) {
-//							errors.put("IDNumber" ,"請符合身分證格式");
-//						}
+						String IDNumber = req.getParameter("IDNumber");
+						String IDNumberReg = "^[A-Z][12]\\d{8}$";
+						 if (!IDNumber.trim().matches(IDNumberReg)) {
+							 errorMsgs.add("請符合身分證格式");
+						}
 
 						java.sql.Date birthday = null;
 						try {
 							birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
 						} catch (IllegalArgumentException e) {
 							birthday = new java.sql.Date(System.currentTimeMillis());
-							errorMsgs.put("birthday" ,"請輸入西元日期");
+							errorMsgs.add("請輸入西元日期");
 						}
 						System.out.println("### into update ### 5");
 						
@@ -358,7 +361,7 @@ public class MemberServlet extends HttpServlet {
 						memberVO.setName(name);
 						memberVO.setPhoneNumber(phoneNumber);
 						memberVO.setSubscription(subscription);
-//						memberVO.setIdNumber(IDNumber);
+						memberVO.setIDNumber(IDNumber);
 						
 						System.out.println("### into update ### 7");
 						if (errorMsgs != null && !errorMsgs.isEmpty()) {
@@ -391,7 +394,6 @@ public class MemberServlet extends HttpServlet {
 					   try {
 					    System.out.println("into logout");
 					    session.removeAttribute("memberVO");
-					   // session.removeAttribute("hotelVO");
 					    
 //					    HashMap<String, String> userInfoMap = new HashMap<String, String>();
 //					    userInfoMap.put("check", "2"); // 表登出，回到首頁，右上方顯示「註冊」及「登入
@@ -491,5 +493,160 @@ public class MemberServlet extends HttpServlet {
 					RequestDispatcher successView = req.getRequestDispatcher(url); 
 					successView.forward(req, res);
 					}
+					
+					// ===================================================修改密碼=========================================================//
+					
+					if("updatePassword".equals(action)) {
+						
+						System.out.println("updatePassword");
+
+						List<String> errorMsgs = new LinkedList<>();
+						req.setAttribute("errorMsgs", errorMsgs);
+						
+						try {
+
+							MemberService memberSvc = new MemberService();
+							MemberVO memberVO = (MemberVO) session.getAttribute("memberVO"); // 表示已登入，取得userVO物件
+							System.out.println("### into updatePassword ### 1");
+
+							
+							String oldPassword = req.getParameter("oldPassword");
+							String newPassword = req.getParameter("newPassword");
+							String newPassword2 = req.getParameter("newPassword2");
+//							String oldPwd = memberSvc.pwdhash(oldPassword);
+							if(oldPassword == null || oldPassword.trim().length() == 0) {
+								errorMsgs.add("請輸入舊密碼");
+
+							} else if(!oldPassword.equals(memberVO.getPassword())) {
+								errorMsgs.add("舊密碼錯誤");	
+
+							} else if(newPassword == null || newPassword.trim().length() == 0) {
+								errorMsgs.add("請輸入新密碼");
+
+							} else if(newPassword2 == null || newPassword2.trim().length() == 0) {
+								errorMsgs.add("請確認新密碼");
+
+							} else if(!newPassword .equals(newPassword2) ) {
+								errorMsgs.add("新密碼與確認密碼不相符，請重新輸入");
+
+							}
+							System.out.println(oldPassword);
+							System.out.println(newPassword);
+							System.out.println(newPassword2);
+								
+									
+							
+							if (errorMsgs != null && !errorMsgs.isEmpty()) {
+								System.out.println("發生錯誤!");
+								session.setAttribute("memberVO", memberVO);
+								RequestDispatcher failureView = req.getRequestDispatcher("/front-end/member/memberCentreUpdatePwd.jsp");
+								failureView.forward(req, res);
+								return;
+							}
+
+							// 開始修改資料
+
+							memberVO.setPassword(newPassword);
+							memberVO = memberSvc.updatePassword2(memberVO);
+							System.out.println("密碼修改成功");
+							
+							String url = "/front-end/member/memberCentreUpdatePwd.jsp";
+							RequestDispatcher successView = req.getRequestDispatcher(url);
+							successView.forward(req, res);
+
+						} catch (Exception e) {
+							System.out.println("update exception :" + e);
+							RequestDispatcher failureView = req.getRequestDispatcher("index.jsp");
+							failureView.forward(req, res);
+						}
+						
 	}
+					// ===================================================發送電子報=========================================================//
+
+					if ("newSletter".equals(action)) {
+						System.out.println("send newsletter");
+						List<String> errorMsgs = new LinkedList<String>();
+						req.setAttribute("errorMsgs", errorMsgs);
+
+						try {
+							MemberVO memberVO = new MemberVO();
+							MemberService memberSvc = new MemberService();
+
+							// 確認傳入的值
+							String subject = req.getParameter("subject").trim();
+							System.out.println("標題" + subject);
+							// 錯誤處理
+							if (subject == null || (subject.trim().length() == 0)) {
+								errorMsgs.add("請輸入標題");
+							} 
+							
+							String newSletter = req.getParameter("newSletter").trim();
+							System.out.println("內容" + newSletter);
+							// 錯誤處理
+							if (newSletter == null || (newSletter.trim().length() == 0)) {
+								errorMsgs.add("請輸入內容");
+							} 
+
+
+							// 確認資料有誤，印出錯誤資料並跳回原頁
+							if (!errorMsgs.isEmpty()) {
+								session.setAttribute("memberVO", memberVO);
+								RequestDispatcher failureView = req.getRequestDispatcher("memberNewSletter.jsp");
+								failureView.forward(req, res);
+								return;
+							}
+							
+							// 確認資料無誤，則設定
+							MailService mailService = new MailService();
+							
+							List<MemberVO> chk = memberSvc.getEmail2();
+							List<String> emailValues = new ArrayList<>();
+							List<String> nameValues = new ArrayList<>();
+							for (MemberVO member : chk) {
+							    String email = member.getEmail();
+							    emailValues.add(email);
+							    String name = member.getName();
+							    nameValues.add(name);
+							    		
+							
+							String subject2 = subject;
+							String messageText = "Hello! " + name + "\n" + newSletter ;
+							mailService.sendMail(email, subject2, messageText);
+							
+							}
+
+							// 設定成功，轉交回登入畫面
+							String url = "memberNewSletter.jsp";
+							RequestDispatcher successView = req.getRequestDispatcher(url);
+							successView.forward(req, res);
+							
+						} catch (Exception e) {
+							session.setAttribute("memberVO", "");
+							RequestDispatcher failureView = req.getRequestDispatcher("loginStaff.jsp");
+							failureView.forward(req, res);
+						}
+
+					}
+					
+					
+}
+	 public static void main (String args[]){
+		 	
+			MemberService memberSvc = new MemberService();
+			List<MemberVO> chk = memberSvc.getEmail2();
+			List<String> emailValues = new ArrayList<>();
+			List<String> nameValues = new ArrayList<>();
+			for (MemberVO member : chk) {
+			    String email = member.getEmail();
+			    emailValues.add(email);
+			    String name = member.getName();
+			    nameValues.add(name);
+			    System.out.println(name + "," +email);
+			}
+			
+
+		 
+	 }
+
+	 
 }

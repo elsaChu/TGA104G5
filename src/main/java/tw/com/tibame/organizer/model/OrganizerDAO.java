@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 public class OrganizerDAO implements OrganizerDAOinterface {
 
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/TICK_IT_TEST?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/TICK_IT?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
 
@@ -225,7 +225,71 @@ private static final String GET_ONE_STMT = "SELECT * FROM organizer where organi
 		}
 		return organizerVO;
 	}
+	
+	private static final String GET_ONE_VO = "SELECT * FROM organizer where OAccount = ?";
 
+	@Override
+	public OrganizerVO findByAccount(String accountName) {
+
+		OrganizerVO organizerVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_VO);
+
+			pstmt.setString(1, accountName);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				organizerVO = new OrganizerVO();
+				organizerVO.setOrganizerNumber(rs.getInt("organizerNumber"));
+				organizerVO.setOrganizerName(rs.getString("organizerName"));
+				organizerVO.setOAccount(rs.getString("OAccount"));
+				organizerVO.setOpassword(rs.getString("Opassword"));
+				organizerVO.setWindowName(	rs.getString("windowName"));
+				organizerVO.setWindowEmail(rs.getString("windowEmail"));
+				organizerVO.setWindowPhone(rs.getString("windowPhone"));
+
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return organizerVO;
+	}
+	
 	@Override
 	public List<OrganizerVO> selectAll() {
 		List<OrganizerVO> list = new ArrayList<OrganizerVO>();

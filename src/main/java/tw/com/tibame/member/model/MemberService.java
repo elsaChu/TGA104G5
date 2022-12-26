@@ -96,6 +96,25 @@ public class MemberService {
 		return memberVO;
 	}
 
+
+	public MemberVO updatePassword(MemberVO memberVO) {
+		System.out.println("### updatePassword service");
+		dao.update(memberVO);
+		return memberVO;
+	}
+
+
+	public MemberVO updatePassword2(MemberVO memberVO) {
+		System.out.println("### updatePassword2 service");
+		dao.update(memberVO);
+		return memberVO;
+	}
+
+
+	public List<MemberVO> getEmail2() {
+		return  dao.getEmail2();
+	}
+
 	
 	
 

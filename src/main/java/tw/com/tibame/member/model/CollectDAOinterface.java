@@ -6,5 +6,5 @@ import tw.com.tibame.event.model.EventVO;
 
 public interface CollectDAOinterface {
 	public boolean insert(int memberId, int eventId);
-	public List<EventVO> selectAll(int memeberId);
+	public List<Integer> selectAll(int memeberId);
 }

@@ -33,9 +33,7 @@
 
 		<c:if test="${not empty event }">
 			<div class="card" style="width: 100%;">
-			<img id="eventImg"
-					src="${bigImg64}"
-					class="card-img-top eventDesc" alt="${event.eventName}">
+				<img id="eventImg" src="${bigImg64}" class="card-img-top eventDesc" alt="${event.eventName}">
 				<div class="card-body">
 					<h3 class="card-title">${event.eventName}</h3>
 					<p class="card-text eventDesc">活動時間：${eventStart} ~
@@ -86,7 +84,7 @@
 
 		<div class="stepDiv" id="step02">
 			<div class="row agrrement">
-				<div class="col-sm">
+				<div class="col-sm tabdiv">
 					<table id="seatSettingTable"></table>
 				</div>
 			</div>

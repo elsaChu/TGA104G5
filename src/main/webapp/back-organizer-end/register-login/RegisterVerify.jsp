@@ -41,6 +41,7 @@
 					alert("驗證碼錯誤，請重新輸入");
 				}else{
 		        alert("驗證完成，登入已啟用");
+		        window.location.replace("${pageContext.request.contextPath}/back-organizer-end/register-login/OrganizerLogin1.jsp");
 				}
 		    });
 	 });

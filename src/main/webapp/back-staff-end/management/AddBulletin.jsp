@@ -1,46 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Add Bulletin</title>
+<link rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css" /> 
+<link rel="stylesheet" type="text/css" href="css/AddBulletin.css" /> 
 </head>
+
 <body>
-<h1>Create New Bulletin </h1>
-<form method="post" action="<%=request.getContextPath()%>/BulletinServlet">
-<!-- <form method="post" action="#"> -->
-	<input type="hidden" name="doTask" value="insert">
-	<label>Bulletin Name </label>
-	<input type="text" name="bulletinName" >
-	<br>
-	<label>Bulletin Content</label>
-	<br>
-	<textarea id="" name="bulletinContent" rows="4" cols="50"></textarea>
-	<br>
-	<br>
-	<br>
-	<label>Pin to Top: </label>
-	<input type="radio" name="isTop" value="yes"/>Yes
-	<input type="radio" name="isTop" value="no"/>No	
-	
-	<br>
-	<label>Activate Bulletin: </label>
-	<input type="radio" name="isOpen" value="yes"/>Activate
-	<input type="radio" name="isOpen" value="no"/>Do Not Activate	
-	<br>
-  
-	<label>Bulletin date </label>
-	<br>
-    請選擇日期: <input  name="bulletinDate" id="f_date1" type="text" >  <!-- f_date1見第32行  -->
-    <br>
-	<input type="submit" value="Create">
-	</form>
+<jsp:include page="/main_frame/index_Staff.jsp"></jsp:include>
+
+<div class = "container mainDiv">
+	<h1>Create New Bulletin </h1>
+	<form method="post" action="<%=request.getContextPath()%>/BulletinServlet">
+	<!-- <form method="post" action="#"> -->
+		<input type="hidden" name="doTask" value="insert">
+		<label>Bulletin Name </label>
+		<input type="text" name="bulletinName" >
+		<br>
+		<label>Bulletin Content</label>
+		<br>
+		<textarea id="" name="bulletinContent" rows="4" cols="50"></textarea>
+		<br>
+		<br>
+		<br>
+		<label>Pin to Top: </label>
+		<input type="radio" name="isTop" value="yes"/>Yes
+		<input type="radio" name="isTop" value="no"/>No	
+		
+		<br>
+		<label>Activate Bulletin: </label>
+		<input type="radio" name="isOpen" value="yes"/>Activate
+		<input type="radio" name="isOpen" value="no"/>Do Not Activate	
+		<br>
+	  
+		<label>Bulletin date </label>
+		<br>
+	    請選擇日期: <input  name="bulletinDate" id="f_date1" type="text" >  <!-- f_date1見第32行  -->
+	    <br>
+		<input type="submit" value="Create">
+		</form>
+</div>
 </body>
-<link   rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css" /> 
-<script src="datetimepicker/jquery.js"></script>
-<%--  <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>  --%>
- <script src="datetimepicker/jquery.datetimepicker.full.js"></script> 
 <script>
         $.datetimepicker.setLocale('zh'); // kr ko ja en
         $('#f_date1').datetimepicker({
@@ -106,4 +111,7 @@
         //      }});
         
 </script>
+<script src="datetimepicker/jquery.js"></script>
+<%--  <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>  --%>
+ <script src="datetimepicker/jquery.datetimepicker.full.js"></script> 
 </html>

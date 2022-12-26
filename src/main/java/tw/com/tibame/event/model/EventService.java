@@ -211,8 +211,9 @@ public class EventService {
 		list1 = dao.getBanner();
 		return list1;
 	}
-	
-	
+	public EventVO getSingleEvent(Integer eventNumber) {
+		return dao.selectSingleEvent(eventNumber);
+	}
 	
 	public static void main(String args[]) {
 		EventService es = new EventService();

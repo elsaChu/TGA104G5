@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*,tw.com.tibame.organizer.model.OrganizerVO"%>
     
     <c:set var="context" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -44,7 +44,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">XXX廠商名稱</a>
+           <%OrganizerVO vo = (OrganizerVO) request.getSession().getAttribute("loginOrganizer");%>
+           <%String oName = vo.getOrganizerName();%>
+          <a class="navbar-brand" href="index.html"><%=((OrganizerVO) request.getSession().getAttribute("loginOrganizer")).getOAccount()%> 您好</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -68,7 +70,7 @@
               ></a>
               <ul class="dropdown-menu sign-out">
                 <li><a href="${context}/back-organizer-end/product/addProduct.jsp"><iconify-icon class="sign-out" icon="heroicons:plus-circle" width="20" height="20"></iconify-icon>商品上架</a></li>
-                <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>商品列表</a></li>
+                <li><a href="${context}/back-organizer-end/product/listAllProduct.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>商品列表</a></li>
                 <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:clipboard-document-list" width="20" height="20"></iconify-icon>商品訂單</a></li>
                 <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:exclamation-triangle" width="20" height="20"></iconify-icon>退貨申請</a></li>
               </ul>
@@ -86,7 +88,7 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
-            <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20"></iconify-icon>登出</a></li>
+            <li><a href="${context}/OrganizerLogOut"><iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20"></iconify-icon>登出</a></li>
         
           </div>
         <!-- /.navbar-collapse -->

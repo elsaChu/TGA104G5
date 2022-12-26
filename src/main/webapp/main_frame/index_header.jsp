@@ -18,7 +18,7 @@
 <body>
   <div class="container header_height">
     <nav class="navbar navbar-expand-lg navbar-light bg-while">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="${context}/front-end/main/IndexCopy.html">
         <img src="${context}/main_frame/images/logo80.png" />
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,36 +26,30 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-<!--           <li class="nav-item"> -->
-<!--             <a class="nav-link" href="#">我的票劵 <span class="sr-only">(current)</span></a> -->
-<!--           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="#">禮品專區</a>
+            <a class="nav-link item_color" href="#">首頁</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">探索活動</a>
+            <a class="nav-link item_color" href="#">活動</a>
           </li>
-          <form class="form-inline my-2 my-lg-0">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <iconify-icon class="input-group-text" icon="material-symbols:search-rounded" style="color: #f8f8f8;" width="24" height="24"></iconify-icon>
-              </div>
-              <input class="form-control mr-sm-2 search_bg" type="search" placeholder="搜索活動" aria-label="Search">
-            </div>
-            <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-          </form>
+          <li class="nav-item">
+            <a class="nav-link item_color" href="#">我的收藏</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link item_color" href="#">商城</a>
+          </li>
         </ul>
         <!-- unlogin -->
         <div id="login_menuB"  class="hidden_login">
           <ul class="navbar-nav mr-right">
             <li class="nav-item">
-              <a class="nav-link" href="${context}/front-end/member/memberRegister.jsp">註冊</a>
+              <a class="nav-link item_color" href="${context}/front-end/member/memberRegister.jsp">註冊</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">|</a>
+              <a class="nav-link item_color disabled" href="#">|</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="${context}/front-end/member/memberLogin.jsp">登入</a>
+              <a class="nav-link item_color" href="${context}/front-end/member/memberLogin.jsp">登入</a>
             </li>
           </ul>
         </div>
@@ -63,7 +57,7 @@
         <div id="login_menuA"  class="hidden_login">
           <ul class="navbar-nav mr-right">
             <li class="nav-item dropdown">
-              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link item_color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <iconify-icon icon="heroicons:user-circle-solid" width="30" height="30"></iconify-icon>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -92,17 +86,17 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link item_color" href="#">
                 <iconify-icon icon="heroicons:bell-20-solid" width="30" height="30" ></iconify-icon>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link item_color" href="${context}/front-end/member/memberFavoriteEvent.html">
                 <iconify-icon icon="heroicons:heart-20-solid" width="30" height="30" ></iconify-icon>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link item_color" href="#">
                 <iconify-icon icon="heroicons:shopping-cart-20-solid" width="30" height="30"></iconify-icon>
               </a>
             </li>

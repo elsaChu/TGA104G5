@@ -30,26 +30,37 @@ public class OrganizerLogin extends HttpServlet {
 		String OPassword =  req.getParameter("OPassword");
 		System.out.println("Oaccount1: " + OAccount);
 		
+		OrganizerService os1 = new OrganizerService();
 		OrganizerVO ov1 = new OrganizerVO();
+		OrganizerVO ov2 = new OrganizerVO();
 		ov1.setOAccount(OAccount);
 		ov1.setOpassword(OPassword);
 		
-		OrganizerService os1 = new OrganizerService();
 		System.out.println(os1);
 		String loginStatus;
 		String url;
 		loginStatus = os1.login(ov1);
 		System.out.println(loginStatus);
 		session.setAttribute("loginStatus", loginStatus);
-		url = "/back-organizer-end/register-login/OrganizerLogin1.jsp";
 		if(loginStatus != null) {
 			if(loginStatus.equals("Success")) {
-				//之後改成進入廠商設定葉面 不會再進到LOGINDONEJSP
-				url = "/back-organizer-end/register-login/OrganizerSelectAll.jsp";			
+				//之後改成進入廠商設定頁面 不會再進到LOGINDONEJSP
+				url = "/back-organizer-end/product/addProduct.jsp";	
+				ov2 = os1.getOneOrganizer(OAccount);
+				session.setAttribute("loginOrganizer", ov2);
+				RequestDispatcher rd = req.getRequestDispatcher(url);
+				rd.forward(req, res);
+				return;
 			}else {
 				url = "/back-organizer-end/register-login/OrganizerLoginDone.jsp";
+				RequestDispatcher rd = req.getRequestDispatcher(url);
+				rd.forward(req, res);
+				return;
 			}
 		}
+		//use organizer account to get organizerVO
+		
+		url = "/back-organizer-end/register-login/OrganizerLogin1.jsp";
 		RequestDispatcher rd = req.getRequestDispatcher(url);
 		rd.forward(req, res);
 	}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import tw.com.tibame.event.model.EventService;
 import tw.com.tibame.event.model.EventVO;
 import tw.com.tibame.member.model.CollectService;
 import tw.com.tibame.member.model.MemberVO;
@@ -20,7 +23,7 @@ import tw.com.tibame.member.model.MemberVO;
 @WebServlet("/FindFavorite")
 public class FindFavorite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private Gson gson1;
     public FindFavorite() {
         super();
     }
@@ -30,31 +33,40 @@ public class FindFavorite extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.setContentType("application/json");
-        res.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=UTF-8");
+        System.out.println("find faorite got request");
+        this.gson1 = new Gson();
+        CollectService cs1 = new CollectService();
+        EventService es1 = new EventService(); 
+        List<EventVO> voList = new ArrayList<EventVO>();
+		List<Integer> list1 = new ArrayList<Integer>();
 		//getting current logged in members memberid
 		HttpSession session1 = req.getSession();
-		MemberVO vo = (MemberVO) session1.getAttribute("memberVO");
-		CollectService cs1 = new CollectService();
-		List<EventVO> list1 = new ArrayList<EventVO>();
-		//using memberid to get their favorite events from collect DB
-		if(vo != null) {
+		if(session1.getAttribute("memberVO") != null) {
+			MemberVO vo = (MemberVO) session1.getAttribute("memberVO");
 			int memberId = vo.getNumber();
 			list1 = cs1.getFavorite(memberId);
-			
+			list1.forEach((e) -> {
+				EventVO vo1 = es1.getSingleEvent(e);
+				voList.add(vo1);
+			});
+			System.out.println("add all events to voList");
+			session1.setAttribute("favoriteList", voList);
 		}else {
-			System.out.println("vo is null");
+			System.out.println("did member login yet?");
 		}
 		
-		
-		JsonObject respBody = new JsonObject();
-		if (list1 == null) {
-			respBody.addProperty("successful", false);
+		JsonObject resBody = new JsonObject();
+		if (! voList.isEmpty()) {
+			resBody.addProperty("successful", true);
+			resBody.addProperty("favEvents", gson1.toJson(voList));
 		} else {
-			respBody.addProperty("successful", true);
+			resBody.addProperty("successful", false);
+			resBody.addProperty("favEvents", gson1.toJson(voList));
 		}
+		res.getWriter().write(resBody.toString());
 		
-		res.getWriter().write(respBody.toString());
 		
 	}
 

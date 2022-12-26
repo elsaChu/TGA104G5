@@ -14,10 +14,20 @@
   <body>
   <jsp:include page="/main_frame/index_Staff.jsp"></jsp:include>
     <!-- /#wrapper -->
+    
     <div class="container">
 	    <br>
 	    <h3 style="font-weight: 600;">發送電子報</h3>
 	    <br>
+	    <%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
 	    <form action="MemberServlet" method="POST">
 	    <div  class="subjectText">
 	    	<input type="text" name="subject" placeholder="請輸入欲發送的電子報主旨" minlength="1"maxlength="20" >
@@ -25,6 +35,7 @@
 	    <div  class="newSletterText">
 	    	<textarea type="text"name="newSletter" placeholder="請輸入欲發送的電子報內容" rows="10" cols="20"></textarea>
 	    </div>
+	    <input type="hidden" name="action" value="newSletter">
 	    <input type="submit" value="發送" /><br /><br />
 		</form>
 	</div>

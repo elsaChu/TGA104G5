@@ -2,6 +2,7 @@ package tw.com.tibame.member.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class MemberVO {
 	private Integer number;            // NOT NULL AUTO_INCREMENT
@@ -14,7 +15,7 @@ public class MemberVO {
 	private Boolean subscription;      // default 0 NOT NULL
 	private Timestamp createDate;  // CURRENT_TIMESTAMP
 	private Boolean pass;      // default 0 NOT NULL
-	private String idNumber;
+	private String IDNumber;
 	private String phone2;
 	private String postalCode;
 	private String address;
@@ -26,7 +27,7 @@ public class MemberVO {
 	public String toString() {
 		return "MemberVO [number=" + number + ", account=" + account + ", password=" + password + ", email=" + email
 				+ ", birthday=" + birthday + ", name=" + name + ", phoneNumber=" + phoneNumber + ", subscription="
-				+ subscription + ", createDate=" + createDate + ", pass=" + pass + ", idNumber=" + idNumber
+				+ subscription + ", createDate=" + createDate + ", pass=" + pass + ", IDNumber=" + IDNumber
 				+ ", phone2=" + phone2 + ", postalCode=" + postalCode + ", address=" + address + "]";
 	}
 	public Integer getNumber() {
@@ -48,6 +49,9 @@ public class MemberVO {
 		this.password = password;
 	}
 	public String getEmail() {
+		return email;
+	}
+	public String getEmail(List<MemberVO> chk) {
 		return email;
 	}
 	public void setEmail(String email) {
@@ -90,11 +94,11 @@ public class MemberVO {
 		this.pass = pass;
 	}
 
-	public String getIdNumber() {
-		return idNumber;
+	public String getIDNumber() {
+		return IDNumber;
 	}
-	public void setIdNumber(String idNumber) {
-		this.idNumber = idNumber;
+	public void setIDNumber(String IDNumber) {
+		this.IDNumber = IDNumber;
 	}
 	public String getPhone2() {
 		return phone2;

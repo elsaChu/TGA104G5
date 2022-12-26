@@ -29,10 +29,13 @@ document.querySelector('#submit').addEventListener('click', function () {
 				
 				//Add New List Into ul Start
 			   let list_html = "";
-	           list_html = '<div class="col-lg-3 col-md-4 col-sm-6 eventNumber="'+ e.eventNumber + '" organizerNumber="' + e.organizerNumber+
+	           list_html = '<div class="col-lg-3 col-md-4 col-sm-6 searchResult" eventNumber="'+ e.eventNumber + '" organizerNumber="' + e.organizerNumber +
 	           				 '" eventName="'+  e.eventName + '" isOn="'+ e.isOn +'">';
+	           				 
+		  	 list_html +=    '<form action="../../EventDetails">';
 	           list_html +=`	<div class="featured__item">
-			                        <div class="featured__item__pic set-bg">`;
+			                        <div class="featured__item__pic set-bg">  `;
+		        list_html +=        	'<input type="text" name="eventNumber" value="'+ e.eventNumber +'" hidden>';
 			                        
 			     list_html +=	'<img class=""  src="../../DBGifReader?eventId='+ e.eventNumber +'"'
 			      + 'alt="" style="width: 100%" />';
@@ -44,10 +47,12 @@ document.querySelector('#submit').addEventListener('click', function () {
 			                            </ul>
 			                        </div>
 			                        <div class="featured__item__text">`;
+			                        
 			   list_html +=           '<h6><a href="#">'+ e.eventName+'</a></h6>' +
 			   							'<h5>'+ e.eventPlace +'</h5>';
 			   list_html +=        `</div>
 			                    </div>
+		                     </form>
 			                </div>`;
 						
 	            $("div.featured__filter").append(list_html);

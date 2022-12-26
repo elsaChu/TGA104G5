@@ -27,6 +27,8 @@ public class GetBanner extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=UTF-8");
 		System.out.println("GetBanner received doGet");
 		
 		EventService es1 = new EventService();
