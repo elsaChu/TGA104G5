@@ -75,6 +75,7 @@ public class OrganizerRegisterTwo extends HttpServlet {
 			//also forward req to verifying page
 			System.out.println("authCode from OrganierRegisterTwo:" + authCode);
 			session1.setAttribute("authCode", authCode);
+			session1.setAttribute("veriAccount", OAccount);
 			url = "/back-organizer-end/register-login/RegisterVerify.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
