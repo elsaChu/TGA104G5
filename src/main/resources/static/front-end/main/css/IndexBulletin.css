@@ -1,0 +1,104 @@
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  div #bulletinRow{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -17px;
+    margin-left: -17px;
+    margin-bottom: -5px;
+    margin-top: -5px;
+}
+
+  /*  bulletin start */
+  div.featured__filter{
+    font-family: sans-serif; 
+  	background-image: url("../images/bulletin.jpg");
+	  background-color: #ac7d3d;
+    padding: 20px 5px ;
+    /* background-color: #ecb362; */
+    /* border: 2px solid red; */
+  }
+  .spad {
+    padding-top: 40px;
+    padding-bottom: 10px;
+  }
+
+  /* inside memo start  */
+  div.memo{
+    height: 326px;
+    margin: 35px;
+    /* border: 3px solid pink; */
+    background-color: #faee7a;
+  }
+  div.pinBlock{
+    /* border: 2px solid red; */
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items:flex-end;
+  }
+  div.pin{
+    height: 30px;
+    width: 30px;
+    border: 2px solid red;
+    background-color: #dc0803;
+    border-radius: 50%;
+  }
+  div.memoContent{
+    /* border: 1px solid blue; */
+    height: calc(100% - 65px);
+    padding: 17px 17px 10px 17px;
+    display: block;
+  }
+  div.memoContent h5{
+    text-align: center;
+    width: 100%;
+    /* border: 1px solid black; */
+    font-size: 26px;
+  }
+  div.bulletinContent{
+    /* border: 1px solid green; */
+    height: calc(100% - 60px);
+    padding: 10px 7px;
+    overflow: auto;
+  }
+  div.bulletinContent p{
+    font-size: 18px;
+  }
+  
+  /* scrollbar start */
+/* width */
+div.memo ::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+div.memo ::-webkit-scrollbar-track {
+  background: #faee7a; 
+}
+ 
+/* Handle */
+div.memo ::-webkit-scrollbar-thumb {
+  background: #d5c035; 
+}
+
+/* Handle on hover */
+div.memo ::-webkit-scrollbar-thumb:hover {
+  background: #998e31; 
+}
+/* scrollbar end */
+
+/* inside memo end  */
+  
+  /*  bulletin end */
+  #bContainer{
+    border: 35px solid #ecb362;
+    border-width: 35px 35px;
+    border-radius: 1%;
+  }
+  

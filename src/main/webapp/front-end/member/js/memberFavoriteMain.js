@@ -6,7 +6,7 @@ window.addEventListener("DOMContentLoaded", function () {
    getFavEvent();
    
   $(document).on("click", ".searchResult", function () {
-	 $(this).css("border", "3px solid black"); 
+	 $(this).css("border", "3px dotted black"); 
 	  console.log("click on div.searchResult");
 	 $(this).find("form").submit();
   });
@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", function () {
 });
 
 	window.addEventListener("load", function () {
-		$("div.featured__filter").css("border","5px solid black");
+		// $("div.featured__filter").css("border","5px solid black");
 //		$("div.featured__filter").find("div.loadingIcon").remove();
 
 	});
@@ -39,9 +39,9 @@ function getFavEvent(){
 	    .then(function (resp) { return resp.json();})
 	    .then(function (body) {
 			if(body.successful == true){
-				alert("成功取得所有活動");
+				alert("成功取得所有收藏活動");
 			}else{
-	        	alert("無符合結果，請重新搜尋");
+	        	alert("無收藏活動");
 			}
 			var favEvents1 = body.favEvents;
 			var eventObjArr = JSON.parse(favEvents1);
@@ -53,7 +53,7 @@ function getFavEvent(){
 				
 				//Add New List Into ul Start
 			   let list_html = "";
-	           list_html = '<div class="col-lg-3 col-md-4 col-sm-6 searchResult" eventNumber="'+ e.eventNumber + '" organizerNumber="' + e.organizerNumber +
+	           list_html = '<div class="col-lg-4 col-md-4 col-sm-6 searchResult" eventNumber="'+ e.eventNumber + '" organizerNumber="' + e.organizerNumber +
 	           				 '" eventName="'+  e.eventName + '" isOn="'+ e.isOn +'">';
 	           				 
 		  	 list_html +=    '<form action="../../EventDetails">';
