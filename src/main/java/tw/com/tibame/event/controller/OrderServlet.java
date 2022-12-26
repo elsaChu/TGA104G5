@@ -104,18 +104,18 @@ public class OrderServlet extends HttpServlet {
 
 		if ("show_all_event_order".equals(action)) { // 來自listAllEvent.jsp的請求
 			String eventNumber = request.getParameter("eventNumber");
-			System.out.println("eventNumber =>>>>>>>:" + "123");
+//			System.out.println("eventNumber =>>>>>>>:" + "123");
 
 			EventVO eventVO = new EventVO();
-//			Integer int_eventnumber = Integer.valueOf(eventNumber);
-//			eventVO.setEventNumber(int_eventnumber);
+			Integer int_eventnumber = Integer.valueOf(eventNumber);
+			eventVO.setEventNumber(int_eventnumber);
 
-//			OrderService orderSvc = new OrderService();
-//			List<OrderVO> orderVO = orderSvc.selectByEventNumber(2);// 先寫死
+			OrderService orderSvc = new OrderService();
+			List<OrderVO> orderVO = orderSvc.selectByEventNumber(int_eventnumber);// 先寫死
 			
-			request.setAttribute("xxx", 2); // 資料庫取出的staffVO物件,存入request
-			System.out.println("eventNumber =>>>>>>>:" + "1234");
-			String url = "/front-end/event/listOneOrganizerEvent.jsp";
+			request.setAttribute("eventVO", eventVO); // 資料庫取出的staffVO物件,存入request
+//			System.out.println("eventNumber =>>>>>>>:" + "1234");
+			String url = "/front-end/event/listAllEvent.jsp";
 			RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 ticketOrder.jsp
 			successView.forward(request, response);
 		}

@@ -41,9 +41,9 @@ page import="tw.com.tibame.staff.model.*"%>
 <body>
 	<jsp:include page="/main_frame/index_Staff.jsp"></jsp:include>
 	<div>
-		<h3>員工列表</h3>
+		<h3>員工</h3>
 		<br>
-		<a href="${context}/back-staff-end/staff/listAllStaff.jsp"><iconify-icon icon="heroicons:arrow-uturn-left-20-solid"></iconify-icon>返回員工列表</a>
+		<a href="${context}/back-staff-end/staff/listAllStaff.jsp"><iconify-icon icon="heroicons:arrow-uturn-left-20-solid"></iconify-icon>返回列表</a>
 	</div>
 	<!-- 	search -->
 	<div class="row">

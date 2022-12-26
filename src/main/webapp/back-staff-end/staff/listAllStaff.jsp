@@ -44,7 +44,7 @@ pageContext.setAttribute("list", list);
 <body>
 	<jsp:include page="/main_frame/index_Staff.jsp"></jsp:include>
 	<div>
-		<h3>員工列表</h3>
+		<h3>所有員工列表</h3>
 	</div>
 	<!-- 	search -->
 	<div class="row">
@@ -71,7 +71,7 @@ pageContext.setAttribute("list", list);
 						style="" placeholder="員工編號">						
 					<input type="hidden" name="action" value="search">
    					<input style="color: white; font-size: 14px;width: 10%;  background: #000000;padding: 5px 5px; 
-   					margin: 50px 0px 0px 0px;" type="submit" value="搜尋" />	
+   					margin: 50px 0px 0px 0px;" type="submit" value="搜尋" />
 				</FORM>
 				
 

@@ -53,6 +53,7 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 	private static final String queryByOrderIdAndMemberSQL = "SELECT * from `ORDER` where orderID = ? and number = ?";
 	private static final String updateSQL = " UPDATE `ORDER` set %s where orderID = ? ";
 	private static final String selectByEventNumberSQL = "select * from `ORDER` where eventNumber = ?";
+	private static final String SELECT_BY_EVENTNUMBER = "SELECT eventNumber, eventName, eventType, eventStartDate, eventEndDate FROM `EVENT` where eventNumber = ?";
 
 	@Override
 	public int insert(OrderVO vo, List<SoldTicketsVO> solList) {
