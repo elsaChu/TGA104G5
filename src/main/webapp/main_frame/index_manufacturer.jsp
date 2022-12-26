@@ -81,8 +81,8 @@
                 <b class="caret"></b
               ></a>
               <ul class="dropdown-menu sign-out">
-                <li><a href="${context}/back-staff-end/organizer/organizerMaterial.jsp"><iconify-icon class="sign-out" icon="heroicons:identification" width="20" height="20"></iconify-icon>基本資料設定</a></li>
-                <li><a href="${context}/back-staff-end/organizer/organizerBank.jsp"><iconify-icon class="sign-out" icon="heroicons:currency-dollar" width="20" height="20"></iconify-icon>銀行帳戶設定</a></li>
+                <li><a href="${context}/back-organizer-end/register-login/organizerData.jsp"><iconify-icon class="sign-out" icon="heroicons:identification" width="20" height="20"></iconify-icon>基本資料設定</a></li>
+                <li><a href="${context}/back-organizer-end/register-login/organizerBank.jsp"><iconify-icon class="sign-out" icon="heroicons:currency-dollar" width="20" height="20"></iconify-icon>銀行帳戶設定</a></li>
               </ul>
             </li>
           </ul>

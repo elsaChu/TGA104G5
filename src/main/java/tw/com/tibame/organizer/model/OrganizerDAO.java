@@ -27,7 +27,7 @@ public class OrganizerDAO implements OrganizerDAOinterface {
 	private static final String INSERT_STMT = "INSERT INTO organizer (OAccount, Opassword, organizerName, windowName, windowPhone, windowEmail) VALUES (?, ?, ? , ? , ? , ?)";
 	private static final String GET_ALL_STMT = "SELECT organizerNumber, OAccount, Opassword, organizerName, windowName, windowPhone, windowEmail FROM organizer order by organizerNumber";
 	private static final String DELETE = "DELETE FROM organizer where organizerNumber = ?";
-	
+	private static final String UPDATE2 = "UPDATE organizer set organizerName=?,windowName=?,windowPhone=?,windowEmail=?,taxIDNumber=?,boss=?,organizerPhone=? where organizerNumber = ?";
 
 	@Override
 	public void insert(OrganizerVO organizerVO) {
@@ -431,5 +431,53 @@ private static final String GET_ONE_STMT = "SELECT * FROM organizer where organi
 
 //	public static void main(String[] args) {
 //}
+	
+	@Override
+	public void update2(OrganizerVO organizerVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName(driver);
+			//可以考慮用DATASOURCE取代 
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE2);
+			
+			pstmt.setString(1, organizerVO.getOrganizerName());
+			pstmt.setString(2, organizerVO.getWindowName());
+			pstmt.setString(3, organizerVO.getWindowPhone());
+			pstmt.setString(4, organizerVO.getWindowEmail());
+			pstmt.setString(5, organizerVO.getTaxIDNumber());
+			pstmt.setString(6, organizerVO.getBoss());
+			pstmt.setString(7, organizerVO.getOrganizerPhone());
+			pstmt.setInt(8, organizerVO.getOrganizerNumber());
+			
+			pstmt.executeUpdate();
+			System.out.println("我到這裡了");
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+
 
 }
