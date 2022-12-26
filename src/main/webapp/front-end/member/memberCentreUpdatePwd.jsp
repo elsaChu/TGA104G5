@@ -44,8 +44,8 @@
       <ul>
         <li><a href="${context}/front-end/member/memberCentre.jsp">帳號設定</a></li>
         <li><a class="active" href="${context}/front-end/member/memberCentreUpdatePwd.jsp">修改密碼</a></li>
-        <li><a href="#tab-3">票券訂單</a></li>
-        <li><a href="#tab-4">商品訂單</a></li>
+        <li><a href="${context}/front-end/event/ticketOrder.jsp">票券訂單</a></li>
+        <li><a href="${context}/front-end/member/order.html">商品訂單</a></li>
       </ul>
 	
       <!-- 頁籤的內容區塊 -->
