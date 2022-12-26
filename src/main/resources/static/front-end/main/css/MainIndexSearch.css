@@ -1,0 +1,80 @@
+/* overwrite general bootstrap setting */
+div.container{
+    /* width: auto; */
+    /* max-width: 1800; */
+}
+
+
+/* //header footer settting */
+div.noLogin{
+    display: none;
+}
+
+
+div.mainBannerArea{
+    display: flex;
+    background-color:cadetblue;
+    height: 350px;
+    width: 90%;
+    text-align: center;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    
+    /* margin-right: 0px; */
+}
+div.bannerCarousel{
+    background-color: brown;
+    height: 85%;
+    width: 70%;
+}
+div.notice{
+    height: 70px;
+    width: 90%;
+    background-color: burlywood;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+div.noticeCol{
+    background-color: darkblue;
+    width: 75%;
+    height: 90%;
+}
+
+div.mainEventRow{
+    background-color: rgb(218, 149, 45);
+    height:200px;
+    margin: 5px 10px;
+}
+
+div.mainEventCol{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: bisque;
+    border: 1px solid black;
+    height: auto;
+    /* padding: 10px; */
+    /* margin: 5px; */
+}
+div.eventUnit{
+    display: block;
+    background-color: palevioletred;
+    width: 60%;
+    height: 70%;
+    /* align-items:center ; */
+}
+div.eventPic{
+    display: block;
+    background-color: blueviolet;
+    width: 70%;
+    height:auto;
+}
+div.eventDate{
+    display: block;
+    background-color: whitesmoke;
+    width: 70%;
+    height: 20%;
+    vertical-align: baseline;
+}
