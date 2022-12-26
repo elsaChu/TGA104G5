@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.tibame.order.vo.OrderDetailVO;
+import tw.com.tibame.product.model.ProductVO;
 import tw.com.tibame.product.vo.ProductImage;
 import tw.com.tibame.product.vo.ViewProductVO;
 
@@ -38,14 +39,26 @@ public class ViewProductDAOHibernate implements ViewProductDAO {
 			return null;
 		}
 	}
+	
+	@Override // 是這樣ㄇ ?_? 回傳應該是List<String> ? ,findByEventType傳入參數改成 String eventType ?
+	public List<ViewProductVO> findAllEventType() {
+		List<ViewProductVO> result = new ArrayList<>();
+		Query<ViewProductVO> query = getSession()
+				.createQuery("select eventType from ViewProductVO "
+						+ "where isPOn = 1 "
+						+ "group by eventType;", ViewProductVO.class);
 
-	@Override // 依活動分類篩選已上架商品
+		result = query.list();
+		return result;
+	}
+
+	@Override // 依活動分類篩選已上架商品，最後上架的顯示在前面
 	public List<ViewProductVO> findByEventType(ViewProductVO vo) {
 		List<ViewProductVO> result = new ArrayList<>();
 		String eventType = vo.getEventType();
 		if (eventType != null) {
 			Query<ViewProductVO> query = getSession().createQuery(
-					"from ViewProductVO where eventType = :eventType and isPOn = :isPOn", ViewProductVO.class);
+					"from ViewProductVO where eventType = :eventType and isPOn = :isPOn order by prodNo desc", ViewProductVO.class);
 			query.setParameter("eventType", eventType);
 			query.setParameter("isPOn", vo.getIsPOn());
 			result = query.list();
@@ -54,12 +67,12 @@ public class ViewProductDAOHibernate implements ViewProductDAO {
 		return null;
 	}
 
-	@Override // 已上架所有商品
+	@Override // 已上架所有商品，最後上架的顯示在前面
 	public List<ViewProductVO> findProductLaunch(boolean isPOn) {
 		List<ViewProductVO> result = new ArrayList<>();
 		if (isPOn == true) {
 			Query<ViewProductVO> query = getSession().createQuery(
-					"from ViewProductVO where isPOn = :isPOn", ViewProductVO.class);
+					"from ViewProductVO where isPOn = :isPOn  order by prodNo desc", ViewProductVO.class);
 			query.setParameter("isPOn", isPOn);
 			result = query.list();
 			return result;
@@ -137,7 +150,20 @@ public class ViewProductDAOHibernate implements ViewProductDAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public Integer findStock(ViewProductVO viewProductVO) {
+		if(viewProductVO != null) {
+			return getSession()
+					.createQuery("select prodStock from ViewProductVO where prodNo = :prodNo" , Integer.class)
+					.setParameter("prodNo", viewProductVO.getProdNo())
+					.getSingleResult();
+		}
+		return null;
+	}
+	
 
+	
 
 
 }

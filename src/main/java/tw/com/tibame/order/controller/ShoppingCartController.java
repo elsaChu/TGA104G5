@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tw.com.tibame.member.model.MemberVO;
@@ -85,7 +86,7 @@ public class ShoppingCartController {
 	}
 
 	@GetMapping("remove")
-	public boolean removeFromCart(Integer shoppingCartNo) {
+	public boolean removeFromCart(@RequestParam Integer shoppingCartNo) {
 		if (shoppingCartNo != null) {
 			shoppingCartService.delete(shoppingCartNo);
 			return true;

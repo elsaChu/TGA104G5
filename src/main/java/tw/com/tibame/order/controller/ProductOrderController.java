@@ -16,19 +16,29 @@ import org.springframework.web.bind.annotation.RestController;
 import tw.com.tibame.member.model.MemberVO;
 import tw.com.tibame.order.service.OrderDetailService;
 import tw.com.tibame.order.service.ProductOrderService;
+import tw.com.tibame.order.service.ShoppingCartService;
 import tw.com.tibame.order.vo.OrderDetailVO;
 import tw.com.tibame.order.vo.ProductOrderVO;
 import tw.com.tibame.order.vo.ViewOrderDetailVO;
 import tw.com.tibame.order.vo.ViewProductOrderVO;
+import tw.com.tibame.product.service.ProductService;
 import tw.com.tibame.product.vo.OrderWrapper;
+import tw.com.tibame.product.vo.ProductVO;
 
 @RestController
 @RequestMapping("order")
 public class ProductOrderController {
 	@Autowired
 	private ProductOrderService productOrderService;
+	
 	@Autowired
 	private OrderDetailService orderDetailService;
+	
+	@Autowired
+	private ShoppingCartService shoppingCartService;
+	
+	@Autowired
+	private ProductService productService;
 	
 //    @GetMapping("orderlist") // 這是對的唷可以從session拿資料!
 //	public List<ProductOrderVO> memberOrder(HttpSession session) {
@@ -69,19 +79,36 @@ public class ProductOrderController {
 //	}
     
     @PostMapping("addProdOrder") // 這是寫死測試用
-    public boolean addProdOrder(@RequestBody OrderWrapper orderWrapper) {
+    public boolean addProdOrder(HttpSession session, @RequestBody OrderWrapper orderWrapper) {
+//    	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+//    	Integer number = memberVO.getNumber();
     	
     	orderWrapper.getProductOrderVO().setNumber(4);
-    	
+    	// 新增訂單
     	if(orderWrapper.getProductOrderVO() != null) {
     		ProductOrderVO newOrder = productOrderService.addOrder(orderWrapper.getProductOrderVO());
-    	
+    		
+    	// 新增訂單明細
 	    	for(OrderDetailVO orderDetailVO : orderWrapper.getOrderDetailList()) {
 	    		orderDetailVO.setProdOrderNo(newOrder.getProdOrderNo());
-	    		orderDetailService.addDetail(orderDetailVO);
+	    		OrderDetailVO newOrderDetail = orderDetailService.addDetail(orderDetailVO);
 	    		
+	    // 更新商品庫存
+	    // 新的庫存如果小於0怎麼辦?__? 如果放進購物車時就先扣庫存，這裡就沒這問題了 ^__^
+	    		Integer prodNo = newOrderDetail.getProdNo();
+	    		Integer prodQty = newOrderDetail.getProdQty();
+	    		
+	    		ProductVO productVO = productService.findByProdNo(prodNo); 
+	    		Integer newStock = productVO.getProdStock() - prodQty;
+	    		if(newStock >= 0) {
+	    			productVO.setProdStock(newStock);
+	    			productService.update(productVO);
+	    		}
 	    		
 	    	}
+	    	
+	    // 清空會員購物車
+	    	shoppingCartService.deleteAllByMemberNumber(newOrder.getNumber());
 	    	return true;
     	}
     	return false;
