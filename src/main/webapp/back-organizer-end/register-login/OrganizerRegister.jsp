@@ -1,23 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%> 
-<%@ page import="java.util.*,tw.com.tibame.organizer.model.OrganizerVO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*,tw.com.tibame.organizer.model.OrganizerVO"%>
 <!DOCTYPE html>
 <html>
 
 <head>
-  <title>Register</title>
-  <!-- Custom Theme files -->
-  <link href="css/OrganizerRegister.css" rel="stylesheet" type="text/css" media="all" />
-  <!-- Custom Theme files -->
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="keywords"
     content="Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+  <title>Register</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!--Google Fonts-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <link rel="icon" href="../../main_frame/images/a0svr-jih0d-001.ico" />
+  <!-- Custom Theme files -->
+  <link href="css/OrganizerRegister.css" rel="stylesheet" type="text/css" media="all" />
+  <!-- Custom Theme files -->
 </head>
  
 <body>
@@ -61,6 +60,7 @@
     <%System.out.println(request.getParameter("organizerName"));%>
     <%System.out.println(request.getAttribute("MyFilter"));%>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
   $(".noBlank").hide();
 //   console.log();
@@ -76,12 +76,12 @@
   //   })
     // if(!isNull){
       // $("form").submit();
-    // }
   // })
   
  </script>
- <style> .noBlank {
-  color: red;
- }
-  </style>
+ <style> 
+ .noBlank {
+	  color: red;
+	 }
+ </style>
 </html>

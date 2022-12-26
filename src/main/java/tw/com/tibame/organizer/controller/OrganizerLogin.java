@@ -45,7 +45,7 @@ public class OrganizerLogin extends HttpServlet {
 		if(loginStatus != null) {
 			if(loginStatus.equals("Success")) {
 				//之後改成進入廠商設定頁面 不會再進到LOGINDONEJSP
-				url = "/back-organizer-end/register-login/OrganizerSelectAll.jsp";	
+				url = "/back-organizer-end/product/addProduct.jsp";	
 				ov2 = os1.getOneOrganizer(OAccount);
 				session.setAttribute("loginOrganizer", ov2);
 				RequestDispatcher rd = req.getRequestDispatcher(url);

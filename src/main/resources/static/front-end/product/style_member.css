@@ -245,9 +245,9 @@ span ~ #tab > div:first-of-type,
   background: #fff;
 }
 
-span {
+/* span {
   display: none;
-}
+} */
 @font-face {
   font-family: 'helveticaneuebold';
   src: url("fonts/helvetica_neu_bold-webfont.woff2") format("woff2"), url("fonts/helvetica_neu_bold-webfont.woff") format("woff");

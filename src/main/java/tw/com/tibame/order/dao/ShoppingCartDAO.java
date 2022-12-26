@@ -8,18 +8,20 @@ import tw.com.tibame.order.vo.ShowShoppingCartVO;
 public interface ShoppingCartDAO {
 	List<ShowShoppingCartVO> getAll();
 
-	public ShowShoppingCartVO getByShoppingCartNo(Integer shoppingCartNo);
+	ShowShoppingCartVO getByShoppingCartNo(Integer shoppingCartNo);
 	
-	public ShoppingCartVO getByPrimaryKey(Integer shoppingCartNo);
+	ShoppingCartVO getByPrimaryKey(Integer shoppingCartNo);
 	
-	public ShoppingCartVO getByMemberNoAndProdNo(Integer number, Integer prodNo);
+	ShoppingCartVO getByMemberNoAndProdNo(Integer number, Integer prodNo);
 
-	public List<ShowShoppingCartVO> getByMemberNumber(Integer number);
+	List<ShowShoppingCartVO> getByMemberNumber(Integer number);
+	
+	List<ShoppingCartVO> findByMemberNumber(Integer number);
 
-	public ShoppingCartVO insert(ShoppingCartVO shoppingCartVO);
+	ShoppingCartVO insert(ShoppingCartVO shoppingCartVO);
 
-	public ShoppingCartVO update(ShoppingCartVO shoppingCartVO);
+	ShoppingCartVO update(ShoppingCartVO shoppingCartVO);
 
-	public boolean delete(Integer shoppingCartNo);
+	boolean delete(Integer shoppingCartNo);
 
 }

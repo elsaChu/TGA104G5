@@ -100,7 +100,7 @@
                 <b class="caret"></b
               ></a>
               <ul class="dropdown-menu sign-out">
-                <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:radio" width="20" height="20"></iconify-icon>系統公告</a></li>
+                <li><a href="${context}/back-staff-end/management/BulletinIndex.jsp"><iconify-icon class="sign-out" icon="heroicons:radio" width="20" height="20"></iconify-icon>系統公告</a></li>
                 <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:light-bulb" width="20" height="20"></iconify-icon>常見問題</a></li>
                 <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:information-circle" width="20" height="20"></iconify-icon>聯絡資訊</a></li>
                 <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:film" width="20" height="20"></iconify-icon>首頁輪播</a></li>

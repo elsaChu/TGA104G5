@@ -53,7 +53,7 @@ public class MailService {
 			}
 		};
 
-		Session session = Session.getDefaultInstance(props, authenticator);
+		Session session = Session.getInstance(props, authenticator);
 		Message message = new MimeMessage(session);
 
 		try {
