@@ -26,7 +26,6 @@ import javax.servlet.http.HttpSession;
 @WebFilter(
 		urlPatterns = {"/back-organizer-end/OrganizerSelectAll.jsp"},
 		dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD}
-		
 		)
 public class LoginFilter extends HttpFilter implements Filter {
 	private FilterConfig fc1;

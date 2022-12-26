@@ -26,7 +26,7 @@
                       <a class="nav-link" href="#">聯絡我們</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">系統公告</a>
+                      <a class="nav-link" href="../main/IndexBulletin.html">系統公告</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#">網站地圖</a>

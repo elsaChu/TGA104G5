@@ -18,7 +18,7 @@
 <body>
   <div class="container header_height">
     <nav class="navbar navbar-expand-lg navbar-light bg-while">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="${context}/front-end/main/IndexCopy.html">
         <img src="${context}/main_frame/images/logo80.png" />
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@
             <a class="nav-link item_color" href="#">商品專區</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link item_color" href="#">探索活動</a>
+            <a class="nav-link item_color" href="${context}/front-end/main/IndexSearch.html">探索活動</a>
           </li>
           <form class="form-inline my-2 my-lg-0">
             <div class="input-group">
@@ -97,7 +97,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link item_color" href="#">
+              <a class="nav-link item_color" href="${context}/front-end/member/memberFavoriteEvent.html">
                 <iconify-icon icon="heroicons:heart-20-solid" width="30" height="30" ></iconify-icon>
               </a>
             </li>

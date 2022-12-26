@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 public class OrganizerDAO implements OrganizerDAOinterface {
 
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/TICK_IT_TEST?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/TICK_IT?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
 
