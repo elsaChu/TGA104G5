@@ -70,6 +70,7 @@
               ></a>
               <ul class="dropdown-menu sign-out">
                 <li><a href="${context}/back-organizer-end/product/addProduct.jsp"><iconify-icon class="sign-out" icon="heroicons:plus-circle" width="20" height="20"></iconify-icon>商品上架</a></li>
+                <li><a href="${context}/back-organizer-end/product/selectProduct.jsp"><iconify-icon class="sign-out" icon="heroicons:clipboard-document-list" width="20" height="20"></iconify-icon>商品查詢</a></li>
                 <li><a href="${context}/back-organizer-end/product/listAllProduct.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>商品列表</a></li>
                 <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:clipboard-document-list" width="20" height="20"></iconify-icon>商品訂單</a></li>
                 <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:exclamation-triangle" width="20" height="20"></iconify-icon>退貨申請</a></li>
