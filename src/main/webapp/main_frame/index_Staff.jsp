@@ -80,7 +80,7 @@
           <ul class="dropdown-menu sign-out">
             <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>活動列表</a></li>
             <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:circle-stack" width="20" height="20"></iconify-icon>活動分類</a></li>
-            <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:building-office-2" width="20" height="20"></iconify-icon>活動場地</a></li>
+<!--             <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:building-office-2" width="20" height="20"></iconify-icon>活動場地</a></li> -->
             <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:clipboard-document-list" width="20" height="20"></iconify-icon>活動訂單</a></li>
           </ul>
         </li>
