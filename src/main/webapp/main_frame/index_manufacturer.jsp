@@ -59,8 +59,8 @@
               ></a>
               <ul class="dropdown-menu sign-out">
                 <li><a href="${context}/back-organizer-end/event/addEvent1.jsp"><iconify-icon class="sign-out" icon="heroicons:plus-circle" width="20" height="20"></iconify-icon>活動上架</a></li>
-                <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>活動列表</a></li>
-                <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:clipboard-document-list" width="20" height="20"></iconify-icon>活動訂單</a></li>
+                <li><a href="${context}/front-end/event/ListAllEvent.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>活動列表</a></li>
+                <li><a href="${context}/front-end/event/listOneOrganizerEvent.jsp"><iconify-icon class="sign-out" icon="heroicons:clipboard-document-list" width="20" height="20"></iconify-icon>活動訂單</a></li>
               </ul>
             </li>
             <li class="dropdown">
