@@ -477,7 +477,96 @@ private static final String GET_ONE_STMT = "SELECT * FROM organizer where organi
 			}
 		}
 	}
+	
+	private static String updateActivate = "UPDATE organizer set OPass=1 where OAccount = ?";
+	@Override
+	public void updateActivateStatus(String account) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
 
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(updateActivate);
+			pstmt.setString(1, account);
+			pstmt.executeUpdate();
+			System.out.println("activated organizer(from DAO)");
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+
+	private static final String GET_ONE_VO2 = "SELECT * FROM organizer where OAccount = ?";
+
+	@Override
+	public Boolean isActivated(String accountName) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Boolean isActivated = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_VO2);
+
+			pstmt.setString(1, accountName);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				System.out.println("activated is true or false(fromDAO)");
+				isActivated = rs.getBoolean("OPass");
+			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return isActivated;
+	}
+	
 
 
 }

@@ -40,10 +40,12 @@ public class OrganizerLogin extends HttpServlet {
 		String loginStatus;
 		String url;
 		loginStatus = os1.login(ov1);
+		Boolean aStatus = os1.checkActivation(OAccount);
 		System.out.println(loginStatus);
+		System.out.println("Activation Status(from organizer login servlet): " + aStatus);
 		session.setAttribute("loginStatus", loginStatus);
 		if(loginStatus != null) {
-			if(loginStatus.equals("Success")) {
+			if(loginStatus.equals("Success") && aStatus == true) {
 				//之後改成進入廠商設定頁面 不會再進到LOGINDONEJSP
 				url = "/back-organizer-end/product/addProduct.jsp";	
 				ov2 = os1.getOneOrganizer(OAccount);
@@ -52,6 +54,10 @@ public class OrganizerLogin extends HttpServlet {
 				rd.forward(req, res);
 				return;
 			}else {
+				if(loginStatus.equals("Success") && aStatus == false) {
+					loginStatus = "帳號未成功啟用";
+					session.setAttribute("loginStatus", loginStatus);
+				}
 				url = "/back-organizer-end/register-login/OrganizerLoginDone.jsp";
 				RequestDispatcher rd = req.getRequestDispatcher(url);
 				rd.forward(req, res);

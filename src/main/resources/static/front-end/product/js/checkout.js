@@ -1,4 +1,26 @@
 $(window).on("load", function () {
+
+	function checklogin(){
+		$.ajax({
+        url: '../member/MemberServlet',
+        method: 'POST',
+        dataType: 'json',
+        data: { action: 'checkLogin'},
+        success: function (data) {
+			console.log(data);
+			if(data.check == '2'){
+				$('#login_menuB').show();
+				$('#login_menuA').hide();
+			}else{
+				$('#login_menuA').show();
+				$('#login_menuB').hide();
+			}
+        }
+    });
+	}
+	checklogin();
+
+
     var check_order = function () {
         const orderList = JSON.parse(
             sessionStorage.getItem("orderDetail")
@@ -45,16 +67,16 @@ document.querySelector("#sitebtn").addEventListener("click", function () {
     }
 
     $.ajax({
-        url: "http://localhost:8080/TGA104G5/order/addProdOrder",
+        url: "../../order/addProdOrder",
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify(insertOrder),
         dataType: "json",
         success: function (a) {
             console.log(a);
+            window.location.href = "../member/order.html";
         },
     });
 });
-
 
 

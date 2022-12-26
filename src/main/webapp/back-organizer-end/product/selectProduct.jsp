@@ -87,7 +87,7 @@ select {
 			<form method="post" action="${context}/ProductServlet">
 				輸入商品名稱： <input type="text" name="prodName" value="" class="inputbox">
 				<input type="hidden" name="action"
-					value=""> <input type="submit"
+					value="getOneProductName_For_Display"> <input type="submit"
 					value="查詢">
 			</form>
 		</li>

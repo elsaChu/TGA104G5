@@ -27,16 +27,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item">
-            <a class="nav-link item_color" href="${context}/front-end/main/index_copy_e.jsp">首頁</a>
+            <a class="nav-link item_color" href="${context}/front-end/main/Indexbody.jsp">首頁</a>
           </li>
           <li class="nav-item">
             <a class="nav-link item_color" href="${context}/front-end/main/IndexSearch.html">活動</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link item_color" href="${context}/front-end/main/IndexSearch.html">我的收藏</a>
+            <a class="nav-link item_color" href="${context}/front-end/member/memberFavoriteEvent.html">我的收藏</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link item_color" href="#">商城</a>
+            <a class="nav-link item_color" href="${context}/front-end/product/shop.html">商品專區</a>
           </li>
         </ul>
         <!-- unlogin -->
@@ -71,9 +71,9 @@
                   票券訂單
                 </a>
                 <!-- <div class="dropdown-divider"></div> -->
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="${context}/front-end/member/order.html">
                   <iconify-icon class="sign-out" icon="heroicons:gift" width="20" height="20"></iconify-icon>
-                    禮品訂單
+                    商品訂單
                 </a>
                 <!-- <div class="dropdown-divider"></div> -->
                 <a class="dropdown-item" href="#">
@@ -96,7 +96,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link item_color" href="#">
+              <a class="nav-link item_color" href="${context}/front-end/product/shoppingcart.html">
                 <iconify-icon icon="heroicons:shopping-cart-20-solid" width="30" height="30"></iconify-icon>
               </a>
             </li>

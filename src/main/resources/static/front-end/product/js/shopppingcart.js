@@ -1,5 +1,29 @@
 window.onload = init;
 function init() {
+
+	function checklogin(){
+		$.ajax({
+        url: '../member/MemberServlet',
+        method: 'POST',
+        dataType: 'json',
+        data: { action: 'checkLogin'},
+        success: function (data) {
+			console.log(data);
+			if(data.check == '2'){
+				$('#login_menuB').show();
+				$('#login_menuA').hide();
+			}else{
+				$('#login_menuA').show();
+				$('#login_menuB').hide();
+			}
+        }
+    });
+	}
+	checklogin();
+
+
+
+
   const shoppingCart = document.querySelector("#shopping__cart");
   // 計算金額
   function calculateCart() {
@@ -31,9 +55,9 @@ function init() {
 
   }
 
-
+  
   $.ajax({
-    url: "http://localhost:8080/TGA104G5/cart/memberCart",           // 資料請求的網址
+    url: "../../cart/memberCart",           // 資料請求的網址
     type: "GET",                                                     // GET | POST | PUT | DELETE | PATCH
     // data: { "number": number },                                      // 將物件資料(不用雙引號) 傳送到指定的 url
     dataType: "json",                                                // 預期會接收到回傳資料的格式： json | xml | html
@@ -209,7 +233,7 @@ function init() {
       document.querySelector("#remove").getAttribute("data-shoppingCartNo"));
 
     $.ajax({
-      url: "http://localhost:8080/TGA104G5/cart/remove?shoppingCartNo",
+      url: "../../cart/remove?shoppingCartNo",
       type: "GET",
       data: {"shoppingCartNo": shoppingCartNo},
       dataType: "json",

@@ -46,9 +46,11 @@ th, td {
 	padding: 5px;
 }
 
-.table-2 tr:nth-child(odd){
-background-color: #F0F0F0};
+.table-2 tr:nth-child(odd) {
+	background-color: #F0F0F0
+}
 
+;
 .prodDetails {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -56,7 +58,7 @@ background-color: #F0F0F0};
 
 th {
 	text-align: center;
-white-space: nowrap;
+	white-space: nowrap;
 }
 
 td.group1 {
@@ -107,8 +109,12 @@ td.prodName {
 				<td class=group1>${productVO.prodStock}</td>
 				<td class=prodDetails>${productVO.prodDetails}</td>
 				<td class=group1>${productVO.prodScore}</td>
-				<td class=group1>${productVO.isPOn}</td>
-
+				<c:if test="${productVO.isPOn==true}">
+					<td class=group1>已上架</td>
+				</c:if>
+				<c:if test="${productVO.isPOn==false}">
+					<td class=group1>未上架</td>
+				</c:if>
 				<td>
 					<form method="post" action="${context}/ProductServlet">
 						<input type="hidden" name="prodNo" value="${productVO.prodNo}">

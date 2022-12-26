@@ -25,7 +25,7 @@ display: inline-block;
 <body>
 <div class="my_size">
 	<h3>您已成功修改商品資料！</h3>
-	<a href="listAllProduct.jsp">查看所有商品</a><br>
+	<a href="${context}/back-organizer-end/product/listAllProduct.jsp">查看所有商品</a><br>
 	<a href="${context}/back-organizer-end/product/selectProduct.jsp">回到查詢商品首頁</a>
 </div>
 </body>

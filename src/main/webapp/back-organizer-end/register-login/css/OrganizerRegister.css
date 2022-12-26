@@ -32,7 +32,7 @@ img{max-width:100%;}
   color: #686868;
 }
 
-/* 提示i開始 */
+/* ��內i���� */
 .tooltiptext {
   visibility: hidden;
   width: 120px;
@@ -42,7 +42,7 @@ img{max-width:100%;}
   border-radius: 6px;
   padding: 14px;
   font-size:14px;
-  /* 定位 */
+  /* 摰�� */
   position: absolute;
   z-index: 1;
   left:950px
@@ -51,7 +51,7 @@ img{max-width:100%;}
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
-/* 讓icon與文字對齊 */
+/* 霈con������� */
 .sign-out{
   position: relative;
    top: 5px;
@@ -69,11 +69,11 @@ img{max-width:100%;}
   text-align: center; 
   left:890px
 }
-/* 提示i結束 */
+/* ��內i蝯�� */
 
 
 body{
-  background: url(../images/banner.jpg)repeat;
+  background: url(../../images/banner.jpg)repeat;
   padding:100px 0px 30px 0px;
   font-family: 'Roboto', sans-serif;
   font-size: 100%;
