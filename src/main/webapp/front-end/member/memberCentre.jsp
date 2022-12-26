@@ -89,7 +89,7 @@
             >此手機號碼將作為購票緊急聯絡的用途，部分活動可能需要手機認證才能報名購票，請務必輸入正確的手機號碼。</label
           ><br /><br /><br />
           <hr style="width: 0%" />
-          	<input type="text" name="IDNumber" value="<%=(memberVO == null) ? "" : memberVO.getIDNumber()%>"/>
+          	<input type="text" name="IDNumber" value="${memberVO.IDNumber}"/>
           	<span class="error" style="color: red">${errors.IDNumber}</span><br /><br />
         </div>
         <div class="checkbox">

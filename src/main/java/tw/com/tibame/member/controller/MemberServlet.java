@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.eclipse.jdt.internal.compiler.batch.Main;
 import org.json.JSONObject;
 
 
@@ -392,7 +394,6 @@ public class MemberServlet extends HttpServlet {
 					   try {
 					    System.out.println("into logout");
 					    session.removeAttribute("memberVO");
-					   // session.removeAttribute("hotelVO");
 					    
 //					    HashMap<String, String> userInfoMap = new HashMap<String, String>();
 //					    userInfoMap.put("check", "2"); // 表登出，回到首頁，右上方顯示「註冊」及「登入
@@ -560,5 +561,92 @@ public class MemberServlet extends HttpServlet {
 						}
 						
 	}
+					// ===================================================發送電子報=========================================================//
+
+					if ("newSletter".equals(action)) {
+						System.out.println("send newsletter");
+						List<String> errorMsgs = new LinkedList<String>();
+						req.setAttribute("errorMsgs", errorMsgs);
+
+						try {
+							MemberVO memberVO = new MemberVO();
+							MemberService memberSvc = new MemberService();
+
+							// 確認傳入的值
+							String subject = req.getParameter("subject").trim();
+							System.out.println("標題" + subject);
+							// 錯誤處理
+							if (subject == null || (subject.trim().length() == 0)) {
+								errorMsgs.add("請輸入標題");
+							} 
+							
+							String newSletter = req.getParameter("newSletter").trim();
+							System.out.println("內容" + newSletter);
+							// 錯誤處理
+							if (newSletter == null || (newSletter.trim().length() == 0)) {
+								errorMsgs.add("請輸入內容");
+							} 
+
+
+							// 確認資料有誤，印出錯誤資料並跳回原頁
+							if (!errorMsgs.isEmpty()) {
+								session.setAttribute("memberVO", memberVO);
+								RequestDispatcher failureView = req.getRequestDispatcher("memberNewSletter.jsp");
+								failureView.forward(req, res);
+								return;
+							}
+							
+							// 確認資料無誤，則設定
+							MailService mailService = new MailService();
+							
+							List<MemberVO> chk = memberSvc.getEmail2();
+							List<String> emailValues = new ArrayList<>();
+							List<String> nameValues = new ArrayList<>();
+							for (MemberVO member : chk) {
+							    String email = member.getEmail();
+							    emailValues.add(email);
+							    String name = member.getName();
+							    nameValues.add(name);
+							    		
+							
+							String subject2 = subject;
+							String messageText = "Hello! " + name + "\n" + newSletter ;
+							mailService.sendMail(email, subject2, messageText);
+							
+							}
+
+							// 設定成功，轉交回登入畫面
+							String url = "memberNewSletter.jsp";
+							RequestDispatcher successView = req.getRequestDispatcher(url);
+							successView.forward(req, res);
+							
+						} catch (Exception e) {
+							session.setAttribute("memberVO", "");
+							RequestDispatcher failureView = req.getRequestDispatcher("loginStaff.jsp");
+							failureView.forward(req, res);
+						}
+
+					}
+					
+					
 }
+	 public static void main (String args[]){
+		 	
+			MemberService memberSvc = new MemberService();
+			List<MemberVO> chk = memberSvc.getEmail2();
+			List<String> emailValues = new ArrayList<>();
+			List<String> nameValues = new ArrayList<>();
+			for (MemberVO member : chk) {
+			    String email = member.getEmail();
+			    emailValues.add(email);
+			    String name = member.getName();
+			    nameValues.add(name);
+			    System.out.println(name + "," +email);
+			}
+			
+
+		 
+	 }
+
+	 
 }

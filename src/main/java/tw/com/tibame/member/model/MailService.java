@@ -28,7 +28,7 @@ public class MailService {
 
 
 	     final String myGmail = "ansenmar318@gmail.com";
-	     final String myGmail_password = "bkeuigtoegbazzbv";
+	     final String myGmail_password = "punontoovtkrmiqn";
 		   Session session = Session.getInstance(props, new Authenticator() {
 			   protected PasswordAuthentication getPasswordAuthentication() {
 				   return new PasswordAuthentication(myGmail, myGmail_password);

@@ -68,7 +68,7 @@
 						<span style="color:white;margin: 0px auto;"><i class="fa-regular fa-user fa-4x"></i></span>
 					</div>
 					<div id="userDataShowArea" class="col-md-11">
-						<h4>聯絡人資料</h3>
+						<h4>聯絡人資料</h4>
 						<p>名稱：${inputName}</p>
 						<p>Email：${inputEmail}</p>
 						<p>身分證號：${inputRocid}</p>
