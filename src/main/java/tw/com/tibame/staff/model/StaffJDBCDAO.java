@@ -18,7 +18,7 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 	private static final String GET_ONE_STAFF = "SELECT staffNumber,staffName,staffAccount,staffPassword FROM STAFF where staffNumber = ?";
 	private static final String UPDATE_STAFF = "UPDATE STAFF set staffName=?, staffAccount=?, staffPassword=? where staffNumber=?";
 	private static final String DELETE_STAFF = "DELETE FROM STAFF where staffNumber = ?";
-	private static final String GET_ONE_ACCOUNT = "SELECT staffAccount FROM STAFF where staffAccount = ?";
+	private static final String GET_ONE_ACCOUNT = "SELECT staffNumber,staffAccount FROM STAFF where staffAccount = ?";
 	private static final String GET_PASSWORD_STMT = "SELECT staffNumber,staffName,staffAccount,staffPassword FROM STAFF where upper(staffPassword) like upper(?)";
 	private static final String GET_ACCOUNT_STMT = "SELECT StaffAccount,staffPassword FROM STAFF where upper(staffAccount) like upper(?)";
 	@Override
@@ -327,10 +327,10 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 			while (rs.next()) {
 				// staffVo 也稱為 Domain objects
 				staffVO = new StaffVO();
-//				staffVO.setStaffNumber(rs.getInt("staffNumber"));
+				staffVO.setStaffNumber(rs.getInt("staffNumber"));
 //				staffVO.setStaffName(rs.getString("staffName"));
 				staffVO.setStaffAccount(rs.getString("staffAccount"));
-				staffVO.setStaffPassword(rs.getString("staffPassword"));
+//				staffVO.setStaffPassword(rs.getString("staffPassword"));
 			}
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
