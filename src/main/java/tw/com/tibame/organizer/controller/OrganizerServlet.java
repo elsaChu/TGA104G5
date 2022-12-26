@@ -18,8 +18,6 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
-import tw.com.tibame.member.model.MemberService;
-import tw.com.tibame.member.model.MemberVO;
 import tw.com.tibame.organizer.model.OrganizerService;
 import tw.com.tibame.organizer.model.OrganizerVO;
 
@@ -38,7 +36,7 @@ public class OrganizerServlet extends HttpServlet{
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
 		
-		if ("update".equals(action)) { // 來自memberCenter的請求
+		if ("save".equals(action)) { // 來自memberCenter的請求
 
 			System.out.println("update");
 
@@ -47,89 +45,71 @@ public class OrganizerServlet extends HttpServlet{
 
 			try {
 
-				MemberService memberSvc = new MemberService();
-				MemberVO memberVO = (MemberVO) session.getAttribute("memberVO"); // 表示已登入，取得memberVO物件
-				System.out.println("### into update ### 1");
+				OrganizerService organizerSvc = new OrganizerService();
+				OrganizerVO organizerVO = (OrganizerVO) session.getAttribute("organizerVO"); // 表示已登入，取得staffVO物件
+				System.out.println("### into update ### ");
 
 				// 1.接收請求參數，輸入格式的錯誤處理
 			
-				String name = req.getParameter("name");
-				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-				if (name == null || name.trim().length() == 0) {
-					errorMsgs.add("請填寫姓名");
-				} else if (!name.trim().matches(nameReg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-				}	
-				System.out.println("### into update ### 2");
-				String email = req.getParameter("email");
-				String emailReg = "^[_a-z0-9-]+([.][_a-z0-9-]+)*@[a-z0-9-]+([.][a-z0-9-]+)*$";
-				if (email == null || email.trim().length() == 0) {
-					errorMsgs.add("請填寫信箱");
-				} else if (!email.trim().matches(emailReg)) {
-					errorMsgs.add("請輸入正確信箱格式");
-				} else if(memberVO.getEmail().equals(email)) {
-					
-				} else {
-					errorMsgs.add("此信箱已註冊過");
+				String organizerName = req.getParameter("organizerName");
+				if (organizerName == null || organizerName.trim().length() == 0) {
+					errorMsgs.add("請填寫廠商名稱");
 				}
-				System.out.println("### into update ### 3");
-				String phoneNumber = req.getParameter("phoneNumber");
-				String phoneNumberReg = "^[0-9]{10}$";
-				if (phoneNumber == null || phoneNumber.trim().length() == 0) {
-					errorMsgs.add("請輸入電話號碼");
-				} else if (!phoneNumber.trim().matches(phoneNumberReg)) {
-					errorMsgs.add("電話號碼: 只能是數字 , 且長度必需是10");
+				String windowName = req.getParameter("windowName");
+				if (windowName == null || windowName.trim().length() == 0) {
+					errorMsgs.add("請填寫窗口姓名");
 				}
-				System.out.println("### into update ### 4");
-				String IDNumber = req.getParameter("IDNumber");
-				String IDNumberReg = "^[A-Z][12]\\d{8}$";
-				 if (!IDNumber.trim().matches(IDNumberReg)) {
-					 errorMsgs.add("請符合身分證格式");
+				String windowPhone = req.getParameter("windowPhone");
+				if (windowPhone == null || windowPhone.trim().length() == 0) {
+					errorMsgs.add("請填寫窗口連絡電話");
 				}
-
-				java.sql.Date birthday = null;
-				try {
-					birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
-				} catch (IllegalArgumentException e) {
-					birthday = new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.add("請輸入西元日期");
+				String windowEmail = req.getParameter("windowEmail");
+				if (windowEmail == null || windowEmail.trim().length() == 0) {
+					errorMsgs.add("請填寫窗口聯絡電子郵件");
 				}
-				System.out.println("### into update ### 5");
+				String taxIDNumber = req.getParameter("taxIDNumber");
+				if (taxIDNumber == null || taxIDNumber.trim().length() == 0) {
+					errorMsgs.add("請填寫公司統編");
+				}
+				String boss = req.getParameter("boss");
+				if (boss == null || boss.trim().length() == 0) {
+					errorMsgs.add("請填寫公司負責人姓名");
+				}
+				String organizerPhone = req.getParameter("organizerPhone");
+				if (organizerPhone == null || organizerPhone.trim().length() == 0) {
+					errorMsgs.add("請填寫公司電話");
+				}
 				
 				
-				String str= req.getParameter("subscription");
-				boolean subscription = Boolean.parseBoolean(str);  
+				organizerVO.setOrganizerName(organizerName);
+				organizerVO.setWindowName(windowName);
+				organizerVO.setWindowPhone(windowPhone);
+				organizerVO.setWindowEmail(windowEmail);
+				organizerVO.setTaxIDNumber(taxIDNumber);
+				organizerVO.setBoss(boss);
+				organizerVO.setOrganizerPhone(organizerPhone);
 				
-				System.out.println("### into update ### 6");
 				
-				memberVO.setEmail(email);
-				memberVO.setBirthday(birthday);
-				memberVO.setName(name);
-				memberVO.setPhoneNumber(phoneNumber);
-				memberVO.setSubscription(subscription);
-				memberVO.setIDNumber(IDNumber);
-				
-				System.out.println("### into update ### 7");
 				if (errorMsgs != null && !errorMsgs.isEmpty()) {
-					req.getRequestDispatcher("memberCentre.jsp").forward(req, res);
+					req.getRequestDispatcher("organizerData.jsp").forward(req, res);
 					return;
 				}
 				
-				System.out.println("### into update ### 8");
+				
 				
 		
 				// 開始修改資料
 
-				memberVO = memberSvc.update(memberVO);
+				organizerVO = organizerSvc.update2(organizerVO);
 				System.out.println("修改成功");
 				// 新增完成，準備轉交
-				String url = "memberCentre.jsp";
+				String url = "organizerData.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			
 			} catch (Exception e) {
 				System.out.println("update exception :" + e);
-				RequestDispatcher failureView = req.getRequestDispatcher("index.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("loginStaff.jsp");
 				failureView.forward(req, res);
 			}
 			

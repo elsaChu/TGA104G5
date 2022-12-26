@@ -155,6 +155,13 @@ public class OrganizerService {
 		public List<OrganizerVO> selectAll() {
 			return dao.selectAll();
 		}
+
+		public OrganizerVO update2(OrganizerVO organizerVO) {
+			System.out.println("### updateOrganizer service");
+			dao.update(organizerVO);
+			return organizerVO;
+		}
+
 	
 
 }

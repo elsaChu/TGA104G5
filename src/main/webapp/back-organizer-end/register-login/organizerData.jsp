@@ -4,7 +4,7 @@
 <%@ page import="tw.com.tibame.organizer.model.*"%>
 <c:set var="context" value="${pageContext.request.contextPath}" />
 <%
-OrganizerVO organizerVO = (OrganizerVO) request.getAttribute("organizerVO");
+OrganizerVO organizerVO = (OrganizerVO) session.getAttribute("organizerVO");
 %>
 <!DOCTYPE html>
 <html>
@@ -19,6 +19,15 @@ OrganizerVO organizerVO = (OrganizerVO) request.getAttribute("organizerVO");
 	<jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
 
 	<br />
+	<%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
 	<div class="set">
 		<h3 style="font-weight: 600;">基本資料設定</h3>
 		<br><br><br><br>
@@ -36,7 +45,7 @@ OrganizerVO organizerVO = (OrganizerVO) request.getAttribute("organizerVO");
 				</div>
 			</div>
 		</div>
-		<form action="organizerServlet" method="POST">
+		<form action="OrganizerServlet" method="POST">
 			<div class="Data-Items">
 				<input type="text" name="organizerName" value="${OrganizerVO.organizerName}"/><br /> 
 				<input type="text" name="windowName" value="${OrganizerVO.windowName}"/><br /> 

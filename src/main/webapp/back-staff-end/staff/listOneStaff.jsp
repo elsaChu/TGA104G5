@@ -58,7 +58,7 @@ th, td {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>員工資料 - ListOneStaff.jsp</h3>
+				<h3>員工</h3>${staffVO.staffName}
 			</td>
 		</tr>
 	</table>

@@ -4,6 +4,7 @@
 <%@
 page import="tw.com.tibame.staff.model.*"
 %>
+<c:set var="context" value="${pageContext.request.contextPath}" />
 <%
 StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
 System.out.println(request.getAttribute("staffVO"));
@@ -14,8 +15,12 @@ System.out.println(request.getAttribute("staffVO"));
 <html>
 <head>
 <meta charset="UTF-8">
-<title>員工資料新增</title>
+<title>TICK IT</title>
 </head>
+<link rel="stylesheet" type="text/css"
+	href="${context}/main_frame/css/button.css" />
+	<link rel="stylesheet" type="text/css"
+	href="${context}/back-organizer-end/staff/css/insertStaff.css" />改
 <body>
 
 <jsp:include page="/main_frame/index_Staff.jsp"></jsp:include>
@@ -32,7 +37,7 @@ System.out.println(request.getAttribute("staffVO"));
 <form method="post" action="<%=request.getContextPath()%>/StaffServlet" name="action" value="insert">
 
 <input type= "hidden" name="action" value="insert"></input>
-
+	<div class="my_size">
 		<span>員工姓名：</span><input type="text" name="staffName"></input><br>
 		<span>員工帳號：</span><input type="text" name="staffAccount"></input><br>
 		<span>員工密碼：</span><input type="text" name="staffPassword"></input><br>
@@ -43,8 +48,8 @@ System.out.println(request.getAttribute("staffVO"));
 		<span>網站管理</span><input type="checkbox" name="permissionNumber" value="4"></input><br>
 		<span>廠商管理</span><input type="checkbox" name="permissionNumber" value="5"></input><br>
 		<span>商品管理</span><input type="checkbox" name="permissionNumber" value="6"></input><br>
-		<button type="submit">送出！！！</button><br>
-		
+		<button type="submit">新增員工</button><br>
+	</div>
 		</form>
 </body>
 </html>

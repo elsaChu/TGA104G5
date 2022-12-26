@@ -16,24 +16,24 @@
     <link rel="icon" href="${context}/main_frame/images/logo.ico" />
 </head>
 <body>
-  <div class="container header_height">
-    <nav class="navbar navbar-expand-lg navbar-light bg-while">
-      <a class="navbar-brand" href="${context}/front-end/main/IndexCopy.html">
-        <img src="${context}/main_frame/images/logo80.png" />
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-while header_height">      
+	  <a class="navbar-brand" href="#">
+          <img src="${context}/main_frame/images/logo80.png" style="height:50px;width:100px;" />
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mx-auto">
           <li class="nav-item">
-            <a class="nav-link item_color" href="#">首頁</a>
+            <a class="nav-link item_color" href="${context}/front-end/main/index_copy_e.jsp">首頁</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link item_color" href="#">活動</a>
+            <a class="nav-link item_color" href="${context}/front-end/main/IndexSearch.html">活動</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link item_color" href="#">我的收藏</a>
+            <a class="nav-link item_color" href="${context}/front-end/main/IndexSearch.html">我的收藏</a>
           </li>
           <li class="nav-item">
             <a class="nav-link item_color" href="#">商城</a>
@@ -61,12 +61,12 @@
                 <iconify-icon icon="heroicons:user-circle-solid" width="30" height="30"></iconify-icon>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="${context}/front-end/member/memberCentre.jsp">
                   <iconify-icon class="sign-out" icon="heroicons:cog-8-tooth" width="20" height="20"></iconify-icon>
                   設定
                 </a>
                 <!-- <div class="dropdown-divider"></div> -->
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="${context}/front-end/event/ticketOrder.jsp">
                   <iconify-icon class="sign-out" icon="heroicons:ticket" width="20" height="20"></iconify-icon>
                   票券訂單
                 </a>
