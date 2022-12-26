@@ -94,20 +94,26 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 				</table>
 			</div>
 			<div class="div_img col-md-5">
-				<span>商品圖片：</span>
-				<ul class="picture_list">
-					<li><img src=class=></li>
-				</ul>
-				<input type="file" class="prodIMG" accept="image/*">
+				<div>
+					商品圖片： <input type="file" class="prodIMG" accept="image/*"
+						name="prodIMG">
+					<ul class="picture_list" id="ul_id">
+						<li><img src="" /></li>
+					</ul>
+				</div>
+				
 				<div class="myButton">
 					<input type="submit" value="確認修改">
 				</div>
+				
 				<input type="hidden" name="action" value="update" />
 			</div>
 		</form>
 	</div>
-
-	<script src="${context}/back-organizer-end/product/js/addProduct.js"></script>
+<script>
+var prodimglist = '${prodimglist}';
+</script>
+	<script src="${context}/back-organizer-end/product/js/updateProduct.js"></script>
 	<%-- 	<script src="${context}/mainframe/js/bootstrap.js"></script> --%>
 	<%-- 	<script src="${context}/mainframe/js/jquery-1.10.2.js"></script> --%>
 </body>
