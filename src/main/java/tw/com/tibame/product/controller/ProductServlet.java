@@ -150,9 +150,11 @@ public class ProductServlet extends HttpServlet {
 			/*************************** 2.開始查詢資料 ****************************************/
 			ProductService prodSvc = new ProductService();
 			ProductVO prodVo = prodSvc.getOneProduct(pdnb);
-
+			String prodimglist= prodSvc.showImage(pdnb);
+System.out.println(prodimglist.length());
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("ProductVO", prodVo); // 資料庫取出的ProductVO物件,存入req
+			req.setAttribute("prodimglist", prodimglist);
 			String url = "/back-organizer-end/product/updateProduct.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// forward to updateProduct.jsp
 			successView.forward(req, res);
