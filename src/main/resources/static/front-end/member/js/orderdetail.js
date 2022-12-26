@@ -7,7 +7,7 @@ function init(){
     const prodinfo2 = document.querySelector("#prodinfo2");
     // 訂單明細
     $.ajax({
-        url: "http://localhost:8080/TGA104G5/order/orderdetail",         // 資料請求的網址
+        url: "../../order/orderdetail",         // 資料請求的網址
         type: "GET",                                                     // GET | POST | PUT | DELETE | PATCH
         data: { "prodOrderNo": prodOrderNo },                            // 將物件資料(不用雙引號) 傳送到指定的 url
         dataType: "json",                                                // 預期會接收到回傳資料的格式： json | xml | html
@@ -20,7 +20,7 @@ function init(){
       });
     // 訂單資訊
       $.ajax({
-        url: "http://localhost:8080/TGA104G5/order/info",                // 資料請求的網址
+        url: "../../order/info",                // 資料請求的網址
         type: "GET",                                                     // GET | POST | PUT | DELETE | PATCH
         data: { "prodOrderNo": prodOrderNo },                            // 將物件資料(不用雙引號) 傳送到指定的 url
         dataType: "json",                                                // 預期會接收到回傳資料的格式： json | xml | html
@@ -33,7 +33,6 @@ function init(){
       });  
     
 
-    
 }
 
 window.onload = init;

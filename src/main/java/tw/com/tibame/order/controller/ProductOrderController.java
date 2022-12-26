@@ -40,18 +40,19 @@ public class ProductOrderController {
 	@Autowired
 	private ProductService productService;
 	
-//    @GetMapping("orderlist") // 這是對的唷可以從session拿資料!
-//	public List<ProductOrderVO> memberOrder(HttpSession session) {
-//    	Integer number =  (Integer) session.getAttribute("number");
-//		List<ProductOrderVO> list = productOrderService.getByNumberOrder(number);
-//    	return list;
-//	}
-    
-    @GetMapping("orderlist") 
+    @GetMapping("orderlist") // 這是對的唷可以從session拿資料!
 	public List<ProductOrderVO> memberOrder(HttpSession session) {
-		List<ProductOrderVO> list = productOrderService.getByNumberOrder(2); // 這是先寫死測試用的唷!
+    	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+    	Integer number =  memberVO.getNumber();
+		List<ProductOrderVO> list = productOrderService.getByNumberOrder(number);
     	return list;
 	}
+    
+//    @GetMapping("orderlist") 
+//	public List<ProductOrderVO> memberOrder(HttpSession session) {
+//		List<ProductOrderVO> list = productOrderService.getByNumberOrder(2); // 這是先寫死測試用的唷!
+//    	return list;
+//	}
     
     @GetMapping("orderdetail") // 跳轉訂單時需要檢查會員編號，避免看到別的會員訂單
     public List<ViewOrderDetailVO> memberOrderDetail(@RequestParam Integer prodOrderNo) {
@@ -65,25 +66,13 @@ public class ProductOrderController {
 		return viewProductOrderVO;
     }
     
-//    @PostMapping("addProdOrder") // 這是對的唷
-//    public ProductOrderVO addProdOrder(HttpSession session, @RequestBody ProductOrderVO productOrderVO) {
-//    	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-//    	Integer number = memberVO.getNumber();
-//		productOrderVO.setAmountPrice(productOrderVO.getAmountPrice());
-//		productOrderVO.setProdTotal(productOrderVO.getProdTotal());
-//		productOrderVO.setReceiverName(productOrderVO.getReceiverName());
-//		productOrderVO.setReceiverTel(productOrderVO.getReceiverTel());
-//		productOrderVO.setShippingAdd(productOrderVO.getShippingAdd());
-//		
-//    	return productOrderService.addOrder(productOrderVO);
-//	}
     
-    @PostMapping("addProdOrder") // 這是寫死測試用
+    @PostMapping("addProdOrder") 
     public boolean addProdOrder(HttpSession session, @RequestBody OrderWrapper orderWrapper) {
-//    	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-//    	Integer number = memberVO.getNumber();
+    	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+    	Integer number = memberVO.getNumber();
     	
-    	orderWrapper.getProductOrderVO().setNumber(4);
+    	orderWrapper.getProductOrderVO().setNumber(number);
     	// 新增訂單
     	if(orderWrapper.getProductOrderVO() != null) {
     		ProductOrderVO newOrder = productOrderService.addOrder(orderWrapper.getProductOrderVO());

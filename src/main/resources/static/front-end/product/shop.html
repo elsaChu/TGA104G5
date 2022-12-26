@@ -22,10 +22,11 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
 <!--貼這段-->
     <link rel="stylesheet" href="./css/style.css" type="text/css">
+    <link rel="stylesheet" href="../member/css/index_header.css" type="text/css">
     <!-- Favicon -->
-    <link rel="icon" href="img/core-img/logo.ico" />
+    <link rel="icon" href="../../main_frame/images/logo.ico" />
     <!-- Style CSS -->
-    <link rel="stylesheet" href="style_member.css" />
+    <!-- <link rel="stylesheet" href="style_member.css" /> -->
     <link rel="stylesheet" href="./css/shop.css">
 <!--貼這段-->
 </head>
@@ -33,107 +34,98 @@
 <body>
      <header>
         <!-- 登入開始 -->
-        <br />
-        <div class="row">
-          <div class="col-1"></div>
-          <div class="col-4" id="header1">
-            <a class="www" href="#">我的票券</a>
-            <a class="www" href="./shop.html">商品專區</a>
-            <a class="www" href="#">探索活動</a>
-          </div>
-          <div class="col-4">
-            <div class="box">
-              <!-- <div class="container-1">
-                <span class="icon"><i class="fa fa-search"></i></span>
-                <input type="search" id="search" placeholder="搜索活動" />
-              </div> -->
-            </div>
-          </div>
-          <ul class="drop-down-menu">
-            <li>
-              <a href="#">
-                <iconify-icon
-                  icon="heroicons:user-circle-solid"
-                  width="30"
-                  height="30">
-                </iconify-icon>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-while header_height">      
+            <a class="navbar-brand" href="../main/Indexbody.jsp">
+                  <img src="../../main_frame/images/logo80.png" style="height:50px;width:100px;" />
               </a>
-              <ul>
-                <li>
-                  <a href="#"
-                    ><iconify-icon
-                      class="sign-out"
-                      icon="heroicons:cog-8-tooth"
-                      width="20"
-                      height="20"
-                    ></iconify-icon>
-                    設定</a
-                  >
-                </li>
-                <li>
-                  <a href="#"
-                    ><iconify-icon
-                      class="sign-out"
-                      icon="heroicons:ticket"
-                      width="20"
-                      height="20"
-                    ></iconify-icon>
-                    票券訂單</a
-                  >
-                </li>
-                <li>
-                  <a href="../order/order.html"
-                    ><iconify-icon
-                      class="sign-out"
-                      icon="heroicons:gift"
-                      width="20"
-                      height="20"
-                    ></iconify-icon>
-                    商品訂單</a
-                  >
-                </li>
-                <li>
-                  <a href="#"
-                    ><iconify-icon
-                      class="sign-out"
-                      icon="heroicons:arrow-right-on-rectangle-20-solid"
-                      width="20"
-                      height="20"
-                    ></iconify-icon>
-                    登出</a
-                  >
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#"
-                ><iconify-icon
-                  icon="heroicons:bell-20-solid"
-                  width="30"
-                  height="30"
-                ></iconify-icon
-              ></a>
-            </li>
-            <li>
-              <a href="#"
-                ><iconify-icon
-                  icon="heroicons:heart-20-solid"
-                  width="30"
-                  height="30"
-                ></iconify-icon
-              ></a>
-            </li>
-            <li>
-              <a href="./shoppingcart.html"
-                ><iconify-icon
-                  icon="heroicons:shopping-cart-20-solid"
-                  width="30"
-                  height="30"
-                ></iconify-icon
-              ></a>
-            </li>
-          </ul>
-        </div>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto">
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../main/Indexbody.jsp">首頁</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../main/IndexSearch.html">活動</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../memberFavoriteEvent.html">我的收藏</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="./shop.html">商品專區</a>
+                  </li>
+                </ul>
+                <!-- unlogin -->
+                <div id="login_menuB"  class="hidden_login">
+                  <ul class="navbar-nav mr-right">
+                    <li class="nav-item">
+                      <a class="nav-link item_color" href="../member/memberRegister.jsp">註冊</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link item_color disabled" href="#">|</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link item_color" href="../member/memberLogin.jsp">登入</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- login -->
+                <div id="login_menuA"  class="hidden_login">
+                  <ul class="navbar-nav mr-right">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link item_color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <iconify-icon icon="heroicons:user-circle-solid" width="30" height="30"></iconify-icon>
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="../member/memberCentre.jsp">
+                          <iconify-icon class="sign-out" icon="heroicons:cog-8-tooth" width="20" height="20"></iconify-icon>
+                          設定
+                        </a>
+                        <!-- <div class="dropdown-divider"></div> -->
+      <!-- TODO!! 連到票券訂單 -->
+                        <a class="dropdown-item" href="../event/ticketOrder.jsp">
+                          <iconify-icon class="sign-out" icon="heroicons:ticket" width="20" height="20"></iconify-icon>
+                          票券訂單
+                        </a>
+                        <!-- <div class="dropdown-divider"></div> -->
+                        <a class="dropdown-item" href="../member/order.html">
+                          <iconify-icon class="sign-out" icon="heroicons:gift" width="20" height="20"></iconify-icon>
+                            商品訂單
+                        </a>
+                        <!-- <div class="dropdown-divider"></div> -->
+      <!-- TODO!! 連到首頁 -->
+                        <a class="dropdown-item" href="#">
+                          <form action="../member/MemberServlet" method="POST" >
+                          <iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20" style="margin: 0px -7px 0px 2px;"></iconify-icon>
+                            <input class="signOut_btn" type="submit" value="登出">
+                            <input type="hidden" name="action" value="logout">
+                          </form>
+                        </a>
+                      </div>
+                    </li>
+      <!-- TODO!! 連到鈴鐺 -->              
+                    <li class="nav-item">
+                      <a class="nav-link item_color" href="#">
+                        <iconify-icon icon="heroicons:bell-20-solid" width="30" height="30" ></iconify-icon>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link item_color" href="../member/memberFavoriteEvent.html">
+                        <iconify-icon icon="heroicons:heart-20-solid" width="30" height="30" ></iconify-icon>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link item_color" href="./shoppingcart.html">
+                        <iconify-icon icon="heroicons:shopping-cart-20-solid" width="30" height="30"></iconify-icon>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </div>
   
         <!-- 登入結束 -->
       <!-- 空行 -->
@@ -478,7 +470,7 @@
     <!-- Product Section End -->
 
     <!-- ##### Footer 開始 ##### -->
-    <footer class="footer-area text-center">
+    <!-- <footer class="footer-area text-center">
         <div class="container">
         <div class="row">
             <div class="col-12">
@@ -488,19 +480,19 @@
                     <span class="navbarToggler">
                         <span></span><span></span><span></span>
                     </span>
-                </div>
+                </div> -->
 
                 <!-- Menu -->
-                <div class="classy-menu">
+                <!-- <div class="classy-menu"> -->
                     <!-- close btn -->
-                    <div class="classycloseIcon">
+                    <!-- <div class="classycloseIcon">
                     <div class="cross-wrap">
                         <span class="top"></span><span class="bottom"></span>
                     </div>
-                    </div>
+                    </div> -->
 
                     <!-- Nav Start -->
-                    <div class="classynav">
+                    <!-- <div class="classynav">
                     <ul>
                         <li><a href="#">常見問題</a></li>
                         <li><a href="#">聯絡我們</a></li>
@@ -512,14 +504,45 @@
                     </div>
                 </div>
                 </nav>
-            </div>
+            </div> -->
 
             <!-- Footer Social Area -->
-            </div>
+            <!-- </div>
         </div>
         </div>
-    </footer>
+    </footer> -->
     <!-- ##### Footer 結束 ##### -->
+
+    <nav class="navbar relative-bottom navbar-expand-lg navbar-light bg-while">
+        <div class="container">
+                <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">常見問題 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">聯絡我們</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="../main/IndexBulletin.html">系統公告</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">網站地圖</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">隱私權政策</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">服務條款</a>
+                    </li>
+                  </ul>
+                </div>
+        </div>
+    </nav>
+
 
     <!-- Js Plugins -->
     <script src="./js/jquery-3.3.1.min.js"></script>
@@ -534,14 +557,15 @@
 
 <!--貼這段-->
     <!-- Popper js -->
-    <script src="../../main_frame/js/popper.min.js"></script>
+    <!-- <script src="../../main_frame/js/popper.min.js"></script> -->
     <!-- Plugins js -->
-    <script src="../../main_frame/js/plugins.js"></script>
+    <!-- <script src="../../main_frame/js/plugins.js"></script> -->
     <!-- Active js -->
-    <script src="../../main_frame/js/active.js"></script>
-    <script src="../../main_frame/js/model.js"></script>
+    <!-- <script src="../../main_frame/js/active.js"></script> -->
+    <!-- <script src="../../main_frame/js/model.js"></script> -->
     <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
     <script src="./js/shop.js"></script>
+    <!-- <script src="../member/js/index_header.js"></script> 這個不知道是什麼用途 -->
 
 <!--貼這段-->
 

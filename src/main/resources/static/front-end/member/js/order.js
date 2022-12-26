@@ -1,7 +1,7 @@
 function init(){
     const order = document.querySelector("#order");
     $.ajax({
-        url: "http://localhost:8080/TGA104G5/order/orderlist",           // 資料請求的網址
+        url: "../../order/orderlist",           // 資料請求的網址
         type: "GET",                                                     // GET | POST | PUT | DELETE | PATCH
         // data: { "number": number },                                      // 將物件資料(不用雙引號) 傳送到指定的 url
         dataType: "json",                                                // 預期會接收到回傳資料的格式： json | xml | html
@@ -13,7 +13,7 @@ function init(){
    
       });
 
-
+   
     
 }
 
