@@ -4,14 +4,11 @@
     function closeUserData(modifyData){
     	if(modifyData){
     		let template = `
-    			  <p>名稱：</p>
-				 <p>${modifyData.inputName}</p>
-				 <p>Email：</p>
-				 <p>${modifyData.inputEmail}</p>
-				 <p>身分證號：</p>
-				 <p>${modifyData.inputRocid}</p>
-				 <p>電話：</p>
-				 <p>${modifyData.inputPhone}</p>
+    			 <h4>聯絡人資料</h4>
+    			 <p>名稱：${modifyData.inputName}</p>
+				 <p>Email：${modifyData.inputEmail}</p>
+				 <p>身分證號：${modifyData.inputRocid}</p>
+				 <p>電話：${modifyData.inputPhone}</p>
     		`;
     		$('#userDataShowArea').html(template);
     	}

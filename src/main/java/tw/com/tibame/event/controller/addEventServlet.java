@@ -30,6 +30,8 @@ import tw.com.tibame.event.model.EventClassService;
 import tw.com.tibame.event.model.EventClassVO;
 import tw.com.tibame.event.model.EventService;
 import tw.com.tibame.event.model.EventVO;
+import tw.com.tibame.organizer.model.OrganizerVO;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -57,10 +59,19 @@ public class addEventServlet extends HttpServlet {
 			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-				
+			
+			//廠商登入檢查
+			OrganizerVO organizer = (OrganizerVO)session.getAttribute("loginOrganizer");
+			if(organizer == null) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-organizer-end/register-login/OrganizerLogin1.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			
 			Integer organizerNumber = null;
 			try {
-				organizerNumber = Integer.valueOf("1"); //等串起來要改
+				organizerNumber = Integer.valueOf(organizer.getOrganizerNumber());
 			} catch (NumberFormatException e) {
 				errorMsgs.add("未登入請重新登入");
 			}
