@@ -33,10 +33,10 @@ pageContext.setAttribute("list", list);
 
 // 	}
 
-	function searchStaffNumber() {
-		document.getElementById("search").submit();
+// 	function searchStaffNumber() {
+// 		document.getElementById("search").submit();
 
-	}
+// 	}
 </script>
 
 </head>
@@ -68,10 +68,12 @@ pageContext.setAttribute("list", list);
 					ACTION="<%=request.getContextPath()%>/StaffServlet" name="action">
 					<b>搜尋員工編號:</b>
 					<input type="text" name="searchStaffNumber" value=""
-						style="" placeholder="員工編號">
-					<input type="submit"
-						name="action" value="search" onclick="searchStaffNumber()">
+						style="" placeholder="員工編號">						
+					<input type="hidden" name="action" value="search">
+   					<input style="color: white; font-size: 14px;width: 10%;  background: #000000;padding: 5px 5px; 
+   					margin: 50px 0px 0px 0px;" type="submit" value="搜尋" />	
 				</FORM>
+				
 
 			</div>
 		</div>
