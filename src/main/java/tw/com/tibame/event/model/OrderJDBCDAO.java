@@ -42,6 +42,8 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 			+ "	`ORDER` o join `EVENT` e on o.eventNumber = e.eventNumber "
 			+ "    where e.eventNumber in(select eventNumber from `EVENT` where organizerNumber = ?) "
 			+ "	   order by o.orderID desc;";
+	private static final String SELECT_BY_ORGANIZERNUMBER = "SELECT eventNumber, eventName, eventType, eventStartDate, eventEndDate "
+			+ "FROM `EVENT` where organizerNumber  = ?;";
 	
 	// elsa
 	private static final String insertSQL = " INSERT INTO `order` " + " ( " + "    eventNumber    "
@@ -53,7 +55,7 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 	private static final String queryByOrderIdAndMemberSQL = "SELECT * from `ORDER` where orderID = ? and number = ?";
 	private static final String updateSQL = " UPDATE `ORDER` set %s where orderID = ? ";
 	private static final String selectByEventNumberSQL = "select * from `ORDER` where eventNumber = ?";
-	private static final String SELECT_BY_EVENTNUMBER = "SELECT eventNumber, eventName, eventType, eventStartDate, eventEndDate FROM `EVENT` where eventNumber = ?";
+	
 
 	@Override
 	public int insert(OrderVO vo, List<SoldTicketsVO> solList) {
@@ -830,7 +832,7 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 			Class.forName(Common.driver);
 
 			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
-			pstmt = conn.prepareStatement(GET_ORGANIZER_BY_NUMBER);
+			pstmt = conn.prepareStatement(SELECT_BY_ORGANIZERNUMBER);
 
 			rs = pstmt.executeQuery();
 

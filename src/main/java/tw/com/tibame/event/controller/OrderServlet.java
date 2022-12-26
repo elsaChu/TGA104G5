@@ -70,30 +70,29 @@ public class OrderServlet extends HttpServlet {
 
 			String findByOrganizerNumber = request.getParameter("findByOrganizerNumber");
 			OrderService orderSvc = new OrderService();
-			EventVO eventVO = null;
+			List<EventVO> eventVO = null;
 			Integer int_sbn = null;
-//			try {
-////				 轉型 STR轉INT，用PARSEINT()
-//				int_ssn = Integer.valueOf(searchByNumber);
-//				staffVO = staffSvc.findByNumber(int_sbn);
-//				if(orderEventVO.getStaffNumber() == null) {
-//					orderEventVO = null;
-//				}
-//			} catch (NumberFormatException e) {
-//				errorMsgs.add("未輸入員工編號");
-//			}
-//			
-//			System.out.println("staffVO servlet="+staffVO.toString());
-//			if (staffVO == null && int_ssn != null) {
-//				System.out.println("in null");
-//				errorMsgs.add("此員工編號不存在，請再確認一次");
-//			}
-//	
-//			if (!errorMsgs.isEmpty()) {
-//				RequestDispatcher failureView = request.getRequestDispatcher("/back-staff-end/staff/listAllStaff.jsp");
-//				failureView.forward(request, response);
-//				return;// 程式中斷
-//			}
+			try {
+//				 轉型 STR轉INT，用PARSEINT()
+				Integer int_fbon = Integer.valueOf(findByOrganizerNumber);
+				eventVO = orderSvc.organizerNumber();
+				if(eventVO.get(0) == null) {
+					eventVO = null;
+				}
+			} catch (NumberFormatException e) {
+				errorMsgs.add("未輸入廠商編號");
+			}
+			
+			if (eventVO == null) {
+				System.out.println("in null");
+				errorMsgs.add("此廠商編號不存在，請再確認一次");
+			}
+	
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = request.getRequestDispatcher("/back-staff-end/staff/listAllStaff.jsp");
+				failureView.forward(request, response);
+				return;// 程式中斷
+			}
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			request.setAttribute("eventVO", eventVO); // 資料庫取出的staffVO物件,存入request
