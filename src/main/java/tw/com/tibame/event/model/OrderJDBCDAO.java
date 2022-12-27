@@ -820,7 +820,7 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 	}
 
 	@Override
-	public List<EventVO> findByOrganizerNumber() {
+	public List<EventVO> findByOrganizerNumber(Integer organizerNumber) {
 		List<EventVO> list = new ArrayList<EventVO>();
 		// 初值
 //		EventVO eventVO = null;
@@ -833,7 +833,8 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 
 			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
 			pstmt = conn.prepareStatement(SELECT_BY_ORGANIZERNUMBER);
-
+			pstmt.setInt(1, organizerNumber);
+			
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -872,7 +873,6 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 			}
 
 		}
-		EventVO s = list.get(0);
 		return list;
 	}
 

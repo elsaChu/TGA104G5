@@ -494,8 +494,8 @@ public class OrderService {
 		return dao.findByNumber();
 	}
 	
-	public List<EventVO> organizerNumber(){
-		return dao.findByOrganizerNumber();
+	public List<EventVO> organizerNumber(Integer organizerNumber){
+		return dao.findByOrganizerNumber(organizerNumber);
 	}
 	
 	public List<OrderVO> selectByEventNumber(Integer eventNumber){

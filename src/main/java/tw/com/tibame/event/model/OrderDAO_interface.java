@@ -26,9 +26,10 @@ public interface OrderDAO_interface {
 	public List<Map> searchByOrderID(Integer orderID,Integer organizerNumber); // 用訂單編號篩選
 	
 	public List<OrderEventVO> findByNumber(); //票券訂單
-	public List<EventVO> findByOrganizerNumber(); //活動列表(這個廠商有什麼活動)
+	public List<EventVO> findByOrganizerNumber(Integer organizerNumber); //活動列表(這個廠商有什麼活動)
 	
 	public List<Map> selectOrderByOrganizer(Integer organizerNumber); // 廠商活動訂單列表
+	
 	
 	
 }

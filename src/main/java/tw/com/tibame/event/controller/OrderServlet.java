@@ -60,46 +60,46 @@ public class OrderServlet extends HttpServlet {
 			successView.forward(request, response);
 		}
 
-		if ("searchAllEvent".equals(action)) { // 來自listAllStaff.jsp的請求
-//			System.out.println("in search" + action);
-			List<String> errorMsgs = new LinkedList<String>();
-//			先把errorMsgs new出來，再裝進去request
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			request.setAttribute("errorMsgs", errorMsgs);
-
-			String findByOrganizerNumber = request.getParameter("findByOrganizerNumber");
-			OrderService orderSvc = new OrderService();
-			List<EventVO> eventVO = null;
-			Integer int_sbn = null;
-			try {
-//				 轉型 STR轉INT，用PARSEINT()
-				Integer int_fbon = Integer.valueOf(findByOrganizerNumber);
-				eventVO = orderSvc.organizerNumber();
-				if(eventVO.get(0) == null) {
-					eventVO = null;
-				}
-			} catch (NumberFormatException e) {
-				errorMsgs.add("未輸入廠商編號");
-			}
-			
-			if (eventVO == null) {
-				System.out.println("in null");
-				errorMsgs.add("此廠商編號不存在，請再確認一次");
-			}
-	
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = request.getRequestDispatcher("/back-staff-end/staff/listAllStaff.jsp");
-				failureView.forward(request, response);
-				return;// 程式中斷
-			}
-
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			request.setAttribute("eventVO", eventVO); // 資料庫取出的staffVO物件,存入request
-			String url = "/back-staff-end/staff/ListAllEvent.jsp";
-			RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 ticketOrder.jsp
-			successView.forward(request, response);
-		}
+//		if ("searchAllEvent".equals(action)) { // 來自listAllStaff.jsp的請求
+////			System.out.println("in search" + action);
+//			List<String> errorMsgs = new LinkedList<String>();
+////			先把errorMsgs new出來，再裝進去request
+//			// Store this set in the request scope, in case we need to
+//			// send the ErrorPage view.
+//			request.setAttribute("errorMsgs", errorMsgs);
+//
+//			String findByOrganizerNumber = request.getParameter("findByOrganizerNumber");
+//			OrderService orderSvc = new OrderService();
+//			List<EventVO> eventVO = null;
+//			Integer int_sbn = null;
+//			try {
+////				 轉型 STR轉INT，用PARSEINT()
+//				Integer int_fbon = Integer.valueOf(findByOrganizerNumber);
+//				eventVO = orderSvc.organizerNumber();
+//				if(eventVO.get(0) == null) {
+//					eventVO = null;
+//				}
+//			} catch (NumberFormatException e) {
+//				errorMsgs.add("未輸入廠商編號");
+//			}
+//			
+//			if (eventVO == null) {
+//				System.out.println("in null");
+//				errorMsgs.add("此廠商編號不存在，請再確認一次");
+//			}
+//	
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = request.getRequestDispatcher("/back-staff-end/staff/listAllStaff.jsp");
+//				failureView.forward(request, response);
+//				return;// 程式中斷
+//			}
+//
+//			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+//			request.setAttribute("eventVO", eventVO); // 資料庫取出的staffVO物件,存入request
+//			String url = "/back-staff-end/staff/ListAllEvent.jsp";
+//			RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 ticketOrder.jsp
+//			successView.forward(request, response);
+//		}
 
 		if ("show_all_event_order".equals(action)) { // 來自listAllEvent.jsp的請求
 			String eventNumber = request.getParameter("eventNumber");
