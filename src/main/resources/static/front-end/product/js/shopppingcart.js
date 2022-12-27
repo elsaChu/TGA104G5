@@ -226,7 +226,7 @@ function init() {
 
   });
 
-  // 移除購物車商品(未完成)
+  // 移除購物車商品
   $("div.shoping__cart__table").on("click", "span.icon_close", function () {
     console.log($(this).closest("tr").attr("data-shoppingCartNo"));
     // let delete_item = {

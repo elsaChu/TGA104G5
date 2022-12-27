@@ -116,8 +116,24 @@ console.log(data);
       body: JSON.stringify(data),
       headers: {'content-type': 'application/json'}
     })
-	.then((r) => r.json())
-    .then((data) => {
+	.then((r) => {
+		if(r.redirected) {
+		  Swal.fire({
+			position: "center",
+			icon: "warning",
+			title: "請先登入",
+			showConfirmButton: false,
+			timer: 1000,
+		  }).then(()=>{
+			sessionStorage.setItem("URL_before_login", window.location.href);
+			window.location.href = r.url;
+		  });
+		} else {
+		  return r.json();
+		}
+	})
+    
+	?.then((data) => {
       console.log(data);
       $(this).closest("div").addClass("added");
       $(this).text("已加入購物車");

@@ -31,6 +31,7 @@ public class ProductOrderVO implements java.io.Serializable {
 	private Integer prodTotal;		// not null
 
 	@Column(name = "paymentDate")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Timestamp paymentDate;	// not null
 
 	@Column(name = "receiverName")

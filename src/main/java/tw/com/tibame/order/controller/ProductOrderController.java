@@ -83,7 +83,6 @@ public class ProductOrderController {
 	    		OrderDetailVO newOrderDetail = orderDetailService.addDetail(orderDetailVO);
 	    		
 	    // 更新商品庫存
-	    // 新的庫存如果小於0怎麼辦?__? 如果放進購物車時就先扣庫存，這裡就沒這問題了 ^__^
 	    		Integer prodNo = newOrderDetail.getProdNo();
 	    		Integer prodQty = newOrderDetail.getProdQty();
 	    		
