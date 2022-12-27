@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="tw.com.tibame.product.model.*"%>
+<%@ page import="tw.com.tibame.staff.model.*"%>
 
 <%
-ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
+StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
 %>
 
 <c:set var="context" value="${pageContext.request.contextPath}" />
-<jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +24,8 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 <body>
 <jsp:include page="/main_frame/index_Staff.jsp"></jsp:include>
 	<div class="my_size">
-		<h2>新增員工</h2><br>
+	<br>
+		<h3>新增員工</h3>
 		<c:if test="${not empty errorMsgs}">
 			<font style="color: red">請修正以下錯誤:</font>
 			<ul>
@@ -57,7 +57,9 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 						</td>
 					</tr>
 				</table>
-				<button type="submit">新增員工</button>
+<!-- 				<button type="submit">新增員工</button> -->
+				<input type="submit" style="color: white; font-size: 14px;width: 20%;  background: #000000;padding: 5px 5px; 
+   					margin: 50px 0px 0px 0px;" type="submit" value="新增員工" />
 			</div>
 <!-- 			<div class="div_img col-md-5"> -->
 <!-- 				<span>管理權限：</span><br> -->
@@ -73,7 +75,7 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 		</form>
 	</div>
 
-	<script src="${context}/back-organizer-end/product/js/addProduct.js"></script>
+<%-- 	<script src="${context}/back-organizer-end/product/js/addProduct.js"></script> --%>
 	<%-- 	<script src="${context}/mainframe/js/bootstrap.js"></script> --%>
 	<%-- 	<script src="${context}/mainframe/js/jquery-1.10.2.js"></script> --%>
 

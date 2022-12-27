@@ -437,7 +437,6 @@ private static final String GET_ONE_STMT = "SELECT * FROM organizer where organi
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
 		try {
 			Class.forName(driver);
 			//可以考慮用DATASOURCE取代 
@@ -483,7 +482,6 @@ private static final String GET_ONE_STMT = "SELECT * FROM organizer where organi
 	public void updateActivateStatus(String account) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
