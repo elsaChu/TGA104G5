@@ -8,7 +8,7 @@ function init() {
         dataType: 'json',
         data: { action: 'checkLogin'},
         success: function (data) {
-			console.log(data);
+			// console.log(data);
 			if(data.check == '2'){
 				$('#login_menuB').show();
 				$('#login_menuA').hide();
@@ -105,7 +105,7 @@ function init() {
 
   function Template(shoppingCartNo, prodNo, prodName, prodSpec, unitPrice, shoppingQty) {
     return `
-    <tr data-prodNo="${prodNo}">
+    <tr data-shoppingCartNo="${shoppingCartNo}" data-prodNo="${prodNo}">
         <td class="shoping__cart__item">
             <img src="../../product/mainPic?prodNo=${prodNo}" id="mainPic" alt="">
             <h5><div id="prodName">${prodName}</div><div id="prodSpec">${prodSpec}</div></h5>
@@ -138,7 +138,6 @@ function init() {
     var oldValue = $button.parent().find("input").val();
     if ($button.hasClass("inc")) {
       var newVal = parseFloat(oldValue) + 1;
-      // console.log('xxx');
     } else {
       // Don't allow decrementing below zero
       if (oldValue > 0) {
@@ -227,25 +226,69 @@ function init() {
 
   });
 
-  // 移除購物車商品(未完成)
-  document.querySelector("#remove").addEventListener("click", function(){
-    let shoppingCartNo = parseInt(
-      document.querySelector("#remove").getAttribute("data-shoppingCartNo"));
+  // 移除購物車商品
+  $("div.shoping__cart__table").on("click", "span.icon_close", function () {
+    console.log($(this).closest("tr").attr("data-shoppingCartNo"));
+    // let delete_item = {
+    //   shoppingCartNo: parseInt($(this).closest("tr").attr("data-shoppingCartNo")),
+    // };
+    const shoppingCartNo = parseInt(document.querySelector("#remove").getAttribute("data-shoppingCartNo"));
 
-    $.ajax({
-      url: "../../cart/remove?shoppingCartNo",
-      type: "GET",
-      data: {"shoppingCartNo": shoppingCartNo},
-      dataType: "json",
-      success: function (data) {
-        console.log(data);
-      },
-      error: function (xhr) {
-        console.log(xhr);
-      }
-    });
-
+      fetch(`../../cart/remove?shoppingCartNo=${shoppingCartNo}`, {
+       
+      })
+        .then((r) => r.json())
+        .then((data) => {
+            console.log(data);
+        });
+  
+      let target = $(this).closest("tr");
+  
+      if (target.is(":first-child") && target.is(":last-child")) {
+        // console.log("aaa");
+        target.closest("table").fadeOut(500, function () {
+          $(this).remove();
+          calculateCart();
+        });
+      } else {
+        target.fadeOut(500, function () {
+          // console.log(this);
+          // console.log($(this).is(":last-child"));
+  
+          // if($(this).is(":first-child") && $(this).is(":last-child")) {
+          //     $(this).closest("table").remove();
+          // }
+          $(this).remove();
+          calculateCart();
+        });
+    }
   });
+
+
+
+
+
+
+
+
+  // document.querySelector("#remove").addEventListener("click", function(){
+  //   let shoppingCartNo = parseInt(
+  //     document.querySelector("#remove").getAttribute("data-shoppingCartNo"));
+
+  //   $.ajax({
+  //     url: "../../cart/remove?shoppingCartNo",
+  //     type: "GET",
+  //     data: {"shoppingCartNo": shoppingCartNo},
+  //     dataType: "json",
+  //     success: function (data) {
+  //       console.log(data);
+  //     },
+  //     error: function (xhr) {
+  //       console.log(xhr);
+  //     }
+  //   });
+
+  // });
 
 
 

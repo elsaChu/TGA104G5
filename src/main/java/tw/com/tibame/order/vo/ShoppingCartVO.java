@@ -15,16 +15,16 @@ public class ShoppingCartVO implements java.io.Serializable {
 	@Id
 	@Column(name = "shoppingCartNo")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer shoppingCartNo; // not null auto_increment
+	private Integer shoppingCartNo;
 	
 	@Column(name = "number")
-	private Integer number; // not null
+	private Integer number; 
 	
 	@Column(name = "prodNo")
-	private Integer prodNo; // not null
+	private Integer prodNo; 
 	
 	@Column(name = "shoppingQty")
-	private Integer shoppingQty; // not null
+	private Integer shoppingQty; 
 
 	@Override
 	public String toString() {

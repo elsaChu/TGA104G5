@@ -18,55 +18,58 @@ public class ViewProductOrderVO implements java.io.Serializable {
 
 	@Id
 	@Column(name = "prodOrderNo")
-	private Integer prodOrderNo;	// not null
+	private Integer prodOrderNo; 
 
 	@Column(name = "number")
-	private Integer number;			// not null
+	private Integer number; 
 
 	@Column(name = "amountPrice")
-	private Integer amountPrice;	// not null
+	private Integer amountPrice; 
 
 	@Column(name = "prodTotal")
-	private Integer prodTotal;		// not null
+	private Integer prodTotal; 
 
 	@Column(name = "paymentDate")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Timestamp paymentDate;	// not null
+	private Timestamp paymentDate; 
 
 	@Column(name = "receiverName")
-	private String receiverName;	// not null
+	private String receiverName; 
 
 	@Column(name = "receiverTel")
-	private String receiverTel;		// not null
+	private String receiverTel; 
 
 	@Column(name = "shippingAdd")
-	private String shippingAdd;		// not null
+	private String shippingAdd; 
 
 	@Column(name = "prodOrderStatus")
-	private String prodOrderStatus; // not null
+	private String prodOrderStatus; 
 
 	@Column(name = "deliveryStatus")
-	private String deliveryStatus;	// not null
-	
+	private String deliveryStatus; 
+
+	@Column(name = "orderNotes")
+	private String orderNotes;
+
 	@Column(name = "account")
-	private String account;			// not null
-	
+	private String account; 
+
 	@Column(name = "name")
-	private String name;			// not null
-	
+	private String name; 
+
 	@Column(name = "phoneNumber")
 	private String phoneNumber;
-	
+
 	@Column(name = "email")
-	private String email;			// not null
+	private String email; 
 
 	@Override
 	public String toString() {
 		return "ViewProductOrderVO [prodOrderNo=" + prodOrderNo + ", number=" + number + ", amountPrice=" + amountPrice
 				+ ", prodTotal=" + prodTotal + ", paymentDate=" + paymentDate + ", receiverName=" + receiverName
 				+ ", receiverTel=" + receiverTel + ", shippingAdd=" + shippingAdd + ", prodOrderStatus="
-				+ prodOrderStatus + ", deliveryStatus=" + deliveryStatus + ", account=" + account + ", name=" + name
-				+ ", phoneNumber=" + phoneNumber + ", email=" + email + "]";
+				+ prodOrderStatus + ", deliveryStatus=" + deliveryStatus + ", orderNotes=" + orderNotes + ", account="
+				+ account + ", name=" + name + ", phoneNumber=" + phoneNumber + ", email=" + email + "]";
 	}
 
 	public Integer getProdOrderNo() {
@@ -149,6 +152,14 @@ public class ViewProductOrderVO implements java.io.Serializable {
 		this.deliveryStatus = deliveryStatus;
 	}
 
+	public String getOrderNotes() {
+		return orderNotes;
+	}
+
+	public void setOrderNotes(String orderNotes) {
+		this.orderNotes = orderNotes;
+	}
+
 	public String getAccount() {
 		return account;
 	}
@@ -180,8 +191,5 @@ public class ViewProductOrderVO implements java.io.Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
-	
 
 }
