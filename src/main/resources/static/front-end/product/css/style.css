@@ -178,7 +178,7 @@ ol {
 	text-transform: uppercase;
 	display: inline-block;
 	padding: 13px 30px 12px;
-	background: #7fad39;
+	background: #415A77;
 	border: none;
 }
 
@@ -2218,7 +2218,14 @@ ol {
 	margin-bottom: 12px;
 }
 
-.checkout__order ul li {
+.checkout__order ul  {
+	font-size: 13px;
+	color: #6f6f6f;
+	line-height: 40px;
+	list-style: none;
+}
+
+.checkout__order  li {
 	font-size: 16px;
 	color: #6f6f6f;
 	line-height: 40px;

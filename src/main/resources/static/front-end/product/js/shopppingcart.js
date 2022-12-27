@@ -233,7 +233,7 @@ function init() {
       document.querySelector("#remove").getAttribute("data-shoppingCartNo"));
 
     $.ajax({
-      url: "../../cart/remove?shoppingCartNo",
+      url: "../../cart/remove",
       type: "GET",
       data: {"shoppingCartNo": shoppingCartNo},
       dataType: "json",
