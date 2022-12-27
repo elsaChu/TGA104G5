@@ -5,33 +5,32 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import tw.com.tibame.order.vo.OrderDetailVO;
+import tw.com.tibame.order.vo.ViewOrderDetailVO;
 
 public interface OrderDetailService {
-
-	OrderDetailVO addDetail(Integer prodOrderNo, Integer prodNo, Integer prodQty, Integer subtotal);
+	
+	OrderDetailVO addDetail(OrderDetailVO orderDetailVO);
 
 	// 會員中心 - 單筆訂單查詢
 	List<OrderDetailVO> getByProdOrderNo(Integer prodOrderNo);
+	
+	// 會員中心 - 單筆訂單查詢
+	List<ViewOrderDetailVO> findByProdOrderNo(Integer prodOrderNo);
 
 	// 會員中心 - 更新商品評論
-	OrderDetailVO updateComment(Float commentRanking, String commentContent, Timestamp commentDate, String returnReason,
-			String refundStatus, Date refundSDate, Date refundEDate, Integer itemNo);
+	OrderDetailVO updateComment(Integer itemNo, Float commentRanking, String commentContent);
 
 	// 會員中心 - 申請退貨
-	OrderDetailVO updateReturn(Float commentRanking, String commentContent, Timestamp commentDate, String returnReason,
-			String refundStatus, Date refundSDate, Date refundEDate, Integer itemNo);
+	OrderDetailVO updateReturn(Integer itemNo, String returnReason);
 
 	// 廠商訂單管理 - 更新退款狀態
-	OrderDetailVO updateRefundStatus(Float commentRanking, String commentContent, Timestamp commentDate,
-			String returnReason, String refundStatus, Date refundSDate, Date refundEDate, Integer itemNo);
+	OrderDetailVO updateRefundStatus(Integer itemNo, String refundStatus, Date refundSDate, Date refundEDate);
 
 	// 廠商訂單管理 - 更新退款完成時間
-	OrderDetailVO updateRefundDate(Float commentRanking, String commentContent, Timestamp commentDate,
-			String returnReason, String refundStatus, Date refundSDate, Date refundEDate, Integer itemNo);
+	OrderDetailVO updateRefundDate(Integer itemNo, Date refundSDate, Date refundEDate);
 
-	// 廠商
-	List<OrderDetailVO> getAll();
 
 	OrderDetailVO getOneOrderDetail(Integer itemNo);
+
 
 }

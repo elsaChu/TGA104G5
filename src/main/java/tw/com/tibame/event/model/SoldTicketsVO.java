@@ -5,18 +5,20 @@ import java.util.Arrays;
 public class SoldTicketsVO {
 	private Integer ticketNumber; 
 	private Integer orderID;
-	private Integer eatID;
+	private Integer seatID;
 	private Integer ticketID;
-	private boolean isUse;
+	private Boolean isUse;
 	private Integer orderPrice;
 	private byte[] ticketQR ;
+	
 	@Override
-	public String toString() {
-		return "SoldTicketsVO [ticketNumber=" + ticketNumber + ", orderID=" + orderID + ", eatID=" + eatID
-				+ ", ticketID=" + ticketID + ", isUse=" + isUse + ", orderPrice=" + orderPrice + ", ticketQR="
-				+ Arrays.toString(ticketQR) + "]";
-	}
-	public Integer getTicketNumber() {
+    public String toString() {
+        return "SoldTicketsVO [ticketNumber=" + ticketNumber + ", orderID=" + orderID + ", seatID=" + seatID
+                + ", ticketID=" + ticketID + ", isUse=" + isUse + ", orderPrice=" + orderPrice + ", ticketQR="
+                + Arrays.toString(ticketQR) + "]";
+    }
+
+    public Integer getTicketNumber() {
 		return ticketNumber;
 	}
 	public void setTicketNumber(Integer ticketNumber) {
@@ -28,22 +30,25 @@ public class SoldTicketsVO {
 	public void setOrderID(Integer orderID) {
 		this.orderID = orderID;
 	}
-	public Integer getEatID() {
-		return eatID;
-	}
-	public void setEatID(Integer eatID) {
-		this.eatID = eatID;
-	}
-	public Integer getTicketID() {
+	
+	public Integer getSeatID() {
+        return seatID;
+    }
+
+    public void setSeatID(Integer seatID) {
+        this.seatID = seatID;
+    }
+
+    public Integer getTicketID() {
 		return ticketID;
 	}
 	public void setTicketID(Integer ticketID) {
 		this.ticketID = ticketID;
 	}
-	public boolean isUse() {
+	public Boolean isUse() {
 		return isUse;
 	}
-	public void setUse(boolean isUse) {
+	public void setUse(Boolean isUse) {
 		this.isUse = isUse;
 	}
 	public Integer getOrderPrice() {

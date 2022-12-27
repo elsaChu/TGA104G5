@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-    <link   rel="stylesheet" type="text/css" href="${context}/main_frame/css/bootstrap.css" />
+<%--     <link   rel="stylesheet" type="text/css" href="${context}/main_frame/css/bootstrap.css" /> --%>
     <jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
     <link   rel="stylesheet" type="text/css" href="${context}/back-organizer-end/event/css/eventStyle3.css" />
 </head>
@@ -48,7 +48,7 @@
              <button type="button" class="btn btn-primary row3btn" onclick="saveSeatTemplate();" >儲存座位表</button>
             </div>
         </div>
-        <input type="hidden" id="eventNumber" value="${eventNumber}">
+        <input type="hidden" id="eventNumber" value="${up_adddata.page1.eventNumber}">
         <input type="hidden" id="curX" >
         <input type="hidden" id="curY" >
         <form action="${context}/main_frame/index_manufacturer.jsp"></form>
@@ -58,7 +58,7 @@
 	</script>
 
     <script src="${context}/back-organizer-end/event/datetimepicker/jquery.js"></script>
-    <script src="${context}/main_frame/js/bootstrap.js"></script>
+<%--     <script src="${context}/main_frame/js/bootstrap.js"></script> --%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="${context}/back-organizer-end/event/js/eventJS3.js"></script>
 </body>

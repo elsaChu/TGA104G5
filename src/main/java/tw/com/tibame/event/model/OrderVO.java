@@ -13,19 +13,42 @@ public class OrderVO {
 	private String pData;
 	private String reason;
 	private Integer reasonMoney;
-	private Double eventScore;
+	private Float eventScore;
 	private String eventSContent;
 	private Timestamp eventSDate;
 	
-	@Override
-	public String toString() {
-		return "OrderVO [orderID=" + orderID + ", eventNumber=" + eventNumber + ", number=" + number + ", orderDate="
-				+ orderDate + ", orderType=" + orderType + ", total=" + total + ", totalTicket=" + totalTicket
-				+ ", pData=" + pData + ", reason=" + reason + ", reasonMoney=" + reasonMoney + ", eventScore="
-				+ eventScore + ", eventSContent=" + eventSContent + ", eventSDate=" + eventSDate + "]";
-	}
+	
+	public OrderVO() {
+    }
 
-	public Integer getOrderID() {
+
+	@Override
+    public String toString() {
+        return "OrderVO [orderID=" + orderID + ", eventNumber=" + eventNumber + ", number=" + number + ", orderDate="
+                + orderDate + ", orderType=" + orderType + ", total=" + total + ", totalTicket=" + totalTicket
+                + ", pData=" + pData + ", reason=" + reason + ", reasonMoney=" + reasonMoney + ", eventScore="
+                + eventScore + ", eventSContent=" + eventSContent + ", eventSDate=" + eventSDate + "]";
+    }
+
+    public OrderVO(Integer orderID, Integer eventNumber, Integer number, Timestamp orderDate, String orderType,
+            Integer total, Integer totalTicket, String pData, String reason, Integer reasonMoney, Float eventScore,
+            String eventSContent, Timestamp eventSDate) {
+        this.orderID = orderID;
+        this.eventNumber = eventNumber;
+        this.number = number;
+        this.orderDate = orderDate;
+        this.orderType = orderType;
+        this.total = total;
+        this.totalTicket = totalTicket;
+        this.pData = pData;
+        this.reason = reason;
+        this.reasonMoney = reasonMoney;
+        this.eventScore = eventScore;
+        this.eventSContent = eventSContent;
+        this.eventSDate = eventSDate;
+    }
+
+    public Integer getOrderID() {
 		return orderID;
 	}
 
@@ -105,13 +128,6 @@ public class OrderVO {
 		this.reasonMoney = reasonMoney;
 	}
 
-	public Double getEventScore() {
-		return eventScore;
-	}
-
-	public void setEventScore(Double eventScore) {
-		this.eventScore = eventScore;
-	}
 
 	public String getEventSContent() {
 		return eventSContent;
@@ -128,6 +144,16 @@ public class OrderVO {
 	public void setEventSDate(Timestamp eventSDate) {
 		this.eventSDate = eventSDate;
 	}
+
+    public Float getEventScore() {
+        return eventScore;
+    }
+
+    public void setEventScore(Float eventScore) {
+        this.eventScore = eventScore;
+    }
+	
+	
 	
 	
 }

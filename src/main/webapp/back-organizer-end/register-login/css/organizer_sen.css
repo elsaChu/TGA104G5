@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+input[type="submit"] {
+  background: #415A77;
+  color: #FFF;
+  font-size: 17px;
+  font-weight: 400;
+  padding: 8px 7px;
+  width: 20%;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 6px;
+  -webkit-border-radius: 19px;
+  -moz-border-radius: 6px;
+  -o-border-radius: 6px;
+  margin: 50px 7px 0px 700px;
+  outline: none;
+  border: none;
+ }
+.subjectText input[type="text"]{ 
+  outline: none;
+  text-align:"left"; 
+  font-size: 14px;
+  color: #030301; /*文字輸入字體顏色*/
+  height: auto;
+  background: #e5f5fe;
+  padding:15px;
+  border: 1px solid #e5f5fe;
+  border-radius:10px;
+  margin: 50px 0px 0px -200px;
+  width: 40%;
+}
+
+.newSletterText textarea{ 
+  outline: none;
+  text-align:"left"; 
+  font-size: 14px;
+  color: #030301; /*文字輸入字體顏色*/
+  height: 300px;
+  padding:15px;
+  background: #e5f5fe;
+  border: 1px solid #e5f5fe;
+  border-radius:10px;
+  margin: 20px 0px 0px 62px;
+  width: 40%;
+}
+
+/* -------- */
+
+.Data-Content {
+  height: 0px;
+  width: 100%; /* 表單寬度 */
+  line-height: 40px;
+}
+.Data-Content2 {
+  height: 5px;
+  width: 100%; /* 表單寬度 */
+  line-height: 45px;
+}
+
+.Data-Title {
+  font-size: 14px;
+  float: left;
+  width: 25%; /* Label寬度，視情況調整 */
+  margin-right: 15px;
+}
+.Data-Title2 {
+  font-size: 14px;
+  float: left;
+  width: 25%; /* Label寬度，視情況調整 */
+  margin-right: 15px;
+}
+
+.Data-Items {
+  float: left;
+  width:70%;
+}
+.Data-Items2 {
+  float: left;
+  width: 100%;
+}
+.AlignRight {
+  text-align: right;
+}
+.AlignRight2 {
+  text-align: right;
+}
+.checkbox{
+  font-size: 14px;
+  float: left;
+}
+.submit{
+  float: right;
+}
+.submit input[type="submit"] {
+  background: #000000;
+  color: #FFF;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 5px 5px;
+  width: 200px;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 6px;
+  -webkit-border-radius: 19px;
+  -moz-border-radius: 6px;
+  -o-border-radius: 6px;
+  margin: 0px 0px 0px 0px;
+  outline: none;
+  border: none;
+ }
+ .set input[type="text"]{ 
+  outline: none;
+  font-size: 14px;
+  color: #030301; /*文字輸入字體顏色*/
+  padding: 5px 10px;
+  background: #b3babe;
+  border: 1px solid #b3babe;
+  border-radius:10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  margin: 0px 0px 14px 0px;
+  width: 40%;
+}
+h3 {float:left;text-align:center;}
+h3 {width:20%;margin-top:10px;}

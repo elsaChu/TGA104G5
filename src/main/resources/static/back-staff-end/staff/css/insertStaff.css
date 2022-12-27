@@ -1,0 +1,43 @@
+.my_size {
+        margin: 0 auto;
+        width: 970px;
+}
+
+h2 {
+        margin: 20px 10px 10px 0px;
+        display: inline-block;
+        text-align: center;
+      }
+      
+.form-control{
+	height: 23px;
+	width: 200px;
+	margin: 8px auto;
+}
+
+.div_text{
+  display: inline-block;
+  vertical-align:top;
+}
+
+.div_img{
+  display: inline-block;
+  margin-left: 30px;
+}
+
+.myButton{
+  text-align: left;
+  margin-top: 20px;
+}
+
+.preview{
+  max-width: 250px;
+  border-radius: 3px;
+}
+
+.picture_list{
+  list-style: none;
+  margin: 10px 0px 10px 0px;
+  padding: 0;
+  vertical-align: top;
+}

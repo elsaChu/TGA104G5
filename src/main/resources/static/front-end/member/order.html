@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <!-- Title -->
+  <title>TICK IT</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="./images/logo.ico" />
+  <link   rel="stylesheet" type="text/css" href="../../main_frame/css/bootstrap.min.css" />
+  <link   rel="stylesheet" type="text/css" href="./css/index_header.css" />
+  <!-- <link   rel="stylesheet" type="text/css" href="../../main_frame/css/index_footer.css" /> -->
+
+  <!-- Style CSS -->
+  <!-- <link rel="stylesheet" href="../../main_frame/css/style_member.css" /> -->
+  <link rel="stylesheet" href="./css/memberCentre.css" />
+  <link rel="stylesheet" href="./css/order.css">
+</head>
+
+<body>
+  <header>
+ 
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-while header_height">      
+      <a class="navbar-brand" href="../main/Indexbody.jsp">
+            <img src="../../main_frame/images/logo80.png" style="height:50px;width:100px;" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link item_color" href="../main/Indexbody.jsp">首頁</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link item_color" href="../main/IndexSearch.html">活動</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link item_color" href="./memberFavoriteEvent.html">我的收藏</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link item_color" href="../product/shop.html">商品專區</a>
+            </li>
+          </ul>
+          <!-- unlogin -->
+          <div id="login_menuB"  class="hidden_login">
+            <ul class="navbar-nav mr-right">
+              <li class="nav-item">
+                <a class="nav-link item_color" href="./memberRegister.jsp">註冊</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link item_color disabled" href="#">|</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link item_color" href="./memberLogin.jsp">登入</a>
+              </li>
+            </ul>
+          </div>
+          <!-- login -->
+          <div id="login_menuA"  class="hidden_login">
+            <ul class="navbar-nav mr-right">
+              <li class="nav-item dropdown">
+                <a class="nav-link item_color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <iconify-icon icon="heroicons:user-circle-solid" width="30" height="30"></iconify-icon>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="./memberCentre.jsp">
+                    <iconify-icon class="sign-out" icon="heroicons:cog-8-tooth" width="20" height="20"></iconify-icon>
+                    設定
+                  </a>
+                  <!-- <div class="dropdown-divider"></div> -->
+                  <a class="dropdown-item" href="../event/ticketOrder.jsp">
+                    <iconify-icon class="sign-out" icon="heroicons:ticket" width="20" height="20"></iconify-icon>
+                    票券訂單
+                  </a>
+                  <!-- <div class="dropdown-divider"></div> -->
+                  <a class="dropdown-item" href="./order.html">
+                    <iconify-icon class="sign-out" icon="heroicons:gift" width="20" height="20"></iconify-icon>
+                      商品訂單
+                  </a>
+                  <!-- <div class="dropdown-divider"></div> -->
+<!-- TODO!! 連到首頁 -->
+                  <a class="dropdown-item" href="#">
+                    <form action="./MemberServlet" method="POST" >
+                    <iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20" style="margin: 0px -7px 0px 2px;"></iconify-icon>
+                      <input class="signOut_btn" type="submit" value="登出">
+                      <input type="hidden" name="action" value="logout">
+                    </form>
+                  </a>
+                </div>
+              </li>
+<!-- TODO!! 連到鈴鐺 -->              
+              <li class="nav-item">
+                <a class="nav-link item_color" href="#">
+                  <iconify-icon icon="heroicons:bell-20-solid" width="30" height="30" ></iconify-icon>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link item_color" href="./memberFavoriteEvent.html">
+                  <iconify-icon icon="heroicons:heart-20-solid" width="30" height="30" ></iconify-icon>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link item_color" href="../product/shoppingcart.html">
+                  <iconify-icon icon="heroicons:shopping-cart-20-solid" width="30" height="30"></iconify-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+
+    <!-- 登入結束 -->
+
+    <!-- 空行 -->
+    <div class="row">
+      <div class="col-12">　</div>
+    </div>
+  </header>
+
+  <span id="tab-1">帳號設定</span>
+  <span id="tab-2">修改密碼</span>
+  <span id="tab-3">票券訂單</span>
+  <span id="tab-4">商品訂單</span>
+  <!-- 頁籤按鈕 -->
+  <div id="tab">
+    <ul>
+      <li><a href="./memberCentre.jsp">帳號設定</a></li>
+      <li><a href="./memberCentreUpdatePwd.jsp">修改密碼</a></li>
+
+      <!-- TO DO -->
+      <li><a href="../event/ticketOrder.jsp">票券訂單</a></li> 
+      <li><a class="active" href="./order.html">商品訂單</a></li>
+    </ul>
+
+    <!-- 頁籤的內容區塊 -->
+
+    <div class="tab-content-4">
+      <div class="container">
+        <br>
+        
+        <div class="main" id="table1">
+          <table>
+            <thead>
+              <tr>
+                <th>訂單編號</th>
+                <th>付款金額</th>
+                <th>付款日期</th>
+                <th>訂單狀態</th>
+                <th>配送狀態</th>
+                <td> </td>
+              </tr>
+            </thead>
+
+            <tbody id="order">
+            </tbody>
+          </table>
+        </div>
+        <br/><br/>
+      </div>
+    </div>
+  </div>
+
+  <!-- ##### Footer 開始 ##### -->
+  <!-- <footer class="footer-area text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="classy-nav-container breakpoint-off">
+            <nav class="classy-navbar justify-content-center">
+              <div class="classy-navbar-toggler">
+                <span class="navbarToggler"><span></span><span></span><span></span></span>
+              </div> -->
+
+              <!-- Menu -->
+              <!-- <div class="classy-menu"> -->
+                <!-- close btn -->
+                <!-- <div class="classycloseIcon">
+                  <div class="cross-wrap">
+                    <span class="top"></span><span class="bottom"></span>
+                  </div>
+                </div> -->
+
+                <!-- Nav Start -->
+                <!-- <div class="classynav">
+                  <ul>
+                    <li><a href="#">常見問題</a></li>
+                    <li><a href="#">聯絡我們</a></li>
+                    <li><a href="#">系統公告</a></li>
+                    <li><a href="#">網站地圖</a></li>
+                    <li><a href="#">隱私權政策</a></li>
+                    <li><a href="#">服務條款</a></li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </div> -->
+
+          <!-- Footer Social Area -->
+        <!-- </div>
+      </div> -->
+    <!-- </div> -->
+  <!-- </footer> -->
+  <!-- ##### Footer 結束 ##### -->
+
+  <nav class="navbar relative-bottom navbar-expand-lg navbar-light bg-while">
+    <div class="container">
+            <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">常見問題 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">聯絡我們</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../main/IndexBulletin.html">系統公告</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">網站地圖</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">隱私權政策</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">服務條款</a>
+                </li>
+              </ul>
+            </div>
+    </div>
+</nav>
+
+
+  <!-- jQuery (Necessary for All JavaScript Plugins) -->
+  <script src="../../main_frame/js/jquery/jquery-2.2.4.min.js"></script>
+  <!-- Popper js -->
+  <!-- <script src="../../main_frame/js/popper.min.js"></script> -->
+  <!-- Bootstrap js -->
+  <script src="../../main_frame/js/bootstrap.min.js"></script>
+  <!-- Plugins js -->
+  <!-- <script src="../../main_frame/js/plugins.js"></script> -->
+  <!-- Active js -->
+  <!-- <script src="../../main_frame/js/active.js"></script> -->
+
+  <!-- <script src="../../main_frame/js/model.js"></script> -->
+
+  <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+  <script src="./js/order.js"></script>
+  <script src="./js/index_header.js"></script>
+</body>
+
+</html>

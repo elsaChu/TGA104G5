@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TICK IT | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+
+<!--貼這段-->
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/logo.ico" />
+    <link rel="stylesheet" href="../member/css/index_header.css" type="text/css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="style_member.css" />
+    <link rel="stylesheet" href="./css/checkout.css">
+<!--貼這段-->
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <!-- <div id="preloder">
+        <div class="loader"></div>
+    </div> -->
+
+    <!-- Humberger Begin -->
+    <!-- <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+        <div class="humberger__menu__logo">
+            <a href="#"><img src="img/logo.png" alt=""></a>
+        </div>
+        <div class="humberger__menu__cart">
+            <ul>
+                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+            </ul>
+            <div class="header__cart__price">item: <span>$150.00</span></div>
+        </div>
+        <div class="humberger__menu__widget">
+            <div class="header__top__right__language">
+                <img src="img/language.png" alt="">
+                <div>English</div>
+                <span class="arrow_carrot-down"></span>
+                <ul>
+                    <li><a href="#">Spanis</a></li>
+                    <li><a href="#">English</a></li>
+                </ul>
+            </div>
+            <div class="header__top__right__auth">
+                <a href="#"><i class="fa fa-user"></i> Login</a>
+            </div>
+        </div>
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li class="active"><a href="./index.html">Home</a></li>
+                <li><a href="./shop-grid.html">Shop</a></li>
+                <li><a href="#">Pages</a>
+                    <ul class="header__menu__dropdown">
+                        <li><a href="./shop-details.html">Shop Details</a></li>
+                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                        <li><a href="./checkout.html">Check Out</a></li>
+                        <li><a href="./blog-details.html">Blog Details</a></li>
+                    </ul>
+                </li>
+                <li><a href="./blog.html">Blog</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="header__top__right__social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+        </div>
+        <div class="humberger__menu__contact">
+            <ul>
+                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                <li>Free Shipping for all Order of $99</li>
+            </ul>
+        </div>
+    </div> -->
+    <!-- Humberger End -->
+
+    <!-- Header Section Begin -->
+    <header>
+        <!-- 登入開始 -->
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-while header_height">      
+            <a class="navbar-brand" href="../main/Indexbody.jsp">
+                  <img src="../../main_frame/images/logo80.png" style="height:50px;width:100px;" />
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto">
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../main/Indexbody.jsp">首頁</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../main/IndexSearch.html">活動</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../memberFavoriteEvent.html">我的收藏</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="./shop.html">商品專區</a>
+                  </li>
+                </ul>
+                <!-- unlogin -->
+                <div id="login_menuB"  class="hidden_login">
+                  <ul class="navbar-nav mr-right">
+                    <li class="nav-item">
+                      <a class="nav-link item_color" href="../member/memberRegister.jsp">註冊</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link item_color disabled" href="#">|</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link item_color" href="../member/memberLogin.jsp">登入</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- login -->
+                <div id="login_menuA"  class="hidden_login">
+                  <ul class="navbar-nav mr-right">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link item_color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <iconify-icon icon="heroicons:user-circle-solid" width="30" height="30"></iconify-icon>
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="../member/memberCentre.jsp">
+                          <iconify-icon class="sign-out" icon="heroicons:cog-8-tooth" width="20" height="20"></iconify-icon>
+                          設定
+                        </a>
+                        <!-- <div class="dropdown-divider"></div> -->
+      <!-- TODO!! 連到票券訂單 -->
+                        <a class="dropdown-item" href="../event/ticketOrder.jsp">
+                          <iconify-icon class="sign-out" icon="heroicons:ticket" width="20" height="20"></iconify-icon>
+                          票券訂單
+                        </a>
+                        <!-- <div class="dropdown-divider"></div> -->
+                        <a class="dropdown-item" href="../member/order.html">
+                          <iconify-icon class="sign-out" icon="heroicons:gift" width="20" height="20"></iconify-icon>
+                            商品訂單
+                        </a>
+                        <!-- <div class="dropdown-divider"></div> -->
+      <!-- TODO!! 連到首頁 -->
+                        <a class="dropdown-item" href="#">
+                          <form action="../member/MemberServlet" method="POST" >
+                          <iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20" style="margin: 0px -7px 0px 2px;"></iconify-icon>
+                            <input class="signOut_btn" type="submit" value="登出">
+                            <input type="hidden" name="action" value="logout">
+                          </form>
+                        </a>
+                      </div>
+                    </li>
+      <!-- TODO!! 連到鈴鐺 -->              
+                    <li class="nav-item">
+                      <a class="nav-link item_color" href="#">
+                        <iconify-icon icon="heroicons:bell-20-solid" width="30" height="30" ></iconify-icon>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link item_color" href="../member/memberFavoriteEvent.html">
+                        <iconify-icon icon="heroicons:heart-20-solid" width="30" height="30" ></iconify-icon>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link item_color" href="./shoppingcart.html">
+                        <iconify-icon icon="heroicons:shopping-cart-20-solid" width="30" height="30"></iconify-icon>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </div>
+  
+        <!-- 登入結束 -->
+      <!-- 空行 -->
+      <div class="row"><div class="col-12">　</div></div>
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Hero Section Begin -->
+    <!-- <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>All departments</span>
+                        </div>
+                        <ul>
+                            <li><a href="#">Fresh Meat</a></li>
+                            <li><a href="#">Vegetables</a></li>
+                            <li><a href="#">Fruit & Nut Gifts</a></li>
+                            <li><a href="#">Fresh Berries</a></li>
+                            <li><a href="#">Ocean Foods</a></li>
+                            <li><a href="#">Butter & Eggs</a></li>
+                            <li><a href="#">Fastfood</a></li>
+                            <li><a href="#">Fresh Onion</a></li>
+                            <li><a href="#">Papayaya & Crisps</a></li>
+                            <li><a href="#">Oatmeal</a></li>
+                            <li><a href="#">Fresh Bananas</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    All Categories
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="What do yo u need?">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+65 11.188.888</h5>
+                                <span>support 24/7 time</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <!-- <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Checkout</h2>
+                        <div class="breadcrumb__option">
+                            <a href="./index.html">Home</a>
+                            <span>Checkout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- Breadcrumb Section End -->
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad" id="checkout">
+        <div class="container">
+            <!-- <h2>購物車</h2> -->
+            <!-- <div class="row">
+                <div class="col-lg-12">
+                    <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code
+                    </h6>
+                </div>
+            </div> -->
+            <div class="checkout__form">
+                <h4>付款資訊</h4>
+                <form action="#">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input" id="checkout__input">
+                                        <p>收件人姓名<span>*</span></p>
+                                        <input type="text" id="receiverName" placeholder="請填寫真實姓名，以確保順利收件">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input" id="checkout__input">
+                                        <p>收件人手機<span>*</span></p>
+                                        <input type="text" id="receiverTel" placeholder="請輸入連續數字">
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="checkout__input" id="checkout__input">
+                                        <p>收件地址<span>*</span></p>
+                                        <input type="text" id="shippingAdd">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input" id="checkout__input">
+                                        <p>持卡人姓名<span>*</span></p>
+                                        <input type="text" placeholder="">
+                                    </div>
+                                    <div class="checkout__input" id="checkout__input">
+                                        <p>有效期<span>*</span></p>
+                                        <input type="text" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input" id="checkout__input">
+                                        <p>信用卡卡號<span>*</span></p>
+                                        <input type="text" placeholder="">
+                                    </div>
+                                    <div class="checkout__input" id="checkout__input">
+                                        <p>安全碼<span>*</span></p>
+                                        <input type="text" placeholder="請輸入信用卡背面末三碼">
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="checkout__input" id="checkout__input">
+                                        <p>備註<span>*</span></p>
+                                        <input type="text" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <!-- <div class="checkout__input">
+                                <p>Postcode / ZIP<span>*</span></p>
+                                <input type="text">
+                            </div> -->
+                            <!-- <div class="checkout__input__checkbox">
+                                <label for="acc">
+                                    Create an account?
+                                    <input type="checkbox" id="acc">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <p>Create an account by entering the information below. If you are a returning customer
+                                please login at the top of the page</p>
+                            <div class="checkout__input">
+                                <p>Account Password<span>*</span></p>
+                                <input type="text">
+                            </div> -->
+                            <!-- <div class="checkout__input__checkbox">
+                                <label for="diff-acc">
+                                    Ship to a different address?
+                                    <input type="checkbox" id="diff-acc">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div> -->
+
+                          
+                            
+                            
+
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="checkout__order">
+                                <h4>我的訂單</h4>
+                                <div class="checkout__order__products">商品 <span class="subtotal_price">Total</span></div>
+                                <ul id="myorder">
+                                    <!-- <li>Vegetable’s Package <span class="subtotal_price">$75.99</span></li>
+                                    <li>Fresh Vegetable <span class="subtotal_price">$151.99</span></li>
+                                    <li>Organic Bananas <span class="subtotal_price">$53.99</span></li> -->
+                                </ul>
+                                <div class="checkout__order__subtotal" id="payment"></div>
+                                <!-- <div class="checkout__order__total">Total <span>$750.99</span></div> -->
+                               
+                                <button type="submit" class="site-btn" id="sitebtn">確 認 付 款</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+
+    <!-- Footer Section Begin -->
+    <!-- <footer class="footer-area text-center">
+        <div class="container">
+        <div class="row">
+            <div class="col-12">
+            <div class="classy-nav-container breakpoint-off">
+                <nav class="classy-navbar justify-content-center">
+                <div class="classy-navbar-toggler">
+                    <span class="navbarToggler">
+                        <span></span><span></span><span></span>
+                    </span>
+                </div> -->
+
+                <!-- Menu -->
+                <!-- <div class="classy-menu"> -->
+                    <!-- close btn -->
+                    <!-- <div class="classycloseIcon">
+                    <div class="cross-wrap">
+                        <span class="top"></span><span class="bottom"></span>
+                    </div>
+                    </div> -->
+
+                    <!-- Nav Start -->
+                    <!-- <div class="classynav">
+                    <ul>
+                        <li><a href="#">常見問題</a></li>
+                        <li><a href="#">聯絡我們</a></li>
+                        <li><a href="#">系統公告</a></li>
+                        <li><a href="#">網站地圖</a></li>
+                        <li><a href="#">隱私權政策</a></li>
+                        <li><a href="#">服務條款</a></li>
+                    </ul>
+                    </div>
+                </div>
+                </nav>
+            </div> -->
+
+            <!-- Footer Social Area -->
+            <!-- </div>
+        </div>
+        </div>
+    </footer> -->
+    <!-- Footer Section End -->
+    <nav class="navbar relative-bottom navbar-expand-lg navbar-light bg-while">
+        <div class="container">
+                <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">常見問題 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">聯絡我們</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="../main/IndexBulletin.html">系統公告</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">網站地圖</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">隱私權政策</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">服務條款</a>
+                    </li>
+                  </ul>
+                </div>
+        </div>
+    </nav>
+
+
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+
+<!--貼這段-->
+    <!-- Popper js -->
+    <!-- <script src="../../main_frame/js/popper.min.js"></script> -->
+    <!-- Plugins js -->
+    <!-- <script src="../../main_frame/js/plugins.js"></script> -->
+    <!-- Active js -->
+    <!-- <script src="../../main_frame/js/active.js"></script> -->
+    <!-- <script src="../../main_frame/js/model.js"></script> -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+    <script src="./js/checkout.js"></script>
+<!--貼這段-->
+
+</body>
+
+</html>

@@ -3,7 +3,9 @@ package tw.com.tibame.event.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -24,8 +26,12 @@ import org.hibernate.internal.build.AllowSysOut;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import tw.com.tibame.event.model.EventClassService;
+import tw.com.tibame.event.model.EventClassVO;
 import tw.com.tibame.event.model.EventService;
 import tw.com.tibame.event.model.EventVO;
+import tw.com.tibame.organizer.model.OrganizerVO;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -35,9 +41,9 @@ import com.google.gson.GsonBuilder;
 public class addEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		doPost(req,res);
-	}
+//	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+//		doPost(req,res);
+//	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -45,18 +51,27 @@ public class addEventServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		
-		
-		
 		String action = req.getParameter("action");
+		System.out.println("action="+action);
+		//insert page 1
 		if("page1".equals(action)) {
 			System.out.println("in page1");
 			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-				
+			
+			//廠商登入檢查
+			OrganizerVO organizer = (OrganizerVO)session.getAttribute("loginOrganizer");
+			if(organizer == null) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-organizer-end/register-login/OrganizerLogin1.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			
 			Integer organizerNumber = null;
 			try {
-				organizerNumber = Integer.valueOf("1"); //等串起來要改
+				organizerNumber = Integer.valueOf(organizer.getOrganizerNumber());
 			} catch (NumberFormatException e) {
 				errorMsgs.add("未登入請重新登入");
 			}
@@ -69,14 +84,15 @@ public class addEventServlet extends HttpServlet {
 			java.sql.Timestamp eventStartDate = null;
 			try {
 				eventStartDate = java.sql.Timestamp.valueOf(req.getParameter("start_date").trim());
-				System.out.println("page1 date=" + eventStartDate);
+//				System.out.println("page1 date=" + eventStartDate);
 			} catch (IllegalArgumentException e) {
 				errorMsgs.add("請輸入日期!");
 			}
 			
+			String eventenddatestr=req.getParameter("end_date").trim();
 			java.sql.Timestamp eventEndDate = null;
 			try {
-				eventEndDate = java.sql.Timestamp.valueOf(req.getParameter("end_date").trim());
+				eventEndDate = java.sql.Timestamp.valueOf(eventenddatestr);
 				if(eventStartDate !=null) {
 					if(eventEndDate.compareTo(eventStartDate) == -1) {
 						errorMsgs.add("日期區間不對!");
@@ -131,7 +147,7 @@ public class addEventServlet extends HttpServlet {
 			}
 			
 			String needSeat = req.getParameter("needSeat");
-			System.out.println(needSeat);
+//			System.out.println(needSeat);
 			Boolean needSeat_ = false;
 			if ("on".equals(needSeat)) {
 				needSeat_ = true;
@@ -147,9 +163,27 @@ public class addEventServlet extends HttpServlet {
 			EventVO eventvo= new EventVO();
 			eventvo.setOrganizerNumber(organizerNumber);
 			eventvo.setEventName(eventName);
-			eventvo.setEventStartDate(eventStartDate);
-			eventvo.setEventEndDate(eventEndDate);
-			eventvo.setPeopleNumber(peopleNumber);
+			if(eventStartDate == null) {
+				req.setAttribute("eventStartDate", "");
+			}else {
+				eventvo.setEventStartDate(eventStartDate);
+				req.setAttribute("eventStartDate", eventStartDate);
+			}
+			
+			if(eventEndDate == null) {
+				req.setAttribute("eventEndDate", "");
+			}else {
+				eventvo.setEventEndDate(eventEndDate);
+				req.setAttribute("eventEndDate", eventEndDate);
+			}
+			
+			if(peopleNumber == null) {
+				req.setAttribute("peopleNumber", "");
+			}else {
+				eventvo.setPeopleNumber(peopleNumber);
+				req.setAttribute("peopleNumber", peopleNumber);
+			}
+			
 			eventvo.setEventPlace(eventPlace);
 			eventvo.setEventP2(eventP2);
 			eventvo.setEventSummary(eventSummary);
@@ -190,9 +224,10 @@ public class addEventServlet extends HttpServlet {
 				String name = bigImg.getName();
 				InputStream in = bigImg.getInputStream();
 				bigimg = new byte[in.available()];
+				System.out.println("bigimg bytes = "+bigimg);
 				in.read(bigimg);
 				in.close();
-			}	
+			}
 			eventvo.setBigImg(bigimg);
 			
 			//set data go to page1
@@ -206,13 +241,16 @@ public class addEventServlet extends HttpServlet {
 			System.out.println(filename);
 			System.out.println(smallImgfilename);
 			session.setAttribute("adddata", map);
+//			System.out.println(eventenddatestr);
+			session.setAttribute("maxDate", eventenddatestr);
+			System.out.println(eventvo.toString());
 			RequestDispatcher failureView = req
 					.getRequestDispatcher("/back-organizer-end/event/addEvent2.jsp");
 			failureView.forward(req, res);
 			return;
 		}
-		System.out.println("action="+action);
-		//page2
+		
+		//insert page2
 		if("page2".equals(action)) {
 			System.out.println("in page2");
 			Map map = (Map)session.getAttribute("adddata");
@@ -282,6 +320,15 @@ public class addEventServlet extends HttpServlet {
 						if(start_date !=null) {
 							if(end_date.compareTo(start_date) == -1) {
 								result.put("end_datemsgeday","日期區間不對!");
+								haserr =true;
+							}
+							String maxDateStr =(String)session.getAttribute("maxDate");
+//							System.out.println("str="+maxDateStr);
+							Timestamp maxDate =Timestamp.valueOf(maxDateStr);
+//							System.out.println("date="+maxDate);
+//							System.out.println("end cop max ="+end_date.compareTo(maxDate));
+							if(end_date.compareTo(maxDate) == 1) {
+								result.put("max_dateerr","售票結束日期不可超過活動結束日期!");
 								haserr =true;
 							}
 						}

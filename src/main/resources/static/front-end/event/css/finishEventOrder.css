@@ -1,0 +1,32 @@
+ /* Button樣式 */
+ .myButton_finEvnOrder{
+	background-color: #415A77;
+    border-color: #415A77;
+    color: #FFF;
+}
+
+.card{
+	width: 100%;
+}
+
+.left_div{
+	background-color:#ACB7C3;
+	margin-top:-20px;
+	margin-bottom:-20px;
+	margin-left:-7px;
+	border-radius: 3px 0px 0px 3px;
+}
+
+.icon_div{
+	display: flex;
+	align-items: center;
+}
+
+.ticket_div{
+	border-bottom:0.5px;
+	border-color:#DFDFDF;
+	border-bottom-style: solid;
+}
+
+
+

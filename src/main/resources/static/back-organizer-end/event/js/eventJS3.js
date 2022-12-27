@@ -1,26 +1,22 @@
 $(function () {
-    // getSeat();
+	if($('#eventNumber').val() != ""){
+		getSeat();	
+	}
+     
 });
 
 //select seat setting
 function getSeat() {
     $.ajax({
-        url: './seat',
+        url: context+'/UpdateEventServlet',
         method: 'POST',
         dataType: 'json',
-        data: { action: 'getSeat', eventNumber: $('#eventNumber').val() },
+        data: { action: 'selectSeat', eventNumber: $('#eventNumber').val() },
         success: function (data) {
-
-            if (!data || !data.success) {
-                alert('發生異常');
-                return false;
-            }
-            let seatInfo = data.seatInfo;
-            if (!seatInfo || seatInfo.length == 0) {
-                //沒有座位設定
-                alert('目前此場地沒有座位設定');
-            } else {
-                //產生當前座位設定
+			console.log(data);
+			console.log(typeof(data));
+            if (data.success) {
+				//產生當前座位設定
                 $('#curX').val(data.x);
                 $('#curY').val(data.y);
                 genSeatTemplate(data);
@@ -37,7 +33,8 @@ function genSeatTemplate(data) {
     if (data) {
         xVal = data.x;
         yVal = data.y;
-        seatInfo = data.seatInfo;
+        seatInfo = data.seatlist;
+        console.log(seatInfo);
     } else {
         try {
             xVal = new Number($('#xVal').val());

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TICK IT | 購物車</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+
+<!--貼這段-->
+    <!-- Favicon -->
+    <link rel="stylesheet" href="../member/css/index_header.css" type="text/css">
+    <link rel="icon" href="../../main_frame/images/logo.ico" />
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="style_member.css" />
+    <link rel="stylesheet" href="./css/shoppingcart.css">
+<!--貼這段-->
+</head>
+
+<body>
+    
+
+    <!-- Header Section Begin -->
+    <header>
+      <!-- 登入開始 -->
+      <div class="container">
+          <nav class="navbar navbar-expand-lg navbar-light bg-while header_height">      
+          <a class="navbar-brand" href="../main/Indexbody.jsp">
+                <img src="../../main_frame/images/logo80.png" style="height:50px;width:100px;" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                  <a class="nav-link item_color" href="../main/Indexbody.jsp">首頁</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link item_color" href="../main/IndexSearch.html">活動</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link item_color" href="../memberFavoriteEvent.html">我的收藏</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link item_color" href="./shop.html">商品專區</a>
+                </li>
+              </ul>
+              <!-- unlogin -->
+              <div id="login_menuB"  class="hidden_login">
+                <ul class="navbar-nav mr-right">
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../member/memberRegister.jsp">註冊</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color disabled" href="#">|</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../member/memberLogin.jsp">登入</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- login -->
+              <div id="login_menuA"  class="hidden_login">
+                <ul class="navbar-nav mr-right">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link item_color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <iconify-icon icon="heroicons:user-circle-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="../member/memberCentre.jsp">
+                        <iconify-icon class="sign-out" icon="heroicons:cog-8-tooth" width="20" height="20"></iconify-icon>
+                        設定
+                      </a>
+                      <!-- <div class="dropdown-divider"></div> -->
+    <!-- TODO!! 連到票券訂單 -->
+                      <a class="dropdown-item" href="../event/ticketOrder.jsp">
+                        <iconify-icon class="sign-out" icon="heroicons:ticket" width="20" height="20"></iconify-icon>
+                        票券訂單
+                      </a>
+                      <!-- <div class="dropdown-divider"></div> -->
+                      <a class="dropdown-item" href="../member/order.html">
+                        <iconify-icon class="sign-out" icon="heroicons:gift" width="20" height="20"></iconify-icon>
+                          商品訂單
+                      </a>
+                      <!-- <div class="dropdown-divider"></div> -->
+    <!-- TODO!! 連到首頁 -->
+                      <a class="dropdown-item" href="#">
+                        <form action="../member/MemberServlet" method="POST" >
+                        <iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20" style="margin: 0px -7px 0px 2px;"></iconify-icon>
+                          <input class="signOut_btn" type="submit" value="登出">
+                          <input type="hidden" name="action" value="logout">
+                        </form>
+                      </a>
+                    </div>
+                  </li>
+    <!-- TODO!! 連到鈴鐺 -->              
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="#">
+                      <iconify-icon icon="heroicons:bell-20-solid" width="30" height="30" ></iconify-icon>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../member/memberFavoriteEvent.html">
+                      <iconify-icon icon="heroicons:heart-20-solid" width="30" height="30" ></iconify-icon>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="./shoppingcart.html">
+                      <iconify-icon icon="heroicons:shopping-cart-20-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+
+      <!-- 登入結束 -->
+    <!-- 空行 -->
+    <div class="row"><div class="col-12">　</div></div>
+  </header>
+    <!-- Header Section End -->
+
+ 
+    
+    <!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad" id="shoping-cart">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>購物車</h2>
+                    <div class="shoping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="shoping__product">商品</th>
+                                    <th>價格</th>
+                                    <th>數量</th>
+                                    <th>金額</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="shopping__cart">
+                                <!-- <tr>
+                                    <td class="shoping__cart__item">
+                                        <img src="img/cart/cart-1.jpg" alt="">
+                                        <h5>Vegetable’s Package</h5>
+                                    </td>
+                                    <td class="shoping__cart__price">
+                                        $55.00
+                                    </td>
+                                    <td class="shoping__cart__quantity">
+                                        <div class="quantity">
+                                            <div class="pro-qty">
+                                                <input type="text" value="1">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="shoping__cart__total">
+                                        $110.00
+                                    </td>
+                                    <td class="shoping__cart__item__close">
+                                        <span class="icon_close"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shoping__cart__item">
+                                        <img src="img/cart/cart-2.jpg" alt="">
+                                        <h5>Fresh Garden Vegetable</h5>
+                                    </td>
+                                    <td class="shoping__cart__price">
+                                        $39.00
+                                    </td>
+                                    <td class="shoping__cart__quantity">
+                                        <div class="quantity">
+                                            <div class="pro-qty">
+                                                <input type="text" value="1">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="shoping__cart__total">
+                                        $39.99
+                                    </td>
+                                    <td class="shoping__cart__item__close">
+                                        <span class="icon_close"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shoping__cart__item">
+                                        <img src="img/cart/cart-3.jpg" alt="">
+                                        <h5>Organic Bananas</h5>
+                                    </td>
+                                    <td class="shoping__cart__price">
+                                        $69.00
+                                    </td>
+                                    <td class="shoping__cart__quantity">
+                                        <div class="quantity">
+                                            <div class="pro-qty">
+                                                <input type="text" value="1">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="shoping__cart__total">
+                                        $69.99
+                                    </td>
+                                    <td class="shoping__cart__item__close">
+                                        <span class="icon_close"></span>
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- <div class="col-lg-12">
+                    <div class="shoping__cart__btns">
+                        <a href="./shop.html" class="primary-btn cart-btn">繼續購物</a> -->
+                        <!-- <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                            更新購物車</a> -->
+                    <!-- </div>
+                </div> -->
+                <div class="col-lg-6">
+                  <div class="shoping__cart__btns">
+                    <a href="./shop.html" class="primary-btn cart-btn">繼續購物</a>
+                    <!-- <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                        更新購物車</a> -->
+                  </div>
+                    <div class="shoping__continue">
+                        <div class="shoping__discount">
+                            <h5>使用優惠代碼</h5>
+                            <form action="#">
+                                <input type="text" id="text" placeholder="請輸入優惠代碼">
+                                <button type="submit" class="site-btn">送出</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="shoping__checkout">
+                        <h5>結帳金額</h5>
+                        <ul>
+                            <!-- <li class="cart__subtotal">加總金額 <span>1,500</span></li> -->
+                            <!-- <li>折價券優惠 <span>- 50</span></li> -->
+                            <li class="cart__final__amount" >總計 <span id="cart__final__amount">$454.98</span></li>
+                            
+                        </ul>
+                        <button class="primary-btn" id="primary-btn">立 即 結 帳</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shoping Cart Section End -->
+
+    <!-- Footer Section Begin -->
+    <!-- <footer class="footer-area text-center">
+        <div class="container">
+        <div class="row">
+            <div class="col-12">
+            <div class="classy-nav-container breakpoint-off">
+                <nav class="classy-navbar justify-content-center">
+                <div class="classy-navbar-toggler">
+                    <span class="navbarToggler">
+                        <span></span><span></span><span></span>
+                    </span>
+                </div> -->
+
+                <!-- Menu -->
+                <!-- <div class="classy-menu"> -->
+                    <!-- close btn -->
+                    <!-- <div class="classycloseIcon">
+                    <div class="cross-wrap">
+                        <span class="top"></span><span class="bottom"></span>
+                    </div>
+                    </div> -->
+
+                    <!-- Nav Start -->
+                    <!-- <div class="classynav">
+                    <ul>
+                        <li><a href="#">常見問題</a></li>
+                        <li><a href="#">聯絡我們</a></li>
+                        <li><a href="#">系統公告</a></li>
+                        <li><a href="#">網站地圖</a></li>
+                        <li><a href="#">隱私權政策</a></li>
+                        <li><a href="#">服務條款</a></li>
+                    </ul>
+                    </div>
+                </div>
+                </nav>
+            </div> -->
+
+            <!-- Footer Social Area -->
+            <!-- </div>
+        </div>
+        </div>
+    </footer> -->
+    <!-- Footer Section End -->
+
+    <nav class="navbar relative-bottom navbar-expand-lg navbar-light bg-while">
+      <div class="container">
+              <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">常見問題 <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">聯絡我們</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../main/IndexBulletin.html">系統公告</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">網站地圖</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">隱私權政策</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">服務條款</a>
+                  </li>
+                </ul>
+              </div>
+      </div>
+  </nav>
+
+
+
+
+
+
+    <!-- Js Plugins -->
+    <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/jquery.nice-select.min.js"></script>
+    <script src="./js/jquery-ui.min.js"></script>
+    <script src="./js/jquery.slicknav.js"></script>
+    <script src="./js/mixitup.min.js"></script>
+    <script src="./js/owl.carousel.min.js"></script>
+    <script src="./js/main.js"></script>
+
+<!--貼這段-->
+    <!-- Popper js -->
+    <!-- <script src="../../main_frame/js/popper.min.js"></script> -->
+    <!-- Plugins js -->
+    <!-- <script src="../../main_frame/js/plugins.js"></script> -->
+    <!-- Active js -->
+    <!-- <script src="../../main_frame/js/active.js"></script> -->
+    <!-- <script src="../../main_frame/js/model.js"></script> -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+    <script src="./js/shopppingcart.js"></script>
+<!--貼這段-->
+
+</body>
+
+</html>

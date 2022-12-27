@@ -3,12 +3,25 @@ package tw.com.tibame.order.dao;
 import java.util.List;
 
 import tw.com.tibame.order.vo.ShoppingCartVO;
+import tw.com.tibame.order.vo.ShowShoppingCartVO;
 
 public interface ShoppingCartDAO {
-	List<ShoppingCartVO> getAll();
+	List<ShowShoppingCartVO> getAll();
+
+	ShowShoppingCartVO getByShoppingCartNo(Integer shoppingCartNo);
 	
-	public ShoppingCartVO getPrimaryKey(Integer shoppingCartNo);
-	public void insert(ShoppingCartVO shoppingCartVO);
-	public void update(ShoppingCartVO shoppingCartVO);
-	public boolean delete(Integer shoppingCartNo);
+	ShoppingCartVO getByPrimaryKey(Integer shoppingCartNo);
+	
+	ShoppingCartVO getByMemberNoAndProdNo(Integer number, Integer prodNo);
+
+	List<ShowShoppingCartVO> getByMemberNumber(Integer number);
+	
+	List<ShoppingCartVO> findByMemberNumber(Integer number);
+
+	ShoppingCartVO insert(ShoppingCartVO shoppingCartVO);
+
+	ShoppingCartVO update(ShoppingCartVO shoppingCartVO);
+
+	boolean delete(Integer shoppingCartNo);
+
 }

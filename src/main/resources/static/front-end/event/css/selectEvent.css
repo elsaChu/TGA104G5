@@ -1,0 +1,92 @@
+.midType {
+	margin-top: 15px;
+}
+
+.ticketInput {
+	width: 50px;
+}
+
+.card-text {
+	font-size: 17px;
+}
+
+.agrrement {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.stepMenu {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+#seatSet {
+	display: none;
+}
+
+.stepDiv {
+	display: none;
+}
+
+.seatIcon {
+	width: 20px;
+}
+
+.seat {
+	margin: 1px;
+}
+.redDot{
+	color:red;
+	font-weight: bold;
+}
+.tickMenuSpan{
+	font-size: 17px;
+}
+
+ /* Button樣式 */
+ .myButton_selEvn{
+    background: #415A77;
+    color: #FFF;
+    font-size: 17px;
+    font-weight: 400;
+    padding: 8px 7px;
+    width: 30%;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 6px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    margin: 0px 7px 0px 3px;
+    outline: none;
+    border: none;
+  }
+  /* 指標移到Button時的變色 */
+  .myButton_selEvn:hover {
+      background:#818181;
+      transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+  }
+  /* 往右靠齊 (可要可不要，提供參考而已) */
+/*   .myButton_selEvn { */
+/*     text-align: right; */
+/*   } */
+
+  /* Button大小設定 */
+  .myButton_selEvn {
+    /* 字體大小 */
+    font-size: 17px; 
+    /* Button寬度 */
+    /* 根據需求可設定 100.150.180 */
+    width: 200px;
+    height: 40px;
+    /* 內間距 */
+    padding: 5px 7px;
+  }
+  
+.tabdiv table {
+    margin: 20px auto;
+
+}

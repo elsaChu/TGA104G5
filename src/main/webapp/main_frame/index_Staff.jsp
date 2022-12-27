@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
     
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+    <%@page import="tw.com.tibame.staff.model.*"%>
+    <% StaffVO staffVO = (StaffVO) session.getAttribute("staffVO");%>
     <c:set var="context" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +14,7 @@
     <meta name="author" content="" />
 
     <title>TICK IT 員工後台</title>
-
+ 	<link rel="icon" href="images/logo.ico"  />
     <!-- Bootstrap core CSS -->
     <link href="${context}/main_frame/css/bootstrap.css" rel="stylesheet" />
 
@@ -44,7 +45,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">員工姓名</a>
+          <a class="navbar-brand" href="index.html">員工管理後台</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -58,9 +59,8 @@
               <ul class="dropdown-menu sign-out">
                 <li><a href="${context}/back-staff-end/staff/insertStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:user-plus" width="20" height="20"></iconify-icon>員工帳號新增</a></li>
                 <li><a href="${context}/back-staff-end/staff/listAllStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>所有員工列表</a></li>
-              	<li><a href="${context}/back-staff-end/staff/updateStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>更新員工資訊</a></li>
-              	
-              
+<%--               	<li><a href="${context}/back-staff-end/staff/updateStaff.jsp"><iconify-icon class="sign-out" icon="heroicons:clipboard-document-list" width="20" height="20"></iconify-icon>更新員工資訊</a></li> --%>
+<%--               	<%=request.getContextPath()%>/InsertStaffServlet --%>
               </ul>
             </li>
             <li class="dropdown">
@@ -69,8 +69,8 @@
                 <b class="caret"></b
               ></a>
               <ul class="dropdown-menu sign-out">
-                <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>會員列表</a></li>
-                <li><a href="#"><iconify-icon class="sign-out"icon="heroicons:envelope" width="20" height="20"></iconify-icon>發送電子報</a></li>
+                <li><a href="${context}/front-end/member/memberList.jsp"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>會員列表</a></li>
+                <li><a href="${context}/front-end/member/memberNewSletter.jsp"><iconify-icon class="sign-out"icon="heroicons:envelope" width="20" height="20"></iconify-icon>發送電子報</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -80,7 +80,7 @@
           <ul class="dropdown-menu sign-out">
             <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:table-cells-solid" width="20" height="20"></iconify-icon>活動列表</a></li>
             <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:circle-stack" width="20" height="20"></iconify-icon>活動分類</a></li>
-            <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:building-office-2" width="20" height="20"></iconify-icon>活動場地</a></li>
+<!--             <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:building-office-2" width="20" height="20"></iconify-icon>活動場地</a></li> -->
             <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:clipboard-document-list" width="20" height="20"></iconify-icon>活動訂單</a></li>
           </ul>
         </li>
@@ -100,7 +100,7 @@
                 <b class="caret"></b
               ></a>
               <ul class="dropdown-menu sign-out">
-                <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:radio" width="20" height="20"></iconify-icon>系統公告</a></li>
+                <li><a href="${context}/back-staff-end/management/BulletinIndex.jsp"><iconify-icon class="sign-out" icon="heroicons:radio" width="20" height="20"></iconify-icon>系統公告</a></li>
                 <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:light-bulb" width="20" height="20"></iconify-icon>常見問題</a></li>
                 <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:information-circle" width="20" height="20"></iconify-icon>聯絡資訊</a></li>
                 <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:film" width="20" height="20"></iconify-icon>首頁輪播</a></li>
@@ -122,8 +122,16 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
-            <li><a href="#"><iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20"></iconify-icon>登出</a></li>
-        
+          <form action="${context}/StaffServlet" method="POST" >
+            <li id="Signout" ><iconify-icon style="color:#FFF;" class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20"></iconify-icon>
+            <input  style="font-size:16px;width: 40px;
+            margin: 10px 50px 0px -10px;
+		background:#222222;
+		color:#FFF;
+		border-style:none;
+		"type="submit" value="登出">
+            <input type="hidden" name="action" value="logout"></a></li>
+        </form>
           </div>
         <!-- /.navbar-collapse -->
       </nav>
@@ -140,6 +148,16 @@
 <!--     <script src="js/morris/chart-data-morris.js"></script> -->
 <!--     <script src="js/tablesorter/jquery.tablesorter.js"></script> -->
 <!--     <script src="js/tablesorter/tables.js"></script> -->
+<script>
+   $('body').on('click', '#Signout', function() {
+   var yes = confirm('確定登出嗎？');
+   if (yes) {
+       onsole.log('yes');	
+       do_deletion();
+             } 
+     });
+ </script>
     <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
   </body>
 </html>
+

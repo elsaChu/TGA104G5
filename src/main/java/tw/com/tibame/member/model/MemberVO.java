@@ -2,6 +2,7 @@ package tw.com.tibame.member.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class MemberVO {
 	private Integer number;            // NOT NULL AUTO_INCREMENT
@@ -50,6 +51,9 @@ public class MemberVO {
 	public String getEmail() {
 		return email;
 	}
+	public String getEmail(List<MemberVO> chk) {
+		return email;
+	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -89,11 +93,12 @@ public class MemberVO {
 	public void setPass(Boolean pass) {
 		this.pass = pass;
 	}
+
 	public String getIDNumber() {
 		return IDNumber;
 	}
-	public void setIDNumber(String iDNumber) {
-		IDNumber = iDNumber;
+	public void setIDNumber(String IDNumber) {
+		this.IDNumber = IDNumber;
 	}
 	public String getPhone2() {
 		return phone2;

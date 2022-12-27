@@ -1,0 +1,58 @@
+#product-details{
+    padding-top: 0px;
+}
+
+.star{
+    display: flex;    
+}
+/* .product__details__rating{
+    display: flex;
+} */
+
+.product__rating {
+    position: absolute;
+    left: -246px;
+    top: -17px;
+    text-align: center;
+    width: 83.3px;
+    float: right;
+    unicode-bidi: bidi-override;
+    color: #ccc;
+    font-size: 20px;
+    position: relative;
+    margin-right: 5px;
+    padding: 0;
+    
+}
+
+.fill-ratings {
+    padding: 0;
+    position: relative;
+    z-index: 0;
+    display: block;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.fill-ratings span {
+    /* Allows us to grab the width of the span elements*/
+    display: inline-block;
+    color: #f08632 !important;
+}
+
+.empty-ratings {
+    margin-top: -28px;
+    padding: 0;
+    display: block;
+    z-index: 1;
+}
+
+.empty-ratings span {
+    color: #ccc !important;
+}
+.commit{
+    position: absolute;
+    display: block;
+    top: 65px;
+}

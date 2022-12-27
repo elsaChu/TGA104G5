@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Event Search</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>Search for Events </h1>
+<!--     <form action="http://localhost:8080/TGA104G5/IndexEventSearch"> -->
+	    <label for=""> Search Events: </label>
+		<input type="text" name="mainSearch" id="mainSearch">
+		<button type="submit" id="submit">Search</button>
+		
+		<article class="task_container">
+	      <h1 class="title1">任務管理</h1>
+	      <div class="task_add_block">
+	        <input type="text" class="task_name" placeholder="輸入待辦事項…" />
+	        <button type="button" class="task_add">新增</button>
+	      </div>
+	
+	      <div class="task_list_parent">
+	        <ul class="task_list">
+	          <!-- li放的位置 -->
+	        </ul>
+	      </div>
+	    </article>
+<!--     </form> -->
+</body>
+</html>
+
+<script type="text/javascript">
+const keyword = document.querySelector('#mainSearch');
+
+
+document.querySelector('#submit').addEventListener('click', function () {
+		console.log("clicked");
+		
+		
+	fetch('http://localhost:8080/TGA104G5/IndexEventSearch?' + new URLSearchParams({"mainSearch": keyword.value}), {
+		//get 就塞QUERY STRING
+	    method: 'get',
+	    headers: {
+	        'Content-Type': 'application/json'
+	    },
+		//cant have a body if ur using get method
+	  
+	})
+	    .then(function (resp) { return resp.json();})
+	    .then(function (body) {
+			if(body.successful == true){
+				alert("成功取得所有活動");
+				var allEvents1 = body.allEvents;
+// 				console.log(typeof allEvents1);
+				var eventObj = JSON.parse(allEvents1);
+				eventObj.forEach(function(element, index){
+					console.log("index: ", index);
+					console.log("element", element);
+					console.log("element.eventNum: ", element.eventNumber);
+					 
+				//Add New List Into ul Start
+			   let list_html = "";
+//	[{"eventNumber":1,"organizerNumber":1,"peopleNumber":0,"collectType":false,"banner":0,"focus":0,"totalClick":0,"isON":false,"needSeat":false,"seatX":0,"seatY":0},{"eventNumber":2,"organizerNumber":222,"peopleNumber":0,"collectType":false,"banner":0,"focus":0,"totalClick":0,"isON":false,"needSeat":false,"seatX":0,"seatY":0}]
+            list_html += '<li eventNumber="' + element.eventNumber + '" organizerNumber="' + element.organizerNumber + '" peopleNumber="' + element.peopleNumber + '" isOn = "' + element.isOn + '">';
+            list_html += `<div class="item_flex">
+              <div class="left_block">
+                <div class="btn_flex">
+                  <button type="button" class="btn_up">往上</button>
+                  <button type="button" class="btn_down">往下</button>
+                </div>
+              </div>
+              <div class="middle_block">
+                <div class="star_block">
+                  <span class="star" data-star="1"><i class="fas fa-star"></i></span>
+                  <span class="star" data-star="2"><i class="fas fa-star"></i></span>
+                  <span class="star" data-star="3"><i class="fas fa-star"></i></span>
+                  <span class="star" data-star="4"><i class="fas fa-star"></i></span>
+                  <span class="star" data-star="5"><i class="fas fa-star"></i></span>
+                </div> 
+                <p class="para">`;
+            list_html += body.collectType;
+            list_html +=
+              `</p>
+                <input type="text" class="task_name_update -none" placeholder="更新待辦事項…" value="">
+                </div>
+                <div class="right_block">
+                <div class="btn_flex">
+                  <button type="button" class="btn_update">更新</button>
+                  <button type="button" class="btn_delete">移除</button>
+                </div>
+              </div>
+            </div>
+          </li>
+          `;
+					
+					
+            $("ul.task_list").prepend(list_html);
+				//add new list into ul (end)
+					
+					
+				})
+				console.log("eventObj[1]: ", eventObj[1].eventNumber);
+				
+				
+			}else{
+	        	alert("false");
+			}
+	    });
+ });
+
+$("#submit").click(function(e){
+	e.preventDefault();
+	console.log();
+});
+</script>
