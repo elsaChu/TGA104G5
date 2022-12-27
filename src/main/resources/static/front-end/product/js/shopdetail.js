@@ -7,7 +7,7 @@ function init() {
         dataType: 'json',
         data: { action: 'checkLogin'},
         success: function (data) {
-			console.log(data);
+			// console.log(data);
 			if(data.check == '2'){
 				$('#login_menuB').show();
 				$('#login_menuA').hide();
@@ -128,7 +128,7 @@ console.log(data);
 
 
 // 顯示商品資訊
-function Template1({prodName, totalcomment, eventName, unitPrice, prodDetails, commentQty}) {
+function Template1({prodName, totalcomment, eventName, unitPrice, prodStock, prodDetails, commentQty}) {
 	// console.log(totalcomment); // 沒有被買過的商品會顯示null 先取消此功能
 	let avgComment = (totalcomment / commentQty) * 20;
 	// console.log(avgComment);
@@ -136,20 +136,10 @@ function Template1({prodName, totalcomment, eventName, unitPrice, prodDetails, c
 		<div class="product__details__text">
 			<h3>${prodName}</h3>
 			<p id="eventName">${eventName}</p>
-			<div class="product__details__rating">
-				<div class="product__rating">
-					<div class="fill-ratings" style="width: ${avgComment}%">
-					<span>★★★★★</span>
-					</div>
-					<div class="empty-ratings">
-					<span>★★★★★</span>
-					</div>
-				</div>
-				<span style="display:block" class="commit">${commentQty}則評論</span>
-			</div>
-			<div class="product__details__price" id="product__details__price">$ ${unitPrice}</h5>
-            </div>
 			
+			<div class="product__details__price" id="product__details__price">
+				<h5>$ ${unitPrice}</h5>
+            </div>
 			<div class="product__details__quantity">
 				<div class="quantity">
 					<div class="pro-qty">
@@ -159,7 +149,7 @@ function Template1({prodName, totalcomment, eventName, unitPrice, prodDetails, c
 					</div>
 				</div>
 			</div>
-				<a href="#" class="primary-btn">加入購物車</a>
+				<a href="#" class="primary-btn" data-prodStock="${prodStock}">加入購物車</a>
 				
 				<div>
 					<p id="prodDetails">${prodDetails}</p>
@@ -167,6 +157,45 @@ function Template1({prodName, totalcomment, eventName, unitPrice, prodDetails, c
 			</div>	
 		</div>
       `;
+
+	// 有評論星星的版本
+	// return `
+	// 	<div class="product__details__text">
+	// 		<h3>${prodName}</h3>
+	// 		<p id="eventName">${eventName}</p>
+	// 		<div class="product__details__rating">
+	// 			<div class="product__rating">
+	// 				<div class="fill-ratings" style="width: ${avgComment}%">
+	// 				<span>★★★★★</span>
+	// 				</div>
+	// 				<div class="empty-ratings">
+	// 				<span>★★★★★</span>
+	// 				</div>
+	// 			</div>
+	// 			<span style="display:block" class="commit">${commentQty}則評論</span>
+	// 		</div>
+	// 		<div class="product__details__price" id="product__details__price">$ ${unitPrice}</h5>
+	// 		</div>
+			
+	// 		<div class="product__details__quantity">
+	// 			<div class="quantity">
+	// 				<div class="pro-qty">
+	// 					<span class="dec qtybtn" id="dec">-</span>
+	// 					<input id="qtyVal" type="text" value="1">
+	// 					<span class="inc qtybtn" id="inc">+</span>
+	// 				</div>
+	// 			</div>
+	// 		</div>
+	// 			<a href="#" class="primary-btn">加入購物車</a>
+	// 		<div>
+	// 			<p id="prodStock">剩餘數量：${prodStock}</p>
+	// 		</div>
+	// 			<div>
+	// 				<p id="prodDetails">${prodDetails}</p>
+	// 			</div>
+	// 		</div>	
+	// 	</div>
+	// `;	
 	  
 }
 

@@ -21,3 +21,12 @@
     color: #1c1c1c;
     margin-bottom: 5px;
 }
+
+span.error_message{
+    text-align:right;
+    font-size: x-small;
+}
+
+#myorder ~ li{
+    font-size: 13px;
+}

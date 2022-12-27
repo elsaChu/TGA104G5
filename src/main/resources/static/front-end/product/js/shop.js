@@ -12,7 +12,7 @@ function init() {
         dataType: 'json',
         data: { action: 'checkLogin'},
         success: function (data) {
-			console.log(data);
+			// console.log(data);
 			if(data.check == '2'){
 				$('#login_menuB').show();
 				$('#login_menuA').hide();
