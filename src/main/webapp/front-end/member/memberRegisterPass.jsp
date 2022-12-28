@@ -39,7 +39,7 @@
   <body>
     <div class="login">
       <h2>註冊成功 !</h2>
-      <a href="memberLogin.jsp">返回登入</a>
+      <a style="position: relative; left:210px;  color:  #415A77;" href="memberLogin.jsp">返回登入</a>
     </div>
   </body>
 </html>
