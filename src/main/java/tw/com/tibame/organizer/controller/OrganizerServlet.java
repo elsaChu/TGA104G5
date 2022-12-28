@@ -37,7 +37,7 @@ public class OrganizerServlet extends HttpServlet{
 		HttpSession session = req.getSession();
 		
 		if ("save".equals(action)) { // 來自memberCenter的請求
-
+			
 			System.out.println("update");
 
 			List<String> errorMsgs = new LinkedList<>();
@@ -46,9 +46,8 @@ public class OrganizerServlet extends HttpServlet{
 			try {
 
 				OrganizerService organizerSvc = new OrganizerService();
-				OrganizerVO organizerVO = (OrganizerVO) session.getAttribute("organizerVO"); // 表示已登入，取得staffVO物件
+				OrganizerVO organizerVO = (OrganizerVO) session.getAttribute("loginOrganizer"); // 表示已登入，取得organizerVO物件
 				System.out.println("### into update ### ");
-
 				// 1.接收請求參數，輸入格式的錯誤處理
 			
 				String organizerName = req.getParameter("organizerName");
@@ -114,5 +113,13 @@ public class OrganizerServlet extends HttpServlet{
 			}
 			
 		}
+		
+	}
+	public static void main (String args[]){
+		
+		OrganizerService organizerSvc = new OrganizerService();
+		List<OrganizerVO> e = organizerSvc.selectAll();
+		System.out.println(e);
+		
 	}
 }

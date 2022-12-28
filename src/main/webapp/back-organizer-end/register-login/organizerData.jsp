@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="tw.com.tibame.organizer.model.*"%>
+<%@ page import="java.util.*,tw.com.tibame.organizer.model.*"%>
 <c:set var="context" value="${pageContext.request.contextPath}" />
+<%OrganizerVO vo2 = (OrganizerVO) request.getSession().getAttribute("loginOrganizer");%>
 <%
-OrganizerVO organizerVO = (OrganizerVO) session.getAttribute("organizerVO");
+OrganizerVO organizerVO = (OrganizerVO) request.getAttribute("loginOrganizer");
 %>
 <!DOCTYPE html>
 <html>
@@ -47,13 +48,13 @@ OrganizerVO organizerVO = (OrganizerVO) session.getAttribute("organizerVO");
 		</div>
 		<form action="OrganizerServlet" method="POST">
 			<div class="Data-Items">
-				<input type="text" name="organizerName" value="${OrganizerVO.organizerName}"/><br /> 
-				<input type="text" name="windowName" value="${OrganizerVO.windowName}"/><br /> 
-				<input type="text" name="windowPhone" value="${OrganizerVO.windowPhone}"/><br /> 
-				<input type="text" name="windowEmail" value="${OrganizerVO.windowEmail}"/><br />
-				<input type="text" name="taxIDNumber" value="${OrganizerVO.taxIDNumber}"/><br /> 
-				<input type="text" name="boss" value="${OrganizerVO.boss}"/><br /> 
-				<input type="text" name="organizerPhone" value="${organizerPhone}"/><br />
+				<input type="text" name="organizerName" value="<%=(organizerVO == null) ? "" : organizerVO.getOrganizerName()%>"/><br /> 
+				<input type="text" name="windowName" value="<%=(organizerVO == null) ? "" : organizerVO.getWindowName()%>"/><br /> 
+				<input type="text" name="windowPhone" value="<%=(organizerVO == null) ? "" : organizerVO.getWindowPhone()%>"/><br /> 
+				<input type="text" name="windowEmail" value="<%=(organizerVO == null) ? "" : organizerVO.getWindowEmail()%>"/><br />
+				<input type="text" name="taxIDNumber" value="<%=(organizerVO == null) ? "" : organizerVO.getTaxIDNumber()%>"/><br /> 
+				<input type="text" name="boss" value="<%=(organizerVO == null) ? "" : organizerVO.getBoss()%>"/><br /> 
+				<input type="text" name="organizerPhone" value="<%=(organizerVO == null) ? "" : organizerVO.getOrganizerPhone()%>"/><br />
 			</div>
 			<div class="submit">
 				<br />
