@@ -41,11 +41,15 @@ h2 {
 .inputbox {
 	height: 23px;
 	width: 200px;
-	margin:8px auto;
+	margin: 8px auto;
+	text-align: center;
 }
 
 select {
 	text-align-last: center;
+		height: 23px;
+	width: 200px;
+	margin: 8px auto;
 }
 </style>
 </head>
@@ -73,7 +77,7 @@ select {
 
 		<li>
 			<form method="post" action="${context}/ProductServlet">
-				選擇商品編號： <select name="prodNo" class="inputbox">
+				選擇商品編號： <select name="prodNo">
 					<option selected="selected">請選擇</option>
 					<c:forEach var="productVO" items="${list}">
 						<option value="${productVO.prodNo}">${productVO.prodNo}
@@ -94,7 +98,7 @@ select {
 
 		<li>
 			<form method="post" action="${context}/ProductServlet">
-				選擇商品名稱： <select name="prodName" class="inputbox">
+				選擇商品名稱： <select name="prodName">
 					<option selected="selected">請選擇</option>
 					<c:forEach var="productVO" items="${list}">
 						<option value="${productVO.prodName}">${productVO.prodName}
