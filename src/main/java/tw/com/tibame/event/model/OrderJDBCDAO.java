@@ -23,16 +23,11 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 	private static final String GET_ONE_BY_ORDERID = "SELECT o.orderID, o.`number` ,o.eventNumber ,e.eventName  , o.orderDate, o.totalTicket, o.total, o.orderType from "
 			+ "    `ORDER` o join `EVENT` e on o.eventNumber = e.eventNumber "
 			+ "    where  orderID = ?  and organizerNumber = ?;";
-	private static final String GET_BY_ORDERID = "select o.orderID,o.orderType,o.totalTicket,o.total, "
-			+ "			e.eventName,e.eventPlace,e.bigImg,e.eventStartDate, " 
-			+ "			g.organizerName, "
-			+ "			m.`number` "
-			+ "			from `MEMBER` m,`ORDER` o ,`EVENT` e,`ORGANIZER` g "
-			+ "			where m.`number` = ? "
-			+ "			and m.`number` = o.`number` "
-			+ "			and o.eventNumber = e.eventNumber "
-			+ "			and e.organizerNumber = g.organizerNumber "
-			+ "			and o.eventNumber = e.eventNumber;";
+	private static final String GET_BY_ORDERID = "select a.orderID,a.eventName, a.eventStartDate, a.eventPlace, oz.organizerName, a.orderType, a.totalTicket, a.total, a.bigImg \r\n"
+			+ "from ORGANIZER oz \r\n"
+			+ "join (select e.organizerNumber ,e.eventName, e.eventStartDate, e.eventPlace, o.orderType, o.totalTicket, o.total, o.orderID, e.bigImg \r\n"
+			+ "  from `EVENT` e join `ORDER` o on e.eventNumber = o.eventNumber \r\n"
+			+ "  where e.eventNumber in(select eventNumber from `ORDER` where `number`=?)) a on oz.organizerNumber = a.organizerNumber;";
 	private static final String GET_ORGANIZER_BY_NUMBER = "SELECT eventNumber,eventName,eventType,eventStartDate,eventEndDate  "
 			+ " " 
 			+ "FROM TICK_IT_TEST.`EVENT` e,ORGANIZER o " 
@@ -753,11 +748,9 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 	}
 
 	@Override
-	public List<OrderEventVO> findByNumber() {
+	public List<OrderEventVO> findByNumber(Integer number) {
 		List<OrderEventVO> list = new ArrayList<OrderEventVO>();
 		// 初值
-		OrderVO OrderVO = null;
-
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -767,27 +760,23 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 
 			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
 			pstmt = conn.prepareStatement(GET_BY_ORDERID);
-
+//			System.out.println("number="+number);
+			pstmt.setInt(1, number);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				OrderEventVO orderEventVO = new OrderEventVO();
-
-				orderEventVO.setNumber(rs.getInt("number"));
 				orderEventVO.setOrderID(rs.getInt("orderID"));
+				orderEventVO.setEventName(rs.getString("eventName"));
+				orderEventVO.setEventStartDate(rs.getTimestamp("eventStartDate"));
+				orderEventVO.setEventPlace(rs.getString("eventPlace"));
+				orderEventVO.setOrganizerName(rs.getString("organizerName"));
 				orderEventVO.setOrderType(rs.getString("orderType"));
 				orderEventVO.setTotalTicket(rs.getInt("totalTicket"));
 				orderEventVO.setTotal(rs.getInt("total"));
-				orderEventVO.setEventName(rs.getString("eventName"));
-				orderEventVO.setEventPlace(rs.getString("eventPlace"));
-				orderEventVO.setBigImg(rs.getBlob("bigimg"));
-				orderEventVO.setEventStartDate(rs.getTimestamp("eventStartDate"));
-				orderEventVO.setOrganizerName(rs.getString("organizerName"));
-//System.out.println("getTimestamp="+ rs.getTimestamp("eventStartDate"));
+				orderEventVO.setBigImg(rs.getBlob("bigImg"));
+//				orderEventVO.setNumber(rs.getInt("number"));
 				list.add(orderEventVO);
-
-//				System.out.println("getEventStartDate ="+orderEventVO.getEventStartDate() );
-
 				// 將上述SET完成的vo，塞進去這個集合。Store the row in the list
 			}
 			// Handle any driver errors

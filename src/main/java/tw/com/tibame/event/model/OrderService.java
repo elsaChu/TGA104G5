@@ -490,8 +490,8 @@ public class OrderService {
 	    return voList;
 	}
 	
-	public List<OrderEventVO> findByNumber() {
-		return dao.findByNumber();
+	public List<OrderEventVO> findByNumber(Integer number) {
+		return dao.findByNumber(number);
 	}
 	
 	public List<EventVO> organizerNumber(Integer organizerNumber){

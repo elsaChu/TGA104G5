@@ -46,7 +46,7 @@ pageContext.setAttribute("list", list);
 </head>
 
 <body>
-	<jsp:include page="/main_frame/index_Staff.jsp"></jsp:include>
+	<jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
 	<div>
 		<h3>廠商活動列表</h3>
 	</div>
