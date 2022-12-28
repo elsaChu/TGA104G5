@@ -39,7 +39,7 @@
   <body>
     <div class="login">
       <h2>登入成功 !</h2>
-      <a href="memberCentre.jsp">會員中心</a>
+      <a style=" color:  #415A77; text-align: center;  font-weight: 700;  margin: 0px 0px -500px 0px;" href="memberCentre.jsp">會員中心</a>
     </div>
   </body>
 </html>
