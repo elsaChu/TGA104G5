@@ -17,11 +17,6 @@ import tw.com.tibame.order.service.ShoppingCartService;
 import tw.com.tibame.order.vo.ShoppingCartVO;
 import tw.com.tibame.order.vo.ShowShoppingCartVO;
 
-/*
- * 結帳之後要刪除購物車內容
- * 
- */
-
 @RestController
 @RequestMapping("cart")
 public class ShoppingCartController {
@@ -33,13 +28,13 @@ public class ShoppingCartController {
 		return shoppingCartService.getAll();
 	}
 
-	@GetMapping("memberCart") // 這是對的唷
+	@GetMapping("memberCart")
 	public List<ShowShoppingCartVO> getByMemberNumber(HttpSession session) {
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		Integer number = memberVO.getNumber();
 		return shoppingCartService.getByMemberNumber(number);
 	}
-//
+
 //	@GetMapping("memberCart")
 //	public List<ShowShoppingCartVO> getByMemberNumber(Integer number) {
 //		return shoppingCartService.getByMemberNumber(4);
@@ -63,7 +58,7 @@ public class ShoppingCartController {
 //		return null;
 //	}
 	
-	@PostMapping("addToCart") // 這是對的唷
+	@PostMapping("addToCart")
 	public ShoppingCartVO addToCart(HttpSession session, @RequestBody ShoppingCartVO shoppingCartVO) {
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		shoppingCartVO.setNumber(memberVO.getNumber());

@@ -12,5 +12,6 @@ public interface OrganizerDAOinterface {
     public List<OrganizerVO> selectAll();
     public OrganizerVO findByAccount(String oAccout);
     public List <OrganizerVO> searchOrganizerByAll(String searchString);
- 
+	void updateActivateStatus(String account);
+	Boolean isActivated(String accountName);
 }

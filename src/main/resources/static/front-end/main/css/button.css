@@ -1,0 +1,42 @@
+ /* Button樣式 */
+ .myButton input[type="submit"] {
+    background: #415A77;
+    color: #FFF;
+    font-size: 17px;
+    font-weight: 400;
+    padding: 8px 7px;
+    width: 30%;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 6px;
+    -webkit-border-radius: 19px;
+    -moz-border-radius: 6px;
+    -o-border-radius: 6px;
+    margin: 0px 7px 0px 3px;
+    outline: none;
+    border: none;
+  }
+  /* 指標移到Button時的變色 */
+  .myButton input[type="submit"]:hover {
+      background:#818181;
+      transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+  }
+  /* 往右靠齊 (可要可不要，提供參考而已) */
+  .myButton {
+    text-align: right;
+  }
+
+  /* Button大小設定 */
+  .myButton input[type="submit"] {
+    /* 字體大小 */
+    font-size: 14px; 
+    /* Button寬度 */
+    /* 根據需求可設定 100.150.180 */
+    width: 100px;
+    /* 內間距 */
+    padding: 5px 7px;
+  }
+  

@@ -19,19 +19,19 @@ public class OrderDetailVO implements java.io.Serializable {
 	@Id
 	@Column(name = "itemNo")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  
-	private Integer itemNo;				// not null auto_increment
+	private Integer itemNo;
 	
 	@Column(name = "prodOrderNo")
-	private Integer prodOrderNo;		// not null
+	private Integer prodOrderNo;		
 	
 	@Column(name = "prodNo")
-	private Integer prodNo;				// not null
+	private Integer prodNo;				
 	
 	@Column(name = "prodQty")
-	private Integer prodQty;			// not null
+	private Integer prodQty;			
 	
 	@Column(name = "subtotal")
-	private Integer subtotal;			// not null
+	private Integer subtotal;			
 	
 	@Column(name = "commentRanking")
 	private Float commentRanking;		

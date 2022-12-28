@@ -50,7 +50,7 @@ public class ProductOrderController {
     
 //    @GetMapping("orderlist") 
 //	public List<ProductOrderVO> memberOrder(HttpSession session) {
-//		List<ProductOrderVO> list = productOrderService.getByNumberOrder(2); // 這是先寫死測試用的唷!
+//		List<ProductOrderVO> list = productOrderService.getByNumberOrder(2); // 先寫死測試用!
 //    	return list;
 //	}
     
@@ -60,7 +60,7 @@ public class ProductOrderController {
     	return list;
 	}
     
-    @GetMapping("info") //不知道是不是這樣寫
+    @GetMapping("info") 
     public ViewProductOrderVO findAnOrder(@RequestParam Integer prodOrderNo) {
     	ViewProductOrderVO viewProductOrderVO = productOrderService.findAnOrder(prodOrderNo);
 		return viewProductOrderVO;
@@ -76,14 +76,13 @@ public class ProductOrderController {
     	// 新增訂單
     	if(orderWrapper.getProductOrderVO() != null) {
     		ProductOrderVO newOrder = productOrderService.addOrder(orderWrapper.getProductOrderVO());
-    		
+    		System.out.println(newOrder);
     	// 新增訂單明細
 	    	for(OrderDetailVO orderDetailVO : orderWrapper.getOrderDetailList()) {
 	    		orderDetailVO.setProdOrderNo(newOrder.getProdOrderNo());
 	    		OrderDetailVO newOrderDetail = orderDetailService.addDetail(orderDetailVO);
 	    		
 	    // 更新商品庫存
-	    // 新的庫存如果小於0怎麼辦?__? 如果放進購物車時就先扣庫存，這裡就沒這問題了 ^__^
 	    		Integer prodNo = newOrderDetail.getProdNo();
 	    		Integer prodQty = newOrderDetail.getProdQty();
 	    		
@@ -106,8 +105,8 @@ public class ProductOrderController {
     @PostMapping("updateReceiverInfo")
     public ProductOrderVO updateReceiverInfo() {
 //    	Integer prodOrderNo =  (Integer) request.getSession().getAttribute("prodOrderNo");
-    	Integer prodOrderNo = 2;		// 訂單編號是先寫死的唷!!
-    	String receiverName = "測試1";	// 這些是先寫死的唷要從表單得到資料唷!
+    	Integer prodOrderNo = 2;		// 訂單編號是先寫死的!!
+    	String receiverName = "測試1";	// 這些是先寫死的!
     	String receiverTel = "測試1";
     	String shippingAdd = "測試1";
     	ProductOrderVO productOrderVO = productOrderService.updateReceiverInfo(prodOrderNo, receiverName, receiverTel, shippingAdd);
@@ -118,7 +117,7 @@ public class ProductOrderController {
     @PutMapping("comment")
     public OrderDetailVO updateComment() {
 //    	Integer itemNo =  (Integer) request.getSession().getAttribute("itemNo");
-    	Integer itemNo = 12;       // 這些是先寫死的唷要從表單得到資料唷!
+    	Integer itemNo = 12;       // 這些是先寫死的!
     	Float commentRanking = 4F;
     	String commentContent = "いいね！";
     	
@@ -128,7 +127,7 @@ public class ProductOrderController {
     
     @PutMapping("return")
     public OrderDetailVO updateReturn() {
-    	Integer itemNo = 11;		// 這些是先寫死的唷要從表單得到資料唷!
+    	Integer itemNo = 11;		// 這些是先寫死的!
     	String returnReason = "寄錯了";
     	
     	OrderDetailVO orderDetailVO = orderDetailService.updateReturn(itemNo, returnReason);
