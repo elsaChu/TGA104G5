@@ -161,7 +161,7 @@ public class OrganizerService {
 
 		public OrganizerVO update2(OrganizerVO organizerVO) {
 			System.out.println("### updateOrganizer service");
-			dao.update(organizerVO);
+			dao.update2(organizerVO);
 			return organizerVO;
 		}
 		
