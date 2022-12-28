@@ -19,7 +19,7 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 
 <style>
 .table-1 {
-width: 95%;
+	width: 95%;
 	background-color: #415A77;
 	color: white;
 	text-align: center;
@@ -34,7 +34,7 @@ a {
 }
 
 .table-2 {
-width: 95%;
+	width: 95%;
 	background-color: white;
 	margin: 0px auto 10px auto;
 }
@@ -49,9 +49,9 @@ td.prodDetails {
 }
 
 th {
-text-align: center;
-background-color: #F0F0F0;
-white-space: nowrap;
+	text-align: center;
+	background-color: #F0F0F0;
+	white-space: nowrap;
 }
 
 td.group1 {
@@ -86,8 +86,8 @@ td.prodName {
 			<th>商品規格</th>
 			<th>商品單價</th>
 			<th>庫存數量</th>
-			<th>商品詳情</th>
-			<th>商品總評價</th>
+			<!-- 			<th>商品詳情</th> -->
+			<!-- 			<th>商品總評價</th> -->
 			<th>商品是否上架</th>
 			<th>修改</th>
 		</tr>
@@ -99,10 +99,15 @@ td.prodName {
 			<td class=group1><%=prodVo.getProdSpec()%></td>
 			<td class=group1><%=prodVo.getUnitPrice()%></td>
 			<td class=group1><%=prodVo.getProdStock()%></td>
-			<td class=prodDetails><%=prodVo.getProdDetails()%></td>
-			<td class=group1><%=prodVo.getProdScore()%></td>
-			<td class=group1><%=prodVo.getIsPOn()%></td>
-			<td>
+			<%-- 			<td class=prodDetails><%=prodVo.getProdDetails()%></td> --%>
+			<%-- 			<td class=group1><%=prodVo.getProdScore()%></td> --%>
+			<c:if test="${ProductVO.isPOn==true}">
+				<td class=group1>已上架</td>
+			</c:if>
+			<c:if test="${ProductVO.isPOn==false}">
+				<td class=group1>未上架</td>
+			</c:if>
+			<td class=group1>
 				<form method="post" action="${context}/ProductServlet">
 					<input type="hidden" name="prodNo" value="<%=prodVo.getProdNo()%>">
 					<input type="hidden" name="action" value="getOne_For_Update">
