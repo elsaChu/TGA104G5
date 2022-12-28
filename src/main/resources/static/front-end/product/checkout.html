@@ -295,7 +295,7 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input" id="checkout__input">
                                         <p>收件人手機<span>*</span></p>
-                                        <input type="text" id="receiverTel" placeholder="請輸入連續數字">
+                                        <input type="text" id="receiverTel" placeholder="請輸入正確手機號碼">
                                     </div>
                                 </div>
                             </div> 
@@ -311,28 +311,28 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input" id="checkout__input">
                                         <p>持卡人姓名<span>*</span></p>
-                                        <input type="text" placeholder="">
+                                        <input type="text" id="cardName" placeholder="">
                                     </div>
                                     <div class="checkout__input" id="checkout__input">
                                         <p>有效期<span>*</span></p>
-                                        <input type="text" placeholder="">
+                                        <input type="text" id="expireDate" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="checkout__input" id="checkout__input">
                                         <p>信用卡卡號<span>*</span></p>
-                                        <input type="text" placeholder="">
+                                        <input type="text" id="creditCard" placeholder="">
                                     </div>
                                     <div class="checkout__input" id="checkout__input">
                                         <p>安全碼<span>*</span></p>
-                                        <input type="text" placeholder="請輸入信用卡背面末三碼">
+                                        <input type="text" id="cvv" placeholder="請輸入信用卡背面末三碼">
                                     </div>
                                 </div>
                             </div> 
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="checkout__input" id="checkout__input">
-                                        <p>備註<span>*</span></p>
+                                        <p>備註<span></span></p>
                                         <input type="text" placeholder="">
                                     </div>
                                 </div>
@@ -372,7 +372,7 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="checkout__order">
                                 <h4>我的訂單</h4>
-                                <div class="checkout__order__products">商品 <span class="subtotal_price">Total</span></div>
+                                <div class="checkout__order__products">商品 <span class="subtotal_price">小計</span></div>
                                 <ul id="myorder">
                                     <!-- <li>Vegetable’s Package <span class="subtotal_price">$75.99</span></li>
                                     <li>Fresh Vegetable <span class="subtotal_price">$151.99</span></li>
@@ -485,6 +485,7 @@
     <!-- Active js -->
     <!-- <script src="../../main_frame/js/active.js"></script> -->
     <!-- <script src="../../main_frame/js/model.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
     <script src="./js/checkout.js"></script>
 <!--貼這段-->

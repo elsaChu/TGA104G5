@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS TICK_IT;
 use TICK_IT;
 #------------------- note --------------------
 #6  [暫時] 活動 bigImg, eventSummary, eventDescribe 暫時取消not null(for建假資料)
-#22 [修改] 商品訂單 paymentDate 取消預設值
+#22 [修改] 商品訂單 paymentDate 取消預設值，新增欄位 orderNotes
 #23 [修改] 商品訂單明細 commentRanking 取消default 0
 #25 [新建] View訂單明細 (V_ORDER_DETAIL)
 #26 [新建] View商品訂單 (V_PROD_ORDER)
@@ -373,6 +373,7 @@ create table PROD_ORDER(
     shippingAdd		varchar(255) not null comment '收件地址',
     prodOrderStatus varchar(50) not null comment '訂單狀態',
     deliveryStatus	varchar(50) not null comment '配送狀態',
+    orderNotes		varchar(255) comment '訂單備註',
     
     constraint FK_PROD_ORDER_number foreign key (`number`) references `MEMBER` (`number`)
 ) comment '商品訂單';
