@@ -1,6 +1,9 @@
 package tw.com.tibame.main;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+//import java.io.*;
 import java.sql.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +24,7 @@ public class DBGifReader extends HttpServlet {
 
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
-		System.out.println("dbgifReader running:");
+//		System.out.println("dbgifReader running:");
 		String eventId = req.getParameter("eventId");
 		
 		try {
