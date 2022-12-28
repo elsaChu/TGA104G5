@@ -82,10 +82,14 @@ public class ProductServlet extends HttpServlet {
 				errorMsgs.add("商品詳情請勿空白");
 			}
 
-			Part prodImg = req.getPart("prodIMG");
-			String filename = prodImg.getSubmittedFileName();
-			if (filename == null || filename.length() == 0 || prodImg.getContentType() == null) {
-				errorMsgs.add("請選擇商品圖片");
+			Collection<Part> parts = req.getParts();
+			System.out.println("parts="+parts.size());
+			
+			for (Part part : parts) {
+				String filename =  part.getSubmittedFileName();
+				if (filename == null || filename.length() == 0 || part.getContentType() == null) {
+					errorMsgs.add("請選擇商品圖片");
+				}
 			}
 
 			String isPOn = req.getParameter("isPOn");
@@ -116,21 +120,22 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			ProductService prodSvc = new ProductService();
-//			prodVo = prodSvc.addProduct(en, on, pn, ps, up, psk, pdt, ipo);
 
-			byte[] prodimg = null;
-			if (filename != null && filename.length() != 0 && prodImg.getContentType() != null) {
-				InputStream in = prodImg.getInputStream();
-				prodimg = new byte[in.available()];
-				in.read(prodimg);
-				in.close();
-				ProductImageVO prodimgvo = new ProductImageVO();
-				prodimgvo.setProdIMGName(filename);
-				System.out.println("filename=" + filename);
-				System.out.println(prodimg.length);
-				prodimgvo.setProdIMG(prodimg);
-				prodSvc.addProduct(en, on, pn, ps, up, psk, pdt, ipo, prodimgvo);
+			List<ProductImageVO> imglist = new ArrayList<ProductImageVO>();
+			for (Part part : parts) {
+				String filename = part.getSubmittedFileName(); // 上傳檔案名稱
+				if (filename != null && filename.length() != 0 && part.getContentType() != null) {
+					ProductImageVO productImgvo = new ProductImageVO();
+					InputStream in = part.getInputStream();
+					byte[] buf = new byte[in.available()];
+					in.read(buf);
+					in.close();
+					productImgvo.setProdIMG(buf);
+					productImgvo.setProdIMGName(filename);
+					imglist.add(productImgvo);
+				}
 			}
+			prodSvc.addProduct(en, on, pn, ps, up, psk, pdt, ipo, imglist);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/back-organizer-end/product/listAllProduct.jsp";
@@ -138,10 +143,13 @@ public class ProductServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
-		if ("getOne_For_Update".equals(action)) { // request from listAllProduct.jsp
+		if ("getOne_For_Update".equals(action))
+
+		{ // request from listAllProduct.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to send the ErrorPage view.
+			// Store this set in the request scope, in case we need to send the ErrorPage
+			// view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 ****************************************/
@@ -150,8 +158,8 @@ public class ProductServlet extends HttpServlet {
 			/*************************** 2.開始查詢資料 ****************************************/
 			ProductService prodSvc = new ProductService();
 			ProductVO prodVo = prodSvc.getOneProduct(pdnb);
-			String prodimglist= prodSvc.showImage(pdnb);
-System.out.println(prodimglist.length());
+			String prodimglist = prodSvc.showImage(pdnb);
+			System.out.println(prodimglist.length());
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("ProductVO", prodVo); // 資料庫取出的ProductVO物件,存入req
 			req.setAttribute("prodimglist", prodimglist);
@@ -159,10 +167,11 @@ System.out.println(prodimglist.length());
 			RequestDispatcher successView = req.getRequestDispatcher(url);// forward to updateProduct.jsp
 			successView.forward(req, res);
 		}
-		
+
 		if ("update".equals(action)) { // request from updateProduct.jsp
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to send the ErrorPage view.
+			// Store this set in the request scope, in case we need to send the ErrorPage
+			// view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			Integer en = null;
@@ -253,7 +262,8 @@ System.out.println(prodimglist.length());
 		if ("getOne_For_Display".equals(action)) { // (search by product number) request from selectProduct.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to send the ErrorPage view.
+			// Store this set in the request scope, in case we need to send the ErrorPage
+			// view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			System.out.println("error.Msgs");
@@ -263,7 +273,7 @@ System.out.println(prodimglist.length());
 			if (str == null || (str.trim()).length() == 0) {
 				errorMsgs.add("請輸入/選擇商品編號");
 			}
-			
+
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
@@ -278,7 +288,7 @@ System.out.println(prodimglist.length());
 			} catch (NumberFormatException e) {
 				errorMsgs.add("商品編號格式不正確");
 			}
-			
+
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
@@ -286,14 +296,14 @@ System.out.println(prodimglist.length());
 				failureView.forward(req, res);
 				return;
 			}
-			
+
 			/*************************** 2.開始查詢資料 *****************************************/
 			ProductService prodSvc = new ProductService();
 			ProductVO prodVo = prodSvc.getOneProduct(prodNo);
 			if (prodVo == null) {
 				errorMsgs.add("查無資料");
 			}
-			
+
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
@@ -308,7 +318,7 @@ System.out.println(prodimglist.length());
 			RequestDispatcher successView = req.getRequestDispatcher(url); // forward to listOneProduct.jsp
 			successView.forward(req, res);
 		}
-		
+
 //		if ("getOneProductName_For_Display".equals(action)) { // (search by product name) request from selectProduct.jsp
 //
 //			List<String> errorMsgs = new LinkedList<String>();
@@ -375,12 +385,13 @@ System.out.println(prodimglist.length());
 		if ("getOneProductName_For_Display".equals(action)) { // (search by product name) request from selectProduct.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to send the ErrorPage view.
+			// Store this set in the request scope, in case we need to send the ErrorPage
+			// view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 ****************************************/
 			String pdname = req.getParameter("prodName");
-			
+
 			/*************************** 2.開始查詢資料 ****************************************/
 			ProductService prodSvc = new ProductService();
 			List<ProductVO> prodVo = prodSvc.findByProductName(pdname);
