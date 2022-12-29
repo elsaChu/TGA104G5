@@ -32,8 +32,7 @@
 	<jsp:include page="/main_frame/index_header.jsp"></jsp:include>
     </header>
     <!-- Header Section End -->
-
-
+    
     <!-- Carousel Begin  -->
     <section class="flick">
         <div class="mainCarousel">
