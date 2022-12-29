@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import tw.com.tibame.management.*;
+import tw.com.tibame.organizer.model.OrganizerService;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -31,15 +33,20 @@ public class OrganizerVerification extends HttpServlet{
 		System.out.println(obj1.get("veriCode"));
 		String value1 = obj1.get("veriCode") ;
 		HttpSession s1 = req.getSession();
-		System.out.println("session");
 		String authCode = (String) s1.getAttribute("authCode");
 		System.out.println("authCode from OrganizerVerification: " + authCode);
+		OrganizerService os1 = new OrganizerService();
 		
 		JsonObject resBody = new JsonObject();
-		if (!value1.equals(authCode)) {
-			resBody.addProperty("successful", false);
-		} else {
+		if (value1.equals(authCode)) {
+			System.out.println("veri == auth");
 			resBody.addProperty("successful", true);
+			String vAccount = (String) s1.getAttribute("veriAccount");
+			os1.activateAccount(vAccount);
+			System.out.print(vAccount);
+			System.out.println(" activated.");
+		} else {
+			resBody.addProperty("successful", false);
 		}
 		
 		res.getWriter().write(resBody.toString());

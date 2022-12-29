@@ -55,7 +55,7 @@ pageContext.setAttribute("list", list);
 				<div class="col-md-6 div_search_right">
 					<FORM METHOD="post" id="search" ACTION="<%=request.getContextPath()%>/OrderServlet">
 						<b>訂單編號查詢</b>
-						<input type="number" name="searchByOrderID" value="" placeholder="訂單編號" >
+						<input type="text" name="searchByOrderID" value="" placeholder="訂單編號" >
 						<input type="hidden" name="action" value="searchByOrderID">
 						<input type="submit" value="搜尋訂單編號">
 					</FORM>

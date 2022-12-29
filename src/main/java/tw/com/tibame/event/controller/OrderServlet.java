@@ -60,33 +60,32 @@ public class OrderServlet extends HttpServlet {
 			successView.forward(request, response);
 		}
 
-		if ("searchAllEvent".equals(action)) { // 來自listAllStaff.jsp的請求
-//			System.out.println("in search" + action);
-			List<String> errorMsgs = new LinkedList<String>();
-//			先把errorMsgs new出來，再裝進去request
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			request.setAttribute("errorMsgs", errorMsgs);
-
-			String findByOrganizerNumber = request.getParameter("findByOrganizerNumber");
-			OrderService orderSvc = new OrderService();
-			EventVO eventVO = null;
-			Integer int_sbn = null;
+//		if ("searchAllEvent".equals(action)) { // 來自listAllStaff.jsp的請求
+////			System.out.println("in search" + action);
+//			List<String> errorMsgs = new LinkedList<String>();
+////			先把errorMsgs new出來，再裝進去request
+//			// Store this set in the request scope, in case we need to
+//			// send the ErrorPage view.
+//			request.setAttribute("errorMsgs", errorMsgs);
+//
+//			String findByOrganizerNumber = request.getParameter("findByOrganizerNumber");
+//			OrderService orderSvc = new OrderService();
+//			List<EventVO> eventVO = null;
+//			Integer int_sbn = null;
 //			try {
 ////				 轉型 STR轉INT，用PARSEINT()
-//				int_ssn = Integer.valueOf(searchByNumber);
-//				staffVO = staffSvc.findByNumber(int_sbn);
-//				if(orderEventVO.getStaffNumber() == null) {
-//					orderEventVO = null;
+//				Integer int_fbon = Integer.valueOf(findByOrganizerNumber);
+//				eventVO = orderSvc.organizerNumber();
+//				if(eventVO.get(0) == null) {
+//					eventVO = null;
 //				}
 //			} catch (NumberFormatException e) {
-//				errorMsgs.add("未輸入員工編號");
+//				errorMsgs.add("未輸入廠商編號");
 //			}
 //			
-//			System.out.println("staffVO servlet="+staffVO.toString());
-//			if (staffVO == null && int_ssn != null) {
+//			if (eventVO == null) {
 //				System.out.println("in null");
-//				errorMsgs.add("此員工編號不存在，請再確認一次");
+//				errorMsgs.add("此廠商編號不存在，請再確認一次");
 //			}
 //	
 //			if (!errorMsgs.isEmpty()) {
@@ -94,28 +93,28 @@ public class OrderServlet extends HttpServlet {
 //				failureView.forward(request, response);
 //				return;// 程式中斷
 //			}
-
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			request.setAttribute("eventVO", eventVO); // 資料庫取出的staffVO物件,存入request
-			String url = "/back-staff-end/staff/ListAllEvent.jsp";
-			RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 ticketOrder.jsp
-			successView.forward(request, response);
-		}
+//
+//			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+//			request.setAttribute("eventVO", eventVO); // 資料庫取出的staffVO物件,存入request
+//			String url = "/back-staff-end/staff/ListAllEvent.jsp";
+//			RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 ticketOrder.jsp
+//			successView.forward(request, response);
+//		}
 
 		if ("show_all_event_order".equals(action)) { // 來自listAllEvent.jsp的請求
 			String eventNumber = request.getParameter("eventNumber");
-			System.out.println("eventNumber =>>>>>>>:" + "123");
+//			System.out.println("eventNumber =>>>>>>>:" + "123");
 
 			EventVO eventVO = new EventVO();
-//			Integer int_eventnumber = Integer.valueOf(eventNumber);
-//			eventVO.setEventNumber(int_eventnumber);
+			Integer int_eventnumber = Integer.valueOf(eventNumber);
+			eventVO.setEventNumber(int_eventnumber);
 
-//			OrderService orderSvc = new OrderService();
-//			List<OrderVO> orderVO = orderSvc.selectByEventNumber(2);// 先寫死
+			OrderService orderSvc = new OrderService();
+			List<OrderVO> orderVO = orderSvc.selectByEventNumber(int_eventnumber);// 先寫死
 			
-			request.setAttribute("xxx", 2); // 資料庫取出的staffVO物件,存入request
-			System.out.println("eventNumber =>>>>>>>:" + "1234");
-			String url = "/front-end/event/listOneOrganizerEvent.jsp";
+			request.setAttribute("eventVO", eventVO); // 資料庫取出的staffVO物件,存入request
+//			System.out.println("eventNumber =>>>>>>>:" + "1234");
+			String url = "/front-end/event/listAllEvent.jsp";
 			RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 ticketOrder.jsp
 			successView.forward(request, response);
 		}

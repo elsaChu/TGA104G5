@@ -31,12 +31,12 @@ public class CheckLogin extends HttpServlet {
 		String loginDone = (String) session.getAttribute("loginStatus");
 		
 		//FAKE INFO start
-		System.out.println("check login implemented fake member login info");
-		MemberVO fakeVo = new MemberVO();
-		fakeVo.setName("fakeName");
-		fakeVo.setIDNumber("100");
-		fakeVo.setNumber(1);
-		session.setAttribute("memberVO", fakeVo);
+//		System.out.println("check login implemented fake member login info");
+//		MemberVO fakeVo = new MemberVO();
+//		fakeVo.setName("fakeName");
+//		fakeVo.setIDNumber("100");
+//		fakeVo.setNumber(1);
+//		session.setAttribute("memberVO", fakeVo);
 		//FAKE INFO  end
 		
 		JsonObject resBody = new JsonObject();

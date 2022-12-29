@@ -43,10 +43,11 @@ public class OrganizerService {
 				}
 			}
 			if(noMatch == true) {
-				dao.insert(bean);				
+				dao.insert(bean);	
 			}
 			return returnString;
 		}
+ 
 		public String login(OrganizerVO bean) {
 			boolean noMatch = true;
 			String returnString ="wwhat";
@@ -65,6 +66,8 @@ public class OrganizerService {
 								//break;
 								//用break不能跳出FOR EACH迴圈 要跳出的話要利用EXCPETION，不然就改用FOR LOOP
 							}
+					}else {
+						
 					}
 				}
 				if(noMatch == true) {
@@ -158,10 +161,17 @@ public class OrganizerService {
 
 		public OrganizerVO update2(OrganizerVO organizerVO) {
 			System.out.println("### updateOrganizer service");
-			dao.update(organizerVO);
+			dao.update2(organizerVO);
 			return organizerVO;
 		}
-
+		
+		public void activateAccount(String organizerAccount) {
+			dao.updateActivateStatus(organizerAccount);
+		}
+		
+		public Boolean checkActivation(String oAccount) {
+			return dao.isActivated(oAccount);
+		}
 	
 
 }

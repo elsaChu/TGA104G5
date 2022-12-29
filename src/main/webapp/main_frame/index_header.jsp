@@ -27,13 +27,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item">
-            <a class="nav-link item_color" href="${context}/front-end/main/index_copy_e.jsp">首頁</a>
+            <a class="nav-link item_color" href="${context}/front-end/main/Indexbody.jsp">首頁</a>
           </li>
           <li class="nav-item">
             <a class="nav-link item_color" href="${context}/front-end/main/IndexSearch.html">活動</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link item_color" href="${context}/front-end/main/IndexSearch.html">我的收藏</a>
+            <a class="nav-link item_color" href="${context}/front-end/member/memberFavoriteEvent.html">我的收藏</a>
           </li>
           <li class="nav-item">
             <a class="nav-link item_color" href="${context}/front-end/product/shop.html">商品專區</a>

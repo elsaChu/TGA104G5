@@ -46,9 +46,11 @@ th, td {
 	padding: 5px;
 }
 
-.table-2 tr:nth-child(odd){
-background-color: #F0F0F0};
+.table-2 tr:nth-child(odd) {
+	background-color: #F0F0F0
+}
 
+;
 .prodDetails {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -56,7 +58,7 @@ background-color: #F0F0F0};
 
 th {
 	text-align: center;
-white-space: nowrap;
+	white-space: nowrap;
 }
 
 td.group1 {
@@ -91,8 +93,8 @@ td.prodName {
 			<th>商品規格</th>
 			<th>商品單價</th>
 			<th>庫存數量</th>
-			<th>商品詳情</th>
-			<th>商品總評價</th>
+			<!-- 			<th>商品詳情</th> -->
+			<!-- 			<th>商品總評價</th> -->
 			<th>商品是否上架</th>
 			<th>修改</th>
 		</tr>
@@ -105,11 +107,15 @@ td.prodName {
 				<td class=group1>${productVO.prodSpec}</td>
 				<td class=group1>${productVO.unitPrice}</td>
 				<td class=group1>${productVO.prodStock}</td>
-				<td class=prodDetails>${productVO.prodDetails}</td>
-				<td class=group1>${productVO.prodScore}</td>
-				<td class=group1>${productVO.isPOn}</td>
-
-				<td>
+				<%-- 				<td class=prodDetails>${productVO.prodDetails}</td> --%>
+				<%-- 				<td class=group1>${productVO.prodScore}</td> --%>
+				<c:if test="${productVO.isPOn==true}">
+					<td class=group1>已上架</td>
+				</c:if>
+				<c:if test="${productVO.isPOn==false}">
+					<td class=group1>未上架</td>
+				</c:if>
+				<td class=group1>
 					<form method="post" action="${context}/ProductServlet">
 						<input type="hidden" name="prodNo" value="${productVO.prodNo}">
 						<input type="hidden" name="action" value="getOne_For_Update">
