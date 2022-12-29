@@ -6,10 +6,12 @@
 
 <%@ page import="java.util.*"%>
 <%@ page import="tw.com.tibame.event.model.*"%>
+<%@ page import="tw.com.tibame.organizer.model.*"%>
 
 <%
 OrderService orderSvc = new OrderService();
-List<EventVO> list = orderSvc.organizerNumber();
+OrganizerVO organizer = (OrganizerVO)session.getAttribute("loginOrganizer");
+List<EventVO> list = orderSvc.organizerNumber(organizer.getOrganizerNumber());
 pageContext.setAttribute("list", list);
 %>
 
@@ -44,7 +46,7 @@ pageContext.setAttribute("list", list);
 </head>
 
 <body>
-	<jsp:include page="/main_frame/index_Staff.jsp"></jsp:include>
+	<jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
 	<div>
 		<h3>廠商活動列表</h3>
 	</div>
@@ -101,7 +103,7 @@ pageContext.setAttribute("list", list);
 						<td>${eventVO.eventEndDate}</td>
 						<td>
 							<FORM METHOD="post"
-								ACTION="<%=request.getContextPath()%>/OrderServlet"
+								ACTION="<%=request.getContextPath()%>/EventDetails"
 								style="margin-bottom: 0px;">
 								<input type="submit" value="查看詳情"> <input type="hidden"
 									name="eventNumber" value="${eventVO.eventNumber}">

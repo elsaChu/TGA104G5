@@ -155,7 +155,6 @@ public class ProductImageJdbcDAO implements ProductImageDAO {
 
 	@Override
 	public List<ProductImageVO> selectProdImage(Integer prodNo) {
-		System.out.println("IN IMG JDBC");
 		List<ProductImageVO> list =null;
 		if (prodNo != null) {
 			list = new ArrayList<ProductImageVO>();
@@ -175,7 +174,6 @@ public class ProductImageJdbcDAO implements ProductImageDAO {
 					prodimgvo.setProdIMG(rs.getBytes(1));
 					list.add(prodimgvo);
 				}
-				System.out.println("DAO list="+list.size());
 			} catch (ClassNotFoundException e) {
 				throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 				// Handle any SQL errors

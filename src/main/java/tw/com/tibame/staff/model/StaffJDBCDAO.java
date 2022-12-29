@@ -160,7 +160,7 @@ public class StaffJDBCDAO implements StaffDAO_interface {
 			Class.forName(Common.driver);
 			conn = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
 			pstmt = conn.prepareStatement(GET_ONE_STAFF);
-			System.out.println("staffNumber=" + staffNumber);
+//			System.out.println("staffNumber=" + staffNumber);
 			pstmt.setInt(1, staffNumber);
 
 			rs = pstmt.executeQuery();
