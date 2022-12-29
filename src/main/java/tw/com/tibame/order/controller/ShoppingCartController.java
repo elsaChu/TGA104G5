@@ -35,29 +35,6 @@ public class ShoppingCartController {
 		return shoppingCartService.getByMemberNumber(number);
 	}
 
-//	@GetMapping("memberCart")
-//	public List<ShowShoppingCartVO> getByMemberNumber(Integer number) {
-//		return shoppingCartService.getByMemberNumber(4);
-//	}
-
-//	@PostMapping("addToCart")
-//	public ShoppingCartVO addToCart(@RequestBody ShoppingCartVO shoppingCartVO) {
-//		ShoppingCartVO shoppingCartVO = new ShoppingCartVO();
-//		Integer number =  (Integer) request.getSession().getAttribute("number");
-//		Integer number = 5;  // 這些是先寫死的唷!
-//		Integer prodNo = 9;
-//		Integer shoppingQty = 4;
-//
-//		shoppingCartVO.setNumber(4);
-//		shoppingCartVO.setProdNo(14);
-//		shoppingCartVO.setShoppingQty(5);
-//		
-//			
-//		return shoppingCartService.insert(shoppingCartVO);
-//		}
-//		return null;
-//	}
-	
 	@PostMapping("addToCart")
 	public ShoppingCartVO addToCart(HttpSession session, @RequestBody ShoppingCartVO shoppingCartVO) {
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");

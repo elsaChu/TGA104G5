@@ -1,5 +1,6 @@
 function init() {
   const order = document.querySelector("#order");
+  // sessionStorage.setItem("URL_before_login", window.location.href);
   // $.ajax({
   //     url: "../../order/orderlist",           // 資料請求的網址
   //     type: "GET",                                                     // GET | POST | PUT | DELETE | PATCH
@@ -43,8 +44,8 @@ window.onload = init;
 function Template(prodOrderNo, amountPrice, paymentDate, prodOrderStatus, deliveryStatus) {
   return `
     <tr>
-    <td>${prodOrderNo}</td>
-    <td>${amountPrice}</td>
+    <td># ${prodOrderNo}</td>
+    <td>$ ${amountPrice}</td>
     <td>${paymentDate}</td>
     <td>${prodOrderStatus}</td>
     <td>${deliveryStatus}</td>
