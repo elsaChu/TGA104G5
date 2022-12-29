@@ -47,7 +47,7 @@ public class ViewProductController {
 	
 	@GetMapping("findPictureById")
 	public byte[] findPicByProdIMGID(@RequestParam Integer prodIMGID) {
-		ProductImage productImage = viewProductService.findMainPic(prodIMGID);
+		ProductImage productImage = viewProductService.findPicByProdIMGID(prodIMGID);
 		return productImage != null ? productImage.getProdIMG() : null;
 	}
 
