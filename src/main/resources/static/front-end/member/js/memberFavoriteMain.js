@@ -1,7 +1,28 @@
 
+
+
+  function checklogin() {
+    $.ajax({
+      url: '../member/MemberServlet',
+      method: 'POST',
+      dataType: 'json',
+      data: { action: 'checkLogin' },
+      success: function (data) {
+        // console.log(data);
+        if (data.check == '2') {
+          $('#login_menuB').show();
+          $('#login_menuA').hide();
+        } else {
+          $('#login_menuA').show();
+          $('#login_menuB').hide();
+        }
+      }
+    });
+  }
 // window on load 
 window.addEventListener("DOMContentLoaded", function () {
    console.log("DOM Content Loaded");
+  checklogin(); 
 //   $("div.featured__filter").html('<div class="loadingIcon" ><span><img src="images/dotIcon.png"></i></span></div>');
    getFavEvent();
    
