@@ -66,7 +66,7 @@ public class UpdateEventServlet extends HttpServlet {
 			/***************************2.開始查詢資料****************************************/
 			EventService eventSvc = new EventService();
 			EventVO eventvo = eventSvc.getOneEvent(eventNumber);
-			System.out.println("select"+eventvo.toString());
+//			System.out.println("select"+eventvo.toString());
 			Base64.Encoder encoder = Base64.getEncoder();
 			String bigImg64 = "data:image/jpeg;base64,"+encoder.encodeToString(eventvo.getBigImg());
 //			System.out.println(bigImg64);
@@ -82,7 +82,7 @@ public class UpdateEventServlet extends HttpServlet {
 			EventClassService eventclassSvc = new EventClassService();
 			List<EventClassVO> evclassList = eventclassSvc.selectByeventNumber(eventNumber);
 //			String[] evclassValue = new String[evclassList.size()];
-			System.out.println("CLASS LIST="+evclassList.toString());
+//			System.out.println("CLASS LIST="+evclassList.toString());
 			
 			/***************************3.查詢完成,準備轉交(Send the Success view)************/
 			req.setAttribute("evclassJSON", gson.toJson(evclassList));
@@ -259,7 +259,7 @@ public class UpdateEventServlet extends HttpServlet {
 				String name = bigImg.getName();
 				InputStream in = bigImg.getInputStream();
 				bigimg = new byte[in.available()];
-				System.out.println("bigimg bytes = "+bigimg);
+//				System.out.println("bigimg bytes = "+bigimg);
 				in.read(bigimg);
 				in.close();
 			}
@@ -281,7 +281,7 @@ public class UpdateEventServlet extends HttpServlet {
 			session.setAttribute("up_adddata", map);
 //			System.out.println(eventenddatestr);
 			session.setAttribute("up_maxDate", eventenddatestr);
-			System.out.println(eventvo.toString());
+//			System.out.println(eventvo.toString());
 			RequestDispatcher failureView = req
 					.getRequestDispatcher("/back-organizer-end/event/updateEvent2.jsp");
 			failureView.forward(req, res);
@@ -295,7 +295,7 @@ public class UpdateEventServlet extends HttpServlet {
 			/***************************2.開始查詢資料****************************************/
 			TicketService ticketSvc = new TicketService();
 			List<TicketVO> ticketList= ticketSvc.selectTicketByEventNumber(eventNumber);
-			System.out.println("select="+ticketList.toString());
+//			System.out.println("select="+ticketList.toString());
 			/***************************3.查詢完成,準備轉交(Send the Success view)************/
 	        Map<String,Object> result = new HashMap<>();
 	        result.put("success", false);
@@ -317,7 +317,7 @@ public class UpdateEventServlet extends HttpServlet {
 			Map map = (Map)session.getAttribute("up_adddata");
 			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 			String tickets = req.getParameter("tickets");
-			System.out.println(tickets);
+//			System.out.println(tickets);
 			
 			res.setContentType("application/json");
 	        
@@ -358,7 +358,9 @@ public class UpdateEventServlet extends HttpServlet {
 					Integer ticket_quantity= null;
 					try {
 						ticket_quantity = Integer.valueOf(jsonO.get("ticket_quantity").toString());
-						totalTicket = totalTicket + ticket_quantity;
+						if(!jsonO.get("record").toString().equals("-1")) {
+							totalTicket = totalTicket + ticket_quantity;
+						}		
 					} catch (NumberFormatException e) {
 						result.put("ticket_quantitymsg","數量:只能是數字");
 						haserr =true;
@@ -368,7 +370,7 @@ public class UpdateEventServlet extends HttpServlet {
 					java.sql.Timestamp start_date= null;
 					try {
 						start_date = java.sql.Timestamp.valueOf(jsonO.get("start_date").toString());
-						System.out.println("up_page2 date=" + start_date);
+//						System.out.println("up_page2 date=" + start_date);
 					} catch (IllegalArgumentException e) {
 						System.out.println("go start exception");
 						result.put("datemsg","請輸入日期!");
@@ -379,7 +381,7 @@ public class UpdateEventServlet extends HttpServlet {
 					java.sql.Timestamp end_date= null;
 					try {
 						end_date = java.sql.Timestamp.valueOf(jsonO.get("end_date").toString());
-						System.out.println("up_page2 enddate=" + end_date);
+//						System.out.println("up_page2 enddate=" + end_date);
 						if(start_date !=null) {
 							if(end_date.compareTo(start_date) == -1) {
 								result.put("end_datemsgeday","日期區間不對!");
@@ -448,7 +450,7 @@ public class UpdateEventServlet extends HttpServlet {
 			
 			// Send the use back to the form, if there were errors
 			if(result.size() > 1) {
-				System.out.println(result.toString());
+//				System.out.println(result.toString());
 				System.out.println("up_page2 go error "+result.size());
 			}else {
 		        result.put("success", true);
@@ -461,13 +463,13 @@ public class UpdateEventServlet extends HttpServlet {
 					System.out.println("need seat="+needSeat);
 					result.put("needSeat", needSeat);
 					
-					System.out.println("up_adddata="+((Map)session.getAttribute("up_adddata")).toString());
-					System.out.println(session.getAttribute("up_tickets").toString());
+//					System.out.println("up_adddata="+((Map)session.getAttribute("up_adddata")).toString());
+//					System.out.println(session.getAttribute("up_tickets").toString());
 				}else {
 					System.out.println("not need="+needSeat);
 					
-					System.out.println("up_adddata="+((Map)session.getAttribute("up_adddata")).toString());
-					System.out.println(session.getAttribute("up_tickets").toString());
+//					System.out.println("up_adddata="+((Map)session.getAttribute("up_adddata")).toString());
+//					System.out.println(session.getAttribute("up_tickets").toString());
 					//get page1 data
 					Map eventMap =(Map)session.getAttribute("up_adddata");
 			
