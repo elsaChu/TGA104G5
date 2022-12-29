@@ -21,9 +21,20 @@ function init() {
 	checklogin();
 
 
-
-    const prodNo = sessionStorage.getItem('prodNo');
-    // sessionStorage.removeItem('prodNo');
+	
+    let prodNo = sessionStorage.getItem('prodNo');
+	console.log(prodNo); // null
+	// 從網址抓取prodNo
+    if(!prodNo){
+		let getUrlString = location.href;
+		let url = new URL(getUrlString);
+		prodNo = parseInt(url.searchParams.get('prodNo'));
+		console.log(prodNo); // 2
+	} else {
+		prodNo = sessionStorage.getItem('prodNo');
+		sessionStorage.removeItem('prodNo');
+	}
+	
     const prodarea = document.querySelector("#prodarea");
 	const mainPic = document.querySelector("#mainPic");
 	const picture = document.querySelector("#picture");
@@ -31,18 +42,14 @@ function init() {
     $.ajax({
         url: "../../product/detail",
         type: "GET",
-        data: { "prodNo": prodNo },
+        data: { prodNo: prodNo },
         dataType: "json",
         success: function (data) {
-
             prodarea.innerHTML = Template1(data);
-          
-            
         },
         error: function (xhr) {
             console.log(xhr);
         }
-  
     });
 	
 
@@ -86,30 +93,12 @@ $("#prodarea").on("click", "a.primary-btn", function(e){
       return;
     }
 
-// console.log("ddd");
-
     let data = {
 	//   "number": number,
       "prodNo": parseInt(prodNo),
       "shoppingQty": parseInt($("div.pro-qty input").val()) 
     };
-
-console.log(data);
-	// $.ajax({
-    //     url: "http://localhost:8080/TGA104G5/cart/addToCart",
-    //     type: "POST",
-	// 	contentType: "application/json",
-    //     data: data,
-    //     dataType: "json",
-    //     success: function (data) {	
-	// 		console.log(data);
-    //     },
-    //     // error: function (xhr) {
-    //     //     console.log(xhr);
-    //     // }
-
-    // });
-
+	// console.log(data);
 
 	fetch("../../cart/addToCart", {
       method: "POST",
@@ -138,9 +127,7 @@ console.log(data);
       $(this).closest("div").addClass("added");
       $(this).text("已加入購物車");
 	});
-  });
-	
-  
+});
 
 
 // 顯示商品資訊
