@@ -181,7 +181,7 @@ create table `MEMBER` (
 	email			VARCHAR(50) NOT NULL  comment'信箱',
 	birthday		DATE comment'生日',
 	`name`			VARCHAR(21) NOT NULL comment'姓名',
-	phoneNumber		VARCHAR(15) comment'手機',
+	phoneNumber		VARCHAR(15) NOT NULL comment'手機',
 	subscription	BIT(1)  default 0 NOT NULL comment'訂閱',
 	createDate		TIMESTAMP default CURRENT_TIMESTAMP comment'註冊日期',
 	pass			BIT(1) default 0 NOT NULL comment'開通帳號',
