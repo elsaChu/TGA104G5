@@ -19,7 +19,8 @@ import tw.com.tibame.member.model.MemberVO;
 	"/cart/memberCart",
 	"/order/**",
 	"/front-end/member/order.html",
-	"/front-end/member/orderdetail.html"
+	"/front-end/member/orderdetail.html",
+	"/front-end/product/checkout.html"
 })
 public class MemberLoginFilter extends HttpFilter {
 	private static final long serialVersionUID = 1L;

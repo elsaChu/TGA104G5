@@ -13,7 +13,7 @@ import tw.com.tibame.util.common.Common;
 
 public class TicketJDBCDAO implements TicketDAO_interface{
 	private static final String ticketInsertSQL = "insert into TICKET(ticketName,eventNumber,price,limitTicket,ticketQuantity,ticketStartTime,ticketEndTime,ticketMIN,ticketMAX,ticketType) value(?,?,?,?,?,?,?,?,?,?);";
-	private static final String selectByPKSQL="select * from TICKET where eventNumber=?;";
+	private static final String selectByPKSQL="select * from TICKET where eventNumber=? and ticketType != '已下架';";
 	private static final String ticketUpdateSQL="update TICKET set ticketName =?, price=?, limitTicket=?, ticketQuantity=?, ticketStartTime=?, ticketEndTime=?, ticketMIN=?, ticketMAX=?, ticketType=? where ticketID=?;";
 	private static final String queryByIdSQL =" select * from ticket e where e.ticketID = ?";
 	

@@ -40,7 +40,7 @@ public class ProductOrderController {
 	@Autowired
 	private ProductService productService;
 	
-    @GetMapping("orderlist") // 這是對的唷可以從session拿資料!
+    @GetMapping("orderlist")
 	public List<ProductOrderVO> memberOrder(HttpSession session) {
     	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
     	Integer number =  memberVO.getNumber();
@@ -48,13 +48,7 @@ public class ProductOrderController {
     	return list;
 	}
     
-//    @GetMapping("orderlist") 
-//	public List<ProductOrderVO> memberOrder(HttpSession session) {
-//		List<ProductOrderVO> list = productOrderService.getByNumberOrder(2); // 先寫死測試用!
-//    	return list;
-//	}
-    
-    @GetMapping("orderdetail") // 跳轉訂單時需要檢查會員編號，避免看到別的會員訂單
+    @GetMapping("orderdetail") 
     public List<ViewOrderDetailVO> memberOrderDetail(@RequestParam Integer prodOrderNo) {
     	List<ViewOrderDetailVO> list = orderDetailService.findByProdOrderNo(prodOrderNo);
     	return list;
@@ -65,7 +59,6 @@ public class ProductOrderController {
     	ViewProductOrderVO viewProductOrderVO = productOrderService.findAnOrder(prodOrderNo);
 		return viewProductOrderVO;
     }
-    
     
     @PostMapping("addProdOrder") 
     public boolean addProdOrder(HttpSession session, @RequestBody OrderWrapper orderWrapper) {
@@ -92,7 +85,6 @@ public class ProductOrderController {
 	    			productVO.setProdStock(newStock);
 	    			productService.update(productVO);
 	    		}
-	    		
 	    	}
 	    	
 	    // 清空會員購物車
@@ -111,7 +103,6 @@ public class ProductOrderController {
     	String shippingAdd = "測試1";
     	ProductOrderVO productOrderVO = productOrderService.updateReceiverInfo(prodOrderNo, receiverName, receiverTel, shippingAdd);
 		return productOrderVO;
-		
 	}
     
     @PutMapping("comment")
@@ -134,7 +125,4 @@ public class ProductOrderController {
     	return orderDetailVO;
 	}
 	
-		
-	
-
 }

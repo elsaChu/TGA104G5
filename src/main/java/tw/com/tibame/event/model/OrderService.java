@@ -491,7 +491,15 @@ public class OrderService {
 	}
 	
 	public List<OrderEventVO> findByNumber(Integer number) {
-		return dao.findByNumber(number);
+		List<OrderEventVO> orderlist=dao.findByNumber(number);
+		List<OrderEventVO> orderlist2 =new ArrayList<OrderEventVO>();
+		for(OrderEventVO vo:orderlist) {
+			Base64.Encoder encoder = Base64.getEncoder();
+	    	String bigImg64 = "data:image/jpeg;base64,"+encoder.encodeToString(vo.getBigImg());
+			vo.setBigImg64(bigImg64);
+			orderlist2.add(vo);
+		}
+		return orderlist2;
 	}
 	
 	public List<EventVO> organizerNumber(Integer organizerNumber){

@@ -1,28 +1,25 @@
 window.onload = init;
 function init() {
 
-	function checklogin(){
-		$.ajax({
-        url: '../member/MemberServlet',
-        method: 'POST',
-        dataType: 'json',
-        data: { action: 'checkLogin'},
-        success: function (data) {
-			// console.log(data);
-			if(data.check == '2'){
-				$('#login_menuB').show();
-				$('#login_menuA').hide();
-			}else{
-				$('#login_menuA').show();
-				$('#login_menuB').hide();
-			}
+  function checklogin() {
+    $.ajax({
+      url: '../member/MemberServlet',
+      method: 'POST',
+      dataType: 'json',
+      data: { action: 'checkLogin' },
+      success: function (data) {
+        // console.log(data);
+        if (data.check == '2') {
+          $('#login_menuB').show();
+          $('#login_menuA').hide();
+        } else {
+          $('#login_menuA').show();
+          $('#login_menuB').hide();
         }
+      }
     });
-	}
-	checklogin();
-
-
-
+  }
+  checklogin();
 
   const shoppingCart = document.querySelector("#shopping__cart");
   // 計算金額
@@ -55,13 +52,25 @@ function init() {
 
   }
 
-  
-  $.ajax({
-    url: "../../cart/memberCart",           // 資料請求的網址
-    type: "GET",                                                     // GET | POST | PUT | DELETE | PATCH
-    // data: { "number": number },                                      // 將物件資料(不用雙引號) 傳送到指定的 url
-    dataType: "json",                                                // 預期會接收到回傳資料的格式： json | xml | html
-    success: function (data) {                                         // request 成功取得回應後執行
+  // 顯示會員購物車所有商品
+  fetch("../../cart/memberCart")
+    .then((resp) => {
+			if(resp.redirected) {
+			Swal.fire({
+				position: "center",
+				icon: "warning",
+				title: "請先登入",
+				showConfirmButton: false,
+				timer: 1000,
+			}).then(()=>{
+				sessionStorage.setItem("URL_before_login", window.location.href); 
+				window.location.href = resp.url;
+			});
+			} else {
+			return resp.json();
+			}
+		})
+    .then(function(data){
       console.log(data);
       shoppingCart.innerHTML =
         data.map((e) => Template(e.shoppingCartNo, e.prodNo, e.prodName, e.prodSpec, e.unitPrice, e.shoppingQty)).join('');
@@ -88,19 +97,13 @@ function init() {
 
       console.log($("#shopping__cart td.shoping__cart__total"));
       calculateCart();
+    })
 
-    },
 
-  });
 
   const price = document.querySelector("td.shoping__cart__price");
   console.log(price);
   console.log()
-
-
-
-
-
 
 
   function Template(shoppingCartNo, prodNo, prodName, prodSpec, unitPrice, shoppingQty) {
@@ -132,7 +135,7 @@ function init() {
 
 
 
-  // 更改數量
+  // 使用按鈕更改數量
   $("div.shoping__cart__table").on("click", ".qtybtn", function () {
     var $button = $(this);
     var oldValue = $button.parent().find("input").val();
@@ -154,32 +157,73 @@ function init() {
     };
     sessionStorage.setItem("cart", data);
     console.log(data);
-    $.ajax({
-      url: "../../cart/addToCart",
-      type: "POST",
-      contentType: "application/json",
-      data: JSON.stringify(data),
-      dataType: "json",
-      success: function (data) {
-        console.log(data);
-      },
-      error: function (xhr) {
-        console.log(xhr);
-      }
-    });
+
+    fetch("../../cart/addToCart", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { 'content-type': 'application/json' }
+    })
+      .then((resp) => {
+        if (resp.redirected) {
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "請先登入",
+            showConfirmButton: false,
+            timer: 1000,
+          }).then(() => {
+            sessionStorage.setItem("URL_before_login", window.location.href);
+            window.location.href = resp.url;
+          });
+        }
+      });
+   
+  });
+
+  // 輸入數量更改數量
+  $("div.shoping__cart__table").on("change", "#shoppingQty", function(){
+    calculateCart();
+    let data = {
+      "prodNo": parseInt($(this).closest("tr").attr("data-prodNo")),
+      "shoppingQty": parseInt($(this).val())
+    };
+    sessionStorage.setItem("cart", data);
+    console.log(data);
+
+    fetch("../../cart/addToCart", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { 'content-type': 'application/json' }
+    })
+      .then((resp) => {
+        if (resp.redirected) {
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "請先登入",
+            showConfirmButton: false,
+            timer: 1000,
+          }).then(() => {
+            sessionStorage.setItem("URL_before_login", window.location.href);
+            window.location.href = resp.url;
+          });
+        } else {
+          return resp.json();
+        }
+      })
   });
 
 
   // 立即結帳
-  document.querySelector("#primary-btn").addEventListener("click", function(){
+  document.querySelector("#primary-btn").addEventListener("click", function () {
     console.log("...");
     // e.preventDefault();
     console.log("!!!");
     // 購物車商品存入sessionStorage
     const order_list = [];
     const result = document.querySelectorAll("tr[data-prodno]");
-    
-    for(let i = 0; i < result.length; i++){
+
+    for (let i = 0; i < result.length; i++) {
       let prodNo = parseInt(result[i].getAttribute("data-prodNo"));
       let prodName = result[i].querySelector("#prodName").innerText;
       let prodSpec = result[i].querySelector("#prodSpec").innerText;
@@ -203,94 +247,64 @@ function init() {
     let receiverName = null;
     let receiverTel = null;
     let shippingAdd = null;
+    let orderNotes = null;
 
-    const data1 = {};
-    data1["prodTotal"] = prodTotal;
-    data1["amountPrice"] = amountPrice;
-    data1["receiverName"] = receiverName;
-    data1["receiverTel"] = receiverTel;
-    data1["shippingAdd"] = shippingAdd;
+    const order = {};
+    order["prodTotal"] = prodTotal;
+    order["amountPrice"] = amountPrice;
+    order["receiverName"] = receiverName;
+    order["receiverTel"] = receiverTel;
+    order["shippingAdd"] = shippingAdd;
+    order["orderNotes"] = orderNotes;
 
-    // prodOrderVO.push(data1);
-    // console.log(prodOrderVO);
-    
-    
-
-
-
-    
-
-      sessionStorage.setItem("prodOrderVO", JSON.stringify(data1));
-      sessionStorage.setItem("orderDetail", JSON.stringify(order_list));
-      window.location.href = "./checkout.html";
+    sessionStorage.setItem("prodOrderVO", JSON.stringify(order));
+    sessionStorage.setItem("orderDetail", JSON.stringify(order_list));
+    sessionStorage.setItem("URL_before_login", window.location.href);
+    window.location.href = "./checkout.html";
 
   });
 
   // 移除購物車商品
   $("div.shoping__cart__table").on("click", "span.icon_close", function () {
-    console.log($(this).closest("tr").attr("data-shoppingCartNo"));
-    // let delete_item = {
-    //   shoppingCartNo: parseInt($(this).closest("tr").attr("data-shoppingCartNo")),
-    // };
     const shoppingCartNo = parseInt(document.querySelector("#remove").getAttribute("data-shoppingCartNo"));
+    console.log(shoppingCartNo);
 
-      fetch(`../../cart/remove?shoppingCartNo=${shoppingCartNo}`, {
-       
+    fetch(`../../cart/remove?shoppingCartNo=${shoppingCartNo}`)
+      .then((resp) => {
+        if (resp.redirected) {
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "請先登入",
+            showConfirmButton: false,
+            timer: 1000,
+          }).then(() => {
+            sessionStorage.setItem("URL_before_login", window.location.href);
+            window.location.href = resp.url;
+          });
+        } else {
+          return resp.json();
+        }
       })
-        .then((r) => r.json())
-        .then((data) => {
-            console.log(data);
-        });
-  
-      let target = $(this).closest("tr");
-  
-      if (target.is(":first-child") && target.is(":last-child")) {
-        // console.log("aaa");
-        target.closest("table").fadeOut(500, function () {
-          $(this).remove();
-          calculateCart();
-        });
-      } else {
-        target.fadeOut(500, function () {
-          // console.log(this);
-          // console.log($(this).is(":last-child"));
-  
-          // if($(this).is(":first-child") && $(this).is(":last-child")) {
-          //     $(this).closest("table").remove();
-          // }
-          $(this).remove();
-          calculateCart();
-        });
+      .then((data) => {
+        console.log(data);
+      });
+
+    let target = $(this).closest("tr");
+
+    if (target.is(":first-child") && target.is(":last-child")) {
+      // console.log("aaa");
+      target.closest("table").fadeOut(500, function () {
+        $(this).remove();
+        calculateCart();
+      });
+    } else {
+      target.fadeOut(500, function () {
+        $(this).remove();
+        calculateCart();
+      });
     }
   });
-
-
-
-
-
-
-
-
-  // document.querySelector("#remove").addEventListener("click", function(){
-  //   let shoppingCartNo = parseInt(
-  //     document.querySelector("#remove").getAttribute("data-shoppingCartNo"));
-
-  //   $.ajax({
-  //     url: "../../cart/remove?shoppingCartNo",
-  //     type: "GET",
-  //     data: {"shoppingCartNo": shoppingCartNo},
-  //     dataType: "json",
-  //     success: function (data) {
-  //       console.log(data);
-  //     },
-  //     error: function (xhr) {
-  //       console.log(xhr);
-  //     }
-  //   });
-
-  // });
-
-
 
 
   // 結帳jQuery
@@ -330,22 +344,11 @@ function init() {
   //   };
   //   console.log(data);
   //   sessionStorage.setItem("tempOrder", JSON.stringify(data));
-    // window.location.href = "./checkout.html";
+  // window.location.href = "./checkout.html";
 
 
-
-
-
-
-
-
-    // sessionStorage.setItem("cart", data);
+  // sessionStorage.setItem("cart", data);
   // });
-
-
-
-
-
 
   
 }

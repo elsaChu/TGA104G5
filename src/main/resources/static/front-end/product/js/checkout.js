@@ -53,7 +53,7 @@ $(window).on("load", function () {
         $(this).siblings().children(".error_message").remove();
         if ($(this).val().trim() == "") {
             $(this).removeClass("check_ok");
-            let error_message = "<span class='error_message'>&emsp;姓名不可空白</span>";
+            let error_message = "<span class='error_message'>&emsp;收件人姓名不可空白</span>";
             $(this).siblings().append(error_message);
             document.querySelector("#receiverName").style.border = "1.5px solid #dd2222";
             return;
@@ -68,7 +68,7 @@ $(window).on("load", function () {
         $(this).siblings().children(".error_message").remove();
         if ($(this).val().trim() == "") {
             $(this).removeClass("check_ok");
-            let error_message = "<span class='error_message'>&emsp;收件地址不可為空白</span>";
+            let error_message = "<span class='error_message'>&emsp;收件地址不可空白</span>";
             $(this).siblings().append(error_message);
             document.querySelector("#shippingAdd").style.border = "1.5px solid #dd2222";
             return;
@@ -83,7 +83,7 @@ $(window).on("load", function () {
         $(this).siblings().children(".error_message").remove();
         if ($(this).val().trim() == "") {
             $(this).removeClass("check_ok");
-            let error_message = "<span class='error_message'>&emsp;不可為空白</span>";
+            let error_message = "<span class='error_message'>&emsp;g手機號碼不可空白</span>";
             $(this).siblings().append(error_message);
             document.querySelector("#receiverTel").style.border = "1.5px solid #dd2222";
             return;
@@ -263,15 +263,20 @@ $(window).on("load", function () {
         document.querySelector("#cvv").style.border = "";
     });
 
-
-    $("#sitebtn").on("click", function () {
+    // 送出訂單
+    document.querySelector("#sitebtn").addEventListener("click", function () {
+        const prodOrderVO = JSON.parse(sessionStorage.getItem("prodOrderVO"));
         console.log(prodOrderVO);
-        sessionStorage.setItem("prodOrderVO", JSON.stringify(prodOrderVO));
 
-        prodOrderVO.receiverName = $("#receiverName").val().trim();
-        prodOrderVO.receiverTel = $("#receiverTel").val().trim();
-        prodOrderVO.shippingAdd = $("#shippingAdd").val().trim();
+        let receiverName_el = document.querySelector("#receiverName").value.trim();
+        let receiverTel_el = document.querySelector("#receiverTel").value.trim();
+        let shippingAdd_el = document.querySelector("#shippingAdd").value.trim();
+        let orderNotes_el = document.querySelector("#orderNotes").value.trim();
 
+        prodOrderVO.receiverName = receiverName_el;
+        prodOrderVO.receiverTel = receiverTel_el;
+        prodOrderVO.shippingAdd = shippingAdd_el;
+        prodOrderVO.orderNotes = orderNotes_el;
         sessionStorage.setItem("prodOrderVO", JSON.stringify(prodOrderVO));
 
         const orderDetailList = JSON.parse(sessionStorage.getItem("orderDetail"));
@@ -280,122 +285,188 @@ $(window).on("load", function () {
             "productOrderVO": prodOrderVO,
             "orderDetailList": orderDetailList
         }
+        if ($("#receiverName").hasClass("check_ok") &&
+            $("#receiverTel").hasClass("check_ok") &&
+            $("#shippingAdd").hasClass("check_ok") &&
+            $("#cardName").hasClass("check_ok") &&
+            $("#creditCard").hasClass("check_ok") &&
+            $("#expireDate").hasClass("check_ok") &&
+            $("#cvv").hasClass("check_ok")) {
+            console.log("ok");
 
-        // console.log(insertOrder);
-    
-        // fetch("../../order/addProdOrder", {
-        //     method: "POST",
-        //     body: JSON.stringify(insertOrder),
-        //     headers: { "content-type": "application/json" },
-        //   })
-        //     .then((r) => {
-        //       if(r.redirected) {
-        //         Swal.fire({
-        //           position: "center",
-        //           icon: "warning",
-        //           title: "請先登入",
-        //           showConfirmButton: false,
-        //           timer: 1000,
-        //         }).then(()=>{
-        //           sessionStorage.setItem("URL_before_login", window.location.href);
-        //           window.location.href = r.url;
-        //         });
-        //       } else {
-        //         return r.json();
-        //       }
-        //     })
-        //     .then((data) => {
-        //       if (data.message == "Insert Success") {
-        //         Swal.fire({
-        //           position: "center",
-        //           icon: "success",
-        //           title: "訂單成立",
-        //           showConfirmButton: false,
-        //           timer: 1000,
-        //         }).then(() => {
-        //           window.location.href = "../member/order.html";
-        //         });
-        //       } else {
-        //         Swal.fire({
-        //           position: "center",
-        //           icon: "error",
-        //           title: "訂單新增失敗",
-        //           showConfirmButton: false,
-        //           timer: 1000,
-        //         }).then(() => {
-        //           window.location.href = "./shoppingcart.html";
-        //         });
-        //       }
-        //     });
-
-        document.querySelector("#sitebtn").addEventListener("click", function () {
-            $("#price_check span.error_message").remove();
-            $("#receiver_check span.error_message").remove();
-            $("#payment_check span.error_message").remove();
-            const prodOrderVO = JSON.parse(sessionStorage.getItem("prodOrderVO"));
-            console.log(prodOrderVO);
-    
-            let receiverName_el = document.querySelector("#receiverName").value;
-            let receiverTel_el = document.querySelector("#receiverTel").value;
-            let shippingAdd_el = document.querySelector("#shippingAdd").value;
-    
-            prodOrderVO.receiverName = receiverName_el;
-            prodOrderVO.receiverTel = receiverTel_el;
-            prodOrderVO.shippingAdd = shippingAdd_el;
-            sessionStorage.setItem("prodOrderVO", JSON.stringify(prodOrderVO));
-    
-            const orderDetailList = JSON.parse(sessionStorage.getItem("orderDetail"));
-    
-            const insertOrder = {
-                "productOrderVO": prodOrderVO,
-                "orderDetailList": orderDetailList
+            fetch("../../order/addProdOrder", {
+                method: "POST",
+                body: JSON.stringify(insertOrder),
+                headers: { "content-type": "application/json" },
+            })
+                .then((r) => {
+                    if (r.redirected) {
+                        Swal.fire({
+                            position: "center",
+                            icon: "warning",
+                            title: "請先登入",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        }).then(() => {
+                            sessionStorage.setItem("URL_before_login", window.location.href);
+                            window.location.href = r.url;
+                        });
+                    } else {
+                        return r.json();
+                    }
+                })
+                .then(() => {
+                    // .then((data) => {
+                    //   if (data.message == "Insert Success") {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "訂單成立",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(() => {
+                        window.location.href = ".shop.html";
+                    });
+                    //   } else {
+                    //     Swal.fire({
+                    //       position: "center",
+                    //       icon: "error",
+                    //       title: "訂單新增失敗",
+                    //       showConfirmButton: false,
+                    //       timer: 1000,
+                    //     }).then(() => {
+                    //       window.location.href = "./shoppingcart.html";
+                    //     });
+                    //   }
+                });
+        } else {
+            // console.log("資料不完整");
+            if (prodOrderVO.receiverName == "") {
+                let error_message = "<span class='error_message'>&emsp;收件人姓名不可空白</span>";
+                $("#receiverName").siblings().append(error_message);
+                document.querySelector("#receiverName").style.border = "1.5px solid #dd2222";
             }
-    
-            $.ajax({
-                url: "../../order/addProdOrder",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(insertOrder),
-                dataType: "json",
-                success: function (a) {
-                    console.log(a);
-                    window.location.href = "../member/order.html";
-                },
-                error: function (xhr) {         // request 發生錯誤的話執行
-                    console.log(xhr);
-                    // Swal.fire({
-                    //     position: "center",
-                    //     icon: "error",
-                    //     title: "訂單新增失敗",
-                    //     showConfirmButton: false,
-                    //     timer: 1000,
-                    // }).then(() => {
-                        window.location.href = "./shoppingcart.html";
-                    // });
-    
-                },
-    
-                // complete: () => {
-                //     Swal.fire({
-                //         position: "center",
-                //         icon: "success",
-                //         title: "訂單成立",
-                //         showConfirmButton: false,
-                //         timer: 1000,
-                //     }).then(() => {
-                //         location.href = "../member/order.html";
-                //     });
-                // }
-            });
-        });
+            if (prodOrderVO.receiverTel == "") {
+                let error_message = "<span class='error_message'>&emsp;手機號碼不可空白</span>";
+                $("#receiverTel").siblings().append(error_message);
+                document.querySelector("#receiverTel").style.border = "1.5px solid #dd2222";
+            }
+            if (prodOrderVO.shippingAdd == "") {
+                let error_message = "<span class='error_message'>&emsp;手機號碼不可空白</span>";
+                $("#shippingAdd").siblings().append(error_message);
+                document.querySelector("#shippingAdd").style.border = "1.5px solid #dd2222";
+            }
+            if ($("#creditCard").val().trim() == "") {
+                let error_message = "<span class='error_message'>&emsp;信用卡號不可空白</span>";
+                $("#creditCard").siblings().append(error_message);
+                document.querySelector("#shippingAdd").style.border = "1.5px solid #dd2222";
+            }
+            if ($("#cardName").val().trim() == "") {
+                let error_message = "<span class='error_message'>&emsp;持卡人姓名不可空白</span>";
+                $("#cardName").siblings().append(error_message);
+                document.querySelector("#cardName").style.border = "1.5px solid #dd2222";
+            }
+            if ($("#expireDate").val().trim() == "") {
+                let error_message = "<span class='error_message'>&emsp;有效期不可空白</span>";
+                $("#expireDate").siblings().append(error_message);
+                document.querySelector("#expireDate").style.border = "1.5px solid #dd2222";
+            }
+            if ($("#cvv").val().trim() == "") {
+                let error_message = "<span class='error_message'>&emsp;安全碼不可空白</span>";
+                $("#cvv").siblings().append(error_message);
+                document.querySelector("#cvv").style.border = "1.5px solid #dd2222";
+            }
+
+        }
+
+
 
 
 
     });
-    
 
 
-    
+
+    //jquery寫法
+
+    // $("#sitebtn").on("click", function () {
+    //     console.log(prodOrderVO);
+    //     sessionStorage.setItem("prodOrderVO", JSON.stringify(prodOrderVO));
+
+    //     prodOrderVO.receiverName = $("#receiverName").val().trim();
+    //     prodOrderVO.receiverTel = $("#receiverTel").val().trim();
+    //     prodOrderVO.shippingAdd = $("#shippingAdd").val().trim();
+
+    //     sessionStorage.setItem("prodOrderVO", JSON.stringify(prodOrderVO));
+
+    //     const orderDetailList = JSON.parse(sessionStorage.getItem("orderDetail"));
+
+    //     const insertOrder = {
+    //         "productOrderVO": prodOrderVO,
+    //         "orderDetailList": orderDetailList
+    //     }
+
+    //     // console.log(insertOrder);
+    //     if( $("#receiverName").hasClass("check_ok") &&
+    //     $("#receiverTel").hasClass("check_ok") &&
+    //     $("#shippingAdd").hasClass("check_ok") &&
+    //     $("#cardName").hasClass("check_ok") &&
+    //     $("#creditCard").hasClass("check_ok") &&
+    //     $("#expireDate").hasClass("check_ok") &&
+    //     $("#cvv").hasClass("check_ok")){
+    //         console.log("OK");
+    //         $.ajax({
+    //             url: "../../order/addProdOrder",
+    //             type: "POST",
+    //             contentType: "application/json",
+    //             data: JSON.stringify(insertOrder),
+    //             dataType: "json",
+    //             success: function (a) {
+    //                 console.log(a);
+    //                 window.location.href = "../member/order.html";
+    //             },
+    //             error: function (xhr) {         // request 發生錯誤的話執行
+    //                 console.log(xhr);
+    //                 // Swal.fire({
+    //                 //     position: "center",
+    //                 //     icon: "error",
+    //                 //     title: "訂單新增失敗",
+    //                 //     showConfirmButton: false,
+    //                 //     timer: 1000,
+    //                 // }).then(() => {
+    //                     window.location.href = "./shoppingcart.html";
+    //                 // });
+
+    //             },
+
+    //             // complete: () => {
+    //             //     Swal.fire({
+    //             //         position: "center",
+    //             //         icon: "success",
+    //             //         title: "訂單成立",
+    //             //         showConfirmButton: false,
+    //             //         timer: 1000,
+    //             //     }).then(() => {
+    //             //         location.href = "../member/order.html";
+    //             //     });
+    //             // }
+    //         });
+
+
+    // }
+    // else{
+    //     console.log("資料不完整");
+    //     // 增加錯誤框框
+    //     if(prodOrderVO.receiverName == ""){
+
+    //         // $("#receiverName").removeClass("check_ok");
+    //         let error_message = "<span class='error_message'>&emsp;姓名不可空白</span>";
+    //         $("#receiverName").siblings().append(error_message);
+    //         document.querySelector("#receiverName").style.border = "1.5px solid #dd2222";
+    //         // return;
+    //     }
+    // }
+
 
 
 
@@ -403,4 +474,14 @@ $(window).on("load", function () {
 
 
 });
+
+
+
+
+
+
+
+
+
+
 

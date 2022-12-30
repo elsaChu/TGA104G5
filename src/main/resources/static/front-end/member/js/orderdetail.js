@@ -1,10 +1,12 @@
 
 function init(){
+  
     const prodOrderNo = sessionStorage.getItem('prodOrderNo');
     sessionStorage.removeItem('prodOrderNo');
     const orderdetail = document.querySelector("#orderdetail");
     const prodinfo1 = document.querySelector("#prodinfo1");
     const prodinfo2 = document.querySelector("#prodinfo2");
+    sessionStorage.setItem("URL_before_login", window.location.href);
     // 訂單明細
     $.ajax({
         url: "../../order/orderdetail",         // 資料請求的網址
@@ -43,7 +45,7 @@ function Template1(prodName, prodSpec, prodQty, subtotal, commentRanking, commen
         <th>${prodName}</th>
         <th>${prodSpec}</th>
         <th>${prodQty}</th>
-        <th>${subtotal}</th>
+        <th>$ ${subtotal}</th>
         <th>${commentRanking ?? ''}</th>
         <th>${commentDate ?? ''}</th>
         <th>${returnReason ?? ''}</th>
@@ -66,7 +68,7 @@ function Template1(prodName, prodSpec, prodQty, subtotal, commentRanking, commen
 
 function Template2({prodOrderNo, name, phoneNumber, email, paymentDate, prodOrderStatus}){
     return `
-    <p>${prodOrderNo}</p>
+    <p># ${prodOrderNo}</p>
     <p>${name}</p>
     <p>${phoneNumber}</p>
     <p>${email}</p>

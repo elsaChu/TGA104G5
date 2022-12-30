@@ -3,7 +3,7 @@ package tw.com.tibame.product.model;
 import java.util.*;
 
 public interface ProductDAO_interface {
-	public int insert(ProductVO prodVo, List<ProductImageVO> imglist);
+	public int insert(ProductVO prodVo, ProductImageVO prodimgvo);
 
 	public int update(ProductVO prodVo);
 

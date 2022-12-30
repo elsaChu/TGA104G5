@@ -19,14 +19,14 @@ public class ViewProductDAOHibernateTests {
 		System.out.println(result);
 	}
 
-	@Test 
-	public void testFindByEventType() {
-		ViewProductVO vo = new ViewProductVO();
-		vo.setEventType("展覽");
-		vo.setIsPOn(true);
-		List<ViewProductVO> result = viewProductDAO.findByEventType(vo);
-		System.out.println(result);
-	}	
+//	@Test 
+//	public void testFindByEventType() {
+//		ViewProductVO vo = new ViewProductVO();
+//		vo.setEventType("展覽");
+//		vo.setIsPOn(true);
+//		List<ViewProductVO> result = viewProductDAO.findByEventType(String eventType);
+//		System.out.println(result);
+//	}	
 	
 	@Test 
 	public void testFindByPrimaryKey() {

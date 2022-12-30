@@ -59,9 +59,9 @@ public class AddEvent2Servlet extends HttpServlet {
 				result.put("yVal",yVal);
 			}
         	
-	        System.out.println("seatIdList:" + seatIdList);
-	        System.out.println("xVal:" + xval);
-	        System.out.println("yVal:" + yval);
+//	        System.out.println("seatIdList:" + seatIdList);
+//	        System.out.println("xVal:" + xval);
+//	        System.out.println("yVal:" + yval);
 	        
 	        String[] seatIdListary = seatIdList.split(",");
 	        
@@ -82,8 +82,8 @@ public class AddEvent2Servlet extends HttpServlet {
 			String eventNumber=request.getParameter("eventNumber");
 			System.out.println("eventNumber="+eventNumber);
 			if("".equals(eventNumber)) {
-				System.out.println("adddata="+((Map)session.getAttribute("adddata")).toString());
-				System.out.println(session.getAttribute("tickets").toString());
+//				System.out.println("adddata="+((Map)session.getAttribute("adddata")).toString());
+//				System.out.println(session.getAttribute("tickets").toString());
 				//get page1 data
 				Map eventMap =(Map)session.getAttribute("adddata");
 				EventVO eventvo = (EventVO)eventMap.get("page1");
@@ -99,8 +99,8 @@ public class AddEvent2Servlet extends HttpServlet {
 				session.removeAttribute("maxDate");
 				session.removeAttribute("tickets");
 			}else {
-				System.out.println("up_adddata="+((Map)session.getAttribute("up_adddata")).toString());
-				System.out.println(session.getAttribute("up_tickets").toString());
+//				System.out.println("up_adddata="+((Map)session.getAttribute("up_adddata")).toString());
+//				System.out.println(session.getAttribute("up_tickets").toString());
 				//get page1 data
 				Map eventMap =(Map)session.getAttribute("up_adddata");
 				EventVO eventvo = (EventVO)eventMap.get("page1");

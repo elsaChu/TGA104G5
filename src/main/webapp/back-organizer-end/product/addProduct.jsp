@@ -93,7 +93,7 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 							class="preview"></li>
 					</ul>
 
-					<input type="file" id="prodIMG" name="prodIMG" class="prodIMG" accept="image/*">
+					<input type="file" id="prodIMG" name="prodIMG" class="prodIMG" multiple accept="image/*">
 					
 					<ul class="picture_list">
 						<li><img
@@ -101,7 +101,7 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 							class="preview"></li>
 					</ul>
 
-					<input type="file" id="prodIMG" name="prodIMG" class="prodIMG" accept="image/*">
+					<input type="file" id="prodIMG" name="prodIMG" class="prodIMG" multiple accept="image/*">
 					
 					<ul class="picture_list">
 						<li><img
@@ -109,7 +109,7 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 							class="preview"></li>
 					</ul>
 
-					<input type="file" id="prodIMG" name="prodIMG" class="prodIMG" accept="image/*">
+					<input type="file" id="prodIMG" name="prodIMG" class="prodIMG" multiple accept="image/*">
 					
 					<ul class="picture_list">
 						<li><img
@@ -117,7 +117,7 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 							class="preview"></li>
 					</ul>
 
-					<input type="file" id="prodIMG" name="prodIMG" class="prodIMG" accept="image/*">
+					<input type="file" id="prodIMG" name="prodIMG" class="prodIMG" multiple accept="image/*">
 				</div>
 
 				<div class="myButton">
