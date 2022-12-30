@@ -130,23 +130,42 @@ public class ProductImageJdbcDAO implements ProductImageDAO {
 		}
 	}
 
-	private static final String DELETE = "delete from PRODUCT_IMG where prodIMGID=?";
+	private static final String DELETE = "delete from PRODUCT_IMG where prodNo=?";
 
 	@Override
-	public boolean delete(Integer prodIMGID) {
-		if (prodIMGID != null) {
-			try (Connection connection = DriverManager.getConnection(Common.URL, Common.USER, Common.PASSWORD);
-					PreparedStatement ps = connection.prepareStatement(DELETE)) {
-				ps.setInt(1, prodIMGID);
-
+	public boolean delete(Integer prodNo, Connection con) {
+		if (prodNo != null) {
+			PreparedStatement ps = null;
+			try {
+				ps = con.prepareStatement(DELETE);
+				ps.setInt(1, prodNo);
+				
 				int rowCount = ps.executeUpdate();
 				if (rowCount == 1) {
 					return true;
 				}
 
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			}catch (SQLException e) {
+			    if (con != null) {
+			     try {
+			      System.err.print("Transaction is being ");
+			      System.err.println("rolled back ProductImage delete");
+			      con.rollback();
+			     } catch (SQLException excep) {
+			      throw new RuntimeException("rollback error occured. " + excep.getMessage());
+			     }
+			    }
+			    throw new RuntimeException("A database error occured. " + e.getMessage());
+			    // Clean up JDBC resources
+			   } finally {
+			    if (ps != null) {
+			     try {
+			      ps.close();
+			     } catch (SQLException se) {
+			      se.printStackTrace(System.err);
+			     }
+			    }
+			   }
 		}
 		return false;
 	}
