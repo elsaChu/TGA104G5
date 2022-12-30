@@ -41,49 +41,76 @@ public class AddFavorite extends HttpServlet {
 //        EventService es1 = new EventService(); 
 		List<Integer> list1 = new ArrayList<Integer>();
 		//get new event id to be added to favorite list 
-		String event1 = req.getParameter("heartEvent");
-		Boolean addSuccess = true;
-		Boolean foundSameFav = false;
-		System.out.println("new event to be added(from servlet):　" + event1);
-		int event2 = Integer.parseInt(event1);
-		//getting current logged in members memberid
 		HttpSession session1 = req.getSession();
-		if(session1.getAttribute("memberVO") != null) {
-			MemberVO vo = (MemberVO) session1.getAttribute("memberVO");
-			int memberId = vo.getNumber();
-			list1 = cs1.getFavorite(memberId);
-			for(Integer e1 : list1) {
-				if(e1 == event2) {
-					addSuccess = false;
-					foundSameFav = true;
-					//new added event already exists in favorite list
-				}else {
-				}
-			}
-			if(addSuccess) {
-//				add event id and memeber id into collect DB
-				cs1.addFavorite(memberId, event2);
-			}
-			
-			
-		}else {
-			addSuccess = false;
-			System.out.println("memberVO null");
-		}
-		
+		Boolean addSuccess = true;
+		Boolean deleteSuccess = false;
+		Boolean foundSameFav = false;
+		String action = req.getParameter("action");
+		System.out.println("action: " + action);
 		JsonObject resBody = new JsonObject();
-		if (addSuccess && !foundSameFav) {
-			resBody.addProperty("addNewFav", "success");
-		} else if(foundSameFav){
-			resBody.addProperty("addNewFav", "foundSame");
-//			resBody.addProperty("favEvents", gson1.toJson(voList));
+		String event1 = req.getParameter("choseEvent");
+		int event2 = Integer.parseInt(event1);
+		if(action.equals("add")) {
+			System.out.println("new event to be added(from servlet):　" + event2);
+			//getting current logged in members memberid
+			if(session1.getAttribute("memberVO") != null) {
+				MemberVO vo = (MemberVO) session1.getAttribute("memberVO");
+				int memberId = vo.getNumber();
+				list1 = cs1.getFavorite(memberId);
+				for(Integer e1 : list1) {
+					if(e1 == event2) {
+						addSuccess = false;
+						foundSameFav = true;
+						//new added event already exists in favorite list
+					}else {
+					}
+				}
+				if(addSuccess) {
+//				add event id and memeber id into collect DB
+					cs1.addFavorite(memberId, event2);
+				}
+			}else {
+				addSuccess = false;
+				System.out.println("memberVO null");
+			}
+			if (addSuccess && !foundSameFav) {
+				resBody.addProperty("addNewFav", "success");
+			} else if(foundSameFav){
+				resBody.addProperty("addNewFav", "foundSame");
+			}else {
+				resBody.addProperty("addNewFav", "fail");
+			}
+			
+		}else if(action.equals("delete")) {
+			System.out.println("new event to be deleted(from servlet):　" + event2);
+			//getting current logged in members memberid
+			if(session1.getAttribute("memberVO") != null) {
+				MemberVO vo = (MemberVO) session1.getAttribute("memberVO");
+				int memberId = vo.getNumber();
+				list1 =  cs1.getFavorite(memberId);
+				for(Integer e1 : list1) {
+					if(e1 == event2) {
+						//selected event already exists in favorite list
+						foundSameFav = true;
+					}else {
+					}
+				}
+				if(foundSameFav) {
+					cs1.delete(memberId,event2);
+					deleteSuccess = true;
+				}
+			}else {
+				System.out.println("memberVO null");
+			}
+			if (deleteSuccess) {
+				resBody.addProperty("deleteFav", "success");
+			}else {
+				resBody.addProperty("deleteFav", "fail");
+			}
 		}else {
-			resBody.addProperty("addNewFav", "fail");
+			System.out.println("no action");
 		}
 		
 		res.getWriter().write(resBody.toString());
-		
-		
 	}
-
 }
