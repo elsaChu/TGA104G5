@@ -34,6 +34,7 @@ import tw.com.tibame.event.model.SeatService;
 import tw.com.tibame.event.model.SeatVO;
 import tw.com.tibame.event.model.TicketService;
 import tw.com.tibame.event.model.TicketVO;
+import tw.com.tibame.organizer.model.OrganizerVO;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -103,9 +104,18 @@ public class UpdateEventServlet extends HttpServlet {
 			byte[] bigImgOld = eventvo.getBigImg();
 			byte[] smallImgOld = eventvo.getSmallImg();
 		
+			//廠商登入檢查
+			OrganizerVO organizer = (OrganizerVO)session.getAttribute("loginOrganizer");
+			if(organizer == null) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-organizer-end/register-login/OrganizerLogin1.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			
 			Integer organizerNumber = null;
 			try {
-				organizerNumber = Integer.valueOf("1"); //等串起來要改
+				organizerNumber = Integer.valueOf(organizer.getOrganizerNumber());
 			} catch (NumberFormatException e) {
 				errorMsgs.add("未登入請重新登入");
 			}
