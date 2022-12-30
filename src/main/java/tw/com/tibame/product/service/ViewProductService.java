@@ -9,7 +9,7 @@ public interface ViewProductService {
 
 	List<ViewProductVO> findAll();
 
-	List<ViewProductVO> findProductByEventType(ViewProductVO vo);
+	List<ViewProductVO> findProductByEventType(String eventType);
 	
 	List<ViewProductVO> findProductLaunch(boolean isPOn);
 
@@ -24,5 +24,7 @@ public interface ViewProductService {
 	ProductImage update(ProductImage productImage);
 
 	List<Integer> findProdImageIdByProdNo(Integer prodNo);
+	
+	List<String> findAllEventType();
 
 }
