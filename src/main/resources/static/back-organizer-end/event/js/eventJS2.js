@@ -246,7 +246,7 @@ $(function () {
 						}else{
 							confirm('新增失敗');
 						}
-	                	window.location.href=context+"/main_frame/index_manufacturer.jsp";
+	                	window.location.href=context+"/front-end/event/ListAllEvent.jsp";
 					}
 				}else{
 					console.log("success="+data.success);
@@ -290,7 +290,7 @@ $(function () {
 							}else{
 								confirm('更新失敗');
 							}
-		                	window.location.href=context+"/main_frame/index_manufacturer.jsp";
+		                	window.location.href=context+"/front-end/event/ListAllEvent.jsp";
 						}
 					}else{
 						console.log("success="+data.success);

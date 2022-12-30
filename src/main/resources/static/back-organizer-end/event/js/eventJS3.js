@@ -131,7 +131,7 @@ function saveSeatTemplate(seat) {
 					confirm('新增失敗');
 				}
 //				confirm('儲存完畢')
-                window.location.href=context+"/main_frame/index_manufacturer.jsp";
+                window.location.href=context+"/front-end/event/ListAllEvent.jsp";
             } else {
                 alert(data.seatIdList);
                 console.log(data);

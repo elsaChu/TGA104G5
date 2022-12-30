@@ -32,7 +32,7 @@
     				return;
     			}else{
     				alert('訂單已取消');
-    				window.location.href = `${context}/main_frame/index_header.jsp`;
+    				window.location.href = `${context}/front-end/main/Indexbody.jsp`;
     			}
         	});
     	}

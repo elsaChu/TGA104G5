@@ -115,7 +115,7 @@
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAq2uTJqmJQK-3Ch2goqnU-stOVeen9afA&libraries=places&callback=initAutocomplete&v=weekly"
+  src="https://maps.googleapis.com/maps/api/js?key=keyvalue&libraries=places&callback=initAutocomplete&v=weekly"
   defer
 ></script>
 	<script src="<%=request.getContextPath()%>/back-organizer-end/event/js/ckeditor.js"></script>

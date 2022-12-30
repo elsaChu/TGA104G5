@@ -27,9 +27,14 @@ window.addEventListener("DOMContentLoaded", function () {
 		if($(this).find("i.fa-heart")){
 			console.log("have heart");
 			if(loggedIn == ""){
-				console.log("loggedIn empty string");
+				console.log("loggedIn empty string 請先登入");
+				alert("請先登入");
+				e.preventDefault();
+				e.stopPropagation();
 			}else if(loggedIn == null){
 				alert("logged in ==null 請先登入");
+				e.preventDefault();
+				e.stopPropagation();
 			}else{
 				let eventID = $(this).closest("div.searchResult").attr("eventNumber");
 				console.log("clicked heart icon on event ", eventID);
@@ -191,7 +196,12 @@ function addToFavorite(eventid){
 //	get event id for this gallery cell
 //	send request to servlet with eventid and memberid to add to collect DB 
 //	if servlet already has this then dont add send back message saying already in favorite
-	fetch('../../AddFavorite?' + new URLSearchParams({"heartEvent": eventid}), {
+
+//new URLSearchParams({
+//    foo: 'value',
+//    bar: 2,
+//}))
+	fetch('../../AddFavorite?' + new URLSearchParams({"choseEvent": eventid, "action": "add"}), {
     method: 'get',
     headers: {
         'Content-Type': 'application/json'

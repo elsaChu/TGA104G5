@@ -30,10 +30,11 @@
     <!-- Header Section Begin -->
     <header class="header">
 	<jsp:include page="/main_frame/index_header.jsp"></jsp:include>
+	
+	
     </header>
     <!-- Header Section End -->
-
-
+    
     <!-- Carousel Begin  -->
     <section class="flick">
         <div class="mainCarousel">
@@ -329,7 +330,13 @@
     <!-- Footer Section Begin -->
 	<jsp:include page="/main_frame/index_footer.jsp"></jsp:include>
     <!-- Footer Section End -->
-
+    <script>
+	     let before_url = sessionStorage.getItem("URL_before_login");
+	     if(before_url){
+	      sessionStorage.removeItem("URL_before_login");
+	            window.location.href = before_url;
+	     }
+    </script>
     <!-- Js Plugins -->
 <!--     <script src="js/jquery-3.3.1.min.js"></script> -->
 <!--     <script src="js/bootstrap.min.js"></script> -->

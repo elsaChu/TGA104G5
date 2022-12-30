@@ -224,7 +224,7 @@ public class addEventServlet extends HttpServlet {
 				String name = bigImg.getName();
 				InputStream in = bigImg.getInputStream();
 				bigimg = new byte[in.available()];
-				System.out.println("bigimg bytes = "+bigimg);
+//				System.out.println("bigimg bytes = "+bigimg);
 				in.read(bigimg);
 				in.close();
 			}
@@ -243,7 +243,7 @@ public class addEventServlet extends HttpServlet {
 			session.setAttribute("adddata", map);
 //			System.out.println(eventenddatestr);
 			session.setAttribute("maxDate", eventenddatestr);
-			System.out.println(eventvo.toString());
+//			System.out.println(eventvo.toString());
 			RequestDispatcher failureView = req
 					.getRequestDispatcher("/back-organizer-end/event/addEvent2.jsp");
 			failureView.forward(req, res);
@@ -256,7 +256,7 @@ public class addEventServlet extends HttpServlet {
 			Map map = (Map)session.getAttribute("adddata");
 			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 			String tickets = req.getParameter("tickets");
-			System.out.println(tickets);
+//			System.out.println(tickets);
 			
 			res.setContentType("application/json");
 	        res.setCharacterEncoding("UTF-8");
@@ -406,13 +406,13 @@ public class addEventServlet extends HttpServlet {
 					System.out.println("need seat="+needSeat);
 					result.put("needSeat", needSeat);
 					
-					System.out.println("adddata="+((Map)session.getAttribute("adddata")).toString());
-					System.out.println(session.getAttribute("tickets").toString());
+//					System.out.println("adddata="+((Map)session.getAttribute("adddata")).toString());
+//					System.out.println(session.getAttribute("tickets").toString());
 				}else {
 					System.out.println("not need="+needSeat);
 					
-					System.out.println("adddata="+((Map)session.getAttribute("adddata")).toString());
-					System.out.println(session.getAttribute("tickets").toString());
+//					System.out.println("adddata="+((Map)session.getAttribute("adddata")).toString());
+//					System.out.println(session.getAttribute("tickets").toString());
 					//get page1 data
 					Map eventMap =(Map)session.getAttribute("adddata");
 					//line 360 get session eventvo

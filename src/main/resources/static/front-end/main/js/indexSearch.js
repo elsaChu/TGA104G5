@@ -1,6 +1,27 @@
 const keyword = document.querySelector('#mainSearch');
 //var keyVal = keyword.value;
 
+  function checklogin() {
+    $.ajax({
+      url: '../member/MemberServlet',
+      method: 'POST',
+      dataType: 'json',
+      data: { action: 'checkLogin' },
+      success: function (data) {
+        // console.log(data);
+        if (data.check == '2') {
+          $('#login_menuB').show();
+          $('#login_menuA').hide();
+        } else {
+          $('#login_menuA').show();
+          $('#login_menuB').hide();
+        }
+      }
+    });
+  }
+window.addEventListener("DOMContentLoaded", function () {
+	checklogin();
+});
 document.querySelector('#submit').addEventListener('click', function () {
 		console.log("clicked");
 		console.log(keyword.value);
