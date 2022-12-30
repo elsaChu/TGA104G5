@@ -1,0 +1,70 @@
+ /* Button樣式 */
+ .ticketOrdBtn input[type="button"] {
+    background: #415A77;
+    color: #FFF;
+    font-size: 17px;
+    font-weight: 400;
+    padding: 8px 7px;
+    width: 30%;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 6px;
+    -webkit-border-radius: 19px;
+    -moz-border-radius: 6px;
+    -o-border-radius: 6px;
+    margin: 0px 7px 0px 3px;
+    outline: none;
+    border: none;
+  }
+  /* 指標移到Button時的變色 */
+  .ticketOrdBtn input[type="button"]:hover {
+      background:#818181;
+      transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+  }
+  /* 往右靠齊 (可要可不要，提供參考而已) */
+  .ticketOrdBtn {
+    text-align: right;
+  }
+
+  /* Button大小設定 */
+  .ticketOrdBtn input[type="button"] {
+    /* 字體大小 */
+    font-size: 14px; 
+    /* Button寬度 */
+    /* 根據需求可設定 100.150.180 */
+    width: 100px;
+    /* 內間距 */
+    padding: 5px 7px;
+  }
+  
+  
+  .div_font_size p{
+  	font-size:14px !important; 
+  	line-height: 10px;
+  }
+  
+  .event_a{
+  	font-size:20px;
+  	font-weight:bold; /*粗體字*/
+  	text-decoration:underline;
+  	color:black;
+  	
+  }
+  
+  .img_size{
+  		max-width:100%;
+  }
+  
+  @media (max-width:767px) {
+  .img_size {
+    max-width: 88vw;
+  }
+   .ticketOrdBtn {
+    text-align: left;
+  }
+}
+
+/*   style="" */
