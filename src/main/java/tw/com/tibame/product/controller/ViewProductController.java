@@ -33,8 +33,9 @@ public class ViewProductController {
 		return list;
 	}
 	
-	@PostMapping("eventType")
-	public List<ViewProductVO> findProductByEventType(@RequestBody String eventType) {
+	@GetMapping("eventType")
+	public List<ViewProductVO> findProductByEventType(@RequestParam String eventType) {
+		System.out.println(eventType);
 		List<ViewProductVO> list = viewProductService.findProductByEventType(eventType);
     	return list;
 	}

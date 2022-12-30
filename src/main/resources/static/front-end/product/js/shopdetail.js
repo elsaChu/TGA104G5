@@ -23,13 +23,13 @@ function init() {
 
 	
     let prodNo = sessionStorage.getItem('prodNo');
-	console.log(prodNo); // null
+	// console.log(prodNo);
 	// 從網址抓取prodNo
     if(!prodNo){
 		let getUrlString = location.href;
 		let url = new URL(getUrlString);
 		prodNo = parseInt(url.searchParams.get('prodNo'));
-		console.log(prodNo); // 2
+		// console.log(prodNo);
 	} else {
 		prodNo = sessionStorage.getItem('prodNo');
 		sessionStorage.removeItem('prodNo');
@@ -46,19 +46,6 @@ function init() {
 		});
 
 
-    // $.ajax({
-    //     url: "../../product/detail",
-    //     type: "GET",
-    //     data: { prodNo: prodNo },
-    //     dataType: "json",
-    //     success: function (data) {
-    //         prodarea.innerHTML = Template1(data);
-    //     },
-    //     error: function (xhr) {
-    //         console.log(xhr);
-    //     }
-    // });
-
 	// 顯示主要圖片
 	mainPic.innerHTML = `
 		<img class="product__details__pic__item--large"
@@ -71,7 +58,7 @@ function init() {
 		.then((resp) => resp.json())
 		.then(function(data){
 			imageList = data;
-            console.log(data);
+            // console.log(data);
 			// 顯示圖片
 			let imageStr = "";
 			for(let i = 0; i < imageList.length; i++){
@@ -92,23 +79,8 @@ function init() {
 					});
 				}
 			});
-
-			// $(".product__details__pic__slider").owlCarousel({
-			// 	loop: true,
-			// 	margin: 20,
-			// 	items: 4,
-			// 	dots: true,
-			// 	smartSpeed: 1200,
-			// 	autoHeight: false,
-			// 	autoplay: true
-			// });
-			console.log(imageStr);
 		});
 
-	
-
-	
-	
 
 	// 加入購物車
 	$("#prodarea").on("click", "a.primary-btn", function(e){
@@ -147,7 +119,7 @@ function init() {
 		})
 		
 		?.then((data) => {
-		console.log(data);
+		// console.log(data);
 		$(this).closest("div").addClass("added");
 		$(this).text("已加入購物車");
 		});
@@ -234,8 +206,6 @@ function init() {
 	// 		src="../../product/findPictureById?prodIMGID=${prodIMGID}" alt="">
 	//       `;
 }
-
-
 
 setTimeout(() => {
 	let aaa = document.getElementById('dec')
