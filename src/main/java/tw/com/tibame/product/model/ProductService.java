@@ -19,7 +19,7 @@ public class ProductService {
 	}
 
 	public ProductVO addProduct(Integer eventNumber, Integer organizerNumber, String prodName, String prodSpec,
-			Integer unitPrice, Integer prodStock, String prodDetails, Boolean isPOn, List<ProductImageVO> imglist) {
+			Integer unitPrice, Integer prodStock, String prodDetails, Boolean isPOn, ProductImageVO prodimgvo) {
 
 		ProductVO prodVo = new ProductVO();
 
@@ -32,7 +32,7 @@ public class ProductService {
 		prodVo.setProdDetails(prodDetails);
 		prodVo.setIsPOn(isPOn);
 
-		dao.insert(prodVo, imglist);
+		dao.insert(prodVo, prodimgvo);
 
 		return prodVo;
 	}

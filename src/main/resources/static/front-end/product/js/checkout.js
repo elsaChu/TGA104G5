@@ -263,6 +263,7 @@ $(window).on("load", function () {
         document.querySelector("#cvv").style.border = "";
     });
 
+    // 送出訂單
     document.querySelector("#sitebtn").addEventListener("click", function () {
         const prodOrderVO = JSON.parse(sessionStorage.getItem("prodOrderVO"));
         console.log(prodOrderVO);

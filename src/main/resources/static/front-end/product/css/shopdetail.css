@@ -60,3 +60,14 @@
 #prodStock{
     margin-top: 10px;
 }
+
+#picture img {
+    width: 120px;
+    height: 120px;
+}
+
+/* #mainPic img {
+    max-height: 555px;
+    width: auto;
+    height: auto;
+} */

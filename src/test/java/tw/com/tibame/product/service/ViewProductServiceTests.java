@@ -21,13 +21,13 @@ public class ViewProductServiceTests {
 		System.out.println(service.findProductLaunch(true));
 	}
 	
-	@Test
-	public void testFindProductByEventType() {
-		ViewProductVO vo = new ViewProductVO();
-		vo.setEventType("展覽");
-		vo.setIsPOn(true);
-		System.out.println(service.findProductByEventType(vo));
-	}
+//	@Test
+//	public void testFindProductByEventType() {
+//		ViewProductVO vo = new ViewProductVO();
+//		vo.setEventType("展覽");
+//		vo.setIsPOn(true);
+//		System.out.println(service.findProductByEventType(vo));
+//	}
 	
 	
 	

@@ -119,6 +119,16 @@
         });
 
         </script>
+        
+         <script>
+      const box = document.querySelector('#subscription');
+      // 1
+      // box.checked = true;
+      //   console.log(box.checked);
+      // 2
+      box.checked = box.value;
+    </script>
+
 
 
     <!-- ##### Footer 開始 ##### -->
