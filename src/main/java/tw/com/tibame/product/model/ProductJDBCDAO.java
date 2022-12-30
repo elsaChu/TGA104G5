@@ -3,30 +3,28 @@ package tw.com.tibame.product.model;
 import java.sql.*;
 import java.util.*;
 
-import javax.servlet.http.Part;
-
 public class ProductJDBCDAO implements ProductDAO_interface {
-
+	
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/TICK_IT?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
-
+	
 //	SQL syntax: insert
 	private static final String INSERT_STMT = "INSERT INTO `PRODUCT`(eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock, prodDetails, isPOn) VALUES (?,?,?,?,?,?,?,?)";
-
+	
 	@Override
-	public int insert(ProductVO prodVo, List<ProductImageVO> imglist) {
+	public int insert(ProductVO prodVo, ProductImageVO prodimgvo) {
 //		System.out.println(prodVo.toString());
 		int rowCount = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			con.setAutoCommit(false);
-			String cols[] = { "PRODUCT" };
+			String cols[] = {"PRODUCT"};
 			pstmt = con.prepareStatement(INSERT_STMT, cols);
 			pstmt.setInt(1, prodVo.getEventNumber());
 			pstmt.setInt(2, prodVo.getOrganizerNumber());
@@ -48,10 +46,9 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			rs.close();
 			System.out.println(rowCount + " row(s) inserted!");
 			ProductImageJdbcDAO dao = new ProductImageJdbcDAO();
-			for (ProductImageVO prodimgvo : imglist) {
-				prodimgvo.setProdNo(Integer.valueOf(next_prodno));
-				dao.insert(prodimgvo, con);
-			}
+			prodimgvo.setProdNo(Integer.valueOf(next_prodno));
+			dao.insert(prodimgvo, con);
+			
 			con.commit();
 			con.setAutoCommit(true);
 
@@ -83,7 +80,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 
 //	SQL syntax: update
 	private static final String UPDATE_STMT = "UPDATE `PRODUCT` SET eventNumber=?, organizerNumber=?, prodName=?, prodSpec=?, unitPrice=?, prodStock=?, prodDetails=?, isPOn=? WHERE prodNo=?";
-
+	
 	@Override
 	public int update(ProductVO prodVO) {
 
@@ -131,10 +128,10 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		}
 		return rowCount;
 	}
-
+	
 //	SQL syntax: delete
 //	private static final String DELETE_STMT = "DELETE FROM `PRODUCT` WHERE prodNo = ?";
-
+	
 //	@Override
 //	public int delete(Integer prodNo) {
 //
@@ -239,7 +236,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		}
 		return productVO;
 	}
-
+	
 //	@Override
 //	public ProductVO findByProductName(String prodName) {
 //
@@ -304,7 +301,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 
 //	SQL syntax: select
 	private static final String SELECT_BY_PRODUCTNAME = "SELECT prodNo, eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` WHERE INSTR(prodName, ?)";
-
+	
 	@Override
 	public List<ProductVO> findByProductName(String pdname) {
 		List<ProductVO> list = new ArrayList<ProductVO>();
@@ -313,7 +310,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+		
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
@@ -368,10 +365,11 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		}
 		return list;
 	}
+	
 
-	// SQL syntax: select
+	//	SQL syntax: select
 	private static final String LIST_ALL_STMT = "SELECT prodNo,eventNumber ,organizerNumber,prodName,prodSpec,unitPrice,prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` ORDER BY prodNo DESC";
-
+	
 	@Override
 	public List<ProductVO> getAll() {
 		List<ProductVO> list = new ArrayList<ProductVO>();
