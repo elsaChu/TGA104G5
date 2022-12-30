@@ -116,7 +116,7 @@ public class OrganizerServlet extends HttpServlet{
 			} catch (Exception e) {
 				System.out.println("### 錯誤### ");
 				System.out.println("update exception :" + e);
-				RequestDispatcher failureView = req.getRequestDispatcher("loginStaff.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-organizer-end/register-login/OrganizerLogin1.jsp");
 				failureView.forward(req, res);
 			}
 			
@@ -147,8 +147,11 @@ public class OrganizerServlet extends HttpServlet{
 				}
 				System.out.println("### 2### ");
 				String bankCode = req.getParameter("bankCode");
+				String bankCodeReg = "^[0-9]{1,4}$";
 				if (bankCode == null || bankCode.trim().length() == 0) {
 					errorMsgs.add("請填寫銀行代碼");
+				}else if (!bankCode.trim().matches(bankCodeReg)) {
+					errorMsgs.add("銀行代碼格式不符合規定!");
 				}
 				System.out.println("### 3### ");
 				String bankName = req.getParameter("bankName");
@@ -184,7 +187,7 @@ public class OrganizerServlet extends HttpServlet{
 			} catch (Exception e) {
 				System.out.println("### 錯誤### ");
 				System.out.println("update exception :" + e);
-				RequestDispatcher failureView = req.getRequestDispatcher("loginStaff.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-organizer-end/register-login/OrganizerLogin1.jsp");
 				failureView.forward(req, res);
 			}
 			

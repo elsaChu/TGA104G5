@@ -39,7 +39,7 @@ StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
 			<div class="div_text col-md-5">
 				<table>
 					<tr>
-						<td>員工編號:<font color=red><b>*</b></font></td>
+						<td style="width:80px;">員工編號:<font color=red><b>*</b></font></td>
 					<td><%=staffVO.getStaffNumber()%></td>
 					</tr>
 					<tr>

@@ -3,10 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="tw.com.tibame.product.model.*"%>
+<%@ page import="tw.com.tibame.organizer.model.*"%>
 
 <%
 ProductService prodSvc = new ProductService();
-List<ProductVO> list = prodSvc.getAll();
+OrganizerVO organizer = (OrganizerVO)session. getAttribute("loginOrganizer");
+List<ProductVO> list = prodSvc.getAllByOrganizer(organizer.getOrganizerNumber());
 pageContext.setAttribute("list", list);
 %>
 
