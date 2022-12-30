@@ -24,7 +24,6 @@ function init() {
   const shoppingCart = document.querySelector("#shopping__cart");
   // 計算金額
   function calculateCart() {
-
     let totalAmount = 0;
     let totalQty = 0;
     let prodQty = 0;
@@ -43,13 +42,11 @@ function init() {
         totalAmount += subtotal;
         totalQty += quantity;
         prodQty += quantity;
-
       });
 
     $("li.cart__final__amount > span").text(`$ ${totalAmount}`);
     $("li.cart__final__amount").attr("data-amount", totalAmount);
     $("li.cart__final__amount").attr("data-quantity", prodQty);
-
   }
 
   // 顯示會員購物車所有商品
@@ -94,11 +91,9 @@ function init() {
         $button.parent().find('input').val(newVal);
       });
 
-
       console.log($("#shopping__cart td.shoping__cart__total"));
       calculateCart();
     })
-
 
 
   const price = document.querySelector("td.shoping__cart__price");
@@ -132,8 +127,6 @@ function init() {
     </tr>
     `;
   }
-
-
 
   // 使用按鈕更改數量
   $("div.shoping__cart__table").on("click", ".qtybtn", function () {
@@ -177,7 +170,6 @@ function init() {
           });
         }
       });
-   
   });
 
   // 輸入數量更改數量
@@ -261,7 +253,6 @@ function init() {
     sessionStorage.setItem("orderDetail", JSON.stringify(order_list));
     sessionStorage.setItem("URL_before_login", window.location.href);
     window.location.href = "./checkout.html";
-
   });
 
   // 移除購物車商品

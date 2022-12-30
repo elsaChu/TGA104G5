@@ -325,7 +325,7 @@ $(window).on("load", function () {
                         showConfirmButton: false,
                         timer: 1000,
                     }).then(() => {
-                        window.location.href = ".shop.html";
+                        window.location.href = "./shop.html";
                     });
                     //   } else {
                     //     Swal.fire({
@@ -376,13 +376,7 @@ $(window).on("load", function () {
                 $("#cvv").siblings().append(error_message);
                 document.querySelector("#cvv").style.border = "1.5px solid #dd2222";
             }
-
         }
-
-
-
-
-
     });
 
 
@@ -405,7 +399,6 @@ $(window).on("load", function () {
     //         "productOrderVO": prodOrderVO,
     //         "orderDetailList": orderDetailList
     //     }
-
     //     // console.log(insertOrder);
     //     if( $("#receiverName").hasClass("check_ok") &&
     //     $("#receiverTel").hasClass("check_ok") &&
@@ -436,9 +429,7 @@ $(window).on("load", function () {
     //                 // }).then(() => {
     //                     window.location.href = "./shoppingcart.html";
     //                 // });
-
     //             },
-
     //             // complete: () => {
     //             //     Swal.fire({
     //             //         position: "center",
@@ -451,14 +442,11 @@ $(window).on("load", function () {
     //             //     });
     //             // }
     //         });
-
-
     // }
     // else{
     //     console.log("資料不完整");
     //     // 增加錯誤框框
     //     if(prodOrderVO.receiverName == ""){
-
     //         // $("#receiverName").removeClass("check_ok");
     //         let error_message = "<span class='error_message'>&emsp;姓名不可空白</span>";
     //         $("#receiverName").siblings().append(error_message);
@@ -466,12 +454,6 @@ $(window).on("load", function () {
     //         // return;
     //     }
     // }
-
-
-
-
-
-
 
 });
 
