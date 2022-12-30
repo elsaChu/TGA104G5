@@ -65,7 +65,7 @@ pageContext.setAttribute("list", list);
 
 
       
-	<%@ include file="page1.file" %>
+	<%@ include file="page1.file" %> 
        <c:forEach var="memberVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
         <tr>
           <td>${memberVO.number}</td>

@@ -204,7 +204,7 @@ public class MemberServlet extends HttpServlet {
 							return;
 						}
 						System.out.println("正確無誤，導至會員中心");
-						RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/memberCentre.jsp");
+						RequestDispatcher successView = req.getRequestDispatcher("/front-end/main/Indexbody.jsp");
 						successView.forward(req, res);
 						return;
 
