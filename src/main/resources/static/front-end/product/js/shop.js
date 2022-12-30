@@ -56,11 +56,16 @@ function init() {
   });
 
   // 載入頁面時先從後端取得商品分類
-  
-
-
-
-
+  fetch(`../../product/categories`)
+		.then((resp) => resp.json())
+		.then(function(data){
+			console.log(data);
+        let categoriesStr = "";
+        for(let i = 0; i < data.length; i++){
+          categoriesStr += `<li><a href="#">${data[i]}</a></li>`;
+        }
+        categories.innerHTML = categoriesStr;
+		});
 
 }
 
@@ -86,7 +91,6 @@ function Template(prodNo, prodName, prodSpec, unitPrice) {
         `;
 }
 
-
 function showDetail(prodNo) {
     sessionStorage.setItem('prodNo', prodNo);
     window.location.href = `./shopdetail.html?prodNo=${prodNo}`;
@@ -107,4 +111,27 @@ $(function () {
     showDetail($(this).attr("data-prodNo"));
   }
   );
+});
+
+
+
+// 點活動分類時更新顯示商品
+$("#categories").on("click", "li > a", function(){
+  let data = {
+    "eventType": document.querySelector("#categories li a").innerText
+    };
+    console.log(this);
+  fetch("../../product/eventType", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: { 'content-type': 'application/json' }
+  })
+		.then((resp) => resp.json())
+		.then(function(data){
+			prodarea.innerHTML =
+        data.map((e) => Template(e.prodNo, e.prodName, e.prodSpec, e.unitPrice, e.eventName, e.isPOn, e.eventType, e.commentQty, e.totalComment)).join('');
+      console.log(data);
+      console.log(data.length);
+      prodQty.innerHTML = `<h6><span>Products ${data.length} found</span></h6>`;
+		});
 });

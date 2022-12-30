@@ -11,8 +11,6 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.com.tibame.order.vo.OrderDetailVO;
-import tw.com.tibame.product.model.ProductVO;
 import tw.com.tibame.product.vo.ProductImage;
 import tw.com.tibame.product.vo.ViewProductVO;
 
@@ -40,27 +38,25 @@ public class ViewProductDAOHibernate implements ViewProductDAO {
 		}
 	}
 	
-	@Override // 是這樣ㄇ ?_? 回傳應該是List<String> ? ,findByEventType傳入參數改成 String eventType ?
-	public List<ViewProductVO> findAllEventType() {
-		List<ViewProductVO> result = new ArrayList<>();
-		Query<ViewProductVO> query = getSession()
-				.createQuery("select eventType from ViewProductVO "
-						+ "where isPOn = 1 "
-						+ "group by eventType;", ViewProductVO.class);
-
+	@Override
+	public List<String> findAllEventType() {
+		List<String> result = new ArrayList<>();
+		Query<String> query = getSession()
+				.createQuery("select distinct eventType from ViewProductVO "
+						+ "where isPOn = 1", String.class);
 		result = query.list();
 		return result;
 	}
 
 	@Override // 依活動分類篩選已上架商品，最後上架的顯示在前面
-	public List<ViewProductVO> findByEventType(ViewProductVO vo) {
+	public List<ViewProductVO> findByEventType(String eventType) {
 		List<ViewProductVO> result = new ArrayList<>();
-		String eventType = vo.getEventType();
+		
 		if (eventType != null) {
 			Query<ViewProductVO> query = getSession().createQuery(
 					"from ViewProductVO where eventType = :eventType and isPOn = :isPOn order by prodNo desc", ViewProductVO.class);
 			query.setParameter("eventType", eventType);
-			query.setParameter("isPOn", vo.getIsPOn());
+			query.setParameter("isPOn", true);
 			result = query.list();
 			return result;
 		}
@@ -160,6 +156,11 @@ public class ViewProductDAOHibernate implements ViewProductDAO {
 					.getSingleResult();
 		}
 		return null;
+	}
+	
+	
+	public void recentlyViewed() {
+		
 	}
 	
 

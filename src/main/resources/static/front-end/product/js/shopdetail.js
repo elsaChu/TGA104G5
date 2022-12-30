@@ -76,22 +76,32 @@ function init() {
 			let imageStr = "";
 			for(let i = 0; i < imageList.length; i++){
 				imageStr += `
-					<div class="owl-stage-outer">
-						<div class="owl-stage" style="transform: translate3d(-505px, 0px, 0px); transition: all 1.2s ease 0s; width: 1011px;">
-							<div class="owl-item cloned" style="width: 64.167px; margin-right: 20px;">
-								<img data-imgbigurl="../../product/findPictureById?prodIMGID=${imageList[i]}"
-									src="../../product/findPictureById?prodIMGID=${imageList[i]}" alt="">
-							</div>
-						</div>
-					</div>
+					<img data-imgbigurl="../../product/findPictureById?prodIMGID=${imageList[i]}"
+						src="../../product/findPictureById?prodIMGID=${imageList[i]}" alt="">
 				`;
-
-				// imageStr += `
-				// 	<img data-imgbigurl="../../product/findPictureById?prodIMGID=${imageList[i]}"
-				// 		src="../../product/findPictureById?prodIMGID=${imageList[i]}" alt="">
-				// `;
 			};
 			picture.innerHTML = imageStr;
+
+			$('.pic__slider img').on('click', function () {
+
+				var imgurl = $(this).data('imgbigurl');
+				var bigImg = $('.product__details__pic__item--large').attr('src');
+				if (imgurl != bigImg) {
+					$('.product__details__pic__item--large').attr({
+						src: imgurl
+					});
+				}
+			});
+
+			// $(".product__details__pic__slider").owlCarousel({
+			// 	loop: true,
+			// 	margin: 20,
+			// 	items: 4,
+			// 	dots: true,
+			// 	smartSpeed: 1200,
+			// 	autoHeight: false,
+			// 	autoplay: true
+			// });
 			console.log(imageStr);
 		});
 
