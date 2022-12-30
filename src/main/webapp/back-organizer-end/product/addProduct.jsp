@@ -85,45 +85,17 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 				</table>
 			</div>
 			<div class="div_img col-md-5">
-				<div>
-					商品圖片：
-					<ul class="picture_list">
-						<li><img
-							src="${context}/back-organizer-end/product/img/Product_Image_Default.jpg"
-							class="preview"></li>
-					</ul>
-
-					<input type="file" id="prodIMG" name="prodIMG" class="prodIMG" multiple accept="image/*">
-					
-					<ul class="picture_list">
-						<li><img
-							src="${context}/back-organizer-end/product/img/Product_Image_Default.jpg"
-							class="preview"></li>
-					</ul>
-
-					<input type="file" id="prodIMG" name="prodIMG" class="prodIMG" multiple accept="image/*">
-					
-					<ul class="picture_list">
-						<li><img
-							src="${context}/back-organizer-end/product/img/Product_Image_Default.jpg"
-							class="preview"></li>
-					</ul>
-
-					<input type="file" id="prodIMG" name="prodIMG" class="prodIMG" multiple accept="image/*">
-					
-					<ul class="picture_list">
-						<li><img
-							src="${context}/back-organizer-end/product/img/Product_Image_Default.jpg"
-							class="preview"></li>
-					</ul>
-
-					<input type="file" id="prodIMG" name="prodIMG" class="prodIMG" multiple accept="image/*">
-				</div>
-
+				<span>商品圖片：</span>
+				<ul class="picture_list">
+					<li><img
+						src="${context}/back-organizer-end/product/img/Product_Image_Default.jpg"
+						class="preview"></li>
+				</ul>
+				<input type="file" id="prodIMG" name="prodIMG" class="prodIMG"
+					accept="image/*">
 				<div class="myButton">
 					<input type="submit" value="新增商品">
 				</div>
-
 				<input type="hidden" name="action" value="insert" />
 			</div>
 		</form>
