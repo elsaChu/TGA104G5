@@ -16,14 +16,14 @@
 
 /* carousel start */
   .gallery {
-    background: #EEE;
+    background: #FFFFFF;
   }
   
   .gallery-cell {
     width: 70%;
     height: 380px;
     margin-right: 10px;
-    background-color: rgb(70, 184, 70);
+    background-color: #FFFFFF;
     /* counter-increment: gallery-cell; */
     text-align: center;
     display: flex;
@@ -42,14 +42,14 @@
     content: counter(gallery-cell);
     line-height: 350px;
     font-size: 0px;
-    color: white;
+    color: #FFFFFF;
   }
 
   div.header__logo{
     /* background-color: blue; */
   }
   div.mainCarousel{
-    background-color: rgb(191, 245, 191);
+    background-color: #FFFFFF;
     padding: 15px 0px 32px 0px;
   }
 /* carousel end */
