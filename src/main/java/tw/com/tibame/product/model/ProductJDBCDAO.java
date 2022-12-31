@@ -14,7 +14,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO `PRODUCT`(eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock, prodDetails, isPOn) VALUES (?,?,?,?,?,?,?,?)";
 	
 	@Override
-	public int insert(ProductVO prodVo, ProductImageVO prodimgvo) {
+	public int insert(ProductVO prodVo, List<ProductImageVO> imglist) {
 //		System.out.println(prodVo.toString());
 		int rowCount = 0;
 		Connection con = null;
@@ -46,9 +46,10 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			rs.close();
 			System.out.println(rowCount + " row(s) inserted!");
 			ProductImageJdbcDAO dao = new ProductImageJdbcDAO();
+			for(ProductImageVO prodimgvo : imglist) {
 			prodimgvo.setProdNo(Integer.valueOf(next_prodno));
 			dao.insert(prodimgvo, con);
-			
+			}
 			con.commit();
 			con.setAutoCommit(true);
 
@@ -82,7 +83,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	private static final String UPDATE_STMT = "UPDATE `PRODUCT` SET eventNumber=?, organizerNumber=?, prodName=?, prodSpec=?, unitPrice=?, prodStock=?, prodDetails=?, isPOn=? WHERE prodNo=?";
 	
 	@Override
-	public int update(ProductVO prodVO) {
+	public int update(ProductVO prodVO, List<ProductImageVO> imglist) {
 
 		int rowCount = 0;
 		Connection con = null;
@@ -91,6 +92,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
+			con.setAutoCommit(false);
 			pstmt = con.prepareStatement(UPDATE_STMT);
 			pstmt.setInt(1, prodVO.getEventNumber());
 			pstmt.setInt(2, prodVO.getOrganizerNumber());
@@ -102,6 +104,18 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			pstmt.setBoolean(8, prodVO.getIsPOn());
 			pstmt.setInt(9, prodVO.getProdNo());
 			pstmt.executeUpdate();
+			//product img table
+			ProductImageJdbcDAO dao = new ProductImageJdbcDAO();
+			if(imglist.size()>0) {
+				dao.delete(prodVO.getProdNo(), con);
+				for (ProductImageVO prodimgvo : imglist) {
+					dao.insert(prodimgvo, con);
+				}
+				
+			}
+			
+			con.commit();
+			con.setAutoCommit(true);
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -173,10 +187,10 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 //	}
 
 //	SQL syntax: select
-	private static final String SELECT_BY_PRODUCTNO = "SELECT prodNo, eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` WHERE prodNo=?";
+	private static final String SELECT_BY_PRODUCTNO = "SELECT prodNo, eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` WHERE prodNo=? AND organizerNumber=?";
 
 	@Override
-	public ProductVO findByPrimaryKey(Integer prodNo) {
+	public ProductVO findByPrimaryKey(Integer prodNo, Integer on) {
 
 		ProductVO productVO = null;
 		Connection con = null;
@@ -188,6 +202,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(SELECT_BY_PRODUCTNO);
 			pstmt.setInt(1, prodNo);
+			pstmt.setInt(2, on);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -300,10 +315,10 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 //	}
 
 //	SQL syntax: select
-	private static final String SELECT_BY_PRODUCTNAME = "SELECT prodNo, eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` WHERE INSTR(prodName, ?)";
+	private static final String SELECT_BY_PRODUCTNAME = "SELECT prodNo, eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` WHERE INSTR(prodName, ?) AND organizerNumber=?";
 	
 	@Override
-	public List<ProductVO> findByProductName(String pdname) {
+	public List<ProductVO> findByProductName(String pdname, Integer on) {
 		List<ProductVO> list = new ArrayList<ProductVO>();
 		ProductVO prodvo = null;
 
@@ -316,6 +331,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(SELECT_BY_PRODUCTNAME);
 			pstmt.setString(1, pdname);
+			pstmt.setInt(2, on);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -432,6 +448,74 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		}
 		return list;
 	}
+	
+//	SQL syntax: select
+	private static final String LIST_ALL_BY_ORGANIZER_STMT = "SELECT prodNo,eventNumber ,organizerNumber,prodName,prodSpec,unitPrice,prodStock, prodDetails, prodScore, isPOn FROM `PRODUCT` WHERE organizerNumber = ? ORDER BY prodNo DESC";
+	
+	@Override
+	public List<ProductVO> getAllByOrganizer(Integer OrganizerNumber) {
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO prodvo = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(LIST_ALL_BY_ORGANIZER_STMT);
+			pstmt.setInt(1, OrganizerNumber);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				prodvo = new ProductVO();
+				prodvo.setProdNo(rs.getInt("prodNo"));
+				prodvo.setEventNumber(rs.getInt("eventNumber"));
+				prodvo.setOrganizerNumber(rs.getInt("organizerNumber"));
+				prodvo.setProdName(rs.getString("prodName"));
+				prodvo.setProdSpec(rs.getString("prodSpec"));
+				prodvo.setUnitPrice(rs.getInt("unitPrice"));
+				prodvo.setProdStock(rs.getInt("prodStock"));
+				prodvo.setProdDetails(rs.getString("prodDetails"));
+				prodvo.setProdScore(rs.getFloat("prodScore"));
+				prodvo.setIsPOn(rs.getBoolean("isPOn"));
+				list.add(prodvo); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
 
 //	run a test to check if the program can access to the database
 //	public static void main(String[] args) {

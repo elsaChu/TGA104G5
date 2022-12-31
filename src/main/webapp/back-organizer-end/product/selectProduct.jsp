@@ -3,10 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="tw.com.tibame.product.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="tw.com.tibame.organizer.model.*"%>
 
 <%
 ProductService prodSvc = new ProductService();
-List<ProductVO> list = prodSvc.getAll();
+OrganizerVO organizer = (OrganizerVO)session. getAttribute("loginOrganizer");
+List<ProductVO> list = prodSvc.getAllByOrganizer(organizer.getOrganizerNumber());
 pageContext.setAttribute("list", list);
 %>
 
@@ -55,6 +57,7 @@ select {
 </head>
 <body>
 <div class="my_size">
+<div style="margin-top: 80px;">
 	<c:if test="${not empty errorMsgs}">
 		<font class="error">請修正以下錯誤:</font>
 		<ul>
@@ -63,6 +66,7 @@ select {
 			</c:forEach>
 		</ul>
 	</c:if>
+</div>
 
 	<h2>查詢商品</h2>
 	<ul class="searchitems">
