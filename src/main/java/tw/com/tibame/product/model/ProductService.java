@@ -19,7 +19,7 @@ public class ProductService {
 	}
 
 	public ProductVO addProduct(Integer eventNumber, Integer organizerNumber, String prodName, String prodSpec,
-			Integer unitPrice, Integer prodStock, String prodDetails, Boolean isPOn, ProductImageVO prodimgvo) {
+			Integer unitPrice, Integer prodStock, String prodDetails, Boolean isPOn, List<ProductImageVO> imglist ) {
 
 		ProductVO prodVo = new ProductVO();
 
@@ -32,14 +32,14 @@ public class ProductService {
 		prodVo.setProdDetails(prodDetails);
 		prodVo.setIsPOn(isPOn);
 
-		dao.insert(prodVo, prodimgvo);
+		dao.insert(prodVo, imglist);
 
 		return prodVo;
 	}
 
 	
 	public ProductVO updateProduct(Integer eventNumber, Integer organizerNumber, String prodName, String prodSpec,
-			Integer unitPrice, Integer prodStock, String prodDetails, Boolean isPOn, Integer prodNo) {
+			Integer unitPrice, Integer prodStock, String prodDetails, Boolean isPOn, Integer prodNo, List<ProductImageVO> imglist) {
 
 		ProductVO prodVo = new ProductVO();
 
@@ -52,7 +52,7 @@ public class ProductService {
 		prodVo.setProdDetails(prodDetails);
 		prodVo.setIsPOn(isPOn);
 		prodVo.setProdNo(prodNo);
-		dao.update(prodVo);
+		dao.update(prodVo, imglist);
 
 		return prodVo;
 	}
@@ -61,20 +61,24 @@ public class ProductService {
 //		dao.delete(prodNo);
 //	}
 
-	public ProductVO getOneProduct(Integer prodNo) {
-		return dao.findByPrimaryKey(prodNo);
+	public ProductVO getOneProduct(Integer prodNo, Integer on) {
+		return dao.findByPrimaryKey(prodNo, on);
 	}
 	
 //	public ProductVO getOneProductByProductName(String prodName) {
 //		return dao.findByProductName(prodName);
 //	}
 	
-	public List<ProductVO> findByProductName(String pdname) {
-		return dao.findByProductName(pdname);
+	public List<ProductVO> findByProductName(String pdname, Integer on) {
+		return dao.findByProductName(pdname, on);
 	}
 	
 	public List<ProductVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public List<ProductVO> getAllByOrganizer(Integer OrganizerNumber) {
+		return dao.getAllByOrganizer(OrganizerNumber);
 	}
 	
 	public String showImage(Integer prodNo){

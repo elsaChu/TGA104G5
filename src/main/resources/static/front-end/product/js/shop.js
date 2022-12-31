@@ -1,7 +1,6 @@
 /*
  * 要寫一個算評價星星數的方法
- * 分頁
- * 商品分類 
+ * 分頁 
 */
 function init() {
 
@@ -40,26 +39,20 @@ function init() {
 
       prodarea.innerHTML =
         data.map((e) => Template(e.prodNo, e.prodName, e.prodSpec, e.unitPrice, e.eventName, e.isPOn, e.eventType, e.commentQty, e.totalComment)).join('');
-      console.log(data);
-      console.log(data.length);
+      // console.log(data);
+      // console.log(data.length);
       prodQty.innerHTML = `<h6><span>Products ${data.length} found</span></h6>`;
     },
     error: function (xhr) {
       console.log(xhr);
     },
-//    complete: function (data) {
-//      let Qty = data.length;
-//      console.log(Qty);
-//      // prodQty.innerHTML = Qty;
-//
-//    },
   });
 
   // 載入頁面時先從後端取得商品分類
   fetch(`../../product/categories`)
 		.then((resp) => resp.json())
 		.then(function(data){
-			console.log(data);
+			// console.log(data);
         let categoriesStr = "";
         for(let i = 0; i < data.length; i++){
           categoriesStr += `<li><a href="#">${data[i]}</a></li>`;
@@ -99,14 +92,14 @@ function showDetail(prodNo) {
 $(function () {
   // 點圖片進入商品明細頁面
   $("#prodarea").on("click",".product__item > div.product__item__pic", function (e) {
-     console.log($(this).attr("data-prodNo"));
+    //  console.log($(this).attr("data-prodNo"));
      $(this).attr("data-prodNo");
    showDetail($(this).attr("data-prodNo"));
   });
   // 點商品名稱進入商品明細頁面
   $("#prodarea").on("click",".product__item > div.product__item__text > h6", function (e) {
     e.preventDefault();
-    console.log($(this).attr("data-prodNo"));
+    // console.log($(this).attr("data-prodNo"));
     $(this).attr("data-prodNo");
     showDetail($(this).attr("data-prodNo"));
   }
@@ -114,24 +107,17 @@ $(function () {
 });
 
 
-
 // 點活動分類時更新顯示商品
 $("#categories").on("click", "li > a", function(){
-  let data = {
-    "eventType": document.querySelector("#categories li a").innerText
-    };
-    console.log(this);
-  fetch("../../product/eventType", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: { 'content-type': 'application/json' }
-  })
+  let eventType = $(this).text();
+    // console.log(this);
+  fetch(`../../product/eventType?eventType=${eventType}`)
 		.then((resp) => resp.json())
 		.then(function(data){
 			prodarea.innerHTML =
         data.map((e) => Template(e.prodNo, e.prodName, e.prodSpec, e.unitPrice, e.eventName, e.isPOn, e.eventType, e.commentQty, e.totalComment)).join('');
-      console.log(data);
-      console.log(data.length);
+      // console.log(data);
+      // console.log(data.length);
       prodQty.innerHTML = `<h6><span>Products ${data.length} found</span></h6>`;
 		});
 });
