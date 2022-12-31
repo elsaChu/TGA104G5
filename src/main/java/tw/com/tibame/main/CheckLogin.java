@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import tw.com.tibame.member.model.MemberService;
 import tw.com.tibame.member.model.MemberVO;
 
 @WebServlet("/CheckLogin")
@@ -26,39 +27,25 @@ public class CheckLogin extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("check login recieved do Get");
-//		final String idStr = req.getParameter("id");
 		HttpSession session = req.getSession();
-		String loginDone = (String) session.getAttribute("loginStatus");
-		
-		//FAKE INFO start
-//		System.out.println("check login implemented fake member login info");
-//		MemberVO fakeVo = new MemberVO();
-//		fakeVo.setName("fakeName");
-//		fakeVo.setIDNumber("100");
-//		fakeVo.setNumber(1);
-//		session.setAttribute("memberVO", fakeVo);
-		//FAKE INFO  end
-		
-		JsonObject resBody = new JsonObject();
-		if(loginDone != null) {
-			if(loginDone.equals("Success")) {
-				System.out.println("login is done");
-				resBody.addProperty("successful", true);
-			}else {
-				resBody.addProperty("successful", false);
-				System.out.println("login not done");
-			}
+		int memberId = -1;
+		if(session.getAttribute("memberVO") != null) {
+			MemberVO mvo1 = (MemberVO) session.getAttribute("memberVO");
+			memberId = mvo1.getNumber();
 		}else {
-			System.out.println("loginDone is null");
+			memberId = -1;
+			//not logged in yet
+		}
+		JsonObject resBody = new JsonObject();
+		if(memberId != -1) {
+			System.out.println("login is done");
+			resBody.addProperty("successful", true);
+			resBody.addProperty("memId", memberId);
+		}else {
+			System.out.println("login not done");
 			resBody.addProperty("successful", false);
 		}
 		res.getWriter().write(resBody.toString());
 	}
 
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		doGet(request, response);
-//	}
-	
-	
 }

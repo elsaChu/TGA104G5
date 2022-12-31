@@ -1,14 +1,12 @@
 
 // window on load 
+  var loggedIn = null;
 window.addEventListener("DOMContentLoaded", function () {
    console.log("DOM Content Loaded");
-  var loggedIn = null;
-//  checkLogIn();
-	checkUserLogin(); 
-	console.log("after checkUserLogin");
-	console.log(loggedIn);
-	loggedIn = $("#memid").val();
-	console.log("after jquery", loggedIn);
+  	checkLogIn();
+  	console.log("loggedIn after function: ", loggedIn);
+
+//	checkUserLogin(); 
   getBannerPic();
   getAllEvents();
   $(document).on("click", ".searchResult", function () {
@@ -80,7 +78,8 @@ function checkLogIn() {
     .then(function (body) {
       if(body.successful== true){
           console.log("From CheckLogin: logged in");
-          loggedIn = true;
+          loggedIn = body.memId;
+          console.log("loggedIn in function: ", loggedIn);
         }else{
           console.log("From CheckLogin: not logged in");
           // alert("successful is not true")
@@ -210,9 +209,9 @@ function addToFavorite(eventid){
     .then(function (resp) { return resp.json(); })
     .then(function (body) {
       if(body.addNewFav == "success"){
-          alert("Added to Favorite");
+          alert("新增成功");
         }else if (body.addNewFav == "foundSame"){
-          alert("already in favorite");
+          alert("已在收藏清單");
         }else if (body.addNewFav == "fail"){
           console.log("Add to Favorite Failed");
           // alert("successful is not true")

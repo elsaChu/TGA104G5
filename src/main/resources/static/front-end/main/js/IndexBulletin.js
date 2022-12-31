@@ -1,4 +1,21 @@
-
+  function checklogin() {
+    $.ajax({
+      url: '../member/MemberServlet',
+      method: 'POST',
+      dataType: 'json',
+      data: { action: 'checkLogin' },
+      success: function (data) {
+        // console.log(data);
+        if (data.check == '2') {
+          $('#login_menuB').show();
+          $('#login_menuA').hide();
+        } else {
+          $('#login_menuA').show();
+          $('#login_menuB').hide();
+        }
+      }
+    });
+  }
 const bulletinRow = document.querySelector('#bulletinRow');
 
 // window on load 
@@ -6,6 +23,7 @@ window.addEventListener("DOMContentLoaded", function () {
    	console.log("DOM Content Loaded");
 //	checkLogIn();
 	getBulletin();
+	checklogin();
 
 });
 
@@ -91,7 +109,7 @@ function getBannerPic() {
     .then(function (resp) { return resp.json(); })
     .then(function (body) {
       if(body.successful== true){
-          alert(body.successful);
+          console.log(body.successful);
           console.log("get　Banner success");
           let ar1 = eval(body.bannerL);
           console.log("ar1:",ar1)
