@@ -108,25 +108,21 @@
         </div>
         
         
-        <script type="text/javascript">
-        var subscription = document.getElementById("subscription")
-        subscription.addEventListener('change',(e) => {
-        	if(e.currentTarget.checked){
-        		subscription.value = "true";
-        	} else {
-        		subscription.value = "false";
-        	}
-        });
 
-        </script>
         
-         <script>
-      const box = document.querySelector('#subscription');
-      // 1
-      // box.checked = true;
-      //   console.log(box.checked);
-      // 2
-      box.checked = box.value;
+         <script type="text/javascript">
+       var subscription = document.getElementById("subscription");
+       let getvalue=subscription.value;
+       console.log(getvalue);
+       let changetype = getvalue == 'true' ? true : false;
+       subscription.checked = changetype;
+       subscription.addEventListener('change',(e)=> {
+        if(e.currentTarget.checked){
+         subscription.value = "true";
+        }else{
+         subscription.value = "false";
+        }
+       });
     </script>
 
 
