@@ -6,7 +6,7 @@ function init(){
     const orderdetail = document.querySelector("#orderdetail");
     const prodinfo1 = document.querySelector("#prodinfo1");
     const prodinfo2 = document.querySelector("#prodinfo2");
-    sessionStorage.setItem("URL_before_login", window.location.href);
+    // sessionStorage.setItem("URL_before_login", window.location.href);
     // 訂單明細
     $.ajax({
         url: "../../order/orderdetail",         // 資料請求的網址

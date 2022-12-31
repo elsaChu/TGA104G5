@@ -76,7 +76,7 @@ function getFavEvent(){
 	    .then(function (resp) { return resp.json();})
 	    .then(function (body) {
 			if(body.successful == true){
-				alert("成功取得所有收藏活動");
+				console.log("成功取得所有收藏活動");
 			}else{
 	        	alert("無收藏活動");
 			}
@@ -103,7 +103,6 @@ function getFavEvent(){
 			     
 			     list_html +=          `<ul class="featured__item__pic__hover">
 			                                <li><a href="#"><i class="fa fa-solid fa-trash-o"></i></a></li>
-			                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
 			                            </ul>
 			                        </div>
 			                        <div class="featured__item__text">`;
@@ -133,8 +132,8 @@ function deleteFav(eventid){
     .then(function (resp) { return resp.json(); })
     .then(function (body) {
       if(body.deleteFav == "success"){
-          alert("Deleted Favorite");
-             getFavEvent();
+          alert("活動已刪除");
+			location.reload();
         }else if (body.deleteFav == "fail"){
           console.log("Add to Favorite Failed");
           // alert("successful is not true")

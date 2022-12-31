@@ -168,7 +168,7 @@ function getAllEvents(){
               list_html +=        	'<input type="text" name="eventNumber" value="'+ e.eventNumber +'" hidden>';
                                 
              list_html +=	'<img class=""  src="../../DBGifReader?eventId='+ e.eventNumber +'"'
-              + 'alt="" style="width: 100%" />';
+              + 'alt="" style="height: 100%" />';
              
              list_html +=          `<ul class="featured__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>`;

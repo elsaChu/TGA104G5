@@ -11,7 +11,7 @@
 <%
 OrderService orderSvc = new OrderService();
 OrganizerVO organizer = (OrganizerVO)session.getAttribute("loginOrganizer");
-List<EventVO> list = orderSvc.organizerNumber(organizer.getOrganizerNumber());
+List<Map> list = orderSvc.organizerNumberformat(organizer.getOrganizerNumber());
 pageContext.setAttribute("list", list);
 %>
 
