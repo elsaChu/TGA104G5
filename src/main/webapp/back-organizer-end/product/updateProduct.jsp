@@ -48,12 +48,12 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 						<td><input type="text" name="eventNumber"
 							class="form-control" value="<%=prodVo.getEventNumber()%>"></td>
 					</tr>
-					<tr>
-						<td>廠商編號:</td>
-						<td><input type="text" name="organizerNumber"
-							class="form-control" value="<%=prodVo.getOrganizerNumber()%>"
-							readonly></td>
-					</tr>
+<!-- 					<tr> -->
+<!-- 						<td>廠商編號:</td> -->
+<!-- 						<td><input type="text" name="organizerNumber" -->
+<%-- 							class="form-control" value="<%=prodVo.getOrganizerNumber()%>" --%>
+<!-- 							readonly></td> -->
+<!-- 					</tr> -->
 					<tr>
 						<td>商品名稱:</td>
 						<td><input type="text" name="prodName" class="form-control"

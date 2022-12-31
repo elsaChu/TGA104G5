@@ -337,10 +337,14 @@ public class MemberServlet extends HttpServlet {
 						System.out.println("### into update ### 4");
 						String IDNumber = req.getParameter("IDNumber");
 						String IDNumberReg = "^[A-Z][12]\\d{8}$";
+						System.out.println(IDNumber +"1");
+						if(!"".equals(IDNumber)) {
+							System.out.println(IDNumber +"2");
 						 if (!IDNumber.trim().matches(IDNumberReg)) {
 							 errorMsgs.add("請符合身分證格式");
+							 System.out.println(IDNumber +"3");
 						}
-
+						}
 						java.sql.Date birthday = null;
 						try {
 							birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
@@ -383,7 +387,7 @@ public class MemberServlet extends HttpServlet {
 					
 					} catch (Exception e) {
 						System.out.println("update exception :" + e);
-						RequestDispatcher failureView = req.getRequestDispatcher("index.jsp");
+						RequestDispatcher failureView = req.getRequestDispatcher("/front-end/main/Indexbody.jsp");
 						failureView.forward(req, res);
 					}
 					
@@ -406,14 +410,14 @@ public class MemberServlet extends HttpServlet {
 //					    System.out.println(obj + "logout");
 //					    return;
 					 // 新增完成，準備轉交
-						String url = "memberCentre.jsp";
+						String url = "/front-end/main/Indexbody.jsp";
 						RequestDispatcher successView = req.getRequestDispatcher(url);
 						successView.forward(req, res);
 
 					    
 					   }catch(Exception e) {
 					    e.getStackTrace();
-					    RequestDispatcher failureView = req.getRequestDispatcher("index.jsp");
+					    RequestDispatcher failureView = req.getRequestDispatcher("/front-end/main/Indexbody.jsp");
 					    failureView.forward(req, res);
 					   }
 					   
@@ -439,7 +443,7 @@ public class MemberServlet extends HttpServlet {
 					    
 					   }catch(Exception e) {
 					    e.printStackTrace();
-					    RequestDispatcher failureView = req.getRequestDispatcher("index.html");
+					    RequestDispatcher failureView = req.getRequestDispatcher("/front-end/main/Indexbody.jsp");
 					    failureView.forward(req, res);
 					   }
 					  }
@@ -556,7 +560,7 @@ public class MemberServlet extends HttpServlet {
 
 						} catch (Exception e) {
 							System.out.println("update exception :" + e);
-							RequestDispatcher failureView = req.getRequestDispatcher("index.jsp");
+							RequestDispatcher failureView = req.getRequestDispatcher("/front-end/main/Indexbody.jsp");
 							failureView.forward(req, res);
 						}
 						
