@@ -32,6 +32,7 @@ public class ShoppingCartController {
 	public List<ShowShoppingCartVO> getByMemberNumber(HttpSession session) {
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		Integer number = memberVO.getNumber();
+		
 		return shoppingCartService.getByMemberNumber(number);
 	}
 
@@ -45,15 +46,10 @@ public class ShoppingCartController {
 
 	@PostMapping("update")
 	public ShoppingCartVO updateQty(@RequestBody ShoppingCartVO shoppingCartVO) {
-//		Integer shoppingCartNo =  (Integer) request.getSession().getAttribute("shoppingCartNo");
-//		Integer shoppingCartNo = 2; // 購物車編號是先寫死的唷!!
-//		Integer shoppingQty = 100; // 這些是先寫死的唷要從表單得到資料唷!
-		
 		Integer shoppingCartNo = shoppingCartVO.getShoppingCartNo();
 		Integer shoppingQty = shoppingCartVO.getShoppingQty();
 		
 		return shoppingCartService.updateQty(shoppingCartNo, shoppingQty);
-		
 	}
 
 	@GetMapping("remove")
