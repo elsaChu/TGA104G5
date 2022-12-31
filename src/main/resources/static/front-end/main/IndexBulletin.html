@@ -20,64 +20,109 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="../../main_frame/css/index_header.css" type="text/css">
     <link rel="stylesheet" href="css/IndexBulletin.css">
 </head>
 
 <body>
-   
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        <a href="./index.html"><img src="images/logoa.png" alt="" width="100px"></a>
+       <header>
+      <div class="container">
+          <nav class="navbar navbar-expand-lg navbar-light bg-while header_height">      
+          <a class="navbar-brand" href="../main/Indexbody.jsp">
+                <img src="../../main_frame/images/logo80.png" style="height:50px;width:100px;" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                  <a class="nav-link item_color" href="../main/Indexbody.jsp">首頁</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link item_color" href="../main/IndexSearch.html">活動</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link item_color" href="../member/memberFavoriteEvent.html">我的收藏</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link item_color" href="../product/shop.html">商品專區</a>
+                </li>
+              </ul>
+              <!-- unlogin -->
+              <div id="login_menuB"  class="hidden_login">
+                <ul class="navbar-nav mr-right">
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../member/memberRegister.jsp">註冊</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color disabled" href="#">|</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../member/memberLogin.jsp">登入</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- login -->
+              <div id="login_menuA"  class="hidden_login">
+                <ul class="navbar-nav mr-right">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link item_color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <iconify-icon icon="heroicons:user-circle-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="../member/memberCentre.jsp">
+                        <iconify-icon class="sign-out" icon="heroicons:cog-8-tooth" width="20" height="20"></iconify-icon>
+                        設定
+                      </a>
+                      <!-- <div class="dropdown-divider"></div> -->
+    <!-- TODO!! 連到票券訂單 -->
+                      <a class="dropdown-item" href="../event/ticketOrder.jsp">
+                        <iconify-icon class="sign-out" icon="heroicons:ticket" width="20" height="20"></iconify-icon>
+                        票券訂單
+                      </a>
+                      <!-- <div class="dropdown-divider"></div> -->
+                      <a class="dropdown-item" href="../member/order.html">
+                        <iconify-icon class="sign-out" icon="heroicons:gift" width="20" height="20"></iconify-icon>
+                          商品訂單
+                      </a>
+                      <!-- <div class="dropdown-divider"></div> -->
+    <!-- TODO!! 連到首頁 -->
+                      <a class="dropdown-item" href="#">
+                        <form action="../member/MemberServlet" method="POST" >
+                        <iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20" style="margin: 0px -7px 0px 2px;"></iconify-icon>
+                          <input class="signOut_btn" type="submit" value="登出">
+                          <input type="hidden" name="action" value="logout">
+                        </form>
+                      </a>
                     </div>
-                </div>
-                <div class="col-lg-5">
-                    <nav class="header__menu">
-                        <ul>
-                            <li ><a href="./index.html">首頁</a></li>
-                            <li><a href="./shop-grid.html">活動</a></li>
-                            <li><a href="../member/memberFavoriteEvent.html" id="myFavorite">我的收藏</a>
-                                <!-- <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul> -->
-                            </li>
-                            <li><a href="./blog.html">商城</a></li>
-                            <li class="active"><a href="./contact.html">聯絡我們</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-4">
-                    <div class="header__cart notLoggedIn">
-                        <i class="fa fa-user"></i>
-                            <a href="../back-organizer-end/OrganizerRegister.jsp">註冊</a>
-                            <span>/</span>
-                            <a href="../back-organizer-end/OrganizerLogin1.jsp">登入</a>
-                    </div>
-                    <div class="header__cart loggedIn" hidden>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                        </ul>
-                        <i class="fa fa-user"></i>
-                        <a href="../back-organizer-end/OrganizerLogin1.jsp">登出</a>
-                    </div>
-                </div>
+                  </li>
+    <!-- TODO!! 連到鈴鐺 -->              
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="#">
+                      <iconify-icon icon="heroicons:bell-20-solid" width="30" height="30" ></iconify-icon>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../member/memberFavoriteEvent.html">
+                      <iconify-icon icon="heroicons:heart-20-solid" width="30" height="30" ></iconify-icon>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../product/shoppingcart.html">
+                      <iconify-icon icon="heroicons:shopping-cart-20-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
-            </div>
+          </nav>
         </div>
-    </header>
-    <!-- Header Section End -->
 
-
-
+      <!-- 登入結束 -->
+    <!-- 空行 -->
+    <div class="row"><div class="col-12">　</div></div>
+  </header>
 
     <!-- Featured Section Begin -->
     <section class="featured spad">
@@ -175,63 +220,48 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="images/sampleEvents/img3.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
+              <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic">
+                            <img src="../../front-end/main/images/sampleEvents/img1.jpg" alt="">
                         </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
+                        <div class="blog__item__text">
+                            <ul>
+                                <li><i class="fa fa-calendar-o"></i>2022.12.25</li>
+                                <li><i class="fa fa-comment-o"></i> 2</li>
+                            </ul>
+                            <h5><a href="#">理財顧問投資工作坊：投資組合的打造與健診</a></h5>
+                            <p>【理財顧問投資工作坊：投資組合的打造與健診】將利用10堂課，使用美國理財規劃工具，分析投資組合。協助顧問建構投資組合能力，並帶入案例...</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="images/sampleEvents/img4.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic">
+                            <img src="../../front-end/main/images/sampleEvents/img2.jpg" alt="">
                         </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
+                        <div class="blog__item__text">
+                            <ul>
+                                <li><i class="fa fa-calendar-o"></i>2023.01.05</li>
+                                <li><i class="fa fa-comment-o"></i> 12</li>
+                            </ul>
+                            <h5><a href="#">星期四 老鳥試段子｜單口喜劇 Open Mic｜曾博恩</a></h5>
+                            <p>要通過考驗才能踏上的舞台，能上台的喜劇演員沒一個是菜鳥！最腦洞大開的觀點／最新鮮的時事吐槽／最放蕩不羈的想法 都在《星期四 老鳥試段子》中文... </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="images/sampleEvents/img5.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic">
+                            <img src="../../front-end/main/images/sampleEvents/img3.jpg" alt="">
+                        </div>
+                        <div class="blog__item__text">
+                            <ul>
+                                <li><i class="fa fa-calendar-o"></i>2023.01.07</li>
+                                <li><i class="fa fa-comment-o"></i> 5</li>
                             </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="images/sampleEvents/img6.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
+                            <h5><a href="#">【街遊 Hidden Taipei】 北車迷城生存指南</a></h5>
+                            <p>得意與失意的交會之處 這裏是北上遊子的第一個落腳處，後站的繁華來自尋覓工作機會的人們，交通便捷更讓後站街區成為批發集散地，如今看似褪去風光的華陰街... </p>
                         </div>
                     </div>
                 </div>
@@ -241,72 +271,37 @@
     </section>
     <!-- Blog Section End -->
 
-    <!-- Footer Section Begin -->
-    <footer class="footer spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer__about">
-                        <div class="footer__about__logo">
-                            <a href="./index.html"><img src="images/logoa.png" width="150px"alt=""></a>
-                        </div>
-                        <ul>
-                            <li>地址: 台北市中正區青島東路</li>
-                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;55號七樓之四 </li>
-                            <li>連絡電話: (02) 2290-7825</li>
-                            <li>官方信箱: tickItOfficial@tickit.com</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-                    <div class="footer__widget">
-                        <h6>相關連結</h6>
-                        <ul>
-                            <li><a href="#">關於我們</a></li>
-                            <li><a href="#">關於商店</a></li>
-                            <li><a href="#">安心購物</a></li>
-                            <li><a href="#">寄件資訊</a></li>
-                            <li><a href="#">隱私權政策</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#">我們的服務</a></li>
-                            <li><a href="#">未來展望</a></li>
-                            <li><a href="#">聯絡資訊</a></li>
-                            <li><a href="#">廠商合作</a></li>
-                            <li><a href="#">顧客回饋</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12">
-                    <div class="footer__widget">
-                        <h6>訂閱電子報</h6>
-                        <p>不再錯過任何有趣新鮮的活動</p>
-                        <form action="#">
-                            <input type="text" placeholder="輸入您的信箱">
-                            <button type="submit" class="site-btn">訂閱</button>
-                        </form>
-                        <div class="footer__widget__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="footer__copyright">
-                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | TickIt &#174; by Team TickIt</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Footer Section End -->
+<nav class="navbar relative-bottom navbar-expand-lg navbar-light bg-while">
+      <div class="container">
+              <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">常見問題 <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">聯絡我們</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../main/IndexBulletin.html">系統公告</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">網站地圖</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">隱私權政策</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">服務條款</a>
+                  </li>
+                </ul>
+              </div>
+      </div>
+  </nav>
+
+
 
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
