@@ -159,7 +159,7 @@ public class ProductServlet extends HttpServlet {
 			prodSvc.addProduct(en, on, pn, ps, up, psk, pdt, ipo, imglist);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/back-organizer-end/product/listAllProduct.jsp";
+			String url = "/back-organizer-end/product/addProductSucceed.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // forward to listAllProduct.jsp
 			successView.forward(req, res);
 		}
@@ -216,16 +216,16 @@ public class ProductServlet extends HttpServlet {
 					errorMsgs.add("廠商請重新登入");
 				}
 			}
-
+			
 			String pn = req.getParameter("prodName");
-			String prodNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			String prodNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9 )]{2,100}$";
 			// regular-expression
 			if (pn == null || pn.trim().length() == 0) {
 				errorMsgs.add("請輸入商品名稱");
 			} else if (!pn.trim().matches(prodNameReg)) {
-				errorMsgs.add("商品名稱只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+				errorMsgs.add("商品名稱只能是中、英文字母、數字和空格, 且長度必需在2到100之間");
 			}
-
+			
 			String ps = req.getParameter("prodSpec");
 			if (ps == null || ps.trim().length() == 0) {
 				errorMsgs.add("請輸入商品規格，若無規格請填「無」");
