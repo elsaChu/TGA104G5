@@ -37,7 +37,7 @@ function Template(prodOrderNo, amountPrice, paymentDate, prodOrderStatus, delive
     <td>${prodOrderStatus}</td>
     <td>${deliveryStatus}</td>
     <td>
-      <div class="" id="button1"><input type="submit" value="檢視" onclick="showDetail(${prodOrderNo})" /></div>
+      <div class="" id="button1"><input type="submit" value="查看" onclick="showDetail(${prodOrderNo})" /></div>
     </td>
   </tr>
     `;

@@ -110,6 +110,7 @@ function init() {
 				showConfirmButton: false,
 				timer: 1000,
 			}).then(()=>{
+				$(this).closest("div").removeClass("added");
 				sessionStorage.setItem("URL_before_login", window.location.href);
 				window.location.href = r.url;
 			});
@@ -127,7 +128,7 @@ function init() {
 
 
 	// 顯示商品資訊
-	function Template1({prodName, totalcomment, eventName, unitPrice, prodStock, prodDetails, commentQty}) {
+	function Template1({prodName, totalcomment, eventName, prodSpec, unitPrice, prodStock, prodDetails, commentQty}) {
 		// console.log(totalcomment); // 沒有被買過的商品會顯示null 先取消此功能
 		let avgComment = (totalcomment / commentQty) * 20;
 		// console.log(avgComment);
@@ -138,6 +139,7 @@ function init() {
 				
 				<div class="product__details__price" id="product__details__price">
 					<h5>$ ${unitPrice}</h5>
+					<h5>商品規格： ${prodSpec}</h5>
 				</div>
 				<div class="product__details__quantity">
 					<div class="quantity">

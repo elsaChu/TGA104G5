@@ -83,7 +83,7 @@ $(window).on("load", function () {
         $(this).siblings().children(".error_message").remove();
         if ($(this).val().trim() == "") {
             $(this).removeClass("check_ok");
-            let error_message = "<span class='error_message'>&emsp;g手機號碼不可空白</span>";
+            let error_message = "<span class='error_message'>&emsp;手機號碼不可空白</span>";
             $(this).siblings().append(error_message);
             document.querySelector("#receiverTel").style.border = "1.5px solid #dd2222";
             return;
