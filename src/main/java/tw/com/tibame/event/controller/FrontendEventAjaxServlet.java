@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+import tw.com.tibame.event.model.ECPayService;
 import tw.com.tibame.event.model.EventService;
 import tw.com.tibame.event.model.EventVO;
 import tw.com.tibame.event.model.OrderService;
@@ -322,7 +323,6 @@ public class FrontendEventAjaxServlet extends HttpServlet {
                     return;
                 }
                 
-                
                 Map<String,Object> userData = new HashMap<>();
                 userData.put("inputName", request.getParameter("inputName"));
                 userData.put("inputEmail", request.getParameter("inputEmail"));
@@ -381,6 +381,20 @@ public class FrontendEventAjaxServlet extends HttpServlet {
             }else if("cancelOrder".equals(action)) {
                 String orderIdStr = request.getParameter("orderId");
                 result = orderService.doCancelOrder(Integer.parseInt(orderIdStr));
+            }else if("change256".equals(action)) {
+            	  //綠界金流傳輸碼 轉換
+            	String callbackUrl=request.getParameter("callbackUrl");
+            	String ItemName=request.getParameter("ItemName");
+            	String MerchantTradeDate=request.getParameter("MerchantTradeDate");
+            	String ranDom=request.getParameter("ranDom");
+            	String returnUrl=request.getParameter("returnUrl");
+            	String totalPrice=request.getParameter("totalPrice");
+            	String TradeDesc=request.getParameter("TradeDesc");
+            	String checkVis = "HashKey=pwFHCqoQZGmho4w6&ChoosePayment=ALL&ClientBackURL="+callbackUrl+"&EncryptType=1&ItemName="+ItemName+"&MerchantID=3002607&MerchantTradeDate="+MerchantTradeDate+"&MerchantTradeNo="+ranDom+"&PaymentType=aio&ReturnURL="+returnUrl+"&TotalAmount="+totalPrice+"&TradeDesc="+TradeDesc+"&HashIV=EkRm7iFT261dpevs";
+                ECPayService ecSvc = new ECPayService();
+                String digest=ecSvc.genCheckMacValue(checkVis);
+//                System.out.println("digest="+digest);
+                result.put("digest", digest);
             }
             
         }

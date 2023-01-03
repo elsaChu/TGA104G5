@@ -46,26 +46,27 @@ function getRandomInt(max) {
 		//let ClientBackURL = 'http://127.0.0.1:8080${context}/frontend/event?return='+selectEventInfo.orderId+'_0';
 		$('#ClientBackURL').val(callbackUrl);
 		
-		let checkVis = `HashKey=pwFHCqoQZGmho4w6&ChoosePayment=ALL&ClientBackURL=${callbackUrl}&EncryptType=1&ItemName=${ItemName}&MerchantID=3002607&MerchantTradeDate=${MerchantTradeDate}&MerchantTradeNo=${ranDom}&PaymentType=aio&ReturnURL=${returnUrl}&TotalAmount=${selectEventInfo.totalPrice}&TradeDesc=${TradeDesc}&HashIV=EkRm7iFT261dpevs`;
-		console.log('checkVis1:',checkVis);
-		let encodeVis = encodeURIComponent(checkVis);
-		console.log('checkVis2:',encodeVis);
-		encodeVis = encodeVis.toLowerCase();
-		console.log('checkVis3:',encodeVis);
+		let params = {
+			action:'change256',
+			callbackUrl:callbackUrl,
+			ItemName:ItemName,
+			MerchantTradeDate:MerchantTradeDate,
+			ranDom:ranDom,
+			returnUrl:returnUrl,
+			totalPrice:selectEventInfo.totalPrice,
+			TradeDesc:TradeDesc
+		};
 		
-		//轉換 %20
-		encodeVis = encodeVis.replace('%20','+');
-		//SHA256
-		let textAsBuffer = new TextEncoder().encode(encodeVis);
-		let hashBuffer = await window.crypto.subtle.digest('SHA-256', textAsBuffer);
-		let hashArray = Array.from(new Uint8Array(hashBuffer))
-		let digest = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-		digest = digest.toUpperCase();
-		
-		console.log('final checkVis:',digest);
-		$('#CheckMacValue').val(digest);
-//		alert('測試');
-		$('#paymetForm').submit();
+		callAjax(params,function(data){
+			let digest = data.digest;
+			console.log("digest=",digest);
+			digest = digest.toUpperCase();
+			
+			console.log('final checkVis:',digest);
+			$('#CheckMacValue').val(digest);
+	//		alert('測試');
+			$('#paymetForm').submit();
+		});
 	}
 	
     let selectEventInfo = {};
