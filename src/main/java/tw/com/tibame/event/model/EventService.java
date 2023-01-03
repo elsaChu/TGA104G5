@@ -38,7 +38,7 @@ public class EventService {
 		}else {
 			eventvo.setEventType("已結束");
 		}
-		System.out.println("service eventvo = "+eventvo.toString());
+//		System.out.println("service eventvo = "+eventvo.toString());
 		//ticket table
 		JSONObject ticketsJSON = new JSONObject(tickets);
 		List<TicketVO> ticketlist = new ArrayList<TicketVO>();
@@ -117,7 +117,7 @@ public class EventService {
 		}else {
 			eventvo.setEventType("已結束");
 		}
-		System.out.println("service eventvo = "+eventvo.toString());
+//		System.out.println("service eventvo = "+eventvo.toString());
 		
 		//ticket table
 		JSONObject ticketsJSON = new JSONObject(tickets);
@@ -163,7 +163,7 @@ public class EventService {
 			
 			ticketlist.add(ticketvo);
 		}
-		System.out.println("ticketlist="+ticketlist.toString());
+//		System.out.println("ticketlist="+ticketlist.toString());
 		
 		//event class table
 		List<EventClassVO> eventclasslist = new ArrayList<EventClassVO>();

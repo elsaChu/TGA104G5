@@ -19,41 +19,45 @@ public class ProductOrderVO implements java.io.Serializable {
 	@Id
 	@Column(name = "prodOrderNo")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer prodOrderNo;	// not null auto_increment
-
+	private Integer prodOrderNo;
+	
 	@Column(name = "number")
-	private Integer number;			// not null
+	private Integer number;
 
 	@Column(name = "amountPrice")
-	private Integer amountPrice;	// not null
+	private Integer amountPrice;
 
 	@Column(name = "prodTotal")
-	private Integer prodTotal;		// not null
-
+	private Integer prodTotal;
+	
 	@Column(name = "paymentDate")
-	private Timestamp paymentDate;	// not null
-
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Timestamp paymentDate;
+	
 	@Column(name = "receiverName")
-	private String receiverName;	// not null
-
+	private String receiverName;
+	
 	@Column(name = "receiverTel")
-	private String receiverTel;		// not null
-
+	private String receiverTel;
+	
 	@Column(name = "shippingAdd")
-	private String shippingAdd;		// not null
+	private String shippingAdd;
 
 	@Column(name = "prodOrderStatus")
-	private String prodOrderStatus; // not null
+	private String prodOrderStatus;
 
 	@Column(name = "deliveryStatus")
-	private String deliveryStatus;	// not null
+	private String deliveryStatus;
+
+	@Column(name = "orderNotes")
+	private String orderNotes;
 
 	@Override
 	public String toString() {
 		return "ProductOrderVO [prodOrderNo=" + prodOrderNo + ", number=" + number + ", amountPrice=" + amountPrice
 				+ ", prodTotal=" + prodTotal + ", paymentDate=" + paymentDate + ", receiverName=" + receiverName
 				+ ", receiverTel=" + receiverTel + ", shippingAdd=" + shippingAdd + ", prodOrderStatus="
-				+ prodOrderStatus + ", deliveryStatus=" + deliveryStatus + "]";
+				+ prodOrderStatus + ", deliveryStatus=" + deliveryStatus + ", orderNotes=" + orderNotes + "]";
 	}
 
 	public Integer getProdOrderNo() {
@@ -134,6 +138,14 @@ public class ProductOrderVO implements java.io.Serializable {
 
 	public void setDeliveryStatus(String deliveryStatus) {
 		this.deliveryStatus = deliveryStatus;
+	}
+
+	public String getOrderNotes() {
+		return orderNotes;
+	}
+
+	public void setOrderNotes(String orderNotes) {
+		this.orderNotes = orderNotes;
 	}
 
 }

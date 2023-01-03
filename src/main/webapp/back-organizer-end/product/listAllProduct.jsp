@@ -3,10 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="tw.com.tibame.product.model.*"%>
+<%@ page import="tw.com.tibame.organizer.model.*"%>
 
 <%
 ProductService prodSvc = new ProductService();
-List<ProductVO> list = prodSvc.getAll();
+OrganizerVO organizer = (OrganizerVO)session. getAttribute("loginOrganizer");
+List<ProductVO> list = prodSvc.getAllByOrganizer(organizer.getOrganizerNumber());
 pageContext.setAttribute("list", list);
 %>
 
@@ -93,8 +95,8 @@ td.prodName {
 			<th>商品規格</th>
 			<th>商品單價</th>
 			<th>庫存數量</th>
-			<th>商品詳情</th>
-			<th>商品總評價</th>
+			<!-- 			<th>商品詳情</th> -->
+			<!-- 			<th>商品總評價</th> -->
 			<th>商品是否上架</th>
 			<th>修改</th>
 		</tr>
@@ -107,15 +109,15 @@ td.prodName {
 				<td class=group1>${productVO.prodSpec}</td>
 				<td class=group1>${productVO.unitPrice}</td>
 				<td class=group1>${productVO.prodStock}</td>
-				<td class=prodDetails>${productVO.prodDetails}</td>
-				<td class=group1>${productVO.prodScore}</td>
+				<%-- 				<td class=prodDetails>${productVO.prodDetails}</td> --%>
+				<%-- 				<td class=group1>${productVO.prodScore}</td> --%>
 				<c:if test="${productVO.isPOn==true}">
 					<td class=group1>已上架</td>
 				</c:if>
 				<c:if test="${productVO.isPOn==false}">
 					<td class=group1>未上架</td>
 				</c:if>
-				<td>
+				<td class=group1>
 					<form method="post" action="${context}/ProductServlet">
 						<input type="hidden" name="prodNo" value="${productVO.prodNo}">
 						<input type="hidden" name="action" value="getOne_For_Update">

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.tibame.order.vo.ProductOrderVO;
 import tw.com.tibame.order.vo.ViewProductOrderVO;
+
 @Repository
 @Transactional
 public class ProductOrderDAOHibernate implements ProductOrderDAO {
@@ -33,7 +34,8 @@ public class ProductOrderDAOHibernate implements ProductOrderDAO {
 	public List<ProductOrderVO> getByNumber(Integer number) {
 		List<ProductOrderVO> result = new ArrayList<>();
 		if (number != null) {
-			Query<ProductOrderVO> query = getSession().createQuery("from ProductOrderVO where number =: number", ProductOrderVO.class); 
+			Query<ProductOrderVO> query = getSession().createQuery(
+					"from ProductOrderVO where number =: number order by prodOrderNo desc", ProductOrderVO.class); 
 			query.setParameter("number", number);
 			result = query.list();
 			return result;

@@ -490,12 +490,38 @@ public class OrderService {
 	    return voList;
 	}
 	
-	public List<OrderEventVO> findByNumber() {
-		return dao.findByNumber();
+	public List<OrderEventVO> findByNumber(Integer number) {
+		List<OrderEventVO> orderlist=dao.findByNumber(number);
+		List<OrderEventVO> orderlist2 =new ArrayList<OrderEventVO>();
+		for(OrderEventVO vo:orderlist) {
+			Base64.Encoder encoder = Base64.getEncoder();
+	    	String bigImg64 = "data:image/jpeg;base64,"+encoder.encodeToString(vo.getBigImg());
+			vo.setBigImg64(bigImg64);
+			orderlist2.add(vo);
+		}
+		return orderlist2;
 	}
 	
-	public List<EventVO> organizerNumber(){
-		return dao.findByOrganizerNumber();
+	public List<EventVO> organizerNumber(Integer organizerNumber){
+		return dao.findByOrganizerNumber(organizerNumber);
+	}
+	
+	public List<Map> organizerNumberformat(Integer organizerNumber){
+		List<EventVO> list =dao.findByOrganizerNumber(organizerNumber);
+		SimpleDateFormat sformat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		List<Map> listformat = new ArrayList<Map>();
+		for(EventVO aData:list) {
+			Map map = new HashMap();
+			map.put("eventNumber", aData.getEventNumber());
+			map.put("eventName", aData.getEventName());
+			map.put("eventType", aData.getEventType());
+			map.put("eventStartDate",sformat.format(aData.getEventStartDate()));
+			map.put("eventEndDate",sformat.format(aData.getEventEndDate()));
+			
+			listformat.add(map);
+		}
+		
+		return listformat;
 	}
 	
 	public List<OrderVO> selectByEventNumber(Integer eventNumber){

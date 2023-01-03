@@ -44,12 +44,12 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 							class="form-control"
 							value="<%=(prodVo == null) ? "" : prodVo.getEventNumber()%>"></td>
 					</tr>
-					<tr>
-						<td>廠商編號：</td>
-						<td><input type="text" name="organizerNumber"
-							class="form-control"
-							value="<%=(prodVo == null) ? "" : prodVo.getOrganizerNumber()%>"></td>
-					</tr>
+<!-- 					<tr> -->
+<!-- 						<td>廠商編號：</td> -->
+<!-- 						<td><input type="text" name="organizerNumber" -->
+<!-- 							class="form-control" -->
+<%-- 							value="<%=(prodVo == null) ? "" : prodVo.getOrganizerNumber()%>"></td> --%>
+<!-- 					</tr> -->
 					<tr>
 						<td>商品名稱：</td>
 						<td><input type="text" name="prodName" class="form-control"
@@ -91,7 +91,7 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 						src="${context}/back-organizer-end/product/img/Product_Image_Default.jpg"
 						class="preview"></li>
 				</ul>
-				<input type="file" id="prodIMG" name="prodIMG" class="prodIMG"
+				<input type="file" id="prodIMG" name="prodIMG" class="prodIMG" multiple
 					accept="image/*">
 				<div class="myButton">
 					<input type="submit" value="新增商品">

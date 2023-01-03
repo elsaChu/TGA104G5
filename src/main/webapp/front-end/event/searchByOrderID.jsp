@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<jsp:include page="/main_frame/index_Staff.jsp"></jsp:include>
+<jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
 	<div>
 		<h3>活動訂單</h3>
 		<br>

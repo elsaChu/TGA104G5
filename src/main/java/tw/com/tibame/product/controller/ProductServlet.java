@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 
+import tw.com.tibame.organizer.model.OrganizerVO;
 import tw.com.tibame.product.model.*;
 
 @WebServlet("/ProductServlet")
@@ -24,6 +25,7 @@ public class ProductServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html; charset=UTF-8");
+		HttpSession session = req.getSession();
 		String action = req.getParameter("action");
 
 		if ("insert".equals(action)) { // request from addProduct.jsp
@@ -41,12 +43,15 @@ public class ProductServlet extends HttpServlet {
 			}
 
 			Integer on = null;
-			try {
-				on = Integer.valueOf(req.getParameter("organizerNumber").trim());
-			} catch (NumberFormatException e) {
-				errorMsgs.add("廠商編號格式不正確");
+			OrganizerVO organizer = (OrganizerVO)session.getAttribute("loginOrganizer");
+			if(organizer != null) {
+				try {
+					on = organizer.getOrganizerNumber();
+				} catch (NumberFormatException e) {
+					errorMsgs.add("廠商請重新登入");
+				}
 			}
-
+			
 			String pn = req.getParameter("prodName");
 			String prodNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9 )]{2,100}$";
 			// regular-expression
@@ -82,10 +87,14 @@ public class ProductServlet extends HttpServlet {
 				errorMsgs.add("商品詳情請勿空白");
 			}
 
-			Part prodImg = req.getPart("prodIMG");
-			String filename = prodImg.getSubmittedFileName();
-			if (filename == null || filename.length() == 0 || prodImg.getContentType() == null) {
-				errorMsgs.add("請選擇商品圖片");
+			Collection<Part> parts = req.getParts();
+			for (Part part: parts) {
+				if("prodIMG".equals(part.getName())) {
+					String filename = part.getSubmittedFileName();
+					if(filename == null || filename.length() == 0 || part.getContentType() == null) {
+							errorMsgs.add("請選擇商品圖片");
+					}
+				}
 			}
 
 			String isPOn = req.getParameter("isPOn");
@@ -116,24 +125,41 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			ProductService prodSvc = new ProductService();
-//			prodVo = prodSvc.addProduct(en, on, pn, ps, up, psk, pdt, ipo);
 
-			byte[] prodimg = null;
-			if (filename != null && filename.length() != 0 && prodImg.getContentType() != null) {
-				InputStream in = prodImg.getInputStream();
-				prodimg = new byte[in.available()];
-				in.read(prodimg);
-				in.close();
-				ProductImageVO prodimgvo = new ProductImageVO();
-				prodimgvo.setProdIMGName(filename);
-				System.out.println("filename=" + filename);
-				System.out.println(prodimg.length);
-				prodimgvo.setProdIMG(prodimg);
-				prodSvc.addProduct(en, on, pn, ps, up, psk, pdt, ipo, prodimgvo);
-			}
+			List<ProductImageVO> imglist = new ArrayList<ProductImageVO>();
+			   for (Part part : parts) {
+			    if("prodIMG".equals(part.getName())) {
+			     String filename = part.getSubmittedFileName(); // 上傳檔案名稱
+			     if (filename != null && filename.length() != 0 && part.getContentType() != null) {
+			      ProductImageVO productImgvo = new ProductImageVO();
+			      InputStream in = part.getInputStream();
+			      byte[] buf = new byte[in.available()];
+			      in.read(buf);
+			      in.close();
+			      productImgvo.setProdIMG(buf);
+			      productImgvo.setProdIMGName(filename);
+			      imglist.add(productImgvo);
+			     }
+			    }
+			   }
+	
+//			byte[] prodimg = null;
+//			if (filename != null && filename.length() != 0 && prodImg.getContentType() != null) {
+//				InputStream in = prodImg.getInputStream();
+//				prodimg = new byte[in.available()];
+//				in.read(prodimg);
+//				in.close();
+//				ProductImageVO prodimgvo = new ProductImageVO();
+//				prodimgvo.setProdIMGName(filename);
+//				System.out.println("filename=" + filename);
+//				System.out.println(prodimg.length);
+//				prodimgvo.setProdIMG(prodimg);
+//			}
+			
+			prodSvc.addProduct(en, on, pn, ps, up, psk, pdt, ipo, imglist);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/back-organizer-end/product/listAllProduct.jsp";
+			String url = "/back-organizer-end/product/addProductSucceed.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // forward to listAllProduct.jsp
 			successView.forward(req, res);
 		}
@@ -149,9 +175,18 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 2.開始查詢資料 ****************************************/
 			ProductService prodSvc = new ProductService();
-			ProductVO prodVo = prodSvc.getOneProduct(pdnb);
+			Integer on = null;
+			OrganizerVO organizer = (OrganizerVO)session.getAttribute("loginOrganizer");
+			if(organizer != null) {
+				try {
+					on = organizer.getOrganizerNumber();
+				} catch (NumberFormatException e) {
+					errorMsgs.add("廠商請重新登入");
+				}
+			}
+			ProductVO prodVo = prodSvc.getOneProduct(pdnb, on);
 			String prodimglist= prodSvc.showImage(pdnb);
-System.out.println(prodimglist.length());
+			System.out.println(prodimglist.length());
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("ProductVO", prodVo); // 資料庫取出的ProductVO物件,存入req
 			req.setAttribute("prodimglist", prodimglist);
@@ -173,21 +208,24 @@ System.out.println(prodimglist.length());
 			}
 
 			Integer on = null;
-			try {
-				on = Integer.valueOf(req.getParameter("organizerNumber").trim());
-			} catch (NumberFormatException e) {
-				errorMsgs.add("廠商編號格式不正確");
+			OrganizerVO organizer = (OrganizerVO)session.getAttribute("loginOrganizer");
+			if(organizer != null) {
+				try {
+					on = organizer.getOrganizerNumber();
+				} catch (NumberFormatException e) {
+					errorMsgs.add("廠商請重新登入");
+				}
 			}
-
+			
 			String pn = req.getParameter("prodName");
-			String prodNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			String prodNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9 )]{2,100}$";
 			// regular-expression
 			if (pn == null || pn.trim().length() == 0) {
 				errorMsgs.add("請輸入商品名稱");
 			} else if (!pn.trim().matches(prodNameReg)) {
-				errorMsgs.add("商品名稱只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+				errorMsgs.add("商品名稱只能是中、英文字母、數字和空格, 且長度必需在2到100之間");
 			}
-
+			
 			String ps = req.getParameter("prodSpec");
 			if (ps == null || ps.trim().length() == 0) {
 				errorMsgs.add("請輸入商品規格，若無規格請填「無」");
@@ -241,7 +279,27 @@ System.out.println(prodimglist.length());
 
 			/*************************** 2.開始修改資料 *****************************************/
 			ProductService prodSvc = new ProductService();
-			prodVo = prodSvc.updateProduct(en, on, pn, ps, up, psk, pdt, ipo, prodno);
+			
+			List<ProductImageVO> imglist = new ArrayList<ProductImageVO>();
+			Collection <Part> parts = req.getParts();
+			   for (Part part : parts) {
+			    if("prodIMG".equals(part.getName())) {
+			     String filename = part.getSubmittedFileName(); // 上傳檔案名稱
+			     if (filename != null && filename.length() != 0 && part.getContentType() != null) {
+			      ProductImageVO productImgvo = new ProductImageVO();
+			      InputStream in = part.getInputStream();
+			      byte[] buf = new byte[in.available()];
+			      in.read(buf);
+			      in.close();
+			      productImgvo.setProdIMG(buf);
+			      productImgvo.setProdIMGName(filename);
+			      productImgvo.setProdNo(prodno);
+			      imglist.add(productImgvo);
+			     }
+			    }
+			   }
+			
+			prodVo = prodSvc.updateProduct(en, on, pn, ps, up, psk, pdt, ipo, prodno, imglist);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("ProductVO", prodVo); // 資料庫update成功後,正確的的ProductVO物件,存入req
@@ -278,26 +336,35 @@ System.out.println(prodimglist.length());
 			} catch (NumberFormatException e) {
 				errorMsgs.add("商品編號格式不正確");
 			}
-			
+
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-organizer-end/product/listOneProduct.jsp");
+						.getRequestDispatcher("/back-organizer-end/product/selectProduct.jsp");
 				failureView.forward(req, res);
 				return;
 			}
 			
 			/*************************** 2.開始查詢資料 *****************************************/
 			ProductService prodSvc = new ProductService();
-			ProductVO prodVo = prodSvc.getOneProduct(prodNo);
+			OrganizerVO organizer = (OrganizerVO)session.getAttribute("loginOrganizer");
+			Integer on = null;
+			if(organizer != null) {
+				try {
+					on = organizer.getOrganizerNumber();
+				} catch (NumberFormatException e) {
+					errorMsgs.add("廠商請重新登入");
+				}
+			}
+			ProductVO prodVo = prodSvc.getOneProduct(prodNo, on);
 			if (prodVo == null) {
-				errorMsgs.add("查無資料");
+				errorMsgs.add("此商品編號不存在，請重新輸入");
 			}
 			
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-organizer-end/product/listOneProduct.jsp");
+						.getRequestDispatcher("/back-organizer-end/product/selectProduct.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -383,7 +450,16 @@ System.out.println(prodimglist.length());
 			
 			/*************************** 2.開始查詢資料 ****************************************/
 			ProductService prodSvc = new ProductService();
-			List<ProductVO> prodVo = prodSvc.findByProductName(pdname);
+			OrganizerVO organizer = (OrganizerVO)session.getAttribute("loginOrganizer");
+			Integer on = null;
+			if(organizer != null) {
+				try {
+					on = organizer.getOrganizerNumber();
+				} catch (NumberFormatException e) {
+					errorMsgs.add("廠商請重新登入");
+				}
+			}
+			List<ProductVO> prodVo = prodSvc.findByProductName(pdname, on);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("ProductVO", prodVo); // 資料庫取出的ProductVO物件,存入req

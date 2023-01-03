@@ -17,19 +17,19 @@ public class ViewOrderDetailVO implements java.io.Serializable {
 private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "itemNo")
-	private Integer itemNo;				// not null auto_increment
+	private Integer itemNo;
 	
 	@Column(name = "prodOrderNo")
-	private Integer prodOrderNo;		// not null
+	private Integer prodOrderNo;		
 	
 	@Column(name = "prodNo")
-	private Integer prodNo;				// not null
+	private Integer prodNo;				
 	
 	@Column(name = "prodQty")
-	private Integer prodQty;			// not null
+	private Integer prodQty;			
 	
 	@Column(name = "subtotal")
-	private Integer subtotal;			// not null
+	private Integer subtotal;			
 	
 	@Column(name = "commentRanking")
 	private Float commentRanking;		

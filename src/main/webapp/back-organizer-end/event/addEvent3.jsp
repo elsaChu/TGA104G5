@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TICK IT</title>
 <%--     <link   rel="stylesheet" type="text/css" href="${context}/main_frame/css/bootstrap.css" /> --%>
     <jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
     <link   rel="stylesheet" type="text/css" href="${context}/back-organizer-end/event/css/eventStyle3.css" />
@@ -16,7 +16,7 @@
 	<div id="my_head" class="container my_size">
     <!-- <h2>活動上架</h2> -->
     <div class="row stepTop">
-        <div class="col-md-4">設定活動資料</div><div class="col-md-4">設定票種</div><div class="col-md-4 step">設定座位</div>
+        <div class="col-md-3">設定活動資料</div><div class="col-md-3 col-md-offset-1">設定票種</div><div class="col-md-3 col-md-offset-1 step">設定座位</div>
     </div>
     </div>
     <div class="container my_size">
@@ -33,7 +33,7 @@
             </div>
             <div class="col-md-4">
                 <br>
-                <button type="button" class="btn btn-primary row1btn" onclick="genSeatTemplate();" >產生座位表</button>
+                <button type="button" class="btn row1btn" onclick="genSeatTemplate();" >產生座位表</button>
                 <!-- <button type="button" class="btn btn-primary row1btn" onclick="getSeat();" >重新讀取座位表</button> -->
             </div>
         </div>
@@ -45,7 +45,7 @@
         </div>
         <div class="row">
             <div class="col-md-3">
-             <button type="button" class="btn btn-primary row3btn" onclick="saveSeatTemplate();" >儲存座位表</button>
+             <button type="button" class="btn row3btn" onclick="saveSeatTemplate();" >儲存座位表</button>
             </div>
         </div>
         <input type="hidden" id="eventNumber" value="${up_adddata.page1.eventNumber}">

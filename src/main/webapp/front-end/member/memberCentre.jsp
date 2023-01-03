@@ -108,17 +108,23 @@
         </div>
         
         
-        <script type="text/javascript">
-        var subscription = document.getElementById("subscription")
-        subscription.addEventListener('change',(e) => {
-        	if(e.currentTarget.checked){
-        		subscription.value = "true";
-        	} else {
-        		subscription.value = "false";
-        	}
-        });
 
-        </script>
+        
+         <script type="text/javascript">
+       var subscription = document.getElementById("subscription");
+       let getvalue=subscription.value;
+       console.log(getvalue);
+       let changetype = getvalue == 'true' ? true : false;
+       subscription.checked = changetype;
+       subscription.addEventListener('change',(e)=> {
+        if(e.currentTarget.checked){
+         subscription.value = "true";
+        }else{
+         subscription.value = "false";
+        }
+       });
+    </script>
+
 
 
     <!-- ##### Footer 開始 ##### -->

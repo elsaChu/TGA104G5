@@ -6,10 +6,12 @@
 
 <%@ page import="java.util.*"%>
 <%@ page import="tw.com.tibame.event.model.*"%>
+<%@ page import="tw.com.tibame.organizer.model.*"%>
 
 <%
 OrderService orderSvc = new OrderService();
-List<EventVO> list = orderSvc.organizerNumber();
+OrganizerVO organizer = (OrganizerVO)session.getAttribute("loginOrganizer");
+List<Map> list = orderSvc.organizerNumberformat(organizer.getOrganizerNumber());
 pageContext.setAttribute("list", list);
 %>
 
@@ -44,7 +46,7 @@ pageContext.setAttribute("list", list);
 </head>
 
 <body>
-	<jsp:include page="/main_frame/index_Staff.jsp"></jsp:include>
+	<jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
 	<div>
 		<h3>廠商活動列表</h3>
 	</div>
@@ -89,28 +91,35 @@ pageContext.setAttribute("list", list);
 					<th>開始時間</th>
 					<th>結束時間</th>
 					<th>查看詳情</th>
+					<th>活動修改</th>
 				</tr>
 				<%@ include file="/front-end/event/page1_bylistOneOrganizer.file"%>
 				<c:forEach var="eventVO" items="${list}" begin="<%=pageIndex%>"
 			end="<%=pageIndex+rowsPerPage-1%>">
 					<tr>
 						<td>${eventVO.eventNumber}</td>
-						<td>${eventVO.eventName}</td>
+						<td >${eventVO.eventName}</td>
 						<td>${eventVO.eventType}</td>
 						<td>${eventVO.eventStartDate}</td>
 						<td>${eventVO.eventEndDate}</td>
 						<td>
+<!-- 							<FORM METHOD="post" -->
+<%-- 								ACTION="<%=request.getContextPath()%>/EventDetails" --%>
+<!-- 								style="margin-bottom: 0px;"> -->
+								<input type="submit" value="查看詳情" onclick="window.open('${context}/EventDetails?eventNumber=${eventVO.eventNumber}');"> 
+								<input type="hidden" name="eventNumber" value="${eventVO.eventNumber}">
+<!-- 							</FORM> -->
+						</td>
+						<td>
 							<FORM METHOD="post"
-								ACTION="<%=request.getContextPath()%>/OrderServlet"
+								ACTION="${context}/UpdateEventServlet"
 								style="margin-bottom: 0px;">
-								<input type="submit" value="查看詳情"> <input type="hidden"
+								<input type="submit" value="修改"> <input type="hidden"
 									name="eventNumber" value="${eventVO.eventNumber}">
 								<input
-									type="hidden" name="action" value="show_all_event_order">
+									type="hidden" name="action" value="getOne_updateEvent">
 							</FORM>
-
 						</td>
-						<!-- 					<td><a href="#">查詢</a></td> -->
 					</tr>
 				</c:forEach>
 			</table>

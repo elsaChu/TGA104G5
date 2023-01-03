@@ -27,9 +27,16 @@ public class ViewProductController {
     	return list;
 	}
 	
-	@PostMapping("eventType")
-	public List<ViewProductVO> findProductByEventType(@RequestBody ViewProductVO vo) {
-		List<ViewProductVO> list = viewProductService.findProductByEventType(vo);
+	@GetMapping("categories")
+	public List<String> findAllEventType() {
+		List<String> list = viewProductService.findAllEventType();
+		return list;
+	}
+	
+	@GetMapping("eventType")
+	public List<ViewProductVO> findProductByEventType(@RequestParam String eventType) {
+		System.out.println(eventType);
+		List<ViewProductVO> list = viewProductService.findProductByEventType(eventType);
     	return list;
 	}
 	
@@ -47,7 +54,7 @@ public class ViewProductController {
 	
 	@GetMapping("findPictureById")
 	public byte[] findPicByProdIMGID(@RequestParam Integer prodIMGID) {
-		ProductImage productImage = viewProductService.findMainPic(prodIMGID);
+		ProductImage productImage = viewProductService.findPicByProdIMGID(prodIMGID);
 		return productImage != null ? productImage.getProdIMG() : null;
 	}
 

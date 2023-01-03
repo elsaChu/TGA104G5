@@ -55,7 +55,6 @@
           <td>EMAIL</td>
           <td>手機號碼</td>
           <td>是否訂閱TICK</td>
-          <td>查詢訂單</td>
         </tr>
 
 
@@ -69,7 +68,6 @@
           <td>${memberVO.email}</td>
           <td>${memberVO.phoneNumber}</td>
           <td class="myTd">${memberVO.subscription}</td>
-          <td>查詢</td>
 		</tr>
 	
        

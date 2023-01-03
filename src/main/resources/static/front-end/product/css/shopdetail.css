@@ -56,3 +56,18 @@
     display: block;
     top: 65px;
 }
+
+#prodStock{
+    margin-top: 10px;
+}
+
+#picture img {
+    width: 100px;
+    height: auto;
+}
+
+/* #mainPic img {
+    max-height: 555px;
+    width: auto;
+    height: auto;
+} */

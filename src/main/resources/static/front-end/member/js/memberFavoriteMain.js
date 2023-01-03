@@ -1,7 +1,28 @@
 
+
+
+  function checklogin() {
+    $.ajax({
+      url: '../member/MemberServlet',
+      method: 'POST',
+      dataType: 'json',
+      data: { action: 'checkLogin' },
+      success: function (data) {
+        // console.log(data);
+        if (data.check == '2') {
+          $('#login_menuB').show();
+          $('#login_menuA').hide();
+        } else {
+          $('#login_menuA').show();
+          $('#login_menuB').hide();
+        }
+      }
+    });
+  }
 // window on load 
 window.addEventListener("DOMContentLoaded", function () {
    console.log("DOM Content Loaded");
+  checklogin(); 
 //   $("div.featured__filter").html('<div class="loadingIcon" ><span><img src="images/dotIcon.png"></i></span></div>');
    getFavEvent();
    
@@ -10,6 +31,22 @@ window.addEventListener("DOMContentLoaded", function () {
 	  console.log("click on div.searchResult");
 	 $(this).find("form").submit();
   });
+  
+  //click delete icon START
+   $(document).on("click", "ul.featured__item__pic__hover li a", function (e) {
+		if($(this).find("i.fa-trash-o")){
+			console.log("have delete");
+			let eventID = $(this).closest("div.searchResult").attr("eventNumber");
+			console.log("clicked delete icon on event ", eventID);
+			e.preventDefault();
+			e.stopPropagation();
+			deleteFav(eventID);
+		}else{
+			console.log("clicked icon");
+			e.preventDefault();
+			e.stopPropagation();
+		}
+	});
   
 });
 
@@ -39,7 +76,7 @@ function getFavEvent(){
 	    .then(function (resp) { return resp.json();})
 	    .then(function (body) {
 			if(body.successful == true){
-				alert("成功取得所有收藏活動");
+				console.log("成功取得所有收藏活動");
 			}else{
 	        	alert("無收藏活動");
 			}
@@ -55,8 +92,8 @@ function getFavEvent(){
 			   let list_html = "";
 	           list_html = '<div class="col-lg-4 col-md-4 col-sm-6 searchResult" eventNumber="'+ e.eventNumber + '" organizerNumber="' + e.organizerNumber +
 	           				 '" eventName="'+  e.eventName + '" isOn="'+ e.isOn +'">';
-	           				 
 		  	 list_html +=    '<form action="../../EventDetails">';
+//	           						<input type="text" class="" name="action" value="delete" hidden />
 	           list_html +=`	<div class="featured__item">
 			                        <div class="featured__item__pic set-bg">  `;
 		        list_html +=        	'<input type="text" name="eventNumber" value="'+ e.eventNumber +'" hidden>';
@@ -65,9 +102,7 @@ function getFavEvent(){
 			      + 'alt="" style="width: 100%" />';
 			     
 			     list_html +=          `<ul class="featured__item__pic__hover">
-			                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-			                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-			                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+			                                <li><a href="#"><i class="fa fa-solid fa-trash-o"></i></a></li>
 			                            </ul>
 			                        </div>
 			                        <div class="featured__item__text">`;
@@ -87,4 +122,24 @@ function getFavEvent(){
 	    });
 }
 
+function deleteFav(eventid){
+	fetch('../../AddFavorite?' + new URLSearchParams({"choseEvent": eventid , "action": "delete"}), {
+	    method: 'get',
+	    headers: {
+	        'Content-Type': 'application/json'
+   		}
+	})
+    .then(function (resp) { return resp.json(); })
+    .then(function (body) {
+      if(body.deleteFav == "success"){
+          alert("活動已刪除");
+			location.reload();
+        }else if (body.deleteFav == "fail"){
+          console.log("Add to Favorite Failed");
+          // alert("successful is not true")
+        }else{
+			console.log("failed add to favorite");
+		}
+    });
+}
 

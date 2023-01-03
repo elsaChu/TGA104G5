@@ -85,7 +85,7 @@ pageContext.setAttribute("list", list);
 					<th>員工編號</th>
 					<th>員工姓名</th>
 					<th>員工帳號</th>
-					<th>員工密碼</th>
+<!-- 					<th>員工密碼</th> -->
 					<th>修改員工</th>
 				</tr>
 				<%@ include file="/front-end/event/page1_bylistOneOrganizer.file"%>
@@ -95,7 +95,7 @@ pageContext.setAttribute("list", list);
 						<td>${staffVO.staffNumber}</td>
 						<td>${staffVO.staffName}</td>
 						<td>${staffVO.staffAccount}</td>
-						<td>${staffVO.staffPassword}</td>
+<%-- 						<td>${staffVO.staffPassword}</td> --%>
 						<td>
 							<FORM METHOD="post"
 								ACTION="<%=request.getContextPath()%>/StaffServlet"

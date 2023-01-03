@@ -48,12 +48,12 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 						<td><input type="text" name="eventNumber"
 							class="form-control" value="<%=prodVo.getEventNumber()%>"></td>
 					</tr>
-					<tr>
-						<td>廠商編號:</td>
-						<td><input type="text" name="organizerNumber"
-							class="form-control" value="<%=prodVo.getOrganizerNumber()%>"
-							readonly></td>
-					</tr>
+<!-- 					<tr> -->
+<!-- 						<td>廠商編號:</td> -->
+<!-- 						<td><input type="text" name="organizerNumber" -->
+<%-- 							class="form-control" value="<%=prodVo.getOrganizerNumber()%>" --%>
+<!-- 							readonly></td> -->
+<!-- 					</tr> -->
 					<tr>
 						<td>商品名稱:</td>
 						<td><input type="text" name="prodName" class="form-control"
@@ -95,24 +95,26 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 			</div>
 			<div class="div_img col-md-5">
 				<div>
-					商品圖片： <input type="file" class="prodIMG" accept="image/*"
-						name="prodIMG">
+					商品圖片：
 					<ul class="picture_list" id="ul_id">
 						<li><img src="" /></li>
 					</ul>
+
+					<input type="file" multiple class="prodIMG" accept="image/*"
+						name="prodIMG">
 				</div>
-				
+
 				<div class="myButton">
 					<input type="submit" value="確認修改">
 				</div>
-				
+
 				<input type="hidden" name="action" value="update" />
 			</div>
 		</form>
 	</div>
-<script>
-var prodimglist = '${prodimglist}';
-</script>
+	<script>
+		var prodimglist = '${prodimglist}';
+	</script>
 	<script src="${context}/back-organizer-end/product/js/updateProduct.js"></script>
 	<%-- 	<script src="${context}/mainframe/js/bootstrap.js"></script> --%>
 	<%-- 	<script src="${context}/mainframe/js/jquery-1.10.2.js"></script> --%>

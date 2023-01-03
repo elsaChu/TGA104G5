@@ -10,22 +10,21 @@ public class OrderEventVO {
 	private Integer totalTicket;
 	private String eventName;
 	private String eventPlace;
-	private Blob bigImg;
+	private byte[] bigImg;
 	private Timestamp eventStartDate;
 	private String organizerName;
 	private Integer number;
-	
-	
-	
-	
+	private Integer eventNumber;
+	private String bigImg64;
 	
 	@Override
 	public String toString() {
 		return "OrderEventVO [orderID=" + orderID + ", orderType=" + orderType + ", total=" + total + ", totalTicket="
 				+ totalTicket + ", eventName=" + eventName + ", eventPlace=" + eventPlace + ", bigImg=" + bigImg
 				+ ", eventStartDate=" + eventStartDate + ", organizerName=" + organizerName + ", number=" + number
-				+ "]";
+				+ ", eventNumber=" + eventNumber + "]";
 	}
+	
 	public Integer getOrderID() {
 		return orderID;
 	}
@@ -62,12 +61,15 @@ public class OrderEventVO {
 	public void setEventPlace(String eventPlace) {
 		this.eventPlace = eventPlace;
 	}
-	public Blob getBigImg() {
+	
+	public byte[] getBigImg() {
 		return bigImg;
 	}
-	public void setBigImg(Blob bigImg) {
+
+	public void setBigImg(byte[] bigImg) {
 		this.bigImg = bigImg;
 	}
+
 	public Timestamp getEventStartDate() {
 		return eventStartDate;
 	}
@@ -86,8 +88,18 @@ public class OrderEventVO {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
-	
-	
-	
-	
+	public Integer getEventNumber() {
+		return eventNumber;
+	}
+	public void setEventNumber(Integer eventNumber) {
+		this.eventNumber = eventNumber;
+	}
+
+	public String getBigImg64() {
+		return bigImg64;
+	}
+
+	public void setBigImg64(String bigImg64) {
+		this.bigImg64 = bigImg64;
+	}
 }

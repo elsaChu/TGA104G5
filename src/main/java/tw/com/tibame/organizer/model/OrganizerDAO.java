@@ -25,9 +25,9 @@ public class OrganizerDAO implements OrganizerDAOinterface {
 //	}
 	
 	private static final String INSERT_STMT = "INSERT INTO organizer (OAccount, Opassword, organizerName, windowName, windowPhone, windowEmail) VALUES (?, ?, ? , ? , ? , ?)";
-	private static final String GET_ALL_STMT = "SELECT organizerNumber, OAccount, Opassword, organizerName, windowName, windowPhone, windowEmail FROM organizer order by organizerNumber";
+	private static final String GET_ALL_STMT = "SELECT organizerNumber, OAccount, Opassword, organizerName, windowName, windowPhone, windowEmail, taxIDNumber, boss, organizerPhone  FROM organizer order by organizerNumber";
 	private static final String DELETE = "DELETE FROM organizer where organizerNumber = ?";
-	private static final String UPDATE2 = "UPDATE organizer set organizerName=?,windowName=?,windowPhone=?,windowEmail=?,taxIDNumber=?,boss=?,organizerPhone=? where organizerNumber = ?";
+	private static final String UPDATE2 = "UPDATE organizer set organizerName=?,windowName=?,windowPhone=?,windowEmail=?,taxIDNumber=?,boss=?,organizerPhone=?,accountName=?,accountNumber=?,bankCode=?,bankName=? where organizerNumber = ?";
 
 	@Override
 	public void insert(OrganizerVO organizerVO) {
@@ -254,6 +254,14 @@ private static final String GET_ONE_STMT = "SELECT * FROM organizer where organi
 				organizerVO.setWindowName(	rs.getString("windowName"));
 				organizerVO.setWindowEmail(rs.getString("windowEmail"));
 				organizerVO.setWindowPhone(rs.getString("windowPhone"));
+				organizerVO.setTaxIDNumber(rs.getString("taxIDNumber"));
+				organizerVO.setBoss(rs.getString("boss"));
+				organizerVO.setOrganizerPhone(rs.getString("organizerPhone"));
+				
+				organizerVO.setAccountName(rs.getString("accountName"));
+				organizerVO.setAccountNumber(rs.getString("accountNumber"));
+				organizerVO.setBankCode(rs.getString("bankCode"));
+				organizerVO.setBankName(rs.getString("bankName"));
 
 			}
 
@@ -316,6 +324,9 @@ private static final String GET_ONE_STMT = "SELECT * FROM organizer where organi
 				organizerVO.setWindowName(rs.getString("windowName"));
 				organizerVO.setWindowEmail(rs.getString("windowEmail"));
 				organizerVO.setWindowPhone(rs.getString("windowPhone"));
+				organizerVO.setTaxIDNumber(rs.getString("taxIDNumber"));
+				organizerVO.setBoss(rs.getString("boss"));
+				organizerVO.setOrganizerPhone(rs.getString("organizerPhone"));
 				list.add(organizerVO); // Store the row in the list
 			}
 
@@ -437,7 +448,6 @@ private static final String GET_ONE_STMT = "SELECT * FROM organizer where organi
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
 		try {
 			Class.forName(driver);
 			//可以考慮用DATASOURCE取代 
@@ -451,7 +461,13 @@ private static final String GET_ONE_STMT = "SELECT * FROM organizer where organi
 			pstmt.setString(5, organizerVO.getTaxIDNumber());
 			pstmt.setString(6, organizerVO.getBoss());
 			pstmt.setString(7, organizerVO.getOrganizerPhone());
-			pstmt.setInt(8, organizerVO.getOrganizerNumber());
+			
+			pstmt.setString(8, organizerVO.getAccountName());
+			pstmt.setString(9, organizerVO.getAccountNumber());
+			pstmt.setString(10, organizerVO.getBankCode());
+			pstmt.setString(11, organizerVO.getBankName());
+			
+			pstmt.setInt(12, organizerVO.getOrganizerNumber());
 			
 			pstmt.executeUpdate();
 			System.out.println("我到這裡了");
@@ -483,7 +499,6 @@ private static final String GET_ONE_STMT = "SELECT * FROM organizer where organi
 	public void updateActivateStatus(String account) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);

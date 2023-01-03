@@ -8,9 +8,9 @@ import tw.com.tibame.product.vo.ViewProductVO;
 public interface ViewProductDAO {
 	List<ViewProductVO> findAll();
 	
-	public List<ViewProductVO> findAllEventType();
+	public List<String> findAllEventType();
 
-	public List<ViewProductVO> findByEventType(ViewProductVO vo);
+	public List<ViewProductVO> findByEventType(String eventType);
 
 	public List<ViewProductVO> findProductLaunch(boolean isPOn);
 

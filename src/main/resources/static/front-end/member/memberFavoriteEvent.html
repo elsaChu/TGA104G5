@@ -26,79 +26,130 @@
 
 <body>
    
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        <a href="./index.html"><img src="images/logoa.png" alt="" width="100px"></a>
+  <!-- Header Section Begin -->
+    <header>
+      <!-- 登入開始 -->
+      <div class="container">
+          <nav class="navbar navbar-expand-lg navbar-light bg-while header_height">      
+          <a class="navbar-brand" href="../main/Indexbody.jsp">
+                <img src="../../main_frame/images/logo80.png" style="height:50px;width:100px;" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                  <a class="nav-link item_color" href="../main/Indexbody.jsp">首頁</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link item_color" href="../main/IndexSearch.html">活動</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link item_color" href="../member/memberFavoriteEvent.html">我的收藏</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link item_color" href="../product/shop.html">商品專區</a>
+                </li>
+              </ul>
+              <!-- unlogin -->
+              <div id="login_menuB"  class="hidden_login">
+                <ul class="navbar-nav mr-right">
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../member/memberRegister.jsp">註冊</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color disabled" href="#">|</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../member/memberLogin.jsp">登入</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- login -->
+              <div id="login_menuA"  class="hidden_login">
+                <ul class="navbar-nav mr-right">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link item_color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <iconify-icon icon="heroicons:user-circle-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="../member/memberCentre.jsp">
+                        <iconify-icon class="sign-out" icon="heroicons:cog-8-tooth" width="20" height="20"></iconify-icon>
+                        設定
+                      </a>
+                      <!-- <div class="dropdown-divider"></div> -->
+    <!-- TODO!! 連到票券訂單 -->
+                      <a class="dropdown-item" href="../event/ticketOrder.jsp">
+                        <iconify-icon class="sign-out" icon="heroicons:ticket" width="20" height="20"></iconify-icon>
+                        票券訂單
+                      </a>
+                      <!-- <div class="dropdown-divider"></div> -->
+                      <a class="dropdown-item" href="../member/order.html">
+                        <iconify-icon class="sign-out" icon="heroicons:gift" width="20" height="20"></iconify-icon>
+                          商品訂單
+                      </a>
+                      <!-- <div class="dropdown-divider"></div> -->
+    <!-- TODO!! 連到首頁 -->
+                      <a class="dropdown-item" href="#">
+                        <form action="../member/MemberServlet" method="POST" >
+                        <iconify-icon class="sign-out" icon="heroicons:arrow-right-on-rectangle-20-solid" width="20" height="20" style="margin: 0px -7px 0px 2px;"></iconify-icon>
+                          <input class="signOut_btn" type="submit" value="登出">
+                          <input type="hidden" name="action" value="logout">
+                        </form>
+                      </a>
                     </div>
-                </div>
-                <div class="col-lg-5">
-                    <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="./index.html">首頁</a></li>
-                            <li><a href="./shop-grid.html">活動</a></li>
-                            <li><a href="#">佈告欄</a>
-                                <!-- <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul> -->
-                            </li>
-                            <li><a href="./blog.html">商城</a></li>
-                            <li><a href="./contact.html">聯絡我們</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-4">
-                    <div class="header__cart notLoggedIn">
-                        <i class="fa fa-user"></i>
-                            <a href="../back-organizer-end/OrganizerRegister.jsp">註冊</a>
-                            <span>/</span>
-                            <a href="../back-organizer-end/OrganizerLogin1.jsp">登入</a>
-                    </div>
-                    <div class="header__cart loggedIn" hidden>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                        </ul>
-                        <i class="fa fa-user"></i>
-                        <a href="../back-organizer-end/OrganizerLogin1.jsp">登出</a>
-                    </div>
-                </div>
+                  </li>
+    <!-- TODO!! 連到鈴鐺 -->              
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="#">
+                      <iconify-icon icon="heroicons:bell-20-solid" width="30" height="30" ></iconify-icon>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../member/memberFavoriteEvent.html">
+                      <iconify-icon icon="heroicons:heart-20-solid" width="30" height="30" ></iconify-icon>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link item_color" href="../product/shoppingcart.html">
+                      <iconify-icon icon="heroicons:shopping-cart-20-solid" width="30" height="30"></iconify-icon>
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
-            </div>
+          </nav>
         </div>
-    </header>
+
+      <!-- 登入結束 -->
+    <!-- 空行 -->
+    <div class="row"><div class="col-12">　</div></div>
+  </header>
     <!-- Header Section End -->
 
     
 
     <!-- Hero Section Begin -->
-    <section class="hero">
-        <div class="container">
-            <div class="row">
-                <div class="hero__search">
-                    <div class="hero__search__form">
-                        <form action="#" class="formSearch">
-                            <div class="hero__search__categories">
-                                所有類型
-                                <span class="arrow_carrot-down"></span>
-                            </div>
-                            <input type="text" placeholder="想找什麼活動?"  name="mainSearch" id="mainSearch">
-                            <input name="action" value="" hidden>
-                            <button type="submit" id="submit" class="site-btn">搜尋</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!--     <section class="hero"> -->
+<!--         <div class="container"> -->
+<!--             <div class="row"> -->
+<!--                 <div class="hero__search"> -->
+<!--                     <div class="hero__search__form"> -->
+<!--                         <form action="#" class="formSearch"> -->
+<!--                             <div class="hero__search__categories"> -->
+<!--                                 所有類型 -->
+<!--                                 <span class="arrow_carrot-down"></span> -->
+<!--                             </div> -->
+<!--                             <input type="text" placeholder="想找什麼活動?"  name="mainSearch" id="mainSearch"> -->
+<!--                             <input name="action" value="" hidden> -->
+<!--                             <button type="submit" id="submit" class="site-btn">搜尋</button> -->
+<!--                         </form> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </section> -->
     <!-- Hero Section End -->
 	<section>
 			<article class="task_container">
@@ -273,7 +324,7 @@
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <!-- flickity -->
 <!--     <script src="../main/js/indexSearch.js"></script> -->
-    <script src="js/memberFavoriteMain.js"></script>
+    <script src="../../front-end/member/js/memberFavoriteMain.js"></script>
 </body>
 
 </html>

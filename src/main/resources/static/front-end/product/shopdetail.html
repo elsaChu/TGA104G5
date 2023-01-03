@@ -27,7 +27,7 @@
     <!-- Favicon -->
     <link rel="icon" href="../../main_frame/images/logo.ico" />
     <!-- Style CSS -->
-    <link rel="stylesheet" href="style_member.css" />
+    <!-- <link rel="stylesheet" href="style_member.css" /> -->
     <link rel="stylesheet" href="./css/shopdetail.css">
 <!--貼這段-->
 </head>
@@ -266,16 +266,17 @@
         <div class="container">
             <div class="row">
 				<!--左邊商品圖-->
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-5 col-md-5">
                     <div class="product__details__pic">
-                        // 主要圖片
+                        <!-- 主要圖片 -->
                         <div class="product__details__pic__item" id="mainPic">
                             <!-- <img class="product__details__pic__item--large"
                                 src="img/product/details/product-details-1.jpg" alt=""> -->
                         </div>
 
-                        // 小圖區域
-                        <div class="product__details__pic__slider owl-carousel" id="picture">
+                        <!-- 小圖區域 -->
+                        <div class="pic__slider" id="picture">
+                        <!-- <div class="product__details__pic__slider owl-carousel" id="picture"> -->
                             <!-- <img data-imgbigurl="img/product/details/product-details-2.jpg"
                                 src="img/product/details/thumb-1.jpg" alt="">
                             <img data-imgbigurl="img/product/details/product-details-3.jpg"
@@ -290,7 +291,7 @@
                 </div>
 				<!--左邊商品圖-->
 
-                <div class="col-lg-6 col-md-6" id="prodarea">
+                <div class="col-lg-7 col-md-7" id="prodarea">
                     <!-- <div class="product__details__text">
                         <h3>Vetgetable’s Package</h3>
                         <div class="product__details__rating">
@@ -411,7 +412,7 @@
     <!-- Product Details Section End -->
 
     <!-- Related Product Section Begin -->
-    <section class="related-product">
+    <!-- <section class="related-product">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -483,7 +484,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Related Product Section End -->
 
     <!-- Footer Section Begin -->
@@ -582,6 +583,7 @@
     <!-- Active js -->
     <!-- <script src="../../main_frame/js/active.js"></script> -->
     <!-- <script src="../../main_frame/js/model.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
     <script src="./js/shopdetail.js"></script>
 
@@ -591,3 +593,13 @@
 </body>
 
 </html>
+
+
+<!-- <div class="owl-stage-outer">
+    <div class="owl-stage" style="transform: translate3d(-505px, 0px, 0px); transition: all 1.2s ease 0s; width: 1011px;">
+        <div class="owl-item cloned" style="width: 64.167px; margin-right: 20px;">
+            <img data-imgbigurl="../../product/findPicByProdIMGID?prodIMGID=${imageList[i]}"
+	 			src="../../product/findPicByProdIMGID?prodIMGID=${imageList[i]}" alt="">
+        </div>
+    </div>
+</div> -->

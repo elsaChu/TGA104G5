@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>addEvent1</title>
+<title>TICK IT</title>
 <%-- <link rel="icon" href="${context}/main_frame/images/a0svr-jih0d-001.ico" /> --%>
 <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/back-organizer-end/event/datetimepicker/jquery.datetimepicker.css" />
 <%-- <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/main_frame/css/bootstrap.css" /> --%>
@@ -115,7 +115,7 @@
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAq2uTJqmJQK-3Ch2goqnU-stOVeen9afA&libraries=places&callback=initAutocomplete&v=weekly"
+  src="https://maps.googleapis.com/maps/api/js?key=keyvalue&libraries=places&callback=initAutocomplete&v=weekly"
   defer
 ></script>
 	<script src="<%=request.getContextPath()%>/back-organizer-end/event/js/ckeditor.js"></script>

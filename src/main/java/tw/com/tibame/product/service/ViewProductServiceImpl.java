@@ -37,13 +37,9 @@ public class ViewProductServiceImpl implements ViewProductService {
 	
 	
 	@Override	// 依活動分類篩選已上架商品
-	public List<ViewProductVO> findProductByEventType(ViewProductVO vo) {
-		String eventType = vo.getEventType();
-		boolean isPOn = vo.getIsPOn();
+	public List<ViewProductVO> findProductByEventType(String eventType) {
 		if(eventType != null && !eventType.trim().isEmpty()) {
-			if(isPOn == true) {
-				return viewProductDAO.findByEventType(vo);
-			}
+			return viewProductDAO.findByEventType(eventType);
 		}
 		return null;
 	}
@@ -88,11 +84,17 @@ public class ViewProductServiceImpl implements ViewProductService {
 		return null;
 	}
 	
+	@Override
 	public List<Integer> findProdImageIdByProdNo(Integer prodNo) {
 		if(prodNo != null && prodNo > 0) {
 			return viewProductDAO.findProdImageIdByProdNo(prodNo);
 		}
 		return null;
+	}
+	
+	@Override
+	public List<String> findAllEventType(){
+		return viewProductDAO.findAllEventType();
 	}
 
 }
