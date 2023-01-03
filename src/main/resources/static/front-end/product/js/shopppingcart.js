@@ -69,6 +69,9 @@ function init() {
 		})
     .then(function(data){
       console.log(data);
+      sessionStorage.setItem("name", data[0].name);
+      sessionStorage.setItem("phoneNumber", data[0].phoneNumber);
+      sessionStorage.setItem("address", data[0].address);
       shoppingCart.innerHTML =
         data.map((e) => Template(e.shoppingCartNo, e.prodNo, e.prodName, e.prodSpec, e.unitPrice, e.shoppingQty)).join('');
       // 顯示購買數量調整按鈕

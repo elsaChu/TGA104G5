@@ -20,6 +20,12 @@ $(window).on("load", function () {
     }
     checklogin();
 
+    document.querySelector("#receiverName").value = sessionStorage.getItem("name");
+    document.querySelector("#receiverTel").value = sessionStorage.getItem("phoneNumber");
+    let address = sessionStorage.getItem("address"); 
+    if(address){
+        document.querySelector("#shippingAdd").value = sessionStorage.getItem("address");
+    };
 
     var check_order = function () {
         const orderList = JSON.parse(
