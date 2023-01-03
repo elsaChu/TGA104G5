@@ -70,7 +70,7 @@ create table ORGANIZER(
     unique key UK_ORGANIZER_organizerName (organizerName),
     constraint FK_ORGANIZER_staffNumber foreign key (staffNumber) references STAFF(staffNumber)
 ) comment '廠商';
-       
+      
 
 #6 活動
 create table `EVENT`(
@@ -85,9 +85,10 @@ create table `EVENT`(
     eventP2			VARCHAR(255) comment '活動地點敘述',
     eventSummary	TEXT comment '活動簡介',
     eventDescribe	TEXT comment '活動描述',
-    eventSummary	TEXT NOT NULL comment '活動簡介',
-    eventDescribe	TEXT NOT NULL comment '活動描述',
-    bigImg			LONGBLOB NOT NULL comment '大圖', 
+    # eventSummary	TEXT NOT NULL comment '活動簡介',
+    # eventDescribe	TEXT NOT NULL comment '活動描述',
+    bigImg			LONGBLOB comment '大圖',
+    # bigImg			LONGBLOB NOT NULL comment '大圖', 
     smallImg		LONGBLOB comment '小圖',
     video			LONGBLOB comment '影片',
     otherImg1		LONGBLOB comment '其他圖片1',
@@ -347,6 +348,7 @@ create table ORDER_DETAIL(
 ) comment '商品訂單明細';
 
 
+
 #24 購物車
 create table SHOPPING_CART(
 	shoppingCartNo	int not null auto_increment comment '購物車編號' primary key,
@@ -394,11 +396,12 @@ order by prodNo;
 
 #29 View購物車
 create view V_SHOPPING_CART as
-select sc.*, p.prodName, p.prodSpec, p.unitPrice
+select sc.*, p.prodName, p.prodSpec, p.unitPrice, m.name, m.phoneNumber, m.address
 from SHOPPING_CART sc
 join PRODUCT p
-on sc.prodNo = p.prodNo
-
+	on sc.prodNo = p.prodNo 
+join MEMBER m
+	on sc.number = m.number
 
 
 -- drop database TICK_IT;
