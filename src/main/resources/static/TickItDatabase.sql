@@ -401,7 +401,15 @@ from SHOPPING_CART sc
 join PRODUCT p
 	on sc.prodNo = p.prodNo 
 join MEMBER m
-	on sc.number = m.number
+	on sc.number = m.number;
+    
+#30 View商品活動分類
+create view V_PRODUCT_EVENTCLASS as
+select p.*, et.eventClassName, et.eventClassState from EVENT_CLASS ec
+join EVENT_TYPE et
+	on ec.eventClassNumber = et.eventClassNumber
+		join V_PRODUCT p
+			on p.eventNumber = ec.eventNumber;
 
 
 -- drop database TICK_IT;
