@@ -24,7 +24,7 @@ ProductVO prodVo = (ProductVO) request.getAttribute("ProductVO");
 </head>
 <body>
 	<div class="my_size">
-		<h2>新增商品</h2>
+		<h2>新增商品</h2><br>
 		<c:if test="${not empty errorMsgs}">
 			<font style="color: red">請修正以下錯誤:</font>
 			<ul>
