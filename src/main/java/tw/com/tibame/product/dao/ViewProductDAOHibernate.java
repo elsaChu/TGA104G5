@@ -2,15 +2,19 @@ package tw.com.tibame.product.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import javax.annotation.Resource;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import tw.com.tibame.product.vo.FilterProducts;
 import tw.com.tibame.product.vo.ProductImage;
 import tw.com.tibame.product.vo.ViewProductVO;
 
@@ -24,6 +28,9 @@ public class ViewProductDAOHibernate implements ViewProductDAO {
 	public Session getSession() {
 		return this.session;
 	}
+	
+	@Resource(name = "redisTemplate")
+	RedisTemplate<Integer, Set<ViewProductVO>> redisTemplate;
 
 	@Override
 	public List<ViewProductVO> findAll() {
@@ -42,20 +49,23 @@ public class ViewProductDAOHibernate implements ViewProductDAO {
 	public List<String> findAllEventType() {
 		List<String> result = new ArrayList<>();
 		Query<String> query = getSession()
-				.createQuery("select distinct eventType from ViewProductVO "
-						+ "where isPOn = 1", String.class);
+				.createQuery("select eventClassName from EventType "
+						+ "where eventClassState = true", String.class);
 		result = query.list();
 		return result;
 	}
 
 	@Override // 依活動分類篩選已上架商品，最後上架的顯示在前面
-	public List<ViewProductVO> findByEventType(String eventType) {
-		List<ViewProductVO> result = new ArrayList<>();
+	public List<FilterProducts> findByEventClassName(String eventClassName) {
+		List<FilterProducts> result = new ArrayList<>();
 		
-		if (eventType != null) {
-			Query<ViewProductVO> query = getSession().createQuery(
-					"from ViewProductVO where eventType = :eventType and isPOn = :isPOn order by prodNo desc", ViewProductVO.class);
-			query.setParameter("eventType", eventType);
+		if (eventClassName != null) {
+			Query<FilterProducts> query = getSession().createQuery(
+					  "from FilterProducts "
+					  + "where eventClassName = :eventClassName "
+					  + "	and isPOn = :isPOn "
+					  + "order by prodNo desc", FilterProducts.class);
+			query.setParameter("eventClassName", eventClassName);
 			query.setParameter("isPOn", true);
 			result = query.list();
 			return result;
@@ -159,10 +169,32 @@ public class ViewProductDAOHibernate implements ViewProductDAO {
 	}
 	
 	
-	public void recentlyViewed() {
-		
-	}
+//	public ViewProductVO insert(Integer number, ViewProductVO viewProductVO) {
+//		Integer prodNo = viewProductVO.getProdNo();
+//		String prodName = viewProductVO.getProdName();
+//		Integer unitPrice = viewProductVO.getUnitPrice();
+//		SetOperations set = redisTemplate.opsForSet();
+//			set.add(prodNo, viewProductVO.getProdNo());
+//			set.add(prodName, viewProductVO.getProdName());
+//			set.add(unitPrice, viewProductVO.getUnitPrice());
+//			Set<ViewProductVO> resuleSet = redisTemplate.opsForSet().members(number);
+//					
+//				
+//		
+//		
+//		redisTemplate.opsForSet().set(number, set);
+//		
+//		
+//		return viewProductVO;
+//		
+//	}
 	
+//	public ViewProductVO addRecentlyViewed(Integer number, ViewProductVO viewProductVO) {
+//	if (number != null && viewProductVO != null) {
+//		redisTemplate.opsForList().set(number, 0, null);
+//	}
+//	return null;
+//}
 
 	
 

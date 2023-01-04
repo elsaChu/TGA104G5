@@ -2,31 +2,32 @@ package tw.com.tibame.product.dao;
 
 import java.util.List;
 
+import tw.com.tibame.product.vo.FilterProducts;
 import tw.com.tibame.product.vo.ProductImage;
 import tw.com.tibame.product.vo.ViewProductVO;
 
 public interface ViewProductDAO {
 	List<ViewProductVO> findAll();
 	
-	public List<String> findAllEventType();
+	List<String> findAllEventType();
 
-	public List<ViewProductVO> findByEventType(String eventType);
+	List<FilterProducts> findByEventClassName(String eventClassName);
 
-	public List<ViewProductVO> findProductLaunch(boolean isPOn);
+	List<ViewProductVO> findProductLaunch(boolean isPOn);
 
-	public ViewProductVO findByPrimaryKey(Integer prodNo);
+	ViewProductVO findByPrimaryKey(Integer prodNo);
 
 	List<ProductImage> findAllPic();
 
-	public ProductImage findPicByProdIMGID(Integer prodIMGID);
+	ProductImage findPicByProdIMGID(Integer prodIMGID);
 
-	public ProductImage findMainPic(Integer prodNo);
+	ProductImage findMainPic(Integer prodNo);
 	
-	public List<Integer> findProdImageIdByProdNo(Integer prodNo);
+	List<Integer> findProdImageIdByProdNo(Integer prodNo);
 
-	public ProductImage update(ProductImage productImage);
+	ProductImage update(ProductImage productImage);
 	
-	public Integer findStock(ViewProductVO viewProductVO);
+	Integer findStock(ViewProductVO viewProductVO);
 	
 	
 }
