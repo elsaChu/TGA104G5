@@ -108,9 +108,9 @@ $(function () {
 
 // 點活動分類時更新顯示商品
 $("#categories").on("click", "li > a", function(){
-  let eventType = $(this).text();
+  let eventClassName = $(this).text();
     // console.log(this);
-  fetch(`../../product/eventType?eventType=${eventType}`)
+  fetch(`../../product/eventType?eventClassName=${eventClassName}`)
 		.then((resp) => resp.json())
 		.then(function(data){
 			prodarea.innerHTML =
