@@ -16,6 +16,7 @@ function init() {
           if(data.check == '2'){
             $('#login_menuB').show();
             $('#login_menuA').hide();
+            sessionStorage.setItem("URL_before_login", window.location.href);
           }else{
             $('#login_menuA').show();
             $('#login_menuB').hide();
