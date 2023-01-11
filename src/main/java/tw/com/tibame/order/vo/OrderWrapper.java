@@ -1,9 +1,6 @@
-package tw.com.tibame.product.vo;
+package tw.com.tibame.order.vo;
 
 import java.util.List;
-
-import tw.com.tibame.order.vo.OrderDetailVO;
-import tw.com.tibame.order.vo.ProductOrderVO;
 
 public class OrderWrapper {
 	private ProductOrderVO productOrderVO;
