@@ -18,11 +18,11 @@ import tw.com.tibame.order.service.OrderDetailService;
 import tw.com.tibame.order.service.ProductOrderService;
 import tw.com.tibame.order.service.ShoppingCartService;
 import tw.com.tibame.order.vo.OrderDetailVO;
+import tw.com.tibame.order.vo.OrderWrapper;
 import tw.com.tibame.order.vo.ProductOrderVO;
 import tw.com.tibame.order.vo.ViewOrderDetailVO;
 import tw.com.tibame.order.vo.ViewProductOrderVO;
 import tw.com.tibame.product.service.ProductService;
-import tw.com.tibame.product.vo.OrderWrapper;
 import tw.com.tibame.product.vo.ProductVO;
 
 @RestController
