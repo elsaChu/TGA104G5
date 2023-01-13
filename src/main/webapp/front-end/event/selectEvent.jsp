@@ -13,7 +13,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- <title>TICK IT</title> -->
+<title>TICK IT</title>
 <jsp:include page="/main_frame/index_header.jsp"></jsp:include>
 <!-- Favicon -->
 <%-- <link rel="icon" href="${context}/main_frame/images/a0svr-jih0d-001.ico" /> --%>

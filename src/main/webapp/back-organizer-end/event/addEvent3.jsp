@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TICK IT</title>
 <%--     <link   rel="stylesheet" type="text/css" href="${context}/main_frame/css/bootstrap.css" /> --%>
     <jsp:include page="/main_frame/index_manufacturer.jsp"></jsp:include>
     <link   rel="stylesheet" type="text/css" href="${context}/back-organizer-end/event/css/eventStyle3.css" />

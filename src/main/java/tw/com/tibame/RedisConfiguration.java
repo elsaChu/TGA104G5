@@ -1,6 +1,6 @@
 package tw.com.tibame;
 
-import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +12,9 @@ import tw.com.tibame.product.vo.ViewProductVO;
 @Configuration
 public class RedisConfiguration {
 	@Bean
-	RedisTemplate<Integer, HashSet<ViewProductVO>> redisTemplate(
+	RedisTemplate<Integer, Set<ViewProductVO>> redisTemplate(
 			RedisConnectionFactory redisConnectionFactory) {
-		RedisTemplate<Integer, HashSet<ViewProductVO>> template = new RedisTemplate<>();
+		RedisTemplate<Integer, Set<ViewProductVO>> template = new RedisTemplate<>();
 		template.setConnectionFactory(redisConnectionFactory);
 		return template;
 	}

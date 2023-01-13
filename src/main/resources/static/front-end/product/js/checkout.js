@@ -20,6 +20,12 @@ $(window).on("load", function () {
     }
     checklogin();
 
+    document.querySelector("#receiverName").value = sessionStorage.getItem("name");
+    document.querySelector("#receiverTel").value = sessionStorage.getItem("phoneNumber");
+    let address = sessionStorage.getItem("address"); 
+    if(address){
+        document.querySelector("#shippingAdd").value = sessionStorage.getItem("address");
+    };
 
     var check_order = function () {
         const orderList = JSON.parse(
@@ -83,7 +89,7 @@ $(window).on("load", function () {
         $(this).siblings().children(".error_message").remove();
         if ($(this).val().trim() == "") {
             $(this).removeClass("check_ok");
-            let error_message = "<span class='error_message'>&emsp;g手機號碼不可空白</span>";
+            let error_message = "<span class='error_message'>&emsp;手機號碼不可空白</span>";
             $(this).siblings().append(error_message);
             document.querySelector("#receiverTel").style.border = "1.5px solid #dd2222";
             return;
@@ -312,10 +318,12 @@ $(window).on("load", function () {
                             window.location.href = r.url;
                         });
                     } else {
+                        console.log("bbbbb")
                         return r.json();
                     }
                 })
-                .then(() => {
+                .then((data) => {
+                    console.log("a"+data);
                     // .then((data) => {
                     //   if (data.message == "Insert Success") {
                     Swal.fire({
@@ -325,7 +333,10 @@ $(window).on("load", function () {
                         showConfirmButton: false,
                         timer: 1000,
                     }).then(() => {
-                        window.location.href = "./shop.html";
+                        sessionStorage.removeItem('orderDetail');
+                        sessionStorage.removeItem('prodOrderVO');
+                        sessionStorage.removeItem('URL_before_login');
+                        window.location.href = "../member/order.html";
                     });
                     //   } else {
                     //     Swal.fire({
@@ -352,14 +363,14 @@ $(window).on("load", function () {
                 document.querySelector("#receiverTel").style.border = "1.5px solid #dd2222";
             }
             if (prodOrderVO.shippingAdd == "") {
-                let error_message = "<span class='error_message'>&emsp;手機號碼不可空白</span>";
+                let error_message = "<span class='error_message'>&emsp;收件地址不可空白</span>";
                 $("#shippingAdd").siblings().append(error_message);
                 document.querySelector("#shippingAdd").style.border = "1.5px solid #dd2222";
             }
             if ($("#creditCard").val().trim() == "") {
                 let error_message = "<span class='error_message'>&emsp;信用卡號不可空白</span>";
                 $("#creditCard").siblings().append(error_message);
-                document.querySelector("#shippingAdd").style.border = "1.5px solid #dd2222";
+                document.querySelector("#creditCard").style.border = "1.5px solid #dd2222";
             }
             if ($("#cardName").val().trim() == "") {
                 let error_message = "<span class='error_message'>&emsp;持卡人姓名不可空白</span>";

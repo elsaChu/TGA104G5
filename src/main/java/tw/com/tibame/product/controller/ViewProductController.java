@@ -4,13 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tw.com.tibame.product.service.ViewProductService;
+import tw.com.tibame.product.vo.FilterProducts;
 import tw.com.tibame.product.vo.ProductImage;
 import tw.com.tibame.product.vo.ViewProductVO;
 
@@ -34,9 +33,9 @@ public class ViewProductController {
 	}
 	
 	@GetMapping("eventType")
-	public List<ViewProductVO> findProductByEventType(@RequestParam String eventType) {
-		System.out.println(eventType);
-		List<ViewProductVO> list = viewProductService.findProductByEventType(eventType);
+	public List<FilterProducts> findProductByEventClassName(@RequestParam String eventClassName) {
+		System.out.println(eventClassName);
+		List<FilterProducts> list = viewProductService.findProductByEventClassName(eventClassName);
     	return list;
 	}
 	
