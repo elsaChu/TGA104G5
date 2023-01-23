@@ -2,16 +2,6 @@
 CREATE DATABASE IF NOT EXISTS TICK_IT;
 
 use TICK_IT;
-#------------------- note --------------------
-#6  [暫時] 活動 bigImg, eventSummary, eventDescribe 暫時取消not null(for建假資料)
-#22 [修改] 商品訂單 paymentDate 取消預設值，新增欄位 orderNotes
-#23 [修改] 商品訂單明細 commentRanking 取消default 0
-#25 [新建] View訂單明細 (V_ORDER_DETAIL)
-#26 [新建] View商品訂單 (V_PROD_ORDER)
-#27 [新建] View商品評論星星 (V_PROD_RANKING)
-#28 [更新] View商品 (V_PRODUCT)
-#29 [新建] View購物車 (V_SHOPPING_CART)
-
 #--------------- create table ----------------
 #1 隱私權政策
 create table PRIVACY(
@@ -30,11 +20,6 @@ create table STAFF(
     
 	unique key UK_STAFF_staffAccount (staffAccount)
 )comment '員工';
-insert into STAFF (staffName, staffAccount, staffPassword)
-values	('Ada', 'ada111', 'q12wq12w'),
-		('Alison', 'alison1990', 'q12wq12w'),
-        ('Eden', 'eden55', 'eden55eden'),
-        ('莎莉', 'sally', 'asdfqq');
 
 
 #3 權限
@@ -85,10 +70,7 @@ create table ORGANIZER(
     unique key UK_ORGANIZER_organizerName (organizerName),
     constraint FK_ORGANIZER_staffNumber foreign key (staffNumber) references STAFF(staffNumber)
 ) comment '廠商';
-insert into ORGANIZER (OAccount, Opassword, organizerName, windowName, windowPhone, windowEmail)
-values	('ponding', 'frygf', '朋丁', 'Zoey', '0910222555', 'xxx@ponding.com'),
-		('wfspace', 'hyujhss', '荒花', 'hana', '0920666777', 'ff@wfs.com.tw');
-       
+      
 
 #6 活動
 create table `EVENT`(
@@ -123,11 +105,6 @@ create table `EVENT`(
     
 	CONSTRAINT FK_EVENT_organizerNumber FOREIGN KEY (organizerNumber) REFERENCES ORGANIZER (organizerNumber)
 ) comment '活動';
-insert into EVENT (organizerNumber, eventName, eventStartDate, eventEndDate, eventPlace, eventType)
-values	('1', '烏龜與假音 The Turtle and Falsetto | 蔡安騰', '2022-11-25', '2023-01-06', 'ponding space', '展覽'),
-		('2', 'Please Look At This Show | Kim Sujin', '2022-12-07', '2023-02-22', 'bookstore', '展覽'),
-        ('1', 'Plant one on me | Yu mei Huang', '2022-10-07', '2022-12-23', 'ponding space', '展覽'),
-        ('2', 'GREETINGS | Bird Pit', '2022-01-06', '2022-02-27', 'bookstore', '展覽');
 
 
 #7 活動類型
@@ -194,12 +171,7 @@ create table `MEMBER` (
 	unique key		UK_MEMBER_EMAIL(email),
 	unique key		UK_MEMBER_PHONE(phoneNumber)
 )comment'會員';
-insert into `MEMBER` (`account`, `password`, `email`, `name`)
-values	('acc01', 'ftrrdll88', 'acc01@mail.com', 'Hailey'),
-		('acc02', 'juyftjnyg', 'acc02@mail.com', 'Elise'),
-		('acc03', 'ligetrgfc', 'acc03@mail.com', 'Noel'),
-		('acc04', 'xstrfvygg', 'acc04@mail.com', 'Fiona'),
-		('acc05', 'jdsew4tvh', 'acc05@mail.com', 'Summer');
+
 
 #12 通知
 create table NOTICE (
@@ -325,21 +297,6 @@ create table PRODUCT(
     constraint FK_PRODUCT_eventNumber foreign key (eventNumber) references `EVENT` (eventNumber),
     constraint FK_PRODUCT_organizerNumber foreign key (organizerNumber) references ORGANIZER (organizerNumber)
 ) comment '商品';
-insert into PRODUCT(eventNumber, organizerNumber, prodName, prodSpec, unitPrice, prodStock)
-values	('4', '2', 'GREETINGS Tee','白色-S', 1280, 50),
-		('4', '2', 'GREETINGS Tee','白色-M', 1280, 50),
-        ('4', '2', 'GREETINGS Tee','白色-L', 1280, 50),
-        ('4', '2', 'GREETINGS Tee','綠色-S', 1280, 50),
-        ('4', '2', 'GREETINGS Tee','綠色-M', 1280, 50),
-        ('4', '2', 'GREETINGS Tee','綠色-L', 1280, 50),
-        ('4', '2', 'Soft Kitty Keychain','F', 980, 20),
-        ('4', '2', 'GREETINGS Tote Bags','F', 1080, 100),
-        ('4', '2', 'I love it and I hate it','Zine', 580, 100),
-        ('3', '1', 'Plant one on me 針織手提包','F', 4200, 20),
-        ('1', '1', '烏龜與假音','精裝', 1180, 50),
-        ('2', '2', 'Please Look At This Show Lighter','F', 150, 100),
-        ('2', '2', 'Please Look At This Show Pin','F', 220, 100),
-        ('2', '2', 'Reflection / Kim Sujin','Zine', 450, 100);
                 
 
 #21 商品圖片
@@ -351,14 +308,6 @@ create table PRODUCT_IMG(
     
     constraint FK_PRODUCT_IMG_prodNo foreign key (prodNo) references PRODUCT (prodNo)
 ) comment '商品圖片';
-insert into PRODUCT_IMG(prodNo)
-values	(1),(1),(1),
-		(2),
-        (3),(3),(3),(3),
-        (4),(4),(4),
-		(5),
-        (6),(6),(6),(6)
-        ;
 
 
 #22 商品訂單
@@ -377,10 +326,6 @@ create table PROD_ORDER(
     
     constraint FK_PROD_ORDER_number foreign key (`number`) references `MEMBER` (`number`)
 ) comment '商品訂單';
-insert into PROD_ORDER (number, amountPrice, prodTotal, paymentDate, receiverName, receiverTel, shippingAdd, prodOrderStatus, deliveryStatus)
-values	(5, 4200, 1, '2022-10-22', 'Summer', '0922567567', '台北市', '訂單完成', '已送達'),
-		(3, 1800, 4, '2022-11-22', 'Noel', '0905375976', '台中市','訂單成立', '配送中'),
-        (2, 6130, 7, '2022-12-03', 'Elise', '0933888999', '台南市', '訂單成立', '備貨中');
 
 
 #23 商品訂單明細
@@ -401,11 +346,7 @@ create table ORDER_DETAIL(
 	constraint FK_ORDER_DETAIL_prodOrderNo foreign key (prodOrderNo) references PROD_ORDER (prodOrderNo),
     constraint FK_ORDER_DETAIL_prodNo foreign key (prodNo) references PRODUCT (prodNo)
 ) comment '商品訂單明細';
-insert into ORDER_DETAIL (prodOrderNo, prodNo, prodQty, subtotal)
-values	(1, 10, 1, 4200),
-		(2, 3, 1, 1280), (2, 12, 2, 150), (2, 13, 1, 220),
-        (3, 4, 1, 1280), (3, 1, 1, 1280), (3, 7, 2, 980), (3, 9, 2, 580), (3, 14, 1, 450)
-        ;
+
 
 
 #24 購物車
@@ -418,11 +359,7 @@ create table SHOPPING_CART(
     constraint FK_SHOPPING_CART_number foreign key (`number`) references `MEMBER` (`number`),
     constraint FK_SHOPPING_CART_prodNo foreign key (prodNo) references PRODUCT (prodNo)
 ) comment '購物車';
-insert into SHOPPING_CART (number, prodNo, shoppingQty)
-values	(1, 4, 1),
-		(3, 7, 2), (3, 11, 1),
-        (4, 8, 1), (4, 2, 1), (4, 12, 2)
-        ;
+
     
 #------------- create view --------------
 
@@ -459,11 +396,20 @@ order by prodNo;
 
 #29 View購物車
 create view V_SHOPPING_CART as
-select sc.*, p.prodName, p.prodSpec, p.unitPrice
+select sc.*, p.prodName, p.prodSpec, p.unitPrice, m.name, m.phoneNumber, m.address
 from SHOPPING_CART sc
 join PRODUCT p
-on sc.prodNo = p.prodNo
-
+	on sc.prodNo = p.prodNo 
+join MEMBER m
+	on sc.number = m.number;
+    
+#30 View商品活動分類
+create view V_PRODUCT_EVENTCLASS as
+select p.*, et.eventClassName, et.eventClassState from EVENT_CLASS ec
+join EVENT_TYPE et
+	on ec.eventClassNumber = et.eventClassNumber
+		join V_PRODUCT p
+			on p.eventNumber = ec.eventNumber;
 
 
 -- drop database TICK_IT;

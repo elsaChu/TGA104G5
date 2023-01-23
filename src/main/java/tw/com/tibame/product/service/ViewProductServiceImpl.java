@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.tibame.product.dao.ViewProductDAO;
+import tw.com.tibame.product.vo.FilterProducts;
 import tw.com.tibame.product.vo.ProductImage;
 import tw.com.tibame.product.vo.ViewProductVO;
 
@@ -37,9 +38,9 @@ public class ViewProductServiceImpl implements ViewProductService {
 	
 	
 	@Override	// 依活動分類篩選已上架商品
-	public List<ViewProductVO> findProductByEventType(String eventType) {
-		if(eventType != null && !eventType.trim().isEmpty()) {
-			return viewProductDAO.findByEventType(eventType);
+	public List<FilterProducts> findProductByEventClassName(String eventClassName) {
+		if(eventClassName != null && !eventClassName.trim().isEmpty()) {
+			return viewProductDAO.findByEventClassName(eventClassName);
 		}
 		return null;
 	}
