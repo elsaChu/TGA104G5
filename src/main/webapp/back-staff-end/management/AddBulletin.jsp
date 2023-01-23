@@ -7,47 +7,56 @@
 <head>
 <meta charset="UTF-8">
 <title>Add Bulletin</title>
-<link rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css" /> 
-<link rel="stylesheet" type="text/css" href="css/AddBulletin.css" /> 
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/back-staff-end/management/datetimepicker/jquery.datetimepicker.css" /> 
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/back-staff-end/management/css/AddBulletin.css" /> 
 </head>
 
 <body>
 <jsp:include page="/main_frame/index_Staff.jsp"></jsp:include>
 
 <div class = "container mainDiv">
-	<h1>Create New Bulletin </h1>
+	<h1>新增公告</h1>
 	<form method="post" action="<%=request.getContextPath()%>/BulletinServlet">
 	<!-- <form method="post" action="#"> -->
 		<input type="hidden" name="doTask" value="insert">
-		<label>Bulletin Name </label>
+		<label>標題</label>
 		<input type="text" name="bulletinName" >
 		<br>
-		<label>Bulletin Content</label>
+		<label>內容</label>
 		<br>
 		<textarea id="" name="bulletinContent" rows="4" cols="50"></textarea>
 		<br>
 		<br>
 		<br>
-		<label>Pin to Top: </label>
-		<input type="radio" name="isTop" value="yes"/>Yes
-		<input type="radio" name="isTop" value="no"/>No	
+		<label>置頂: </label>
+		<input type="radio" name="isTop" value="yes"/>是
+		<input type="radio" name="isTop" value="no"/>否
 		
 		<br>
-		<label>Activate Bulletin: </label>
-		<input type="radio" name="isOpen" value="yes"/>Activate
-		<input type="radio" name="isOpen" value="no"/>Do Not Activate	
+		<label>建立即啟用: </label>
+		<input type="radio" name="isOpen" value="yes"/>啟用
+		<input type="radio" name="isOpen" value="no"/>不啟用	
 		<br>
 	  
-		<label>Bulletin date </label>
+		<label>公告上架日期: </label>
 		<br>
-	    請選擇日期: <input  name="bulletinDate" id="f_date1" type="text" >  <!-- f_date1見第32行  -->
+	    <input  name="bulletinDate" id="f_date1" type="text" >  <!-- f_date1見第32行  -->
 	    <br>
-		<input type="submit" value="Create">
+		<input class ="add" type="submit" value="建立">
 		</form>
 </div>
 </body>
+<script src="<%=request.getContextPath()%>/back-staff-end/management/datetimepicker/jquery.js"></script>
+<%--  <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>  --%>
+ <script src="<%=request.getContextPath()%>/back-staff-end/management/datetimepicker/jquery.datetimepicker.full.js"></script> 
 <script>
-        $.datetimepicker.setLocale('zh'); // kr ko ja en
+	$("input.add").click(function(){
+		alert("新增成功");
+		console.log("add pressed");	
+	});
+</script>
+<script>
+// 		$.datetimepicker.setLocale('zh'); // kr ko ja en
         $('#f_date1').datetimepicker({
            theme: '',          //theme: 'dark',
            timepicker: true,   //timepicker: false,
@@ -111,7 +120,5 @@
         //      }});
         
 </script>
-<script src="datetimepicker/jquery.js"></script>
-<%--  <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>  --%>
- <script src="datetimepicker/jquery.datetimepicker.full.js"></script> 
+
 </html>

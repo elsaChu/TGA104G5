@@ -29,21 +29,23 @@
 <!--       <form  action="/JHWorkspace/src/main/java/com/organizer/controller/OrganizerRegisterTwo.java" name="organizerRegisterForm" method="POST"> -->
         <div class="input-icons">
           <div class="tooltip">
-            <iconify-icon class="icon" icon="heroicons:exclamation-circle" width="20" height="20"></iconify-icon>
+<!--             <iconify-icon class="icon" icon="heroicons:exclamation-circle" width="20" height="20"></iconify-icon> -->
             <span class="tooltiptext">此名稱為前台顯示的主辦方名稱</span>
          	 </div>
-            <span class="noBlank">Please Enter Info</span>
+            <span class="OName">Please Enter Info</span>
             <input type="text" placeholder="廠商名稱" name="organizerName" required maxlength="20"/>
         	</div>
-          <span class="noBlank">Please Enter Info</span>
+          <span class="OAccount">Please Enter Info</span>
           <input type="text" placeholder="帳號" name="OAccount" required maxlength="20"/>
-          <span class="noBlank">Please Enter Info</span>
-          <input type="password" placeholder="請輸入密碼" name="OPassword" required maxlength="20"/>
-          <span class="noBlank">Please Enter Info</span>
+          <span class="OPassword">Please Enter Info</span>
+          <input type="password" id="pw1" placeholder="請輸入密碼" name="OPassword" required maxlength="20"/>
+          <span class="OPassword2">Please Enter Info</span>
+          <input type="password" id="pw2" placeholder="請再次輸入密碼" name="" required maxlength="20"/>
+          <span class="OWEmail">Please Enter Info</span>
         <input type="email" placeholder="Email" name="windowEmail" required />
-          <span class="noBlank">Please Enter Info</span>
+          <span class="OWName">Please Enter Info</span>
         <input type="text" placeholder="聯絡人姓名" name="windowName" required maxlength="10"/>
-        <span class="noBlank">Please Enter Info</span>
+        <span class="OWPhone">Please Enter Info</span>
         <input type="tel" placeholder="聯絡人電話" name="windowPhone" required maxlength="10" minlength="8"/>
         <div class="forgot">
           <input type="submit" value="註冊帳號" id="submitButton" />
@@ -62,21 +64,22 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
-  $(".noBlank").hide();
+  $("form span").hide();
+  
 //   console.log();
-  // $("#submitButton").on("click", function(){
-  //   console.log("submitPressed");
-  //   //檢查所有欄位填寫
-  //   let isNull = false;
-  //   $("input").each(function(){
-  //     if($(this).val() === ""){
-  //       $(this).prev("span").show();
-  //       isNull = true;
-  //     }
-  //   })
-    // if(!isNull){
-      // $("form").submit();
-  // })
+//   $("#submitButton").on("click", function(){
+//     console.log("submitPressed");
+//     //檢查所有欄位填寫
+//     let isNull = false;
+//     $("input").each(function(){
+//       if($(this).val() === ""){
+//         $(this).prev("span").show();
+//         isNull = true;
+//       }
+//     })
+//     if(!isNull){
+//       $("form").submit();
+//   })
   
  </script>
  <style> 

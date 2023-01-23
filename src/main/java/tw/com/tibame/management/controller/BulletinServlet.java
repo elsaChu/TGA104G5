@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -56,6 +57,10 @@ public class BulletinServlet extends HttpServlet {
 			vo1.setIsOpen(bOpen);
 			vo1.setBulletinDate(bDateTimestamp);
 			bs1.addBulletin(vo1);
+			String url = "back-staff-end/management/AddBulletin.jsp";
+			RequestDispatcher rd = req.getRequestDispatcher(url);
+			rd.forward(req, res);
+			return;
 		}else if (doTask.equals("select")) {
 			
 		}else {

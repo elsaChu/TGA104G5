@@ -10,14 +10,18 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
-	<h1>帳號啟用驗證碼已經寄送到您的信箱，請輸入您收到的驗證碼</h1>
-	<br>
- 	<!-- <form action="${pageContext.request.contextPath}/">  -->
-	<!-- <form action="<%=request.getContextPath()%>/CheckRegister" method="post"> -->
-		<input name="action" value = "verify" hidden>
-		<input name="veriCode" id="veriCode">
-		<button type="submit" id="submit">送出</button>
-	<!-- </form> -->
+	<div class="main">
+		<h1>帳號啟用碼已寄送到您的信箱，請輸入驗證碼</h1>
+		<div class="sec">
+			<br>
+			<!-- <form action="${pageContext.request.contextPath}/">  -->
+				<!-- <form action="<%=request.getContextPath()%>/CheckRegister" method="post"> -->
+					<input name="action" value = "verify" hidden>
+					<input name="veriCode" id="veriCode">
+					<button type="submit" id="submit">送出</button>
+					<!-- </form> -->
+		</div>
+	</div>
 </body>
 <script>
 	const veriCode = document.querySelector('#veriCode');
@@ -51,4 +55,25 @@
 		console.log(veriCode.value);
 	});
 </script>
+<style>
+	*{
+		background-color: #3c4444;
+		color: rgb(230, 217, 217);
+	}
+	input{
+		background-color: whitesmoke;
+		color: black;
+	}
+	button{
+		font-weight: 800;
+		color: black;
+		background-color: whitesmoke;
+	}
+	div.main{
+		padding: 20px;
+	}
+	div.sec{
+		margin: 15px 25px;
+	}
+</style>
 </html>
