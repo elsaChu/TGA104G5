@@ -15,6 +15,7 @@ function init() {
 			}else{
 				$('#login_menuA').show();
 				$('#login_menuB').hide();
+				sessionStorage.removeItem("URL_before_login");
 			}
         }
     });
@@ -129,14 +130,14 @@ function init() {
 
 
 	// 顯示商品資訊
-	function Template1({prodName, totalcomment, eventName, prodSpec, unitPrice, prodStock, prodDetails, commentQty}) {
-		// console.log(totalcomment); // 沒有被買過的商品會顯示null 先取消此功能
+	function Template1({prodName, totalcomment, eventNumber, eventName, prodSpec, unitPrice, prodStock, prodDetails, commentQty}) {
+		// console.log(totalcomment); 
 		let avgComment = (totalcomment / commentQty) * 20;
 		// console.log(avgComment);
 		return `
 			<div class="product__details__text">
 				<h3>${prodName}</h3>
-				<p id="eventName">${eventName}</p>
+				<p data-eventNumber="${eventNumber}" id="eventName">${eventName}</p>
 				
 				<div class="product__details__price" id="product__details__price">
 					<h5>$ ${unitPrice}</h5>
@@ -201,13 +202,13 @@ function init() {
 		
 	}
 
-	// 這個小圖要跑迴圈
-	// function Template2({prodIMGID}) {
-		
-	//     return `
-	// 		<img data-imgbigurl=""../../product/findPictureById?prodIMGID=${prodIMGID}"
-	// 		src="../../product/findPictureById?prodIMGID=${prodIMGID}" alt="">
-	//       `;
+	// 點擊活動名稱跳至活動頁面
+	$("#prodarea").on("click", "p#eventName", function(e){
+		// console.log($(this).attr("data-eventNumber"));
+		let eventNumber = $(this).attr("data-eventNumber");
+		window.location.href = `../../EventDetails?eventNumber=${eventNumber}`;
+	});
+
 }
 
 setTimeout(() => {
@@ -225,5 +226,3 @@ setTimeout(() => {
 }, 1000)
 
 window.onload = init;
-
-

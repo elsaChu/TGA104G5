@@ -66,6 +66,10 @@
     height: auto;
 }
 
+#eventName{
+    cursor: pointer; /* 手型圖示 */
+}
+
 /* #mainPic img {
     max-height: 555px;
     width: auto;
